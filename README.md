@@ -25,5 +25,5 @@ Create a pull request to merge your branch into master. If any conflicts arise i
 ## Using Jenkins
 Start Jenkins: java -jar jenkins.war --httpPort=9090
 URL to access Jenkins on Cloud Server: http://8.35.192.11:9090/ 
-Branch check 1
+False check the branch build
 
