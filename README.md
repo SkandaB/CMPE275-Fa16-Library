@@ -23,6 +23,7 @@ Branches will be merged to master after completion of a feature.
 Create a pull request to merge your branch into master. If any conflicts arise in the pull request, the branch will be modified to be compatible with master branch.
 
 ## Using Jenkins
+Start Jenkins Server with command: java -jar jenkins.war --httpPort=9090
 URL to access Jenkins on Cloud Server: http://8.35.192.11:9090/ 
 
 
