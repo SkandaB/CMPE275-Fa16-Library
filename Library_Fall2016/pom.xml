@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>edu.sjsu.fall16.cmpe275</groupId>
+    <artifactId>Library_Fall2016</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <org.springframework.version>3.2.5.RELEASE</org.springframework.version>
+    </properties>
+
+    <scm>
+        <developerConnection>scm:git:https://github.com/SkandaB/CMPE275-Fa16-Library/</developerConnection>
+    </scm>
+
+    <dependencies>
+
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+            </plugin>
+        </plugins>
+        </pluginManagement>
+    </build>
+
+
+</project>
