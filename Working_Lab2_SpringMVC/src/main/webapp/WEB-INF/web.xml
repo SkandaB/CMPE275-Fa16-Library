@@ -23,7 +23,7 @@
 
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/phone/showall</url-pattern>
     </filter-mapping>
 
     <servlet>
