@@ -83,8 +83,8 @@ public class PhoneController {
     public Object showAll() {
         ModelAndView mv = new ModelAndView("phones/list");
         List<PhoneEntity> phones = pService.listPhones();
-		mv.addObject(phones);
-		return mv;
+        mv.addObject("phones", phones);
+        return mv;
 	}
 
 	@RequestMapping(value = "/phone/{pid}", method = RequestMethod.GET)

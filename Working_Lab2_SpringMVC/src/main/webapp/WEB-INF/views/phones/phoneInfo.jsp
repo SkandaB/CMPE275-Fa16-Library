@@ -154,7 +154,7 @@
 	  <input type="checkbox" name="selectedUser" value="${users.id}" />${users.lastname},  ${users.firstname}<br>
 	  		
 		</c:forEach>
-
+    </form>
 
 		<button type="button" name="update" onclick="updateFunction();">Update</button>
 
