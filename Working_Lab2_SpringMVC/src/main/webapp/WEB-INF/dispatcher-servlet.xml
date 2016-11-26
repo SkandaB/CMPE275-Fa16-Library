@@ -23,7 +23,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/lab2_demo" />
 		<property name="username" value="root" />
-		<property name="password" value="U2UnDM9r" />
+		<property name="password" value="v5yzmCbb" />
 	</bean>
 
 	<bean id="entityManagerFactory"
