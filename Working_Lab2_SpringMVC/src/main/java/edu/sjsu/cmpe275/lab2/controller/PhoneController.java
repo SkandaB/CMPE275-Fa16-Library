@@ -38,8 +38,8 @@ import edu.sjsu.cmpe275.lab2.validator.PhoneFormValidator;
  */
 @Controller
 public class PhoneController {
-	@Autowired
-	private	HttpServletResponse httpResponse;
+	/*@Autowired
+	private	HttpServletResponse httpResponse;*/
 
 	@Autowired
 	private PhoneService pService;
@@ -93,7 +93,15 @@ public class PhoneController {
 		return null;
 	}
 
-	@RequestMapping(value = "/phone/{pid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/showall",method = RequestMethod.GET)
+	public Object showAll(){
+		ModelAndView mv = new ModelAndView("phones/list");
+		List<PhoneEntity> phones = pService.listPhones();
+		mv.addObject(phones);
+		return mv;
+	}
+
+	/*@RequestMapping(value = "/phone/{pid}", method = RequestMethod.GET)
 	public Object showPhone(@PathVariable("pid") Integer id,
 			@RequestParam(value="json",required = false, defaultValue="false") String json) {
 		PhoneEntity pEntity = pService.findById(id);
@@ -130,7 +138,7 @@ public class PhoneController {
 		}
 
 	}
-
+*/
 	@RequestMapping(value = "/phone/{pid}", method = RequestMethod.DELETE)
 	public ModelAndView deleteUser(@PathVariable("pid") Integer id){
 		boolean status = pService.deleteById(id);

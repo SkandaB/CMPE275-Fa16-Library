@@ -91,4 +91,9 @@ public class PhoneDaoImpl implements PhoneDao {
 List<UserEntity> users = em.find(PhoneEntity.class, id).getUsers();
 		return users;
 	}
+
+	@Override
+	public List<PhoneEntity> showAll() {
+		return em.createQuery("Select p from PhoneEntity p").getResultList();
+	}
 }

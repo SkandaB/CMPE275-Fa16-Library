@@ -6,9 +6,15 @@
     <display-name>To do List</display-name>
 
     <welcome-file-list>
-        <welcome-file>lab2.do</welcome-file>
+        <welcome-file>error.do</welcome-file>
     </welcome-file-list>
-    
+
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
             <servlet>
             <servlet-name>dispatcher</servlet-name>
             <servlet-class>

@@ -86,6 +86,11 @@ public class PhoneServiceImpl implements PhoneService {
 	@Override
 	public List<UserEntity> retrieveUsers(Integer id) {
 		return phoneDao.retrchecked(id);
-	} 
+	}
+
+	@Override
+	public List<PhoneEntity> listPhones() {
+		return phoneDao.showAll();
+	}
 
 }

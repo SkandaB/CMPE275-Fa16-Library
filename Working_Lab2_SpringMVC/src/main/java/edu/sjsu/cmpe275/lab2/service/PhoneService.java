@@ -46,7 +46,7 @@ public interface PhoneService {
 	 * @param state
 	 * @param street
 	 * @param zip_code
-	 * @param uid 
+	 * @param uids
 	 * @return
 	 */
 	PhoneEntity updatePhone(Integer id, String number, String description, String city, String state, String street,
@@ -57,5 +57,7 @@ public interface PhoneService {
 	 * @return
 	 */
 	List<UserEntity> retrieveUsers(Integer id);
+
+	public List<PhoneEntity> listPhones();
 	
 }

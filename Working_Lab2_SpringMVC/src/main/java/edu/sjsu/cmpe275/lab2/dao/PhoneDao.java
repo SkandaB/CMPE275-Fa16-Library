@@ -19,8 +19,9 @@ import edu.sjsu.cmpe275.lab2.entity.UserEntity;
 @Transactional
 public interface PhoneDao {
 
+
 	/**
-	 * @param addressEntity
+	 * @param phoneEntity
 	 * @return
 	 */
 	PhoneEntity createPhone(PhoneEntity phoneEntity);
@@ -51,6 +52,7 @@ public interface PhoneDao {
 	 * @return
 	 */
 	List<UserEntity> retrchecked(Integer id);
-	
+
+	List<PhoneEntity> showAll();
 
 }
