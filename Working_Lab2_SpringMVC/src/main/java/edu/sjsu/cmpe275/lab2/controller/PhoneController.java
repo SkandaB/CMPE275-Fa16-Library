@@ -27,8 +27,6 @@ import java.util.List;
 @Controller
 public class PhoneController {
 
-	private	HttpServletResponse httpResponse;
-
 	@Autowired
 	private PhoneService pService;
 
@@ -81,20 +79,22 @@ public class PhoneController {
 		return null;
 	}
 
-	@RequestMapping(value = "/showall",method = RequestMethod.GET)
-	public Object showAll(){
-		ModelAndView mv = new ModelAndView("phones/list");
-		List<PhoneEntity> phones = pService.listPhones();
+    @RequestMapping(value = "/phone/showall", method = RequestMethod.GET)
+    public Object showAll() {
+        ModelAndView mv = new ModelAndView("phones/list");
+        List<PhoneEntity> phones = pService.listPhones();
 		mv.addObject(phones);
 		return mv;
 	}
 
 	@RequestMapping(value = "/phone/{pid}", method = RequestMethod.GET)
 	public Object showPhone(@PathVariable("pid") Integer id,
-							@RequestParam(value="json",required = false, defaultValue="false") String json) {
-		PhoneEntity pEntity = pService.findById(id);
-		List<UserEntity> users = uService.findAll();
-		List<UserEntity> ret = pService.retrieveUsers(id);
+                            @RequestParam(value = "json", required = false, defaultValue = "false") String json,
+                            HttpServletRequest httpServletRequest,
+                            HttpServletResponse httpResponse) {
+        PhoneEntity pEntity = pService.findById(id);
+        List<UserEntity> users = uService.findAll();
+        List<UserEntity> ret = pService.retrieveUsers(id);
 
 		if(null!= pEntity)
 		{
