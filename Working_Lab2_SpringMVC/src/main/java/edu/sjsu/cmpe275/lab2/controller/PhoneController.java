@@ -6,6 +6,9 @@ import edu.sjsu.cmpe275.lab2.service.PhoneService;
 import edu.sjsu.cmpe275.lab2.service.UserSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -126,6 +129,16 @@ public class PhoneController {
 		}
 
 	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/login?logout";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
+	}
+
 	@RequestMapping(value = "/phone/{pid}", method = RequestMethod.DELETE)
 	public ModelAndView deleteUser(@PathVariable("pid") Integer id){
 		boolean status = pService.deleteById(id);
