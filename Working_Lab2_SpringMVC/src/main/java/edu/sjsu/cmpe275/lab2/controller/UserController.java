@@ -76,8 +76,9 @@ public class UserController {
 
 	@RequestMapping(value = "/user/showall", method = RequestMethod.GET)
 	public Object showAll() {
-		ModelAndView mv = new ModelAndView("phones/list");
+		ModelAndView mv = new ModelAndView("users/list");
 		List<User> users = uService.listUsers();
+		System.out.println(users.get(0).toString());
 		mv.addObject("users", users);
 		return mv;
 	}
