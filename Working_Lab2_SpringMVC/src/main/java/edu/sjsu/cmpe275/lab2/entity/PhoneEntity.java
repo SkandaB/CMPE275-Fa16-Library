@@ -1,28 +1,12 @@
 package edu.sjsu.cmpe275.lab2.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -48,7 +32,7 @@ public class PhoneEntity {
 	private AddressEntity address;
 
 	@ManyToMany(mappedBy="phones")
-	private List<UserEntity> users = new ArrayList<UserEntity>();
+	private List<User> users = new ArrayList<User>();
 	/**
 	 * @return the id
 	 */
@@ -100,13 +84,13 @@ public class PhoneEntity {
 	/**
 	 * @return the users
 	 */
-	public List<UserEntity> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 	/**
 	 * @param users the users to set
 	 */
-	public void setUsers(List<UserEntity> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 

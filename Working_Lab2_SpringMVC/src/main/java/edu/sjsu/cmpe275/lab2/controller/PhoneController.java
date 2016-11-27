@@ -1,26 +1,6 @@
 package edu.sjsu.cmpe275.lab2.controller;
 
-import edu.sjsu.cmpe275.lab2.entity.PhoneEntity;
-import edu.sjsu.cmpe275.lab2.entity.UserEntity;
-import edu.sjsu.cmpe275.lab2.service.PhoneService;
-import edu.sjsu.cmpe275.lab2.service.UserSerivce;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 
 /**
@@ -29,12 +9,13 @@ import java.util.List;
  */
 @Controller
 public class PhoneController {
+/*
 
 	@Autowired
 	private PhoneService pService;
 
 	@Autowired
-	private UserSerivce uService;
+	private UserService uService;
 
 	@RequestMapping(value = "/phone", method = RequestMethod.GET)
 	public ModelAndView showPhoneCreationForm(){
@@ -96,8 +77,8 @@ public class PhoneController {
                             HttpServletRequest httpServletRequest,
                             HttpServletResponse httpResponse) {
         PhoneEntity pEntity = pService.findById(id);
-        List<UserEntity> users = uService.findAll();
-        List<UserEntity> ret = pService.retrieveUsers(id);
+        List<User> users = uService.findAll();
+        List<User> ret = pService.retrieveUsers(id);
 
 		if(null!= pEntity)
 		{
@@ -170,13 +151,16 @@ public class PhoneController {
 		System.out.println("Check the contents of returned user IDS "+uid);
 		PhoneEntity pEntity = pService.updatePhone((Integer)id,number,description,city,state,street,zip_code,uid);
 
-		List<UserEntity> checkd = pService.retrieveUsers(id);
-		/*ModelAndView modelAndView = new ModelAndView("users/userInfo");
+		List<User> checkd = pService.retrieveUsers(id);
+		*/
+/*ModelAndView modelAndView = new ModelAndView("users/userInfo");
 		modelAndView.addObject("user", uEntity);
-		return modelAndView;*/
+		return modelAndView;*//*
+
 		return "http://8.35.192.11/lab2-1.0/phone/"+pEntity.getId().toString();
 
 	}
+*/
 
 }
 
