@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author SkandaBhargav
@@ -72,6 +73,15 @@ public class UserController {
 
 		return "addUser";
 	}
+
+	@RequestMapping(value = "/user/showall", method = RequestMethod.GET)
+	public Object showAll() {
+		ModelAndView mv = new ModelAndView("phones/list");
+		List<User> users = uService.listUsers();
+		mv.addObject("users", users);
+		return mv;
+	}
+
 /*
 	*//**
 	 * @param json

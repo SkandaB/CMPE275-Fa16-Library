@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+import java.util.List;
 
 /**
  * @author SkandaBhargav
@@ -88,15 +89,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	*/
-/* (non-Javadoc)
-	 * @see edu.sjsu.cmpe275.lab2.dao.UserDao#findALl()
-	 *//*
-
-	@Override
-	public List<User> findALl() {
+@Override
+public List<User> findAll() {
 		List<User> users = (List<User>) em.createQuery("select u from User u", User.class).getResultList();
 		return users;
 	}
-*/
 
 }

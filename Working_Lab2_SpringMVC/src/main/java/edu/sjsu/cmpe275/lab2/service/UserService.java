@@ -5,6 +5,8 @@ package edu.sjsu.cmpe275.lab2.service;
 
 import edu.sjsu.cmpe275.lab2.entity.User;
 
+import java.util.List;
+
 /**
  * @author SkandaBhargav
  *
@@ -51,5 +53,8 @@ public interface UserService {
 	 *//*
 	public List<User> findAll();
 	*/
+
+
+	List<User> listUsers();
 
 }

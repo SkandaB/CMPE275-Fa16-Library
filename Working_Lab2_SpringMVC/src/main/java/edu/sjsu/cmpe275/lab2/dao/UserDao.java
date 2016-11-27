@@ -6,6 +6,8 @@ package edu.sjsu.cmpe275.lab2.dao;
 import edu.sjsu.cmpe275.lab2.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author SkandaBhargav
  *
@@ -19,25 +21,33 @@ public interface UserDao {
 	 */
 	User createUser(User uEntity);
 /*
-	*//**
+
+	*/
+/**
 	 * @param id
 	 * @return
 	 *//*
+
 	User findById(int id);
 
-	*//**
+	*/
+/**
 	 * @param id
 	 *//*
+
 	Boolean deleteById(int id);
 
-	*//**
+	*/
+/**
 	 * @param user
 	 * @return
 	 *//*
-	User updateUser(Integer id, User user);
 
-	*//**
+	User updateUser(Integer id, User user);
+*/
+
+	/**
 	 * @return
-	 *//*
-	List<User> findALl();*/
+	 */
+	List<User> findAll();
 }

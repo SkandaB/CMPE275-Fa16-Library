@@ -6,6 +6,8 @@ import edu.sjsu.cmpe275.lab2.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
@@ -27,6 +29,14 @@ public class UserServiceImpl implements UserService {
 
 		// TODO Auto-generated method stub
 		return userDao.createUser(user);
+	}
+
+	/**
+	 * @return
+	 */
+	@Override
+	public List<User> listUsers() {
+		return userDao.findAll();
 	}
 /*
 	*//* (non-Javadoc)
