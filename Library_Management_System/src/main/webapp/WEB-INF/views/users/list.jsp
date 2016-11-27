@@ -39,15 +39,7 @@
                 <td>${user.sjsuid}</td>
                 <td>${user.useremail}</td>
                 <td>${user.role}</td>
-                <td>
-                    <spring:url value="/users/${phone.id}" var="phoneUrl"/>
-                    <spring:url value="/users/${phone.id}/delete" var="deleteUrl"/>
-                    <spring:url value="/users/${phone.id}/update" var="updateUrl"/>
 
-                    <button class="btn btn-info" onclick="location.href='${phoneUrl}'">Query</button>
-                    <button class="btn btn-primary" onclick="location.href='${updateUrl}'">Update</button>
-                    <button class="btn btn-danger" onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>
-                </td>
             </tr>
         </c:forEach>
     </table>
