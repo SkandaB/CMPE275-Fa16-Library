@@ -1,4 +1,4 @@
-package edu.sjsu.cmpe275.lab2.security;
+package edu.sjsu.cmpe275.lms.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package edu.sjsu.cmpe275.lab2.entity;
+package edu.sjsu.cmpe275.lms.entity;
 
 import javax.persistence.*;
 

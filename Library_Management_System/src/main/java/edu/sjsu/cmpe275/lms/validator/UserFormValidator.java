@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.sjsu.cmpe275.lab2.validator;
+package edu.sjsu.cmpe275.lms.validator;
 
 /**
  * @author SkandaBhargav
