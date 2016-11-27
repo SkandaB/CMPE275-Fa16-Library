@@ -24,5 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
                 .antMatchers("/phone/showall").access("hasRole('ROLE_ADMIN')")
                 .and().formLogin();
+        httpSecurity.csrf().disable();
     }
+
 }
