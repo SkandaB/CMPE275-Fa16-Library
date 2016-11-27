@@ -8,39 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7fc4e20-3972-42e7-a3f6-ab8c0a481d3d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/artifacts/Library_Fall2016_war_exploded.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/libraries/Spring_4_3_4_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/libraries/Spring_Data_JPA_1_3_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/libraries/Spring_MVC_4_3_4_RELEASE.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/libraries/Spring_Security_3_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/Library_Fall2016.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/web/WEB-INF/applicationContext.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/web/WEB-INF/dispatcher-servlet.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/web/WEB-INF/web.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Library_Fall2016/web/index.jsp" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/entity/UserEntity.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/entity/User.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/UserSerivce.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/UserService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/UserSerivceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/UserServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/controller/PhoneController.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/controller/PhoneController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/PhoneDao.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/PhoneDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/PhoneDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/PhoneDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/UserDao.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/UserDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/UserDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/UserDaoImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/entity/PhoneEntity.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/entity/PhoneEntity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneService.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/phones/list.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/phones/list.jsp" />
     </list>
     <ignored path="Lab2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,14 +35,15 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
-              <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+              <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
               <folding>
-                <marker date="1480207251000" expanded="false" signature="1423:1428" ph=" { " />
-                <marker date="1480207251000" expanded="false" signature="1459:1462" ph=" }" />
-                <marker date="1480207251000" expanded="false" signature="2438:2443" ph=" { " />
-                <marker date="1480207251000" expanded="false" signature="2475:2478" ph=" }" />
-                <marker date="1480207251000" expanded="false" signature="2529:2534" ph=" { " />
-                <marker date="1480207251000" expanded="false" signature="2560:2563" ph=" }" />
+                <element signature="imports" expanded="false" />
+                <marker date="1480207432000" expanded="false" signature="1151:1156" ph=" { " />
+                <marker date="1480207432000" expanded="false" signature="1187:1190" ph=" }" />
+                <marker date="1480207432000" expanded="false" signature="2166:2171" ph=" { " />
+                <marker date="1480207432000" expanded="false" signature="2203:2206" ph=" }" />
+                <marker date="1480207432000" expanded="false" signature="2257:2262" ph=" { " />
+                <marker date="1480207432000" expanded="false" signature="2288:2291" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -82,21 +52,41 @@
       <file leaf-file-name="PhoneService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="25" />
+            <state relative-caret-position="234">
+              <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/controller/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="48" column="7" lean-forward="true" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
+            <state relative-caret-position="235">
+              <caret line="44" column="7" lean-forward="false" selection-start-line="44" selection-start-column="7" selection-end-line="44" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dispatcher-servlet.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="48" column="11" lean-forward="true" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PhoneEntity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/entity/PhoneEntity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="372">
+              <caret line="35" column="7" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -119,6 +109,7 @@
       <find>core</find>
       <find>hib</find>
       <find>lo</find>
+      <find>trans</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -149,7 +140,6 @@
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/entity/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/UserService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/controller/UserController.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/UserDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/dao/PhoneDao.java" />
@@ -157,6 +147,8 @@
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/controller/PhoneController.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/entity/PhoneEntity.java" />
       </list>
     </option>
   </component>
@@ -1203,7 +1195,7 @@
       <workItem from="1480039744695" duration="3410000" />
       <workItem from="1480122837797" duration="5134000" />
       <workItem from="1480134680722" duration="492000" />
-      <workItem from="1480187171491" duration="13803000" />
+      <workItem from="1480187171491" duration="14052000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed the URL &#10;from: /showall&#10;to: /phone/showall">
       <created>1480188962195</created>
@@ -1261,11 +1253,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480201834013</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added Security dependencies to the POM">
+      <created>1480207441272</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1480207441272</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27246000" />
+    <option name="totallyTimeSpent" value="27495000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1680" height="992" extended-state="6" />
@@ -1406,7 +1405,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1490,7 +1489,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1556,7 +1555,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1566,7 +1565,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1615,14 +1614,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-72">
-          <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/addUser.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1635,14 +1626,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/entity/PhoneEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1678,26 +1661,26 @@
         <state relative-caret-position="864">
           <caret line="48" column="5" lean-forward="true" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
           <folding>
-            <element signature="e#855#856#0" expanded="true" />
-            <element signature="e#875#876#0" expanded="true" />
-            <element signature="e#914#915#0" expanded="true" />
-            <element signature="e#941#942#0" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
-            <element signature="e#995#996#0" expanded="true" />
-            <element signature="e#1040#1041#0" expanded="true" />
-            <element signature="e#1071#1072#0" expanded="true" />
-            <element signature="e#1103#1104#0" expanded="true" />
-            <element signature="e#1125#1126#0" expanded="true" />
-            <element signature="e#1170#1171#0" expanded="true" />
-            <element signature="e#1201#1202#0" expanded="true" />
-            <element signature="e#1229#1230#0" expanded="true" />
-            <element signature="e#1247#1248#0" expanded="true" />
-            <element signature="e#1284#1285#0" expanded="true" />
-            <element signature="e#1307#1308#0" expanded="true" />
-            <element signature="e#1338#1339#0" expanded="true" />
-            <element signature="e#1359#1360#0" expanded="true" />
-            <element signature="e#1403#1404#0" expanded="true" />
-            <element signature="e#1432#1433#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
+            <element signature="e#874#875#0" expanded="true" />
+            <element signature="e#913#914#0" expanded="true" />
+            <element signature="e#940#941#0" expanded="true" />
+            <element signature="e#972#973#0" expanded="true" />
+            <element signature="e#994#995#0" expanded="true" />
+            <element signature="e#1039#1040#0" expanded="true" />
+            <element signature="e#1070#1071#0" expanded="true" />
+            <element signature="e#1102#1103#0" expanded="true" />
+            <element signature="e#1124#1125#0" expanded="true" />
+            <element signature="e#1169#1170#0" expanded="true" />
+            <element signature="e#1200#1201#0" expanded="true" />
+            <element signature="e#1228#1229#0" expanded="true" />
+            <element signature="e#1246#1247#0" expanded="true" />
+            <element signature="e#1283#1284#0" expanded="true" />
+            <element signature="e#1306#1307#0" expanded="true" />
+            <element signature="e#1337#1338#0" expanded="true" />
+            <element signature="e#1358#1359#0" expanded="true" />
+            <element signature="e#1402#1403#0" expanded="true" />
+            <element signature="e#1431#1432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1707,10 +1690,10 @@
         <state relative-caret-position="414">
           <caret line="30" column="42" lean-forward="false" selection-start-line="30" selection-start-column="42" selection-end-line="30" selection-end-column="42" />
           <folding>
-            <marker date="1480206388000" expanded="false" signature="1329:1334" ph=" { " />
-            <marker date="1480206388000" expanded="false" signature="1364:1367" ph=" }" />
-            <marker date="1480206388000" expanded="false" signature="2313:2318" ph=" { " />
-            <marker date="1480206388000" expanded="false" signature="2343:2346" ph=" }" />
+            <marker date="1480207432000" expanded="false" signature="1304:1309" ph=" { " />
+            <marker date="1480207432000" expanded="false" signature="1339:1342" ph=" }" />
+            <marker date="1480207432000" expanded="false" signature="2288:2293" ph=" { " />
+            <marker date="1480207432000" expanded="false" signature="2318:2321" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -1752,8 +1735,8 @@
         <state relative-caret-position="1404">
           <caret line="91" column="2" lean-forward="false" selection-start-line="91" selection-start-column="2" selection-end-line="91" selection-end-column="2" />
           <folding>
-            <marker date="1480207188000" expanded="false" signature="2409:2414" ph=" { " />
-            <marker date="1480207188000" expanded="false" signature="2483:2486" ph=" }" />
+            <marker date="1480207432000" expanded="false" signature="2133:2138" ph=" { " />
+            <marker date="1480207432000" expanded="false" signature="2207:2210" ph=" }" />
           </folding>
         </state>
       </provider>
@@ -1763,8 +1746,8 @@
         <state relative-caret-position="298">
           <caret line="180" column="0" lean-forward="false" selection-start-line="31" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1480207251000" expanded="false" signature="3638:4764" ph="{...}" />
+            <element signature="imports" expanded="false" />
+            <marker date="1480207432000" expanded="false" signature="2587:3713" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1772,33 +1755,50 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
-          <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+          <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
           <folding>
-            <marker date="1480207251000" expanded="false" signature="1423:1428" ph=" { " />
-            <marker date="1480207251000" expanded="false" signature="1459:1462" ph=" }" />
-            <marker date="1480207251000" expanded="false" signature="2438:2443" ph=" { " />
-            <marker date="1480207251000" expanded="false" signature="2475:2478" ph=" }" />
-            <marker date="1480207251000" expanded="false" signature="2529:2534" ph=" { " />
-            <marker date="1480207251000" expanded="false" signature="2560:2563" ph=" }" />
+            <element signature="imports" expanded="false" />
+            <marker date="1480207432000" expanded="false" signature="1151:1156" ph=" { " />
+            <marker date="1480207432000" expanded="false" signature="1187:1190" ph=" }" />
+            <marker date="1480207432000" expanded="false" signature="2166:2171" ph=" { " />
+            <marker date="1480207432000" expanded="false" signature="2203:2206" ph=" }" />
+            <marker date="1480207432000" expanded="false" signature="2257:2262" ph=" { " />
+            <marker date="1480207432000" expanded="false" signature="2288:2291" ph=" }" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/service/PhoneService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="25" />
+        <state relative-caret-position="234">
+          <caret line="15" column="25" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/controller/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="48" column="7" lean-forward="true" selection-start-line="48" selection-start-column="7" selection-end-line="48" selection-end-column="7" />
+        <state relative-caret-position="235">
+          <caret line="44" column="7" lean-forward="false" selection-start-line="44" selection-start-column="7" selection-end-line="44" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="48" column="11" lean-forward="true" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lab2/entity/PhoneEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="35" column="7" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>

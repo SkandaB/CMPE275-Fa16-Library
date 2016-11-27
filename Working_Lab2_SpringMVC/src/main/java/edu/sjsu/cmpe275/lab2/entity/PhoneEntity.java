@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -31,8 +29,6 @@ public class PhoneEntity {
 	@Embedded
 	private AddressEntity address;
 
-	@ManyToMany(mappedBy="phones")
-	private List<User> users = new ArrayList<User>();
 	/**
 	 * @return the id
 	 */
@@ -80,18 +76,6 @@ public class PhoneEntity {
 	 */
 	public void setAddress(AddressEntity address) {
 		this.address = address;
-	}
-	/**
-	 * @return the users
-	 */
-	public List<User> getUsers() {
-		return users;
-	}
-	/**
-	 * @param users the users to set
-	 */
-	public void setUsers(List<User> users) {
-		this.users = users;
 	}
 
 }
