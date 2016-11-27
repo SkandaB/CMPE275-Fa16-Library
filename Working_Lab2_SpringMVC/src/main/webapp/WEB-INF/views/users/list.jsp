@@ -51,6 +51,8 @@
             </tr>
         </c:forEach>
     </table>
+</div>
+Thank you
 
 </div>
 <div>
