@@ -51,10 +51,7 @@
             </tr>
         </c:forEach>
     </table>
-</div>
-Thank you
 
-</div>
 <div>
     <a href="<c:url value="/logout" />">Logout</a>
 </div>
