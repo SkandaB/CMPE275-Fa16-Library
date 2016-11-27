@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 		AddressEntity addressEntity = new AddressEntity();
 
 		user.setSjsuid(sjsuid);
-		user.setUsername(useremail);
+		user.setUseremail(useremail);
 		user.setPassword(password);
 		user.setRole(role);
 

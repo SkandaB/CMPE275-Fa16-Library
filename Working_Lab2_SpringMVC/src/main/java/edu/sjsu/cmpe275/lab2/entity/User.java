@@ -12,8 +12,8 @@ public class User {
 	@Id
 	@Column(name = "SJSUID", length = 50, unique = true, nullable = false)
 	private long sjsuid;
-	@Column(name = "USERNAME", nullable = false)
-	private String username;
+	@Column(name = "USEREMAIL", nullable = false)
+	private String useremail;
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 	@Column(name = "ROLE")
@@ -24,8 +24,8 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String password, String role, boolean enabled) {
-		this.username = username;
+	public User(String useremail, String password, String role, boolean enabled) {
+		this.useremail = useremail;
 		this.password = password;
 		this.role = role;
 		this.enabled = enabled;
@@ -39,12 +39,12 @@ public class User {
 		this.sjsuid = sjsuid;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUseremail() {
+		return useremail;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUseremail(String username) {
+		this.useremail = username;
 	}
 
 	public String getPassword() {
