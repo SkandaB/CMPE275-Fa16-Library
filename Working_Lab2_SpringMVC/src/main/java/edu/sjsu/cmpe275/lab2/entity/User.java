@@ -10,7 +10,9 @@ public class User {
 	public static final String ROLE_PATRON = "PATRON";
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
-	@Column(name = "SJSUID", length = 50, unique = true, nullable = false)
+	@Column(name = "ID", length = 8, unique = true, nullable = false)
+	private Integer id;
+	@Column(name = "SJSUID", nullable = false)
 	private long sjsuid;
 	@Column(name = "USEREMAIL", nullable = false)
 	private String useremail;
