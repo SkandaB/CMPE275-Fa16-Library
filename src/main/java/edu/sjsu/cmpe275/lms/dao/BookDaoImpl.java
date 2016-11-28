@@ -24,4 +24,11 @@ public class BookDaoImpl implements BookDao {
         em.persist(book);
         return true;
     }
+
+    @Override
+    public boolean addBook(String isbn, String author, String title, String callnumber, String publisher, int year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image) {
+        Book book = new Book(isbn, author, title, callnumber, publisher, year_of_publication, location, num_of_copies, current_status, keywords, image);
+        em.persist(book);
+        return true;
+    }
 }
