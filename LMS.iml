@@ -24,9 +24,6 @@
         </fileset>
       </configuration>
     </facet>
-    <facet type="app-engine-standard" name="Google App Engine Standard">
-      <configuration />
-    </facet>
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
