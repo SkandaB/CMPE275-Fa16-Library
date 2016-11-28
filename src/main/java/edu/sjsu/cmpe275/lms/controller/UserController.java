@@ -54,7 +54,7 @@ public class UserController {
         System.out.println(uEntity.toString());
 
 
-        return "addUser";
+        return "users/welcome";
     }
 
     @RequestMapping(value = "/user/showall", method = RequestMethod.GET)

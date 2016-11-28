@@ -12,7 +12,7 @@ public class User {
 	@Id
 	@Column(name = "ID", length = 8, unique = true, nullable = false)
 	private Integer id;
-	@Column(name = "SJSUID", nullable = false)
+	@Column(name = "SJSUID", nullable = false,unique = true)
 	private long sjsuid;
 	@Column(name = "USEREMAIL", nullable = false)
 	private String useremail;
