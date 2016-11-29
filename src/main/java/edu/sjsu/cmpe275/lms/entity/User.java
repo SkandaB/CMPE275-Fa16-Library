@@ -65,11 +65,15 @@ public class User {
 		this.role = role;
 	}
 
-	public boolean isEnabled() {
+	public boolean getEnabled() {
 		return enabled;
 	}
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String toString(){
+		return "User:: Email: "+getUseremail()+" Role: "+getRole()+" isEnabled: "+getEnabled();
 	}
 }

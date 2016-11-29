@@ -53,7 +53,9 @@ public class UserController {
 
         System.out.println(uEntity.toString());
 
-
+        String usertype = uEntity.getRole();
+        System.out.println("Usertrpe "+usertype);
+        if (usertype.equals("librarian")) return "librarian/dashboard";
         return "users/welcome";
     }
 
@@ -65,6 +67,8 @@ public class UserController {
         mv.addObject("users", users);
         return mv;
     }
+
+
 
 }
 
