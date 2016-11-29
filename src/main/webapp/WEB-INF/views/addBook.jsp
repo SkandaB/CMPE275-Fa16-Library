@@ -6,7 +6,7 @@
     <title>Upload File Request Page</title>
 </head>
 <body>
-<form method="POST" action="book" enctype="multipart/form-data">
+<form method="POST" modelAttribute="book" enctype="multipart/form-data">
     <%--modelAttribute="book" --%>
     <%--action="uploadBookImage" --%>
 
@@ -54,7 +54,7 @@
         </tr>
         <tr>
             <td>Image</td>
-            <td><input type="file" id="image" name="image"></td>
+            <td><input type="file" id="imagefile" name="imagefile"></td>
         </tr>
         <tr>
             <td colspan="3"><input type="submit" value="Create"/></td>
