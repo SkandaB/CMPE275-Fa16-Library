@@ -40,6 +40,14 @@
     }
 </style>
 <script type="text/javascript">
+    displayForms = function(link,formId) {
+        // disable subsequent clicks
+        link.onclick = function(event) {
+            event.preventDefault();
+        }
+        document.getElementById(formId).style.display = 'block';
+    }
+
     $(document).ready(function () {
         $("#addBtn").click(function () {
                 $('#addBookModal').modal('show');
@@ -126,10 +134,21 @@
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"
                                         aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-
+                                <h4 class="modal-title" id="myModalLabel">Add a new book to LMS</h4>
                             </div>
-                            <div class="modal-body">...</div>
+                            <div class="modal-body">
+                                <!-- Add forms here -->
+                                <a href="#" id="simpleadd" onclick="displayForms(this,'simpleaddform');">Add via ISBN</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="#" id="advancedadd" onclick="displayForms(this,'advancedaddform');">Advanced add</a>
+                                <form method="post" id="simpleaddform" style="display: none" >
+                                        Simple add form
+                                </form>
+
+                                <form method="post" id="advancedaddform" style="display: none">
+                                        Advanced add form
+                                </form>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary">Save changes</button>
