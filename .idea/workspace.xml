@@ -10,11 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f7fc4e20-3972-42e7-a3f6-ab8c0a481d3d" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/bootstrap.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/css/styles.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/js/bootstrap.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/js/scripts.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/librarian/dashboard.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/librarian/dashboard.jsp" />
     </list>
     <ignored path="Lab2.iws" />
@@ -132,9 +127,12 @@
       <file leaf-file-name="dashboard.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/librarian/dashboard.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="332" column="10" lean-forward="true" selection-start-line="332" selection-start-column="10" selection-end-line="332" selection-end-column="10" />
-              <folding />
+            <state relative-caret-position="106">
+              <caret line="115" column="77" lean-forward="false" selection-start-line="115" selection-start-column="77" selection-end-line="115" selection-end-column="77" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#4994#5001#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -195,8 +193,10 @@
       <find>lms</find>
       <find>My Da</find>
       <find>DashBo</find>
-      <find>Add</find>
       <find>Manage Books</find>
+      <find>Add</find>
+      <find>myModal</find>
+      <find>$</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -1246,7 +1246,7 @@
       <workItem from="1480319006200" duration="5931000" />
       <workItem from="1480538468806" duration="2274000" />
       <workItem from="1480540808952" duration="566000" />
-      <workItem from="1480541421473" duration="1981000" />
+      <workItem from="1480541421473" duration="4328000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed the URL &#10;from: /showall&#10;to: /phone/showall">
       <created>1480188962195</created>
@@ -1392,7 +1392,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53982000" />
+    <option name="totallyTimeSpent" value="56329000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1378" height="735" extended-state="0" />
@@ -1785,9 +1785,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/librarian/dashboard.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="332" column="10" lean-forward="true" selection-start-line="332" selection-start-column="10" selection-end-line="332" selection-end-column="10" />
-          <folding />
+        <state relative-caret-position="106">
+          <caret line="115" column="77" lean-forward="false" selection-start-line="115" selection-start-column="77" selection-end-line="115" selection-end-column="77" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#4994#5001#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
