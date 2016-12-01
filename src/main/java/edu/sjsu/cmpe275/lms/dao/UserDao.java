@@ -22,4 +22,6 @@ public interface UserDao {
 	User createUser(User uEntity);
 
 	List<User> findAll();
+
+    void updateUser(User user);
 }

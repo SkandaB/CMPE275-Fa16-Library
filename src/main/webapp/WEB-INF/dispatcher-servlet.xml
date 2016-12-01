@@ -16,7 +16,7 @@
 	<mvc:annotation-driven />
 
 	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/lab2_demo" />
 		<property name="username" value="root" />
@@ -49,7 +49,7 @@
 	<!-- This helps in mapping the logical view names to directly view files 
 		under a certain pre-configured directory -->
 	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
 			<value>/WEB-INF/views/</value>
 		</property>
@@ -61,6 +61,23 @@
 	<!-- To validate the posted add employee form -->
 	<bean id="userFormValidator" class="edu.sjsu.cmpe275.lms.validator.UserFormValidator"/>
 
+	<!--Mail Server Setup-->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="587"/>
+		<property name="username" value="group2lmscmpe275@gmail.com"/>
+		<property name="password" value="iamadmin"/>
+
+		<!-- The name of the property, following JavaBean naming conventions -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
@@ -71,4 +88,4 @@
 </beans>
 
 
-<!-- http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd -->
+		<!-- http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd -->

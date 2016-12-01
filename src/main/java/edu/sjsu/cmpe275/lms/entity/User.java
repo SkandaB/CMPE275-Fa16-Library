@@ -20,10 +20,11 @@ public class User {
 	private String password;
 	@Column(name = "ROLE")
 	private String role;
-	@Column(name = "enabled")
+	@Column(name = "ENABLED")
 	private boolean enabled;
 
 	public User() {
+		this.enabled = false;
 	}
 
 	public User(String useremail, String password, String role, boolean enabled) {
@@ -71,5 +72,17 @@ public class User {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", sjsuid=" + sjsuid +
+				", useremail='" + useremail + '\'' +
+				", password='" + password + '\'' +
+				", role='" + role + '\'' +
+				", enabled=" + enabled +
+				'}';
 	}
 }

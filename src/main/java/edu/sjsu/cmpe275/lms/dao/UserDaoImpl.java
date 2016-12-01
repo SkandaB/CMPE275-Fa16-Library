@@ -33,4 +33,9 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
+    @Override
+    public void updateUser(User user) {
+        em.merge(user);
+    }
+
 }
