@@ -54,7 +54,7 @@ public class RegistrationController {
         try {
             System.out.println("************* User addition was successful, so entered the event creator *************");
             String url = request.getRequestURL().toString();
-            //System.out.println("************* Context Path URL: "+ url);
+            System.out.println("************* Context Path URL: " + url);
             applicationEventPublisher.publishEvent(new RegistrationCompleteEvent(added, url));
         } catch (Exception e) {
             System.out.println(e);
