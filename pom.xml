@@ -212,6 +212,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<finalName>Library</finalName>
+		<finalName>DB_Based_UserAuth</finalName>
 	</build>
 </project>

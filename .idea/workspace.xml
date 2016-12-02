@@ -11,11 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f7fc4e20-3972-42e7-a3f6-ab8c0a481d3d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/controller/RegistrationController.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/controller/RegistrationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/dao/TokenDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/dao/TokenDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/welcome.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/welcome.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="Lab2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/controller/RegistrationController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-43">
-              <caret line="65" column="177" lean-forward="false" selection-start-line="65" selection-start-column="177" selection-end-line="65" selection-end-column="177" />
+              <caret line="65" column="182" lean-forward="false" selection-start-line="65" selection-start-column="182" selection-end-line="65" selection-end-column="182" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -57,12 +53,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="log4j.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="log4j.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="10" column="6" lean-forward="true" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+              <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Workpad" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Workpad">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1251">
+              <caret line="214" column="36" lean-forward="false" selection-start-line="214" selection-start-column="36" selection-end-line="214" selection-end-column="36" />
+              <folding>
+                <element signature="e#4463#5216#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -146,6 +164,7 @@
       <find>mail</find>
       <find>error</find>
       <find>local</find>
+      <find>/home/skandabhargav/post_build_scripts/DB_Based_UserAuth/post_build</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -192,8 +211,6 @@
         <option value="$PROJECT_DIR$/Library_Management_System/target/Library/WEB-INF/dispatcher-servlet.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/list.jsp" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/Workpad" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/dao/TokenDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/dao/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/dao/UserDaoImpl.java" />
@@ -213,6 +230,8 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/welcome.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/controller/RegistrationController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j.properties" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/Workpad" />
       </list>
     </option>
   </component>
@@ -1604,7 +1623,7 @@
       <workItem from="1480290456141" duration="6105000" />
       <workItem from="1480303180291" duration="41522000" />
       <workItem from="1480630004958" duration="215000" />
-      <workItem from="1480630251272" duration="2655000" />
+      <workItem from="1480630251272" duration="6396000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed the URL &#10;from: /showall&#10;to: /phone/showall">
       <created>1480188962195</created>
@@ -1767,11 +1786,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480620043025</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Email Code Verification&#10;+ Enable the user on token validation&#10;+ fixed the URL in email, so that user can now click on it directly&#10;&#10;Fixes needed:&#10;+ Email sending as a separate module&#10;+ Add a link on Welcome page to Login">
+      <created>1480636979072</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1480636979072</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85620000" />
+    <option name="totallyTimeSpent" value="89361000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1808,7 +1834,7 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6689655" sideWeight="0.491453" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6689655" sideWeight="0.491453" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1885,7 +1911,8 @@
     <MESSAGE value="Added Security dependencies to the POM" />
     <MESSAGE value="Added JDBC based authentication for users and roles&#10;Need to create two new tables in Database for it to work." />
     <MESSAGE value="Email Code Verification&#10;- Create a new token for newly registered uers&#10;- Store the user,token in a DB table&#10;- Sends an email with the token&#10;- Auto-assigns the role as Librarian/Patron depending upon the email domain&#10;&#10;Fixes needed:&#10;+ Email sending as a separate module&#10;+ Enable the user on token validation&#10;+ fix the URL in email, so that user can click on it directly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Email Code Verification&#10;- Create a new token for newly registered uers&#10;- Store the user,token in a DB table&#10;- Sends an email with the token&#10;- Auto-assigns the role as Librarian/Patron depending upon the email domain&#10;&#10;Fixes needed:&#10;+ Email sending as a separate module&#10;+ Enable the user on token validation&#10;+ fix the URL in email, so that user can click on it directly" />
+    <MESSAGE value="Email Code Verification&#10;+ Enable the user on token validation&#10;+ fixed the URL in email, so that user can now click on it directly&#10;&#10;Fixes needed:&#10;+ Email sending as a separate module&#10;+ Add a link on Welcome page to Login" />
+    <option name="LAST_COMMIT_MESSAGE" value="Email Code Verification&#10;+ Enable the user on token validation&#10;+ fixed the URL in email, so that user can now click on it directly&#10;&#10;Fixes needed:&#10;+ Email sending as a separate module&#10;+ Add a link on Welcome page to Login" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1944,13 +1971,6 @@
         <state relative-caret-position="54">
           <caret line="3" column="10" lean-forward="true" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Workpad">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="1" column="25" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -2043,16 +2063,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="13" column="17" lean-forward="false" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="123" column="31" lean-forward="false" selection-start-line="123" selection-start-column="27" selection-end-line="123" selection-end-column="31" />
-          <folding>
-            <element signature="e#4463#5216#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2218,7 +2228,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/controller/RegistrationController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-43">
-          <caret line="65" column="177" lean-forward="false" selection-start-line="65" selection-start-column="177" selection-end-line="65" selection-end-column="177" />
+          <caret line="65" column="182" lean-forward="false" selection-start-line="65" selection-start-column="182" selection-end-line="65" selection-end-column="182" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -2228,7 +2238,25 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/log4j.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="10" column="6" lean-forward="true" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+          <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1251">
+          <caret line="214" column="36" lean-forward="false" selection-start-line="214" selection-start-column="36" selection-end-line="214" selection-end-column="36" />
+          <folding>
+            <element signature="e#4463#5216#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Workpad">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="8" />
           <folding />
         </state>
       </provider>
