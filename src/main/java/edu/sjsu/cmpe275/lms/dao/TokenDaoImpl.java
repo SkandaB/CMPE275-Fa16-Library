@@ -20,7 +20,7 @@ public class TokenDaoImpl implements TokenDao {
 
     @Override
     public UserVerfToken findToken(String token) {
-        TypedQuery<UserVerfToken> query = em.createQuery("SELECT u from TABLE UserVerfToken u WHERE u.token = :value1", UserVerfToken.class).setParameter("value1", token);
+        TypedQuery<UserVerfToken> query = em.createQuery("SELECT u from UserVerfToken u WHERE u.token = :value1", UserVerfToken.class).setParameter("value1", token);
         return query.getSingleResult();
 
     }
