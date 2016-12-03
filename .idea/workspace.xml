@@ -11,8 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f7fc4e20-3972-42e7-a3f6-ab8c0a481d3d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/controller/RegistrationController.java" afterPath="$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/controller/RegistrationController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/addUser.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/users/addUser.jsp" />
     </list>
     <ignored path="Lab2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/controller/RegistrationController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="407">
-              <caret line="64" column="122" lean-forward="false" selection-start-line="64" selection-start-column="122" selection-end-line="64" selection-end-column="122" />
+              <caret line="64" column="123" lean-forward="false" selection-start-line="64" selection-start-column="123" selection-end-line="64" selection-end-column="123" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1452,7 +1450,7 @@
       <workItem from="1480630004958" duration="215000" />
       <workItem from="1480630251272" duration="7985000" />
       <workItem from="1480693624463" duration="1513000" />
-      <workItem from="1480700598565" duration="9734000" />
+      <workItem from="1480700598565" duration="9839000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed the URL &#10;from: /showall&#10;to: /phone/showall">
       <created>1480188962195</created>
@@ -1664,11 +1662,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480711768244</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Email Code Verification&#10;+ Enable the user on token validation&#10;+ fixed the URL in email, so that user can now click on it directly&#10;&#10;Fixes needed:&#10;+ Email sending as a separate module&#10;+ Add a link on Welcome page to Login&#10;&#10;Note: Changed the action in addUser.jsp">
+      <created>1480726991786</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1480726991786</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="102197000" />
+    <option name="totallyTimeSpent" value="102302000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2207,7 +2212,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/sjsu/cmpe275/lms/controller/RegistrationController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="407">
-          <caret line="64" column="122" lean-forward="false" selection-start-line="64" selection-start-column="122" selection-end-line="64" selection-end-column="122" />
+          <caret line="64" column="123" lean-forward="false" selection-start-line="64" selection-start-column="123" selection-end-line="64" selection-end-column="123" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
