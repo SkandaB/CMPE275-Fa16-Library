@@ -24,5 +24,13 @@ public interface UserService {
 
 
     List<User> listUsers();
+    
+   
+
+	/**
+	 * @param sjsuid
+	 * @return
+	 */
+	public User findUser(Integer sjsuid);
 
 }

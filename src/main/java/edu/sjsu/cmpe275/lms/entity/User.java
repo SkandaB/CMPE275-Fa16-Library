@@ -1,5 +1,8 @@
 package edu.sjsu.cmpe275.lms.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,9 +13,9 @@ public class User {
 	public static final String ROLE_PATRON = "PATRON";
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
-	@Column(name = "ID", length = 8, unique = true, nullable = false)
-	private Integer id;
-	@Column(name = "SJSUID", nullable = false,unique = true)
+	@Column(name = "USER_ID", length = 8, unique = true, nullable = false)
+	private Integer userId;
+		@Column(name = "SJSUID", nullable = false,unique = true)
 	private long sjsuid;
 	@Column(name = "USEREMAIL", nullable = false)
 	private String useremail;
@@ -22,6 +25,9 @@ public class User {
 	private String role;
 	@Column(name = "enabled")
 	private boolean enabled;
+	
+	@OneToMany(mappedBy="user")
+	List<UserBook> currentBooks = new ArrayList<UserBook>();
 
 	public User() {
 	}
@@ -72,4 +78,33 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	/**
+	 * @return the userId
+	 */
+	public Integer getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	/**
+	 * @return the currentBooks
+	 */
+	public List<UserBook> getCurrentBooks() {
+		return currentBooks;
+	}
+
+	/**
+	 * @param currentBooks the currentBooks to set
+	 */
+	public void setCurrentBooks(List<UserBook> currentBooks) {
+		this.currentBooks = currentBooks;
+	}
+
+
 }

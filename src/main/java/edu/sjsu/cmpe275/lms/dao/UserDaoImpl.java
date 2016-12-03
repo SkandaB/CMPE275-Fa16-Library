@@ -12,9 +12,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import java.util.List;
 
-/**
- * @author SkandaBhargav
- */
 @Transactional
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -32,5 +29,14 @@ public class UserDaoImpl implements UserDao {
         List<User> users = (List<User>) em.createQuery("select u from User u", User.class).getResultList();
         return users;
     }
+
+	/* (non-Javadoc)
+	 * @see edu.sjsu.cmpe275.lms.dao.UserDao#getUser(long)
+	 */
+	@Override
+	public User getUser(Integer sjsuid) {
+		User user=em.find(User.class, sjsuid);
+		return user;
+	}
 
 }
