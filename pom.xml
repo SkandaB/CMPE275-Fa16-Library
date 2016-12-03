@@ -229,6 +229,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<finalName>UAT_Email</finalName>
+		<finalName>DB_Based_UserAuth</finalName>
 	</build>
 </project>
