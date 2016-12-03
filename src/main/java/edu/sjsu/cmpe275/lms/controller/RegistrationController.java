@@ -39,8 +39,9 @@ public class RegistrationController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView showUserCreationForm() {
+    public ModelAndView showUserCreationForm(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView("users/addUser");
+        modelAndView.addObject("requestURL", request.getRequestURL().toString());
         return modelAndView;
     }
 
@@ -61,7 +62,8 @@ public class RegistrationController {
         try {
             System.out.println("************* User addition was successful, so entered the event creator *************");
             String url = request.getRequestURL().toString();
-            System.out.println("************* Context Path URL: " + url);
+            System.out.println("************* Request URL: " + url + "ContextPath= " + request.getContextPath().toString());
+
             applicationEventPublisher.publishEvent(new RegistrationCompleteEvent(added, url));
         } catch (Exception e) {
             System.out.println(e);

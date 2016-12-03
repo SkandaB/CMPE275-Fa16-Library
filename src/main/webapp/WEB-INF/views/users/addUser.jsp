@@ -10,7 +10,7 @@
 <body>
 <p><font color="red">${errorMessage}</font></p>
 <div>
-    <form action="/DB_Based_UserAuth/register" method="POST">
+    <form action="${pageContext.request.contextPath}/register" method="POST">
         SJSU ID : <input name="sjsuid" type="text"/>
         </br>
         User Email : <input name="useremail" type="text"/>
