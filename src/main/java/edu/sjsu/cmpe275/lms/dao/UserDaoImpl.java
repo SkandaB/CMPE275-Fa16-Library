@@ -30,6 +30,7 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
+<<<<<<< HEAD
 	/* (non-Javadoc)
 	 * @see edu.sjsu.cmpe275.lms.dao.UserDao#getUser(long)
 	 */
@@ -38,5 +39,11 @@ public class UserDaoImpl implements UserDao {
 		User user=em.find(User.class, sjsuid);
 		return user;
 	}
+=======
+    @Override
+    public void updateUser(User user) {
+        em.merge(user);
+    }
+>>>>>>> DB_Based_UserAuth
 
 }

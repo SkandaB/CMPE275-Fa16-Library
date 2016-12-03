@@ -4,6 +4,7 @@
 package edu.sjsu.cmpe275.lms.service;
 
 import edu.sjsu.cmpe275.lms.entity.User;
+import edu.sjsu.cmpe275.lms.entity.UserVerfToken;
 
 import java.util.List;
 
@@ -17,10 +18,9 @@ public interface UserService {
      * @param sjsuid
      * @param useremail
      * @param password
-     * @param role
      * @return
      */
-    public User createUser(long sjsuid, String useremail, String password, String role);
+    User createUser(long sjsuid, String useremail, String password);
 
 
     List<User> listUsers();
@@ -33,4 +33,9 @@ public interface UserService {
 	 */
 	public User findUser(Integer sjsuid);
 
+    void createToken(User user, String token);
+
+    UserVerfToken getUserToken(String token);
+
+    void saveValidatedUser(User user);
 }

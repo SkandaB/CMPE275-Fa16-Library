@@ -16,12 +16,16 @@
 	<mvc:annotation-driven />
 
 	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+<<<<<<< HEAD
 		<property name="url" value="jdbc:mysql://localhost:3306/cmpe275_lms" />
+=======
+		<property name="url" value="jdbc:mysql://localhost:3306/lms"/>
+>>>>>>> DB_Based_UserAuth
 		<property name="username" value="root" />
-		<!--<property name="password" value="v5yzmCbb" />-->
-		<property name="password" value="password" />
+		<property name="password" value="v5yzmCbb"/>
+		<!--<property name="password" value="password" />-->
 	</bean>
 
 	<bean id="entityManagerFactory"
@@ -38,7 +42,7 @@
 
 	<!-- Transactions -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
+		<property name="entityManagerFactory" ref="entityManagerFactory"/>
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
@@ -69,14 +73,31 @@
 	<!-- To validate the posted add employee form -->
 	<bean id="userFormValidator" class="edu.sjsu.cmpe275.lms.validator.UserFormValidator"/>
 
+	<!--Mail Server Setup-->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="587"/>
+		<property name="username" value="group2lmscmpe275@gmail.com"/>
+		<property name="password" value="iamadmin"/>
+
+		<!-- The name of the property, following JavaBean naming conventions -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">false</prop>
+			</props>
+		</property>
+	</bean>
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-	<!-- This resolves messages from resource bundles for different locales -->
-	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
-		<property name="basename" value="messages" /> </bean> -->
+	<!--This resolves messages from resource bundles for different locales-->
+	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" /> </bean>-->
 
 </beans>
 
 
-<!-- http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd -->
+		<!-- http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd -->

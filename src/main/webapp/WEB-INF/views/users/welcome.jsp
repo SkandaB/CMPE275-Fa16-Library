@@ -11,7 +11,8 @@
 <body>
 
 <div class="container">
-    <h2>User Created !! </h2>
+    <h2>Welcome !! </h2>
+    ${message}
 </div>
 <jsp:include page="../../fragments/footer.jsp" />
 

@@ -17,5 +17,10 @@ public interface UserDao {
 	 */
 	User createUser(User uEntity);
 	List<User> findAll();
+<<<<<<< HEAD
 	public User getUser(Integer sjsuid);
+=======
+
+    void updateUser(User user);
+>>>>>>> DB_Based_UserAuth
 }
