@@ -31,10 +31,10 @@ public class RegistrationController {
     @Autowired
     ServletContext servletContext;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+ /*   @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView landing() {
         return new ModelAndView(new RedirectView("/register"));
-    }
+    }*/
 
 
 
