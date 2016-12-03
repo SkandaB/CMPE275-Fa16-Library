@@ -36,6 +36,16 @@ public class UserServiceImpl implements UserService {
     public List<User> listUsers() {
         return userDao.findAll();
     }
+    
+    @Override
+    public User findUser(Integer sjsuid){
+    	return userDao.getUser(sjsuid);
+    }
+
+	/* (non-Javadoc)
+	 * @see edu.sjsu.cmpe275.lms.service.UserService#getUser(long)
+	 */
+	
 
 
 }
