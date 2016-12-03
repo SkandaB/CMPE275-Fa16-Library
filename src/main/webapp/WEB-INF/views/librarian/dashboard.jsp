@@ -246,10 +246,10 @@
                                 </ul>
                                 <div id="my-tab-content" class="tab-content">
                                     <div class="tab-pane active" id="a">
-                                            <form:form class="form-style-9" method="post" modelAttribute="book" name="simpleaddform" id="simpleaddform" style="display: none">
+                                            <form:form class="form-style-9" method="post" action="book/addBook/" modelAttribute="book" name="simpleaddform" id="simpleaddform" style="display: none">
                                                 <ul>
                                                     <li>
-                                                        <input type="text" id="addisbnbook" class="field-style field-full align-none"  name="addisbnbook" placeholder="ISBN">
+                                                        <input type="text" id="isbn" class="field-style field-full align-none" name="isbn" placeholder="ISBN">
                                                     </li>
                                                     <li>
                                                         <input type="submit" value="Add Book" />
@@ -284,46 +284,14 @@
                                                     <input type="text" name="bookcurrentstatus" class="field-style field-split align-left" placeholder="Current Status"></textarea>
                                                     <input type="text" name="bookkeywords" class="field-style field-split align-right" placeholder="Book Keywords" />
                                                 </li>
+
                                                 <li>
                                                     <input type="submit" value="Add Book" />
                                                 </li>
                                             </ul>
                                         </form:form>
-
-
-
-                                        <%----%>
-                                        <%----%>
-                                        <%----%>
-                                        <%--<form method="post" id="advancedaddform" style="visibility: hidden">--%>
-
-                                                <%--<label>Author <input type="text" id="bookauthor"--%>
-                                                                     <%--name="bookauthor"/></label>--%>
-                                                <%--<label>Title <textarea id="booktitle"--%>
-                                                                       <%--name="booktitle"></textarea></label>--%>
-                                                <%--<label>Call number <input type="bookcallnumber" name="bookcallnumber"/></label>--%>
-                                                <%--<label>Publisher <input type="text" id="bookpublisher"--%>
-                                                                        <%--name="bookpublisher"/></label>--%>
-                                                <%--<label>Year of publication <input type="text" id="bookpublicationyear"--%>
-                                                                                  <%--name="bookpublicationyear"/></label>--%>
-                                                <%--<label>Location in the library <input type="text"--%>
-                                                                                      <%--id="booklibrarylocation"--%>
-                                                                                      <%--name="booklibrarylocation"/></label>--%>
-                                                <%--<label>Number of copies <input type="text" id="booknumbercopies"--%>
-                                                                               <%--name="booknumbercopies"/></label>--%>
-                                                <%--<label>Current status <input type="text" id="bookcurrentstatus"--%>
-                                                                             <%--name="bookcurrentstatus"/></label>--%>
-                                                <%--<label>Keywords <input type="text" id="bookkeywords"--%>
-                                                                       <%--name="bookkeywords"/></label>--%>
-                                                <%--<label>Coverage Image(Optional) <input type="text"--%>
-                                                                                       <%--id="bookcoverageimage"--%>
-                                                                                       <%--name="bookcoverageimage"/></label>--%>
-
-                                            <%--&lt;%&ndash;<div class="button-section">&ndash;%&gt;--%>
-                                                <%--&lt;%&ndash;<input type="submit" id="booksubmit" name="booksubmit" name="Add Book"/>&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                                        <%--</form>--%>
                                 </div>
+                            <%--</div>--%>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
