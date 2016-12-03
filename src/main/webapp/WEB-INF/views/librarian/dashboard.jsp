@@ -5,6 +5,10 @@
   Time: 2:41 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,43 +22,133 @@
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
 </head>
 <style>
+
+
+    /*<!-- Making the form awesome --> */
+
+    .form-style-9{
+        max-width: 450px;
+        background: #FAFAFA;
+        padding: 30px;
+        margin: 50px auto;
+        box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
+        border-radius: 10px;
+        border: 6px solid #305A72;
+    }
+    .form-style-9 ul{
+        padding:0;
+        margin:0;
+        list-style:none;
+    }
+    .form-style-9 ul li{
+        display: block;
+        margin-bottom: 10px;
+        min-height: 35px;
+    }
+    .form-style-9 ul li  .field-style{
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        padding: 8px;
+        outline: none;
+        border: 1px solid #B0CFE0;
+        -webkit-transition: all 0.30s ease-in-out;
+        -moz-transition: all 0.30s ease-in-out;
+        -ms-transition: all 0.30s ease-in-out;
+        -o-transition: all 0.30s ease-in-out;
+
+    }.form-style-9 ul li  .field-style:focus{
+         box-shadow: 0 0 5px #B0CFE0;
+         border:1px solid #B0CFE0;
+     }
+    .form-style-9 ul li .field-split{
+        width: 49%;
+    }
+    .form-style-9 ul li .field-full{
+        width: 100%;
+    }
+    .form-style-9 ul li input.align-left{
+        float:left;
+    }
+    .form-style-9 ul li input.align-right{
+        float:right;
+    }
+    .form-style-9 ul li textarea{
+        width: 100%;
+        height: 100px;
+    }
+    .form-style-9 ul li input[type="button"],
+    .form-style-9 ul li input[type="submit"] {
+        -moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
+        -webkit-box-shadow: inset 0px 1px 0px 0px #3985B1;
+        box-shadow: inset 0px 1px 0px 0px #3985B1;
+        background-color: #216288;
+        border: 1px solid #17445E;
+        display: inline-block;
+        cursor: pointer;
+        color: #FFFFFF;
+        padding: 8px 18px;
+        text-decoration: none;
+        font: 12px Arial, Helvetica, sans-serif;
+    }
+    .form-style-9 ul li input[type="button"]:hover,
+    .form-style-9 ul li input[type="submit"]:hover {
+        background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
+        background-color: #28739E;
+    }
+
+    /*End form styling*/
+
+    /*Making the modal box awesome*/
+
     .modal {
+        /*//height: 45%;*/
         text-align: center;
         padding: 0 !important;
     }
 
-    .modal:before {
-        content: '';
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-        margin-right: -4px; /* Adjusts for spacing */
-    }
+    /*.modal:before {*/
+        /*content: '';*/
+        /*display: inline-block;*/
+        /*height: 100%;*/
+        /*width: 100%;*/
+        /*vertical-align: middle;*/
+        /*margin-right: -4px; !* Adjusts for spacing *!*/
+    /*}*/
 
+    .modal-body{
+        height: 100%;
+    }
     .modal-dialog {
+        width: 95%;
         display: inline-block;
         text-align: left;
         vertical-align: middle;
     }
+
+    /*End modal styling*/
 </style>
 <script type="text/javascript">
-    displayForms = function(link,formId) {
+    displayForms = function (link, formId) {
         // disable subsequent clicks
-        link.onclick = function(event) {
+        link.onclick = function (event) {
             event.preventDefault();
         }
-        document.getElementById(formId).style.display = 'block';
+        document.getElementById(formId).style.display = "block";
     }
 
     $(document).ready(function () {
         $("#addBtn").click(function () {
-                $('#addBookModal').modal('show');
+            $('#addBookModal').modal('show');
         });
 
         $("#addBtn1").click(function () {
-                $('#addBookModal').modal('show');
+            $('#addBookModal').modal('show');
         });
     });
 </script>
@@ -138,20 +232,102 @@
                             </div>
                             <div class="modal-body">
                                 <!-- Add forms here -->
-                                <a href="#" id="simpleadd" onclick="displayForms(this,'simpleaddform');">Add via ISBN</a>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="#" id="advancedadd" onclick="displayForms(this,'advancedaddform');">Advanced add</a>
-                                <form method="post" id="simpleaddform" style="display: none" >
-                                        Simple add form
-                                </form>
+                                <ul class="nav nav-tabs" id="tabContent" data-tabs="tabs">
+                                    <li>
+                                        <a href="#" id="simpleadd" data-toggle="tab" onclick="displayForms(this,'simpleaddform');">Add via
+                                        ISBN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                         </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" id="advancedadd" data-toggle="tab" onclick="displayForms(this,'advancedaddform');">Advanced
+                                            add
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div id="my-tab-content" class="tab-content">
+                                    <div class="tab-pane active" id="a">
+                                            <form:form class="form-style-9" method="post" modelAttribute="book" name="simpleaddform" id="simpleaddform" style="display: none">
+                                                <ul>
+                                                    <li>
+                                                        <input type="text" id="addisbnbook" class="field-style field-full align-none"  name="addisbnbook" placeholder="ISBN">
+                                                    </li>
+                                                    <li>
+                                                        <input type="submit" value="Add Book" />
+                                                    </li>
+                                                </ul>
+                                            </form:form>
+                                    </div>
+                                    </div>
+                                    <div class="tab-pane" id="b">
 
-                                <form method="post" id="advancedaddform" style="display: none">
-                                        Advanced add form
-                                </form>
+                                        <form:form class="form-style-9" method="post" id="advancedaddform" style="display: none">
+                                            <ul>
+                                                <li>
+                                                    <input type="text" name="booktitle" class="field-style field-split align-left" placeholder="Title" />
+                                                    <input type="email" name="bookauthor" class="field-style field-split align-right" placeholder="Author" />
+
+                                                </li>
+                                                <li>
+
+                                                    <input type="text" name="bookcallnumber" class="field-style field-split align-left" placeholder="Call Number" />
+                                                    <input type="url" name="bookpublisher" class="field-style field-split align-right" placeholder="Publisher" />
+                                                </li>
+                                                <li>
+                                                    <input type="text" name="bookpublicationyear" class="field-style field-split align-left" placeholder="Publication Year" />
+                                                    <input type="text" name="booklibrarylocation" class="field-style field-split align-left" placeholder="Library Location" />
+                                                </li>
+                                                <li>
+                                                    <input type="number" name="booknoofcopies" class="field-style field-split align-left" placeholder="Number of Copies" />
+                                                    <input type="text" name="booklibrarylocation" class="field-style field-split align-right" placeholder="Library Location" />
+                                                </li>
+                                                <li>
+                                                    <input type="text" name="bookcurrentstatus" class="field-style field-split align-left" placeholder="Current Status"></textarea>
+                                                    <input type="text" name="bookkeywords" class="field-style field-split align-right" placeholder="Book Keywords" />
+                                                </li>
+                                                <li>
+                                                    <input type="submit" value="Add Book" />
+                                                </li>
+                                            </ul>
+                                        </form:form>
+
+
+
+                                        <%----%>
+                                        <%----%>
+                                        <%----%>
+                                        <%--<form method="post" id="advancedaddform" style="visibility: hidden">--%>
+
+                                                <%--<label>Author <input type="text" id="bookauthor"--%>
+                                                                     <%--name="bookauthor"/></label>--%>
+                                                <%--<label>Title <textarea id="booktitle"--%>
+                                                                       <%--name="booktitle"></textarea></label>--%>
+                                                <%--<label>Call number <input type="bookcallnumber" name="bookcallnumber"/></label>--%>
+                                                <%--<label>Publisher <input type="text" id="bookpublisher"--%>
+                                                                        <%--name="bookpublisher"/></label>--%>
+                                                <%--<label>Year of publication <input type="text" id="bookpublicationyear"--%>
+                                                                                  <%--name="bookpublicationyear"/></label>--%>
+                                                <%--<label>Location in the library <input type="text"--%>
+                                                                                      <%--id="booklibrarylocation"--%>
+                                                                                      <%--name="booklibrarylocation"/></label>--%>
+                                                <%--<label>Number of copies <input type="text" id="booknumbercopies"--%>
+                                                                               <%--name="booknumbercopies"/></label>--%>
+                                                <%--<label>Current status <input type="text" id="bookcurrentstatus"--%>
+                                                                             <%--name="bookcurrentstatus"/></label>--%>
+                                                <%--<label>Keywords <input type="text" id="bookkeywords"--%>
+                                                                       <%--name="bookkeywords"/></label>--%>
+                                                <%--<label>Coverage Image(Optional) <input type="text"--%>
+                                                                                       <%--id="bookcoverageimage"--%>
+                                                                                       <%--name="bookcoverageimage"/></label>--%>
+
+                                            <%--&lt;%&ndash;<div class="button-section">&ndash;%&gt;--%>
+                                                <%--&lt;%&ndash;<input type="submit" id="booksubmit" name="booksubmit" name="Add Book"/>&ndash;%&gt;--%>
+                                            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+                                        <%--</form>--%>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <%--<button type="button" class="btn btn-primary">Add Book </button>--%>
                             </div>
                         </div>
                     </div>
@@ -245,6 +421,7 @@
                 <%--<!--/tabs-->--%>
 
                 <%--<hr>--%>
+
                 <%--<div class="panel panel-default">--%>
                 <%--<div class="panel-heading">--%>
                 <%--<h4>New Requests</h4></div>--%>
@@ -394,7 +571,7 @@
 </div>
 <!-- /Main -->
 
-<footer class="text-center">This Bootstrap 3 dashboard layout is compliments of <a
+<footer class="text-center">Credits: This Bootstrap 3 dashboard layout is compliments of <a
         href="http://www.bootply.com/85850"><strong>Bootply.com</strong></a></footer>
 
 <%--<div class="modal" id="addWidgetModal">--%>
