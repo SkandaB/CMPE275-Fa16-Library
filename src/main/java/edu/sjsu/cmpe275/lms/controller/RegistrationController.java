@@ -7,6 +7,8 @@ import edu.sjsu.cmpe275.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * Created by SkandaBhargav on 11/28/16.
@@ -39,22 +42,32 @@ public class RegistrationController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView showUserCreationForm(HttpServletRequest request) {
+    public ModelAndView showUserCreationForm(HttpServletRequest request/*, Map<String,Object> model*/) {
+        User user = new User();
         ModelAndView modelAndView = new ModelAndView("users/addUser");
-        modelAndView.addObject("requestURL", request.getRequestURL().toString());
+        modelAndView.addObject("userForm", user);
         return modelAndView;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerNewUserAccount(
-            @RequestParam long sjsuid,
+            /*@RequestParam long sjsuid,
             @RequestParam String useremail,
             @RequestParam String password,
-            HttpServletRequest request) {
-        System.out.println("************* Received the following from the form: SJSUID: " + sjsuid + " UserEmail: " + useremail + " Password: " + password);
+            HttpServletRequest request,
+            @Valid User user,*/
+            HttpServletRequest request,
+            @Valid @ModelAttribute("userForm") User user,
+            BindingResult bindingResult) {
+        System.out.println("************* Received the following from the form: SJSUID: " + user.getSjsuid() + " UserEmail: " + user.getUseremail() + " Password: " + user.getPassword());
 
-        User added = uService.createUser(sjsuid, useremail, password);
-        System.out.println("************* The following user was added into the database: " + added.toString());
+        if (bindingResult.hasErrors()) {
+            System.out.println("******** Result has errors: ******");
+            return new ModelAndView("users/addUser");
+        }
+
+        User added = uService.createUser(user.getSjsuid(), user.getUseremail(), user.getPassword());
+        System.out.println("************* The following user will be added into the database: " + added.toString());
         if (added == null) {
             System.out.println("*********** Calling Error Page");
             return new ModelAndView("error");

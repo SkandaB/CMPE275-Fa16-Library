@@ -1,21 +1,33 @@
 package edu.sjsu.cmpe275.lms.entity;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "USER")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"SJSUID", "ROLE"}))
 public class User {
 
 	public static final String ROLE_LIBRARIAN = "LIBRARIAN";
 	public static final String ROLE_PATRON = "PATRON";
+
+
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "ID", length = 8, unique = true, nullable = false)
 	private Integer id;
-	@Column(name = "SJSUID", nullable = false,unique = true)
+	@Range(min = 100000, max = 999999, message = "SJSU ID is of fixed size 6 digits")
+	@Column(name = "SJSUID", nullable = false)
 	private long sjsuid;
+	@Email(message = "Please enter a valid email")
 	@Column(name = "USEREMAIL", nullable = false)
+	@NotEmpty(message = "Email cannot be empty")
 	private String useremail;
+	@NotEmpty(message = "Password cannot be empty")
+	@Size(min = 6, max = 15, message = "Your password must between 6 and 15 characters")
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 	@Column(name = "ROLE")
