@@ -193,6 +193,12 @@
 					<version>v1-rev89-1.22.0</version>
 				</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.google.gdata/core -->
+		<dependency>
+			<groupId>com.google.gdata</groupId>
+			<artifactId>core</artifactId>
+			<version>1.47.1</version>
+		</dependency>
 
 	</dependencies>
 
