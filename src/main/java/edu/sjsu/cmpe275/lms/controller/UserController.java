@@ -10,13 +10,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,6 +32,8 @@ public class UserController {
 		return modelAndView;
 	}
 
+/*	*/
+
 	/**
 	 * @param sjsuid
 	 * @param useremail
@@ -43,7 +42,7 @@ public class UserController {
 	 * @param model
 	 * @param request
 	 * @param response
-	 */
+	 *//*
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public Object userCreating(@RequestParam long sjsuid,
 			@RequestParam String useremail,
@@ -53,13 +52,13 @@ public class UserController {
 			HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("users/addUser");
-		User uEntity = uService.createUser(sjsuid, useremail, password, role);
+		User uEntity = uService.createUser(sjsuid, useremail, password);
 
 		System.out.println(uEntity.toString());
 
 
 		return "users/welcome";
-	}
+	}*/
 
 	@RequestMapping(value = "/user/showall", method = RequestMethod.GET)
 	public Object showAll() {

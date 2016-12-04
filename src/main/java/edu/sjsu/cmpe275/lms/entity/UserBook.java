@@ -3,17 +3,10 @@
  */
 package edu.sjsu.cmpe275.lms.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  * @author dhanyaramesh
@@ -22,22 +15,63 @@ import javax.persistence.Table;
 @Entity
 @Table(name="USER_BOOK")
 public class UserBook {
+
+    @EmbeddedId
+    @Column(name = "id")
+    private UserBookId id;
+    @ManyToOne
+    @JoinColumn(name = "book", insertable = false, updatable = false)
+    private Book book;
+    @ManyToOne
+    @JoinColumn(name = "user", insertable = false, updatable = false)
+    private User user;
+    @Column(name = "checkoutDate")
+    private String date;
+    @Column(name = "renewFlag")
+    private Integer renewFlag;
+
+    public UserBook() {
+
+    }
+
+
+    public UserBook(Book b, User u, LocalDate f, Integer renewFlag) {
+        // create primary key
+        this.id = new UserBookId(b.getBookId(), u.getSjsuid());
+
+        // initialize attributes
+        this.book = b;
+        this.user = u;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        this.date = dtf.format(LocalDate.now());
+        this.renewFlag = renewFlag;
+
+        // update relationships to assure referential integrity
+        /*System.out.println("user  "+u.getCurrentBooks().add(this));
+		System.out.println("book  "+b.getCurrentUsers().add(this));*/
+    }
+
+    public void UserBookPersist(Book b, User u) {
+        u.getCurrentBooks().add(this);
+        b.getCurrentUsers().add(this);
+
+    }
 	
 	@Embeddable
 	public static class UserBookId implements Serializable{
-		
+
 		@Column(name = "book")
 		protected Integer bookId;
 
 		@Column(name = "user")
-		protected Integer userId;
+        protected Long userId;
 
 		public UserBookId() {
-			
-		}
-		
-		public UserBookId(Integer bookId, Integer userId) {
-			this.bookId = bookId;
+
+        }
+
+        public UserBookId(Integer bookId, long userId) {
+            this.bookId = bookId;
 			this.userId = userId;
 		}
 
@@ -60,68 +94,24 @@ public class UserBook {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			
-			UserBookId other = (UserBookId) obj;
-			
-			if (bookId == null) {
+
+            UserBookId other = (UserBookId) obj;
+
+            if (bookId == null) {
 				if (other.bookId != null)
 					return false;
 			} else if (!bookId.equals(other.bookId))
 				return false;
-			
-			if (userId == null) {
+
+            if (userId == null) {
 				if (other.userId != null)
 					return false;
 			} else if (!userId.equals(other.userId))
 				return false;
-			
-			return true;
+
+            return true;
 		}
-		
-	}
-	
-	@EmbeddedId
-	@Column(name = "id")
-	private UserBookId id;
 
-	@ManyToOne
-	@JoinColumn(name = "book", insertable = false, updatable = false)
-	private Book book;
-
-	@ManyToOne
-	@JoinColumn(name = "user", insertable = false, updatable = false)
-	private User user;
-
-	@Column(name = "checkoutDate")
-	private String date;
-	
-	@Column(name = "renewFlag")
-	private Integer renewFlag;
-	
-
-	public UserBook(){
-		
-	}
-	public UserBook(Book b, User u, LocalDate f, Integer renewFlag) {
-		// create primary key
-		this.id = new UserBookId(b.getBookId(), u.getUserId());
-		
-		// initialize attributes
-		this.book = b;
-		this.user = u;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		this.date = dtf.format(LocalDate.now());
-		this.renewFlag = renewFlag;
-		
-		// update relationships to assure referential integrity
-		/*System.out.println("user  "+u.getCurrentBooks().add(this));
-		System.out.println("book  "+b.getCurrentUsers().add(this));*/
-	}
-	
-	public void UserBookPersist(Book b, User u){
-		u.getCurrentBooks().add(this);
-		b.getCurrentUsers().add(this);
-		
-	}
+    }
 
 }

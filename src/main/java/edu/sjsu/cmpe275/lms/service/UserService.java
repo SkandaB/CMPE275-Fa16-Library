@@ -24,14 +24,9 @@ public interface UserService {
 
 
     List<User> listUsers();
-    
-   
 
-	/**
-	 * @param sjsuid
-	 * @return
-	 */
-	public User findUser(Integer sjsuid);
+
+    public User findUser(Integer id);
 
     void createToken(User user, String token);
 

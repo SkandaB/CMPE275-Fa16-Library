@@ -18,11 +18,7 @@
 	<bean id="dataSource"
 		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-<<<<<<< HEAD
-		<property name="url" value="jdbc:mysql://localhost:3306/cmpe275_lms" />
-=======
 		<property name="url" value="jdbc:mysql://localhost:3306/lms"/>
->>>>>>> DB_Based_UserAuth
 		<property name="username" value="root" />
 		<property name="password" value="v5yzmCbb"/>
 		<!--<property name="password" value="password" />-->
@@ -73,6 +69,7 @@
 	<!-- To validate the posted add employee form -->
 	<bean id="userFormValidator" class="edu.sjsu.cmpe275.lms.validator.UserFormValidator"/>
 
+
 	<!--Mail Server Setup-->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com"/>
@@ -91,11 +88,12 @@
 		</property>
 	</bean>
 
+
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-	<!--This resolves messages from resource bundles for different locales-->
-	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="messages" /> </bean>-->
+	<!-- This resolves messages from resource bundles for different locales -->
+	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+		<property name="basename" value="messages" /> </bean> -->
 
 </beans>
 

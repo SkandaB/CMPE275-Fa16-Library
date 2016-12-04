@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
         user.setSjsuid(sjsuid);
         user.setUseremail(useremail);
         user.setPassword(password);
-        String role = (useremail.endsWith("@sjsu.edu")) ? "librarian" : "patron";
+        String role = (useremail.endsWith("@sjsu.edu")) ? "ROLE_LIBRARIAN" : "ROLE_PATRON";
         user.setRole(role);
 
         // TODO Auto-generated method stub
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public User findUser(Integer sjsuid){
-    	return userDao.getUser(sjsuid);
+    public User findUser(Integer id) {
+        return userDao.getUser(id);
     }
 
 	/* (non-Javadoc)

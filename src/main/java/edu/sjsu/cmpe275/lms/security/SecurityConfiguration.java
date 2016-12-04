@@ -19,20 +19,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
- /*   @Autowired
+    @Autowired
     public void ConfigureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select username,password, enabled from users where username=?")
-                .authoritiesByUsernameQuery("select username,role from user_roles where username=?");
+                .usersByUsernameQuery("select USEREMAIL,PASSWORD, ENABLED from user where USEREMAIL=?")
+                .authoritiesByUsernameQuery("select USEREMAIL,ROLE from user where USEREMAIL=?");
     }
 
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/user/showall").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/user/showall").access("hasRole('ROLE_LIBRARIAN')")
+        /*antMatchers("/user/showall").access("hasRole('ROLE_PATRON')")*/
                 .and().formLogin();
         httpSecurity.csrf().disable();
-    }*/
+    }
 
+/*
 
     @Autowired
     public void ConfigureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -46,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().formLogin();
         httpSecurity.csrf().disable();
     }
+*/
 
 }
 

@@ -51,11 +51,6 @@ public class RegistrationController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerNewUserAccount(
-            /*@RequestParam long sjsuid,
-            @RequestParam String useremail,
-            @RequestParam String password,
-            HttpServletRequest request,
-            @Valid User user,*/
             HttpServletRequest request,
             @Valid @ModelAttribute("userForm") User user,
             BindingResult bindingResult) {
