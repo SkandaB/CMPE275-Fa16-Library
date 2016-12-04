@@ -73,7 +73,15 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	public String toString(){
-		return "User:: Email: "+getUseremail()+" Role: "+getRole()+" isEnabled: "+getEnabled();
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", sjsuid=" + sjsuid +
+				", useremail='" + useremail + '\'' +
+				", password='" + password + '\'' +
+				", role='" + role + '\'' +
+				", enabled=" + enabled +
+				'}';
 	}
 }
