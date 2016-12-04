@@ -11,8 +11,7 @@
 <body>
 
 <div class="container">
-    <h2>Welcome !! </h2>
-    ${message}
+    <h2>${status}</h2>
 </div>
 <jsp:include page="../../fragments/footer.jsp" />
 

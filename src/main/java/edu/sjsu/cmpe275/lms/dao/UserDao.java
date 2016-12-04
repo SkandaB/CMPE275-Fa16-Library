@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package edu.sjsu.cmpe275.lms.dao;
 
@@ -8,10 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * @author SkandaBhargav
- *
- */
 @Transactional
 public interface UserDao {
 
@@ -20,6 +16,11 @@ public interface UserDao {
 	 * @return
 	 */
 	User createUser(User uEntity);
-
 	List<User> findAll();
+
+	public User getUser(Integer id);
+
+
+	void updateUser(User user);
+
 }
