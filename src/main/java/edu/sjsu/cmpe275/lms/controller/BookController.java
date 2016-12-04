@@ -11,27 +11,22 @@ import com.google.gdata.data.books.VolumeFeed;
 import com.google.gdata.data.dublincore.Creator;
 import com.google.gdata.data.dublincore.Publisher;
 import com.google.gdata.util.ServiceException;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import edu.sjsu.cmpe275.lms.dao.BookDao;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.errors.Errors;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.ISBNValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
-import java.util.Calendar;
 import java.util.List;
 
 
@@ -111,16 +106,28 @@ public class BookController {
 //    }
 
     @Transactional
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/addBook/", method = RequestMethod.POST)
-    String addBookviaISBN(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
+    String addBookviaForm(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
         System.out.println("boook" + book);
-        isbn = book.getIsbn();
-
-        ISBNValidator validator = new ISBNValidator();
-        if (validator.isValid(book.getIsbn())) {
-            queryGoogleBooks(book, response);
+        /**
+         * Check if the mode of addition is via ISBN or advanced-mode.
+         */
+        if(book.getAuthor()== null){ // There was no author as input. Has to be simple mode.
+            isbn = book.getIsbn();
+            ISBNValidator validator = new ISBNValidator();
+            if (validator.isValid(book.getIsbn())) {
+                queryGoogleBooks(book, response);
+            } else {
+                throwNoISBNFoundError(response);
+            }
         } else {
-            throwNoISBNFoundError(response);
+            //author was given as input. Has to be advanced mode.
+            /**
+             * Save value to database.
+             */
+            book.setIsbn(book.getIsbn());
+            addNewBook(book,book.getTitle(),book.getAuthor(),book.getYear_of_publication(),book.getPublisher() ,response);
         }
         return "addBook";
     }
@@ -203,13 +210,15 @@ public class BookController {
 
         System.out.println("Year of Publication: " + year_of_publication);
 
-
         /**
          * Save the values to database
          */
+        addNewBook(book,title,author,year_of_publication,publisher ,response);
+    }
 
+    private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher , HttpServletResponse response) {
         try {
-            bookDao.addBook(isbn, author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords());
+            bookDao.addBook(book.getIsbn(), author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords());
         }
         /**
          * If Unique key number is tried to repeat
@@ -224,6 +233,7 @@ public class BookController {
             }
         }
     }
+
 
 }
 
