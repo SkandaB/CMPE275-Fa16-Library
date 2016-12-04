@@ -40,13 +40,13 @@ public class Book {
     private String current_status;
     @Column(name = "KEYWORDS")
     private String keywords;
-    @Column(name = "IMAGE")
-    private byte[] image;
+//    @Column(name = "IMAGE")
+//    private byte[] image;
 
     public Book() {
     }
 
-    public Book(String isbn, String author, String title, String callnumber, String publisher, int year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image) {
+    public Book(String isbn, String author, String title, String callnumber, String publisher, int year_of_publication, String location, int num_of_copies, String current_status, String keywords) {
         this.isbn = isbn;
         this.author = author;
         this.title = title;
@@ -57,7 +57,7 @@ public class Book {
         this.num_of_copies = num_of_copies;
         this.current_status = current_status;
         this.keywords = keywords;
-        this.image = image;
+        //this.image = image;
 
     }
 
@@ -136,13 +136,13 @@ public class Book {
         this.keywords = keywords;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
+//    public byte[] getImage() {
+//        return image;
+//    }
+//
+//    public void setImage(byte[] image) {
+//        this.image = image;
+//    }
 
     public int getYear_of_publication() {
         return year_of_publication;

@@ -252,6 +252,11 @@
                                                         <input type="text" id="isbn" class="field-style field-full align-none" name="isbn" placeholder="ISBN">
                                                     </li>
                                                     <li>
+                                                        <input type="text" name="booktitle" class="field-style field-split align-left" placeholder="Title" />
+                                                        <input type="email" name="bookauthor" class="field-style field-split align-right" placeholder="Author" />
+
+                                                    </li>
+                                                    <li>
                                                         <input type="submit" value="Add Book" />
                                                     </li>
                                                 </ul>
