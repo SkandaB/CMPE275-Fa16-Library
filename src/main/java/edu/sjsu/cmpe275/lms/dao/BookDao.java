@@ -32,7 +32,7 @@ public interface BookDao {
      * @param image               Bytes as image
      * @return true if add successful, false if failed
      */
-    boolean addBook(String isbn, String author, String title, String callnumber, String publisher, int year_of_publication, String location, int num_of_copies, String current_status, String keywords);
+    boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords);
 
     /**
      * Return the book by isbn code

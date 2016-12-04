@@ -28,7 +28,7 @@ public class Book {
     @Column(name = "PUBLISHER", nullable = false)
     private String publisher;
     @Column(name = "YEAR_OF_PUBLICATION")
-    private int year_of_publication;
+    private String year_of_publication;
     /**
      * Location of the book in library
      */
@@ -46,7 +46,7 @@ public class Book {
     public Book() {
     }
 
-    public Book(String isbn, String author, String title, String callnumber, String publisher, int year_of_publication, String location, int num_of_copies, String current_status, String keywords) {
+    public Book(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords) {
         this.isbn = isbn;
         this.author = author;
         this.title = title;
@@ -144,11 +144,11 @@ public class Book {
 //        this.image = image;
 //    }
 
-    public int getYear_of_publication() {
+    public String getYear_of_publication() {
         return year_of_publication;
     }
 
-    public void setYear_of_publication(int year_of_publication) {
+    public void setYear_of_publication(String year_of_publication) {
         this.year_of_publication = year_of_publication;
     }
 

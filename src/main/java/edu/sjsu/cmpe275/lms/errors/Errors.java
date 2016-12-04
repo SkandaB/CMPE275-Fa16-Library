@@ -19,6 +19,15 @@ public class Errors {
         return sb.toString();
     }
 
+    public static String bookDetailsNotFound(String isbn){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Sorry, the requested book");
+        sb.append(" with ISBN ");
+        sb.append(isbn);
+        sb.append(" was not found by the GData API.");
+        return sb.toString();
+    }
+
     /**
      * Returns error page when deleting a resource is not allowed
      *
@@ -42,13 +51,13 @@ public class Errors {
     /**
      * Returns error page when try to enter duplicate unique key
      *
-     * @param phoneNumber
+     * @param isbn
      * @return html error page string
      */
-    public static String getDuplicateKeyNotAllowedErrorPage(String phoneNumber) {
+    public static String getDuplicateKeyNotAllowedErrorPage(String isbn) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Sorry, phone number ");
-        sb.append(phoneNumber);
+        sb.append("Sorry, ISBN number ");
+        sb.append(isbn);
         sb.append(" already exists. Duplicate not allowed.");
         return generatePage(sb.toString());
     }

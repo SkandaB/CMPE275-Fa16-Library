@@ -27,8 +27,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
 </head>
 <style>
-
-
     /*<!-- Making the form awesome --> */
 
     .form-style-9{
@@ -252,8 +250,17 @@
                                                         <input type="text" id="isbn" class="field-style field-full align-none" name="isbn" placeholder="ISBN">
                                                     </li>
                                                     <li>
-                                                        <input type="text" name="booktitle" class="field-style field-split align-left" placeholder="Title" />
-                                                        <input type="email" name="bookauthor" class="field-style field-split align-right" placeholder="Author" />
+                                                        <input type="text" name="callnumber" class="field-style field-split align-left" placeholder="Call Number" />
+                                                        <input type="text" name="location" class="field-style field-split align-right" placeholder="Location" />
+                                                    </li>
+                                                    <li>
+                                                        <input type="number" min="1" name="num_of_copies" class="field-style field-split align-left" placeholder="# of copies" />
+                                                        <input type="text" name="keywords" class="field-style field-split align-right" placeholder="Keywords" />
+                                                        <select class="selectpicker" name="current_status" data-style="btn-info">
+                                                            <option>Available</option>
+                                                            <option>Reserved</option>
+                                                            <option>Wait-Listed</option>
+                                                        </select>
 
                                                     </li>
                                                     <li>
@@ -268,26 +275,26 @@
                                         <form:form class="form-style-9" method="post" id="advancedaddform" style="display: none">
                                             <ul>
                                                 <li>
-                                                    <input type="text" name="booktitle" class="field-style field-split align-left" placeholder="Title" />
-                                                    <input type="email" name="bookauthor" class="field-style field-split align-right" placeholder="Author" />
+                                                    <input type="text" name="title" class="field-style field-split align-left" placeholder="Title" />
+                                                    <input type="text" name="author" class="field-style field-split align-right" placeholder="Author" />
 
                                                 </li>
                                                 <li>
 
-                                                    <input type="text" name="bookcallnumber" class="field-style field-split align-left" placeholder="Call Number" />
-                                                    <input type="url" name="bookpublisher" class="field-style field-split align-right" placeholder="Publisher" />
+                                                    <input type="text" name="callnumber" class="field-style field-split align-left" placeholder="Call Number" />
+                                                    <input type="url" name="publisher" class="field-style field-split align-right" placeholder="Publisher" />
                                                 </li>
                                                 <li>
-                                                    <input type="text" name="bookpublicationyear" class="field-style field-split align-left" placeholder="Publication Year" />
-                                                    <input type="text" name="booklibrarylocation" class="field-style field-split align-left" placeholder="Library Location" />
+                                                    <input type="text" name="year_of_publication" class="field-style field-split align-left" placeholder="Publication Year" />
+                                                    <input type="text" name="location" class="field-style field-split align-left" placeholder="Library Location" />
                                                 </li>
                                                 <li>
-                                                    <input type="number" name="booknoofcopies" class="field-style field-split align-left" placeholder="Number of Copies" />
-                                                    <input type="text" name="booklibrarylocation" class="field-style field-split align-right" placeholder="Library Location" />
+                                                    <input type="number" min="1" name="num_of_copies" class="field-style field-split align-left" placeholder="Number of Copies" />
+                                                    <input type="text" name="location" class="field-style field-split align-right" placeholder="Library Location" />
                                                 </li>
                                                 <li>
-                                                    <input type="text" name="bookcurrentstatus" class="field-style field-split align-left" placeholder="Current Status"></textarea>
-                                                    <input type="text" name="bookkeywords" class="field-style field-split align-right" placeholder="Book Keywords" />
+                                                    <input type="text" name="current_status" class="field-style field-split align-left" placeholder="Current Status"></textarea>
+                                                    <input type="text" name="keywords" class="field-style field-split align-right" placeholder="Book Keywords" />
                                                 </li>
 
                                                 <li>
