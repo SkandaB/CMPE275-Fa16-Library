@@ -55,7 +55,9 @@ public class UserController {
 
         String usertype = uEntity.getRole();
         System.out.println("Usertrpe "+usertype);
-        if (usertype.equals("librarian")) return "librarian/dashboard";
+        if (usertype.equals("librarian")){
+            return "librarian/dashboard";
+        }
         return "users/welcome";
     }
 

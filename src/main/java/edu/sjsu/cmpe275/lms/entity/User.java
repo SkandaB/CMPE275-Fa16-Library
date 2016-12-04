@@ -65,7 +65,7 @@ public class User {
 		this.role = role;
 	}
 
-	public boolean getEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 

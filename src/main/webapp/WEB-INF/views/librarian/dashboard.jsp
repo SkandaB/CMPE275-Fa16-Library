@@ -150,7 +150,7 @@
         });
     });
 </script>
-<body>
+<body ng-controller="bookcontroller">
 <!-- header -->
 <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
