@@ -1,12 +1,12 @@
-<%@ page session="false"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page session="false" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
 
-<jsp:include page="../../fragments/header.jsp" />
+<jsp:include page="../../fragments/header.jsp"/>
 
 <body>
 
@@ -30,7 +30,7 @@
             <th>TITLE</th>
             <th>AUTHOR</th>
             <th>AVAILABILITY</th>
-            
+
         </tr>
         </thead>
 
@@ -40,7 +40,19 @@
                 <td>${book.title}</td>
                 <td>${book.author}</td>
                 <td>${book.current_status}</td>
-                
+                <td>
+                    <spring:url value="/users/${user.id}/books/${book.bookId}" var="userUrl"/>
+                    <spring:url value="/users/${user.id}/books/wish/${book.bookId}" var="updateUrl"/>
+                    <!--Dhanya, your add to wish_list will come here -->
+
+                    <button class="btn btn-info"
+                            onclick="location.href='${userUrl}'">Request it
+                    </button>
+                    <button class="btn btn-primary"
+                            onclick="location.href='${updateUrl}'">Wish to read Later
+                    </button>
+                </td>
+
             </tr>
         </c:forEach>
     </table>
@@ -49,7 +61,7 @@
 <div>
     <a href="<c:url value="/logout" />">Logout</a>
 </div>
-<jsp:include page="../../fragments/footer.jsp" />
+<jsp:include page="../../fragments/footer.jsp"/>
 
 </body>
 </html>
