@@ -99,7 +99,7 @@ public class BookDaoImpl implements BookDao {
 				}
 				
 			}catch(EntityExistsException e){
-				returnStatus = "User has checked out the same book already";
+				returnStatus = "Exception";
 			}
 			
 			
@@ -132,13 +132,22 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
-	public void updateBookStatus(Integer bookId){
+	public void updateBookStatus(Integer book_Id){
+		String book_query = "select b from Book b where b.bookId = " + book_Id;
 
- 		Book book = (Book) entityManager.createQuery("select b from Book b where b.bookId = :bookId", Book.class).getResultList();
+ 		Book book = (Book) entityManager.createQuery(book_query, Book.class).getSingleResult();
 
-		List<UserBook> userBooks = 	entityManager.createQuery("select ub from Book ub where ub.bookId = :bookId", UserBook.class).getResultList();
+		System.out.println("book "+book.getBookId());
+
+		String userbook_query = "select ub from UserBook ub where ub.book.bookId = "+book_Id;
+
+
+		List<UserBook> userBooks = 	entityManager.createQuery(userbook_query, UserBook.class).getResultList();
+
+		System.out.println("userbook "+userBooks.size());
 
 		if(book.getNum_of_copies()==userBooks.size()){
+			System.out.println("changing status");
 			book.setCurrent_status("Hold");
 			entityManager.merge(book);
 		}

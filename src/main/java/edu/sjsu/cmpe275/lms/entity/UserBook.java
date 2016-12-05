@@ -64,13 +64,13 @@ public class UserBook {
 		protected Integer bookId;
 
 		@Column(name = "user")
-        protected Long userId;
+        protected Integer userId;
 
 		public UserBookId() {
 
         }
 
-        public UserBookId(Integer bookId, long userId) {
+        public UserBookId(Integer bookId, Integer userId) {
             this.bookId = bookId;
 			this.userId = userId;
 		}
