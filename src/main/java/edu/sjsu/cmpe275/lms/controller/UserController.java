@@ -53,13 +53,16 @@ public class UserController {
 			HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("users/addUser");
 		User uEntity = uService.createUser(sjsuid, useremail, password);
-
-		System.out.println(uEntity.toString());
-
-
+        String usertype = uEntity.getRole();
+        System.out.println("Usertrpe "+usertype);
+        if (usertype.equals("librarian")){
+            return "librarian/dashboard";
+        }
+        return "users/welcome";
+    }
 		return "users/welcome";
 	}*/
-
+	
 	@RequestMapping(value = "/user/showall", method = RequestMethod.GET)
 	public Object showAll() {
 		ModelAndView mv = new ModelAndView("users/list");
