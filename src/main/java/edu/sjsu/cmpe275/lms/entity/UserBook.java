@@ -37,7 +37,7 @@ public class UserBook {
 
     public UserBook(Book b, User u, LocalDate f, Integer renewFlag) {
         // create primary key
-        this.id = new UserBookId(b.getBookId(), u.getSjsuid());
+        this.id = new UserBookId(b.getBookId(), u.getId());
 
         // initialize attributes
         this.book = b;
@@ -64,13 +64,13 @@ public class UserBook {
 		protected Integer bookId;
 
 		@Column(name = "user")
-        protected Long userId;
+        protected Integer userId;
 
 		public UserBookId() {
 
         }
 
-        public UserBookId(Integer bookId, long userId) {
+        public UserBookId(Integer bookId, Integer userId) {
             this.bookId = bookId;
 			this.userId = userId;
 		}

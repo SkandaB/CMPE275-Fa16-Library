@@ -21,6 +21,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 
 @Transactional
@@ -239,5 +241,27 @@ public class BookDaoImpl implements BookDao {
         Book book = entityManager.find(Book.class, bookId);
         return book;
     }
+
+	@Override
+	public void updateBookStatus(Integer book_Id){
+		String book_query = "select b from Book b where b.bookId = " + book_Id;
+
+ 		Book book = (Book) entityManager.createQuery(book_query, Book.class).getSingleResult();
+
+		System.out.println("book "+book.getBookId());
+
+		String userbook_query = "select ub from UserBook ub where ub.book.bookId = "+book_Id;
+
+
+		List<UserBook> userBooks = 	entityManager.createQuery(userbook_query, UserBook.class).getResultList();
+
+		System.out.println("userbook "+userBooks.size());
+
+		if(book.getNum_of_copies()==userBooks.size()){
+			System.out.println("changing status");
+			book.setCurrent_status("Hold");
+			entityManager.merge(book);
+		}
+	}
 
 }
