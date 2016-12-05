@@ -59,4 +59,6 @@ public interface BookDao {
      * @return A list of books that match the search criteria
      */
     List<Book> searchBook(Book book);
+
+    public void updateBookStatus(Integer book_Id);
 }
