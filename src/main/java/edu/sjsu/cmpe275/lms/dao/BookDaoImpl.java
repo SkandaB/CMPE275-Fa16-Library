@@ -90,6 +90,7 @@ public class BookDaoImpl implements BookDao {
 					book.setCurrentUsers(currentUsers);
 					entityManager.persist(userBook);
 					userBook.UserBookPersist(book, user);
+					updateBookStatus(book.getBookId());
 					returnStatus = "User request for the book successful";
 				}
 				else{
@@ -128,6 +129,19 @@ public class BookDaoImpl implements BookDao {
 		 
 		Book book = entityManager.find(Book.class,bookId);
 		return book;
+	}
+
+	@Override
+	public void updateBookStatus(Integer bookId){
+
+ 		Book book = (Book) entityManager.createQuery("select b from Book b where b.bookId = :bookId", Book.class).getResultList();
+
+		List<UserBook> userBooks = 	entityManager.createQuery("select ub from Book ub where ub.bookId = :bookId", UserBook.class).getResultList();
+
+		if(book.getNum_of_copies()==userBooks.size()){
+			book.setCurrent_status("Hold");
+			entityManager.merge(book);
+		}
 	}
 
 }
