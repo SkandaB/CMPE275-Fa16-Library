@@ -14,6 +14,7 @@ public interface BookDao {
 
     /**
      * Add a book to database
+     *
      * @param book
      * @return true if add successful, false if failed
      */
@@ -40,12 +41,22 @@ public interface BookDao {
 
     /**
      * Return the book by isbn code
+     *
      * @param isbn
      * @return book object
      */
-    Book getBookByISBN (String isbn);
-     List<Book> findAll();
-     Book getBookbyId(Integer bookId);
-    
-     String setBookRequest(Integer bookId,Integer userId);
+    Book getBookByISBN(String isbn);
+
+    List<Book> findAll();
+
+    Book getBookbyId(Integer bookId);
+
+    String setBookRequest(Integer bookId, Integer userId);
+
+    /**
+     * Search a book by any of its fields
+     * @param book
+     * @return A list of books that match the search criteria
+     */
+    List<Book> searchBook(Book book);
 }
