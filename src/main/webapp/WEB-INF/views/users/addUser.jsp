@@ -20,17 +20,17 @@
     <table border="0" width="90%">
         <form:form action="${pageContext.request.contextPath}/register" commandName="userForm">
             <tr>
-                <td align="left" width="20%">SJSU ID:</td>
+                <td align="left" width="20%">SJSU ID</td>
                 <td align="left" width="40%"><form:input path="sjsuid" size="30"/></td>
                 <td align="left"><form:errors path="sjsuid" cssClass="error"/></td>
             </tr>
             <tr>
-                <td align="left" width="20%">Email:</td>
+                <td align="left" width="20%">Email</td>
                 <td align="left" width="40%"><form:input path="useremail" size="30"/></td>
                 <td align="left"><form:errors path="useremail" cssClass="error"/></td>
             </tr>
             <tr>
-                <td>Password:</td>
+                <td align="left" width="20%">Password</td>
                 <td><form:password path="password" size="30"/></td>
                 <td><form:errors path="password" cssClass="error"/></td>
             </tr>
