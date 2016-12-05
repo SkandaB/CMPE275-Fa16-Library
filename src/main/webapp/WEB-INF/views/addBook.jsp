@@ -1,6 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
+
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <html>
 <head>
     <title>Upload File Request Page</title>
@@ -62,5 +66,17 @@
     </table>
     <br>
 </form>
-</body>
+
+<%--<%@ page contentType="text/html;charset=UTF-8"%>--%>
+<%--<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>--%>
+<%--<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>--%>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+
+<%--<html>--%>
+<%--<head>--%>
+    <%--<title>Add Book</title>--%>
+<%--</head>--%>
+<%--<body>--%>
+
+<%--</body>--%>
 </html>

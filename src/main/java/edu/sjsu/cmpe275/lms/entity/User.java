@@ -97,6 +97,7 @@ public class User {
 		this.enabled = enabled;
 	}
 
+
 	/**
 	 * @return the currentBooks
 	 */
@@ -110,6 +111,7 @@ public class User {
 	public void setCurrentBooks(List<UserBook> currentBooks) {
 		this.currentBooks = currentBooks;
 	}
+
 
 
 	@Override

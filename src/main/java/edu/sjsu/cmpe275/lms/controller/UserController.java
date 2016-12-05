@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,10 @@ public class UserController {
 
 	/**
 	 * @return
-	 */
+//	 */
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public ModelAndView showUserCreationForm() {
-		ModelAndView modelAndView = new ModelAndView("users/addUser");
+		ModelAndView modelAndView = new ModelAndView("users/dashboard_user");
 		return modelAndView;
 	}
 
@@ -38,31 +39,28 @@ public class UserController {
 	 * @param sjsuid
 	 * @param useremail
 	 * @param password
-	 * @param role
 	 * @param model
 	 * @param request
 	 * @param response
-	 *//*
+	 */
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public Object userCreating(@RequestParam long sjsuid,
 			@RequestParam String useremail,
 			@RequestParam String password,
-			@RequestParam String role,
 			ModelMap model,
 			HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("users/addUser");
+		ModelAndView mv = new ModelAndView("users/dashboard_user");
 		User uEntity = uService.createUser(sjsuid, useremail, password);
         String usertype = uEntity.getRole();
         System.out.println("Usertrpe "+usertype);
-        if (usertype.equals("librarian")){
+        if (usertype.equals("ROLE_LIBRARIAN")){
             return "librarian/dashboard";
         }
         return "users/welcome";
     }
-		return "users/welcome";
-	}*/
-	
+
+
 	@RequestMapping(value = "/user/showall", method = RequestMethod.GET)
 	public Object showAll() {
 		ModelAndView mv = new ModelAndView("users/list");

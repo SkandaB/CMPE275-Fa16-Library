@@ -5,6 +5,8 @@ import edu.sjsu.cmpe275.lms.entity.User;
 
 import java.util.List;
 
+import edu.sjsu.cmpe275.lms.entity.Book;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -33,7 +35,8 @@ public interface BookDao {
      * @param image               Bytes as image
      * @return true if add successful, false if failed
      */
-    boolean addBook(String isbn, String author, String title, String callnumber, String publisher, int year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image);
+
+    boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image);
 
     /**
      * Return the book by isbn code
@@ -41,8 +44,8 @@ public interface BookDao {
      * @return book object
      */
     Book getBookByISBN (String isbn);
-    public List<Book> findAll();
-    public Book getBookbyId(Integer bookId);
+     List<Book> findAll();
+     Book getBookbyId(Integer bookId);
     
-    public String setBookRequest(Integer bookId,Integer userId);
+     String setBookRequest(Integer bookId,Integer userId);
 }

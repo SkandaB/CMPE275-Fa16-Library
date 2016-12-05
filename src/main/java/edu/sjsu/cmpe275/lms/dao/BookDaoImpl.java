@@ -1,6 +1,9 @@
 package edu.sjsu.cmpe275.lms.dao;
 
 import edu.sjsu.cmpe275.lms.entity.Book;
+
+import javax.persistence.EntityManager;
+import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
 
@@ -10,10 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+
 import javax.persistence.EntityExistsException;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
+
 
 @Transactional
 @Repository
@@ -33,8 +42,10 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public boolean addBook(String isbn, String author, String title, String callnumber, String publisher, int year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image) {
+
+    public boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image) {
         Book book = new Book(isbn, author, title, callnumber, publisher, year_of_publication, location, num_of_copies, current_status, keywords, image);
+
         entityManager.persist(book);
         return true;
     }
@@ -49,6 +60,7 @@ public class BookDaoImpl implements BookDao {
     public Book getBookByISBN(String isbn) {
         return entityManager.find(Book.class, isbn);
     }
+
     
     @Override
     public List<Book> findAll(){
@@ -67,7 +79,7 @@ public class BookDaoImpl implements BookDao {
 		Book book = entityManager.find(Book.class, bookId);
 		User user = entityManager.find(User.class, userId);
 		
-		UserBook userBook = new UserBook(book,user,LocalDate.now(),0);
+		UserBook userBook = new UserBook(book,user, LocalDate.now(),0);
 		
 		String returnStatus="";
 		if(book.getCurrent_status().equalsIgnoreCase("available")){
@@ -117,4 +129,5 @@ public class BookDaoImpl implements BookDao {
 		Book book = entityManager.find(Book.class,bookId);
 		return book;
 	}
+
 }
