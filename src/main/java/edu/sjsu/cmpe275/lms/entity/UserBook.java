@@ -37,7 +37,7 @@ public class UserBook {
 
     public UserBook(Book b, User u, LocalDate f, Integer renewFlag) {
         // create primary key
-        this.id = new UserBookId(b.getBookId(), u.getSjsuid());
+        this.id = new UserBookId(b.getBookId(), u.getId());
 
         // initialize attributes
         this.book = b;

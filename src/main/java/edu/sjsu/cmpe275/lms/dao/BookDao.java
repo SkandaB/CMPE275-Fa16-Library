@@ -14,6 +14,7 @@ public interface BookDao {
 
     /**
      * Add a book to database
+     *
      * @param book
      * @return true if add successful, false if failed
      */
@@ -40,12 +41,30 @@ public interface BookDao {
 
     /**
      * Return the book by isbn code
+     *
      * @param isbn
      * @return book object
      */
-    Book getBookByISBN (String isbn);
-     List<Book> findAll();
-     Book getBookbyId(Integer bookId);
-    
-     String setBookRequest(Integer bookId,Integer userId);
+    Book getBookByISBN(String isbn);
+
+    List<Book> findAll();
+
+    Book getBookbyId(Integer bookId);
+
+    /**
+     * @author dharames
+     * @param bookId
+     * @param userId
+     * @return String specifyint the status of the set operation
+     */
+
+    String setBookRequest(Integer bookId, Integer userId);
+
+    /**
+     * @author dharames
+     * @param bookId
+     * call from setBookRequest to ensure the change of status based on the number of copies issued
+     */
+
+    public void updateBookStatus(Integer bookId);
 }
