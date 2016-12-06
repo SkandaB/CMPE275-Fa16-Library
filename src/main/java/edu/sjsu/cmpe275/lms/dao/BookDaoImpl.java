@@ -72,8 +72,8 @@ public class BookDaoImpl implements BookDao {
     public List<Book> findAll() {
         List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
 
-    public List<Book> findAll() {
-        List<Book> books = entityManager.createQuery("select b from Book b", Book.class).getResultList();
+//    public List<Book> findAll() {
+//        List<Book> books = entityManager.createQuery("select b from Book b", Book.class).getResultList();
         return books;
 
     }
@@ -83,41 +83,42 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public String setBookRequest(Integer bookId, Integer userId) {
-        // TODO Auto-generated method stub
-        Book book = entityManager.find(Book.class, bookId);
-        User user = entityManager.find(User.class, userId);
+		// TODO Auto-generated method stub
+		Book book = entityManager.find(Book.class, bookId);
+		User user = entityManager.find(User.class, userId);
 
 
-        String returnStatus = "";
-        if (book.getCurrent_status().equalsIgnoreCase("available")) {
+		String returnStatus = "";
+		if (book.getCurrent_status().equalsIgnoreCase("available")) {
 
-            List<UserBook> currentUsers = book.getCurrentUsers();
-            UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
-            currentUsers.add(userBook);
-            book.setCurrentUsers(currentUsers);
-            entityManager.merge(userBook);
-            userBook.UserBookPersist(book, user);
-            String due_date = userBook.getDueDate();
-            returnStatus = "User request for the book successful \n The Due date is "+due_date;
-            eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
+			List<UserBook> currentUsers = book.getCurrentUsers();
+			UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
+			currentUsers.add(userBook);
+			book.setCurrentUsers(currentUsers);
+			entityManager.merge(userBook);
+			userBook.UserBookPersist(book, user);
+			String due_date = userBook.getDueDate();
+			returnStatus = "User request for the book successful \n The Due date is " + due_date;
+			eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
 
-            updateBookStatus(book.getBookId());
-            return returnStatus;
+			updateBookStatus(book.getBookId());
+			return returnStatus;
 
-        } else {
-            List<User> waitlist = book.getWaitlist();
-            if (!waitlist.contains(user)) {
-                waitlist.add(user);
-                book.setWaitlist(waitlist);
-                entityManager.merge(book);
-                returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
-                eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
+		} else {
+			List<User> waitlist = book.getWaitlist();
+			if (!waitlist.contains(user)) {
+				waitlist.add(user);
+				book.setWaitlist(waitlist);
+				entityManager.merge(book);
+				returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
+				eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
 
-            } else {
-                returnStatus = "User has already requested for the book! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
-            }
-            return returnStatus;
-        }
+			} else {
+				returnStatus = "User has already requested for the book! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
+			}
+			return returnStatus;
+		}
+	}
 
     /**
      * Search a book by any of its fields
