@@ -272,6 +272,6 @@
 			</plugins>
 		</pluginManagement>
 
-		<finalName>Library</finalName>
+		<finalName>Dashboard_Integration</finalName>
 	</build>
 </project>
