@@ -43,11 +43,17 @@ public class RegistrationController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView showUserCreationForm(HttpServletRequest request/*, Map<String,Object> model*/) {
+    public ModelAndView showUserCreationForm(HttpServletRequest request /*, Map<String,Object> model*/) {
         User user = new User();
         ModelAndView modelAndView = new ModelAndView("users/addUser");
         modelAndView.addObject("userForm", user);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/security")
+    public ModelAndView showsecurity() {
+
+        return new ModelAndView("security_hello");
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)

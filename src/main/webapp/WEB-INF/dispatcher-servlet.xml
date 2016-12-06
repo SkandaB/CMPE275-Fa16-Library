@@ -1,62 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:mvc="http://www.springframework.org/schema/mvc"
-	   xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
-	   xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<!-- It register the beans in context and scan the annotations inside beans 
-		and activate them -->
-	<context:component-scan base-package="edu.sjsu.cmpe275.lms"/>
+    <!-- It register the beans in context and scan the annotations inside beans
+        and activate them -->
+    <context:component-scan base-package="edu.sjsu.cmpe275.lms"/>
 
-	<!-- This allow for dispatching requests to Controllers -->
-	<mvc:annotation-driven />
+    <!-- This allow for dispatching requests to Controllers -->
+    <mvc:annotation-driven/>
 
-	<bean id="dataSource"
-		  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/lms" />
-		<property name="username" value="root" />
-		<property name="password" value="v5yzmCbb"/>
-		<!--<property name="password" value="password" />-->
-	</bean>
 
-	<bean id="entityManagerFactory"
-		  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		  p:packagesToScan="edu.sjsu.cmpe275.lms.entity" p:dataSource-ref="dataSource">
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="generateDdl" value="true" />
-				<property name="showSql" value="true" />
-				<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
-			</bean>
-		</property>
-	</bean>
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/lms"/>
+        <property name="username" value="root"/>
+        <property name="password" value="v5yzmCbb"/>
+        <!--<property name="password" value="password" />-->
+    </bean>
 
-	<!-- Transactions -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory"/>
-	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" />
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          p:packagesToScan="edu.sjsu.cmpe275.lms.entity" p:dataSource-ref="dataSource">
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true"/>
+                <property name="showSql" value="true"/>
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect"/>
+            </bean>
+        </property>
+    </bean>
 
-	<bean id="RedirectedUrl" class="org.springframework.web.servlet.view.RedirectView">
-		<property name="url" value="redirectedUrl" />
-	</bean>
 
-	<!-- This helps in mapping the logical view names to directly view files 
-		under a certain pre-configured directory -->
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix">
-			<value>/WEB-INF/views/</value>
-		</property>
-		<property name="suffix">
-			<value>.jsp</value>
-		</property>
-	</bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean id="RedirectedUrl" class="org.springframework.web.servlet.view.RedirectView">
+        <property name="url" value="redirectedUrl"/>
+    </bean>
+
+
+    <!-- This helps in mapping the logical view names to directly view files
+        under a certain pre-configured directory -->
+    <bean
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/views/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -66,36 +68,27 @@
 
     </bean>
 
-	<!-- To validate the posted add employee form -->
-	<bean id="userFormValidator" class="edu.sjsu.cmpe275.lms.validator.UserFormValidator"/>
+
+    <!--Mail Server Setup-->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="group2lmscmpe275@gmail.com"/>
+        <property name="password" value="iamadmin"/>
+
+        <!-- The name of the property, following JavaBean naming conventions -->
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">false</prop>
+            </props>
+        </property>
+    </bean>
 
 
-	<!--Mail Server Setup-->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com"/>
-		<property name="port" value="587"/>
-		<property name="username" value="group2lmscmpe275@gmail.com"/>
-		<property name="password" value="iamadmin"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
-		<!-- The name of the property, following JavaBean naming conventions -->
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.debug">false</prop>
-			</props>
-		</property>
-	</bean>
-
-
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-
-	<!-- This resolves messages from resource bundles for different locales -->
-	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
-		<property name="basename" value="messages" /> </bean> -->
 
 </beans>
-
-
-		<!-- http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd -->
