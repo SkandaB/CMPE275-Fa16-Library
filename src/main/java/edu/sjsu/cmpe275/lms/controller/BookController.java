@@ -288,7 +288,7 @@ public class BookController {
         /**
          * Save the values to database
          */
-        addNewBook(book,title,author,year_of_publication,publisher ,response);
+        addNewBook(book,title,author,year_of_publication,publisher,response);
     }
 
     private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher , HttpServletResponse response) {
