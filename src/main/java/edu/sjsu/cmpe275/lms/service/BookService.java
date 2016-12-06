@@ -19,5 +19,7 @@ public interface BookService {
 	public Book findBook(String isbn);
 	public String requestBook(Integer bookId,Integer userId) throws ParseException;
 	public Book findBookById(Integer bookId);
+	public List<Book> listBooksOfUser(Integer userId);
+	public void returnBook(Integer bookId,Integer userId);
 
 }

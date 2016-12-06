@@ -30,7 +30,6 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public List<Book> listBooks() {
-		System.out.println("here");
 		return bookDao.findAll();
 	}
 
@@ -53,12 +52,26 @@ public class BookServiceImpl implements BookService {
 		return bookDao.setBookRequest(bookId,userId);
 		
 	}
-	
+	@Override
 	public Book findBookById(Integer bookId){
 		Book book = bookDao.getBookbyId(bookId);
 		return book;
 	}
-	
+	@Override
+	public List<Book> listBooksOfUser(Integer userId){
+
+		List<Book> books = bookDao.getBookByUserId(userId);
+
+
+		return books;
+
+	}
+
+	@Override
+	public void returnBook(Integer bookId,Integer userId){
+		 bookDao.setBookReturn(bookId,userId);
+
+	}
 	
 
 }
