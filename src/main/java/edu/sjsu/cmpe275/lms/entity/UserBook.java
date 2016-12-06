@@ -5,8 +5,14 @@ package edu.sjsu.cmpe275.lms.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author dhanyaramesh
@@ -37,7 +43,7 @@ public class UserBook {
 
     public UserBook(Book b, User u, LocalDate f, Integer renewFlag) {
         // create primary key
-        this.id = new UserBookId(b.getBookId(), u.getSjsuid());
+        this.id = new UserBookId(b.getBookId(), u.getId());
 
         // initialize attributes
         this.book = b;
@@ -56,7 +62,32 @@ public class UserBook {
         b.getCurrentUsers().add(this);
 
     }
-	
+
+    public String getDueDate() throws ParseException {
+
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//        System.out.println("this date "+this.date.toString());
+//        LocalDate duedate = (LocalDate) dtf.parse(this.date.toString());
+//
+//        duedate = duedate.plusDays(30);
+//        System.out.println("due date "+duedate);
+//        String dueDate = dtf.format(duedate);
+
+        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+        Date duedate = dtf.parse(this.date);
+
+//        duedate = duedate;
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(duedate);
+        cal.add(Calendar.DATE, 30);
+
+        String dueDate = dtf.format(cal.getTime());
+        System.out.println("String new due date "+dueDate);
+
+
+        return dueDate;
+    }
+
 	@Embeddable
 	public static class UserBookId implements Serializable{
 
@@ -64,13 +95,13 @@ public class UserBook {
 		protected Integer bookId;
 
 		@Column(name = "user")
-        protected Long userId;
+        protected Integer userId;
 
 		public UserBookId() {
 
         }
 
-        public UserBookId(Integer bookId, long userId) {
+        public UserBookId(Integer bookId, Integer userId) {
             this.bookId = bookId;
 			this.userId = userId;
 		}
