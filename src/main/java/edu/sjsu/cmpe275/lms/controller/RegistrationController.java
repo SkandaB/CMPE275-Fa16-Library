@@ -6,6 +6,7 @@ import edu.sjsu.cmpe275.lms.registration.RegistrationCompleteEvent;
 import edu.sjsu.cmpe275.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -40,7 +42,6 @@ public class RegistrationController {
     }*/
 
 
-
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView showUserCreationForm(HttpServletRequest request/*, Map<String,Object> model*/) {
         User user = new User();
@@ -53,7 +54,8 @@ public class RegistrationController {
     public ModelAndView registerNewUserAccount(
             HttpServletRequest request,
             @Valid @ModelAttribute("userForm") User user,
-            BindingResult bindingResult) {
+            BindingResult bindingResult,
+            final HttpServletResponse response) {
         System.out.println("************* Received the following from the form: SJSUID: " + user.getSjsuid() + " UserEmail: " + user.getUseremail() + " Password: " + user.getPassword());
 
         if (bindingResult.hasErrors()) {
@@ -61,27 +63,71 @@ public class RegistrationController {
             return new ModelAndView("users/addUser");
         }
 
-        User added = uService.createUser(user.getSjsuid(), user.getUseremail(), user.getPassword());
-        System.out.println("************* The following user will be added into the database: " + added.toString());
-        if (added == null) {
-            System.out.println("*********** Calling Error Page");
-            return new ModelAndView("error");
-        }
         try {
-            System.out.println("************* User addition was successful, so entered the event creator *************");
-            String url = request.getRequestURL().toString();
-            System.out.println("************* Request URL: " + url + "ContextPath= " + request.getContextPath().toString());
+            User added = uService.createUser(user.getSjsuid(), user.getUseremail(), user.getPassword());
+            System.out.println("************* The following user will be added into the database: " + added.toString());
+            if (added == null) {
+                String errorMessage = "Error creating user in database";
+                response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                System.out.println("*********** Calling Error Page " + errorMessage);
+                ModelAndView mv = new ModelAndView("error");
+                mv.addObject("responseCode", HttpStatus.INTERNAL_SERVER_ERROR.value());
+                mv.addObject("errorMessage", errorMessage);
+                return mv;
+            }
+            try {
+                System.out.println("************* User addition was successful, so entered the event creator *************");
+                String url = request.getRequestURL().toString();
+                System.out.println("************* Request URL: " + url + "ContextPath= " + request.getContextPath().toString());
 
-            applicationEventPublisher.publishEvent(new RegistrationCompleteEvent(added, url));
+                applicationEventPublisher.publishEvent(new RegistrationCompleteEvent(added, url));
+            } catch (Exception e) {
+                System.out.println(e);
+                ModelAndView mv = new ModelAndView("error");
+                mv.addObject("errorMessage", e);
+                return mv;
+            }
+            ModelAndView mv = new ModelAndView("users/welcome");
+            mv.addObject("message", "User with email: " + added.getUseremail() + " successfully created! \r\n Please check your inbox and validate your account to use full user services.");
+            return mv;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            String errorMessage = "Duplicate user in database";
+            response.setStatus(HttpStatus.CONFLICT.value());
+            System.out.println("*********** Calling Error Page " + errorMessage);
             ModelAndView mv = new ModelAndView("error");
-            mv.addObject("errorMessage", e);
+            mv.addObject("responseCode", HttpStatus.CONFLICT.value());
+            mv.addObject("errorMessage", errorMessage);
             return mv;
         }
-        ModelAndView mv = new ModelAndView("users/welcome");
-        mv.addObject("message", "User with email: " + added.getUseremail() + " successfully created! \r\n Please check your inbox and validate your account to use full user services.");
-        return mv;
+    }
+
+
+    @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
+    public ModelAndView loginUser(HttpServletRequest request,
+                                  @Valid @ModelAttribute("loginForm") User user,
+                                  BindingResult bindingResult) {
+        System.out.println("Details from Login form: " + user.toString());
+        User loggedInUser = uService.findUserByEmail(user.getUseremail());
+        System.out.println("Logged in User from DB" + loggedInUser);
+        ModelAndView mv;
+        if (loggedInUser == null) {
+            mv = new ModelAndView("error");
+            mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination.");
+            return mv;
+        } else {
+            return new ModelAndView("librarian/dashboard");
+        }
+        /*{
+            if (loggedInUser.getRole().equals("ROLE_LIBRARIAN")) {
+                System.out.println("Librarian found++++++++++=");
+                mv = new ModelAndView("librarian/dashboard");
+            } else {
+                mv = new ModelAndView("users/welcome");
+            }
+            return mv;
+        }*/
+
     }
 
     @RequestMapping(value = "/register/confirmRegistration.html", method = RequestMethod.GET)
