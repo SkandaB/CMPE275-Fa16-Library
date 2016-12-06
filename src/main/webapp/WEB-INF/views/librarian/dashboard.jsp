@@ -12,7 +12,7 @@
     <title>Librarian Dashboard</title>
     <meta name="generator" content="Bootply"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!--[if lt IE 9]> -->
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -20,6 +20,7 @@
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+
 </head>
 <style>
     /*<!-- Making the form awesome --> */
@@ -99,16 +100,8 @@
         text-align: center;
         padding: 0 !important;
     }
-    /*.modal:before {*/
-    /*content: '';*/
-    /*display: inline-block;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*vertical-align: middle;*/
-    /*margin-right: -4px; !* Adjusts for spacing *!*/
-    /*}*/
     .modal-body{
-        height: 20%;
+        height: 100%;
     }
     .modal-dialog {
         width: 95%;
@@ -116,6 +109,16 @@
         text-align: left;
         vertical-align: middle;
     }
+
+    #viewBooksModal {
+        width: 60%;
+        left: 40%;
+    }
+
+    #viewBooksContent {
+        width:101%;
+    }
+
     /*End modal styling*/
 </style>
 <script type="text/javascript"  th:inline="javascript">
@@ -147,20 +150,50 @@
         });
 
         getBooksData = function () {
-            var url = "/book/getBooksJson";
+            var url = "/book/searchAllBooks";
+
             $.get(url, null, function (data) {
                console.log("here");
-               console.log(data)
-            });
-        }
+               console.log(""+data);
+                var mymodal = $('#viewBooksModal');
+                mymodal.find('.modal-body').text('');
+                var jsonData = data;
+                console.log(jsonData.length);
+                console.log(jsonData);
+                var html = '<div class="table-responsive">'+
+                    '<table class="table">'+
+                    '<thead>' +
+                    '<tr>' +
+                    '<th>ID </th>'+
+                    '<th>ISBN </th>'+
+                    '<th>Title </th>'+
+                    '<th>Location </th>'+
+                    '<th>No. of copies </th>'+
+                    '<th>Author </th>'+
+                    '<th>Publisher </th>'+
+                    '<th>Call Number </th>'+
+                    '<th>Keywords</th>' +
+                    '</tr>';
+                for (i = 0; i < jsonData.length; i++) {
+                    //console.log("title string"+JSON.stringify(jsonData[i]));
+                    html = html + '<tr>';
+                    html = html + '<td>'+jsonData[i].bookId+'</td>';
+                    html = html + '<td>'+jsonData[i].isbn+'</td>';
+                    html = html + '<td>'+jsonData[i].title+'</td>';
+                    html = html + '<td>'+jsonData[i].location+'</td>';
+                    html = html + '<td>'+jsonData[i].author+'</td>';
+                    html = html + '<td>'+jsonData[i].callnumber+'</td>';
+                    html = html + '<td>'+jsonData[i].keywords+'</td>';
+                    html = html + '</tr>';
+                }
+                html = html + '</table>';
+                html = html + '</div>';
 
-//        $('#viewBooksBtn').click(function () {
-//            var url = "/book/searchAllBooks";
-//            $.get(url, null, function (data) {
-//                console.log(data);
-//                //$("#rData").html(data);
-//            });
-//        })
+                mymodal.find('.modal-body').append(html);
+
+            });
+
+        }
 
     });
 </script>
@@ -238,7 +271,7 @@
                 <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content" id="addBookContent">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"
                                         aria-hidden="true">&times;</button>
@@ -366,7 +399,7 @@
                      aria-labelledby="myModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content" id="viewBooksContent">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"
                                         aria-hidden="true">&times;</button>

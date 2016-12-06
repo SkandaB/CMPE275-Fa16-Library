@@ -122,11 +122,12 @@ public class RegistrationController {
             return mv;
         } else {
             mv =  new ModelAndView("librarian/dashboard");
-            bookDao.findCountAvailable();
+
+//           int count =  bookDao.findCountAvailable();
+//            System.out.println("count  : "+count);
             mv.addObject("useremail",user.getUseremail());
             return mv;
         }
-
     }
 
     @RequestMapping(value = "/register/confirmRegistration.html", method = RequestMethod.GET)
