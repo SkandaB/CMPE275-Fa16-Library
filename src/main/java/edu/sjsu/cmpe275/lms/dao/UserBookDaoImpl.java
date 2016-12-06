@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.lms.dao;
 
+import edu.sjsu.cmpe275.lms.entity.UserBook;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,14 +24,11 @@ public class UserBookDaoImpl implements UserBookDao {
      */
     @Override
     public int getUserDayBookCount(int userId) {
-        String query = "Select ub From UserBook ub WHERE ub.user = :user AND ub.checkout_date = :checkout_date";
-        Query q = entityManager.createQuery(query);
-        q.setParameter("user", userId);
-
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        String currDate = dtf.format(LocalDate.now());
-        q.setParameter("checkout_date", currDate);
-
+        String query = "Select ub From UserBook ub WHERE ub.user.id = :userid AND ub.checkout_date = :checkout_date";
+        Query q = entityManager.createQuery(query, UserBook.class);
+        q.setParameter("userid", userId);
+        q.setParameter("checkout_date", dtf.format(LocalDate.now()));
         return q.getResultList().size();
     }
 }
