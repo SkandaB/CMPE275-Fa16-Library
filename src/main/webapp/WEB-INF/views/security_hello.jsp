@@ -14,13 +14,23 @@
 </head>
 <body>
 <h4>Reports</h4></div>
-<sec:authorize access="hasAuthority('ROLE_PATROM')">
+<sec:authorize access="hasRole('ROLE_PATROM')">
     <h2>This text is only visible to a user</h2>
     <br/>
 </sec:authorize>
 
-<sec:authorize access="hasAuthority('ROLE_LIBRARIAN')">
+<sec:authorize access="hasRole('ROLE_LIBRARIAN')">
     <h2>This text is only visible to an admin</h2>
+    <br/>
+</sec:authorize>
+
+<sec:authorize access="hasAuthority('ROLE_PATROM')">
+    <h2>This text is only visible to a use hasAuthority r</h2>
+    <br/>
+</sec:authorize>
+
+<sec:authorize access="hasAuthority('ROLE_LIBRARIAN')">
+    <h2>This text is only visible to an admin hasAuthority</h2>
     <br/>
 </sec:authorize>
 </body>

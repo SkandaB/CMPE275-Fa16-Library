@@ -8,7 +8,7 @@
 
     <!-- enable use-expressions -->
     <http auto-config="true" use-expressions="true">
-
+        <intercept-url pattern="/" access="hasRole('ROLE_LIBRARIAN') or hasRole('ROLE_PATRON') "/>
         <intercept-url pattern="/user/showall" access="hasRole('ROLE_LIBRARIAN')"/>
 
     </http>
