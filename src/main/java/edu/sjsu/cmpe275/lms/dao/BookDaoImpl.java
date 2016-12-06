@@ -2,28 +2,21 @@ package edu.sjsu.cmpe275.lms.dao;
 
 import edu.sjsu.cmpe275.lms.email.SendEmail;
 import edu.sjsu.cmpe275.lms.entity.Book;
-
-import javax.persistence.*;
-
-import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+import javax.persistence.Query;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
 
 
 @Transactional
@@ -72,9 +65,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> findAll() {
         List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
-
-//    public List<Book> findAll() {
-//        List<Book> books = entityManager.createQuery("select b from Book b", Book.class).getResultList();
+        System.out.println("Books "+books);
         return books;
 
     }
@@ -267,5 +258,6 @@ public class BookDaoImpl implements BookDao {
             entityManager.merge(book);
         }
     }
+
 
 }

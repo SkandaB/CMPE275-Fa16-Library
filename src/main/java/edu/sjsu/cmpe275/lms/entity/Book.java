@@ -5,13 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  *
@@ -21,8 +16,7 @@ import javax.persistence.Table;
 public class Book {
 
 
-    // waitlist
-    @Autowired
+			@Autowired
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinTable
             (
@@ -71,10 +65,9 @@ public class Book {
 	private String keywords;
 	@Column(name = "IMAGE")
 	private byte[] image;
-
-
 	public Book() {
 	}
+
 
 	public Book(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image) {
 		this.isbn = isbn;
@@ -89,6 +82,27 @@ public class Book {
 		this.keywords = keywords;
 		this.image = image;
 
+	}
+
+    // waitlist
+	@Override
+	public String toString() {
+		return "Book{" +
+				"waitlist=" + waitlist +
+				", currentUsers=" + currentUsers +
+				", bookId=" + bookId +
+				", isbn='" + isbn + '\'' +
+				", author='" + author + '\'' +
+				", title='" + title + '\'' +
+				", callnumber='" + callnumber + '\'' +
+				", publisher='" + publisher + '\'' +
+				", year_of_publication='" + year_of_publication + '\'' +
+				", location='" + location + '\'' +
+				", num_of_copies=" + num_of_copies +
+				", current_status='" + current_status + '\'' +
+				", keywords='" + keywords + '\'' +
+				", image=" + Arrays.toString(image) +
+				'}';
 	}
 
 	/**

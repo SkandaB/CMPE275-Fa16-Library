@@ -1,19 +1,5 @@
 package edu.sjsu.cmpe275.lms.controller;
 
-import edu.sjsu.cmpe275.lms.dao.BookDao;
-import edu.sjsu.cmpe275.lms.entity.Book;
-import edu.sjsu.cmpe275.lms.errors.Errors;
-import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import com.google.gdata.client.books.BooksService;
 import com.google.gdata.client.books.VolumeQuery;
 import com.google.gdata.data.books.VolumeEntry;
@@ -24,6 +10,7 @@ import com.google.gdata.util.ServiceException;
 import edu.sjsu.cmpe275.lms.dao.BookDao;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.errors.Errors;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.ISBNValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -91,6 +79,17 @@ public class BookController {
         //modelAndView.setViewName("addBook");
         return modelAndView;
     }
+
+
+
+
+
+
+
+
+
+
+
 
 //    @RequestMapping(method = RequestMethod.POST)
 //    public
@@ -329,6 +328,15 @@ public class BookController {
         modelAndView.setViewName("books/listBooks");
         List<Book> books = bookDao.searchBook(book);
         if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
+        modelAndView.addObject("books", books);
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/searchAllBooks", method = RequestMethod.GET)
+    @Transactional
+    public ModelAndView searchAllBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView){
+        List<Book> books = bookDao.findAll();
         modelAndView.addObject("books", books);
         return modelAndView;
     }

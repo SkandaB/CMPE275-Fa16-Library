@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Sagar
-  Date: 11/28/2016
-  Time: 2:41 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -13,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Need to implement security-->
+    <!-- Need to implement security-->
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>Librarian Dashboard</title>
@@ -115,7 +108,7 @@
     /*margin-right: -4px; !* Adjusts for spacing *!*/
     /*}*/
     .modal-body{
-        height: 100%;
+        height: 20%;
     }
     .modal-dialog {
         width: 95%;
@@ -125,7 +118,7 @@
     }
     /*End modal styling*/
 </style>
-<script type="text/javascript">
+<script type="text/javascript"  th:inline="javascript">
     displayForms = function (link, formId) {
         // disable subsequent clicks
         link.onclick = function (event) {
@@ -140,6 +133,33 @@
         $("#addBtn1").click(function () {
             $('#addBookModal').modal('show');
         });
+        $("#viewBooksBtn").click(function () {
+            getBooksData();
+            $('#viewBooksModal').modal('show');
+
+        });
+        $("#viewBooksBtn1").click(function () {
+            getBooksData();
+            $('#viewBooksModal').modal('show');
+        });
+
+        getBooksData = function () {
+            var url = "/book/searchAllBooks";
+            var modelAttributeValue = ${books};
+            console.log(modelAttributeValue);
+            $.get(url, null, function (data) {
+               console.log("here");
+            });
+        }
+
+//        $('#viewBooksBtn').click(function () {
+//            var url = "/book/searchAllBooks";
+//            $.get(url, null, function (data) {
+//                console.log(data);
+//                //$("#rData").html(data);
+//            });
+//        })
+
     });
 </script>
 <body>
@@ -190,7 +210,7 @@
                         <li><a id="addBtn1" href="#"><i class="glyphicon glyphicon-plus-sign"></i> Add a Book</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-edit"></i> Update a Book</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-remove"></i> Remove a Book</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-list"></i> View all books</a></li>
+                        <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
                     </ul>
@@ -339,6 +359,27 @@
                     </div>
                 </div>
 
+                <!-- Modal for viewing books -->
+                <div class="modal fade" id="viewBooksModal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="viewbooksmodalid">List of all the books in LMS</h4>
+                            </div>
+                            <div class="modal-body">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <%--<button type="button" class="btn btn-primary">Add Book </button>--%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Modal for viewing books -->
 
                 <div class="btn-group btn-group-justified">
                     <a id="addBtn" href="#" class="btn btn-primary col-sm-3">
@@ -353,7 +394,7 @@
                         <i class="glyphicon glyphicon-remove"></i>
                         <br> Remove
                     </a>
-                    <a href="#" class="btn btn-primary col-sm-3">
+                    <a id="viewBooksBtn" href="#" class="btn btn-primary col-sm-3">
                         <i class="glyphicon glyphicon-list"></i>
                         <br> List
                     </a>
@@ -361,7 +402,7 @@
 
                 <hr>
 
-                <div class="panel panel-default">
+                <div id="reportsdata" class="panel panel-default">
                     <div class="panel-heading">
                         <h4>Reports</h4></div>
                     <security:authorize access="hasRole('ROLE_PATRON')">
