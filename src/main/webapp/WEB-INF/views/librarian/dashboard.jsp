@@ -9,9 +9,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>Librarian Dashboard</title>
@@ -142,6 +144,8 @@
 </script>
 <body>
 <!-- header -->
+
+
 <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -360,6 +364,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4>Reports</h4></div>
+                    <security:authorize access="hasRole('ROLE_PATRON')">
+                        <h2>This text is only visible to a user</h2>
+                        <br />
+                    </security:authorize>
+
+                    <security:authorize access="hasRole('ROLE_LIBRARIAN')">
+                        <h2>This text is only visible to an admin</h2>
+                        <br />
+                    </security:authorize>
                     <div class="panel-body">
 
                         <small>Available</small>
