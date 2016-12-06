@@ -3,6 +3,7 @@ package edu.sjsu.cmpe275.lms.dao;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 
+import java.text.ParseException;
 import java.util.List;
 
 import edu.sjsu.cmpe275.lms.entity.Book;
@@ -14,6 +15,7 @@ public interface BookDao {
 
     /**
      * Add a book to database
+     *
      * @param book
      * @return true if add successful, false if failed
      */
@@ -40,12 +42,24 @@ public interface BookDao {
 
     /**
      * Return the book by isbn code
+     *
      * @param isbn
      * @return book object
      */
-    Book getBookByISBN (String isbn);
-     List<Book> findAll();
-     Book getBookbyId(Integer bookId);
-    
-     String setBookRequest(Integer bookId,Integer userId);
+    Book getBookByISBN(String isbn);
+
+    List<Book> findAll();
+
+    Book getBookbyId(Integer bookId);
+
+    String setBookRequest(Integer bookId, Integer userId) throws ParseException;
+
+    /**
+     * Search a book by any of its fields
+     * @param book
+     * @return A list of books that match the search criteria
+     */
+    List<Book> searchBook(Book book);
+
+    public void updateBookStatus(Integer book_Id);
 }

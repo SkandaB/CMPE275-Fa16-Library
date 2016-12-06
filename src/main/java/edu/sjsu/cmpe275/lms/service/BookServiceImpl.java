@@ -3,6 +3,7 @@
  */
 package edu.sjsu.cmpe275.lms.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class BookServiceImpl implements BookService {
 	 * @see edu.sjsu.cmpe275.lms.service.BookService#requestBook(java.lang.Integer)
 	 */
 	@Override
-	public String requestBook(Integer bookId,Integer userId) {
+	public String requestBook(Integer bookId,Integer userId) throws ParseException {
 		// TODO Auto-generated method stub
 		return bookDao.setBookRequest(bookId,userId);
 		

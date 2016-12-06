@@ -28,6 +28,8 @@ public interface UserService {
 
     public User findUser(Integer id);
 
+    public User findUserByEmail(String usermail);
+
     void createToken(User user, String token);
 
     UserVerfToken getUserToken(String token);

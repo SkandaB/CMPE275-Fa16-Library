@@ -3,6 +3,7 @@
  */
 package edu.sjsu.cmpe275.lms.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import edu.sjsu.cmpe275.lms.entity.Book;
@@ -16,7 +17,7 @@ public interface BookService {
 	
 	public List<Book> listBooks();
 	public Book findBook(String isbn);
-	public String requestBook(Integer bookId,Integer userId);
+	public String requestBook(Integer bookId,Integer userId) throws ParseException;
 	public Book findBookById(Integer bookId);
 
 }
