@@ -51,20 +51,14 @@ public interface BookDao {
 
     Book getBookbyId(Integer bookId);
 
-    /**
-     * @author dharames
-     * @param bookId
-     * @param userId
-     * @return String specifyint the status of the set operation
-     */
-
     String setBookRequest(Integer bookId, Integer userId);
 
     /**
-     * @author dharames
-     * @param bookId
-     * call from setBookRequest to ensure the change of status based on the number of copies issued
+     * Search a book by any of its fields
+     * @param book
+     * @return A list of books that match the search criteria
      */
+    List<Book> searchBook(Book book);
 
-    public void updateBookStatus(Integer bookId);
+    public void updateBookStatus(Integer book_Id);
 }
