@@ -1,12 +1,15 @@
 package edu.sjsu.cmpe275.lms.dao;
 
+import edu.sjsu.cmpe275.lms.email.SendEmail;
 import edu.sjsu.cmpe275.lms.entity.Book;
 
-import javax.persistence.EntityManager;
+import javax.persistence.*;
+
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,14 +17,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-import javax.persistence.EntityExistsException;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 
 @Transactional
@@ -35,6 +34,11 @@ public class BookDaoImpl implements BookDao {
      *
      * @param book
      */
+
+
+    @Autowired
+    private SendEmail eMail;
+
     @Override
     public boolean addBook(Book book) {
         entityManager.persist(book);
@@ -61,96 +65,89 @@ public class BookDaoImpl implements BookDao {
         return entityManager.find(Book.class, isbn);
     }
 
-    
+
     @Override
-    public List<Book> findAll(){
-    	List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
-    	
+    public List<Book> findAll() {
+        List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
+
         return books;
-    	
+
     }
 
-	/* (non-Javadoc)
-	 * @see edu.sjsu.cmpe275.lms.dao.BookDao#setBookRequest(edu.sjsu.cmpe275.lms.entity.User)
-	 */
-	@Override
-	public String setBookRequest(Integer bookId,Integer userId) {
-		// TODO Auto-generated method stub
-		Book book = entityManager.find(Book.class, bookId);
-		User user = entityManager.find(User.class, userId);
-		
-		UserBook userBook = new UserBook(book,user, LocalDate.now(),0);
-		
-		String returnStatus="";
-		if(book.getCurrent_status().equalsIgnoreCase("available")){
-			List<UserBook> currentUsers = book.getCurrentUsers();
-			try{
-				if(!currentUsers.contains(userBook)){
-					currentUsers.add(userBook);
-					book.setCurrentUsers(currentUsers);
-					entityManager.persist(userBook);
-					userBook.UserBookPersist(book, user);
-					updateBookStatus(book.getBookId());
-					returnStatus = "User request for the book successful";
-				}
-				else{
-					//have to include the loginc for extending the book 
-					returnStatus = "User has checked out the same book already";
-				}
-				
-			}catch(EntityExistsException e){
-				returnStatus = "Exception";
-			}
-			
-			
-		}
-		else{
-			List<User> waitlist = book.getWaitlist();
-			if(!waitlist.contains(user)){
-				waitlist.add(user);
-				book.setWaitlist(waitlist);
-				returnStatus = "User is waitlisted! Waitlist number is "+book.getWaitlist().indexOf(user)+1;
-
-			}
-			else{
-				returnStatus = "User has already requested for the book! Waitlist number is "+book.getWaitlist().indexOf(user)+1;
-			}
-					}
-		entityManager.merge(book);
-		
-		return returnStatus;
-	}
-
-	/* (non-Javadoc)
-	 * @see edu.sjsu.cmpe275.lms.dao.BookDao#getBookbyId(java.lang.Integer)
-	 */
-	@Override
-	public Book getBookbyId(Integer bookId) {
-		 
-		Book book = entityManager.find(Book.class,bookId);
-		return book;
-	}
-
-	@Override
-	public void updateBookStatus(Integer book_Id){
-		String book_query = "select b from Book b where b.bookId = " + book_Id;
-
- 		Book book = (Book) entityManager.createQuery(book_query, Book.class).getSingleResult();
-
-		System.out.println("book "+book.getBookId());
-
-		String userbook_query = "select ub from UserBook ub where ub.book.bookId = "+book_Id;
+    /* (non-Javadoc)
+     * @see edu.sjsu.cmpe275.lms.dao.BookDao#setBookRequest(edu.sjsu.cmpe275.lms.entity.User)
+     */
+    @Override
+    public String setBookRequest(Integer bookId, Integer userId) {
+        // TODO Auto-generated method stub
+        Book book = entityManager.find(Book.class, bookId);
+        User user = entityManager.find(User.class, userId);
 
 
-		List<UserBook> userBooks = 	entityManager.createQuery(userbook_query, UserBook.class).getResultList();
+        String returnStatus = "";
+        if (book.getCurrent_status().equalsIgnoreCase("available")) {
 
-		System.out.println("userbook "+userBooks.size());
+            List<UserBook> currentUsers = book.getCurrentUsers();
+            UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
+            currentUsers.add(userBook);
+            book.setCurrentUsers(currentUsers);
+            entityManager.merge(userBook);
+            userBook.UserBookPersist(book, user);
+            String due_date = userBook.getDueDate();
+            returnStatus = "User request for the book successful \n The Due date is "+due_date;
+            eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
 
-		if(book.getNum_of_copies()==userBooks.size()){
-			System.out.println("changing status");
-			book.setCurrent_status("Hold");
-			entityManager.merge(book);
-		}
-	}
+            updateBookStatus(book.getBookId());
+            return returnStatus;
+
+        } else {
+            List<User> waitlist = book.getWaitlist();
+            if (!waitlist.contains(user)) {
+                waitlist.add(user);
+                book.setWaitlist(waitlist);
+                entityManager.merge(book);
+                returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
+                eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
+
+            } else {
+                returnStatus = "User has already requested for the book! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
+            }
+            return returnStatus;
+        }
+
+
+    }
+
+    /* (non-Javadoc)
+     * @see edu.sjsu.cmpe275.lms.dao.BookDao#getBookbyId(java.lang.Integer)
+     */
+    @Override
+    public Book getBookbyId(Integer bookId) {
+
+        Book book = entityManager.find(Book.class, bookId);
+        return book;
+    }
+
+    @Override
+    public void updateBookStatus(Integer book_Id) {
+        String book_query = "select b from Book b where b.bookId = " + book_Id;
+
+        Book book = (Book) entityManager.createQuery(book_query, Book.class).getSingleResult();
+
+        System.out.println("book " + book.getBookId());
+
+        String userbook_query = "select ub from UserBook ub where ub.book.bookId = " + book_Id;
+
+
+        List<UserBook> userBooks = entityManager.createQuery(userbook_query, UserBook.class).getResultList();
+
+        System.out.println("userbook " + userBooks.size());
+
+        if (book.getNum_of_copies() == userBooks.size()) {
+            System.out.println("changing status");
+            book.setCurrent_status("Hold");
+            entityManager.merge(book);
+        }
+    }
 
 }

@@ -56,7 +56,21 @@ public class UserBook {
         b.getCurrentUsers().add(this);
 
     }
-	
+
+    public String getDueDate(){
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        System.out.println("this date "+this.date.toString());
+        LocalDate duedate = (LocalDate) dtf.parse(this.date.toString());
+
+        duedate = duedate.plusDays(30);
+        System.out.println("due date "+duedate);
+        String dueDate = dtf.format(duedate);
+
+
+        return dueDate;
+    }
+
 	@Embeddable
 	public static class UserBookId implements Serializable{
 
