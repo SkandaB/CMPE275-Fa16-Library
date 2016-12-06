@@ -61,5 +61,26 @@ public interface BookDao {
      */
     List<Book> searchBook(Book book);
 
+    /**
+     * change status of book based on the number of copies checked out
+     * @param book_Id
+     */
     public void updateBookStatus(Integer book_Id);
+
+    /**
+     * l
+     * @param userId
+     * @return list of books currently checked out by an user
+     */
+
+    public List<Book> getBookByUserId(Integer userId);
+
+    /**
+     *
+     * @param bookId
+     * @param userId
+     *
+     *
+     */
+    public void setBookReturn(Integer bookId, Integer userId);
 }

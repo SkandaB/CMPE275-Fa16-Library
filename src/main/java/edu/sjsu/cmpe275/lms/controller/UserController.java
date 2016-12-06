@@ -76,11 +76,16 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/user/books", method = RequestMethod.GET)
-	public Object showBooks() {
-		ModelAndView mv = new ModelAndView("books/listBooks");
-		List<Book> books = bService.listBooks();
-		System.out.println(books.get(0).toString());
+	@RequestMapping(value = "/user/{userId}/books", method = RequestMethod.GET)
+	public Object showBooks(@PathVariable("userId") Integer userId,
+							ModelMap model,
+							HttpServletRequest request,
+							HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView("books/userBookList");
+		List<Book> books = bService.listBooksOfUser(userId);
+		if(books.size()<1)
+			mv.addObject("errorMessage","No Books");
+		mv.addObject("userId",userId);
 		mv.addObject("books", books);
 		return mv;
 	}
@@ -102,6 +107,21 @@ public class UserController {
 		String status = bService.requestBook(bookId,userId);
 		mv.addObject("status",status);
 		
+		return mv;
+	}
+
+	@RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
+	public Object returnBook(@PathVariable("userId") Integer userId,
+							   @PathVariable("bookId") Integer bookId,
+							   ModelMap model,
+							   HttpServletRequest request,
+							   HttpServletResponse response) throws ParseException {
+		ModelAndView mv = new ModelAndView("books/userBookList");
+
+
+		bService.returnBook(bookId,userId);
+		//mv.addObject("status",status);
+
 		return mv;
 	}
 }
