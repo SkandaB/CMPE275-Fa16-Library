@@ -7,11 +7,9 @@ import edu.sjsu.cmpe275.lms.service.UserBookService;
 import edu.sjsu.cmpe275.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -114,9 +112,42 @@ public class UserController {
 		ModelAndView mv = new ModelAndView("books/userBookList");
 
 
-		bService.returnBook(bookId,userId);
-		//mv.addObject("status",status);
+		String status = bService.returnBook(bookId,userId);
+
+		if(status.equalsIgnoreCase("invalid book")){
+			mv.setViewName("books/request");
+			mv.addObject("status",status);
+			return mv;
+		}
+		mv.addObject("status",status);
 		return mv;
+	}
+
+	@Transactional
+	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+	public ModelAndView searchBookPage(ModelAndView modelAndView) {
+		modelAndView.setViewName("books/searchBook");
+		modelAndView.addObject("book", new Book());
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
+	@Transactional
+	public ModelAndView searchBook(@PathVariable("userId") Integer userId,
+								   @ModelAttribute("book") Book book,
+								   ModelAndView modelAndView) {
+		if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
+			modelAndView.setViewName("books/searchBook");
+			modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
+			return modelAndView;
+		}
+		modelAndView.addObject("userId",userId);
+		modelAndView.setViewName("books/listBooks");
+		List<Book> books = bService.searchBookbyUser(book);
+
+		if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
+		modelAndView.addObject("books", books);
+		return modelAndView;
 	}
 }
 

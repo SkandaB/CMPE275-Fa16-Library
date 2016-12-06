@@ -41,7 +41,7 @@
                 <td>${book.author}</td>
                 <td>${book.current_status}</td>
                 <td>
-                    <spring:url value="/user/${user.id}/books/${book.bookId}" var="userUrl"/>
+                    <spring:url value="/user/${userId}/books/${book.bookId}" var="userUrl"/>
                     <spring:url value="/user/${user.id}/books/wish/${book.bookId}" var="updateUrl"/>
                     <!--Dhanya, your add to wish_list will come here  of wishlist-->
 
