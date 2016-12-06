@@ -3,6 +3,7 @@ package edu.sjsu.cmpe275.lms.dao;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 
+import java.text.ParseException;
 import java.util.List;
 
 import edu.sjsu.cmpe275.lms.entity.Book;
@@ -51,7 +52,7 @@ public interface BookDao {
 
     Book getBookbyId(Integer bookId);
 
-    String setBookRequest(Integer bookId, Integer userId);
+    String setBookRequest(Integer bookId, Integer userId) throws ParseException;
 
     /**
      * Search a book by any of its fields
