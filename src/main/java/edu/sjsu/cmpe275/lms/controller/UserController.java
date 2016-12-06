@@ -97,16 +97,17 @@ public class UserController {
 			HttpServletRequest request,
 			HttpServletResponse response) throws ParseException {
 		ModelAndView mv = new ModelAndView("books/request");
-		
+		List<Book> currBooks = bService.listBooksOfUser(userId);
+		if (currBooks.size() > 9) {
+            mv.addObject("status","Maximum 10 books can be issued at a time. Must return a book to issue new.");
+            return mv;
+        }
 		Book book = bService.findBookById(bookId);
-		
 		User user = uService.findUser(userId);
-	
 //		List<User> userlist = new ArrayList<User>();
 //		userlist.add(user);
 		String status = bService.requestBook(bookId,userId);
 		mv.addObject("status",status);
-		
 		return mv;
 	}
 
