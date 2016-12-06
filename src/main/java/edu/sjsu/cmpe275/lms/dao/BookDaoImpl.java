@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +83,7 @@ public class BookDaoImpl implements BookDao {
      * @see edu.sjsu.cmpe275.lms.dao.BookDao#setBookRequest(edu.sjsu.cmpe275.lms.entity.User)
      */
     @Override
-    public String setBookRequest(Integer bookId, Integer userId) {
+    public String setBookRequest(Integer bookId, Integer userId) throws ParseException {
 		// TODO Auto-generated method stub
 		Book book = entityManager.find(Book.class, bookId);
 		User user = entityManager.find(User.class, userId);

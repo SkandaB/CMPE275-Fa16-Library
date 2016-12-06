@@ -5,8 +5,14 @@ package edu.sjsu.cmpe275.lms.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author dhanyaramesh
@@ -57,15 +63,26 @@ public class UserBook {
 
     }
 
-    public String getDueDate(){
+    public String getDueDate() throws ParseException {
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        System.out.println("this date "+this.date.toString());
-        LocalDate duedate = (LocalDate) dtf.parse(this.date.toString());
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+//        System.out.println("this date "+this.date.toString());
+//        LocalDate duedate = (LocalDate) dtf.parse(this.date.toString());
+//
+//        duedate = duedate.plusDays(30);
+//        System.out.println("due date "+duedate);
+//        String dueDate = dtf.format(duedate);
 
-        duedate = duedate.plusDays(30);
-        System.out.println("due date "+duedate);
-        String dueDate = dtf.format(duedate);
+        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+        Date duedate = dtf.parse(this.date);
+
+//        duedate = duedate;
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(duedate);
+        cal.add(Calendar.DATE, 30);
+
+        String dueDate = dtf.format(cal.getTime());
+        System.out.println("String new due date "+dueDate);
 
 
         return dueDate;

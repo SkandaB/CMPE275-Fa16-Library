@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
@@ -89,7 +90,7 @@ public class UserController {
 			@PathVariable("bookId") Integer bookId,
 			ModelMap model,
 			HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws ParseException {
 		ModelAndView mv = new ModelAndView("books/request");
 		
 		Book book = bService.findBookById(bookId);
