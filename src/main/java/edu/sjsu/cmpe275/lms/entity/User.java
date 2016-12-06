@@ -16,7 +16,7 @@ public class User {
 
 	public static final String ROLE_LIBRARIAN = "LIBRARIAN";
 	public static final String ROLE_PATRON = "PATRON";
-	@OneToMany(mappedBy = "user",cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy = "user",cascade = {CascadeType.REMOVE})
 	List<UserBook> currentBooks = new ArrayList<UserBook>();
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id

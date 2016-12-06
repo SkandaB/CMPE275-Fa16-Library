@@ -65,7 +65,7 @@ public interface BookDao {
      * change status of book based on the number of copies checked out
      * @param book_Id
      */
-    public void updateBookStatus(Integer book_Id);
+    public void updateBookStatus(Integer book_Id) throws InterruptedException;
 
     /**
      * l

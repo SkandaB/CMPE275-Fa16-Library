@@ -37,7 +37,7 @@ public class UserController {
 		return modelAndView;
 	}
 /*
-* Comment from new banch Dhanya's Mac
+* Comment from new branch Dhanya's Mac
 * /
  */
 
@@ -103,11 +103,6 @@ public class UserController {
             return mv;
         }
 
-//        int userDayBookCount = ubService.getUserDayBookCount(userId);
-//        if (userDayBookCount > 4) {
-//            mv.addObject("status","Maximum 5 books can be issued in a day. Must return a book today or try tomorrow");
-//            return mv;
-//        }
 		String status = bService.requestBook(bookId,userId);
 		mv.addObject("status",status);
 		return mv;

@@ -53,7 +53,7 @@ public class Book {
 			joinColumns={ @JoinColumn(name="ISBN", referencedColumnName="ISBN") },
 			inverseJoinColumns={ @JoinColumn(name="ID", referencedColumnName="ID", unique=true) }
 			)*/
-    @OneToMany(mappedBy = "book",cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "book",cascade = {CascadeType.REMOVE})
     List<UserBook> currentUsers = new ArrayList<UserBook>();
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
