@@ -3,6 +3,7 @@ package edu.sjsu.cmpe275.lms.controller;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.service.BookService;
+import edu.sjsu.cmpe275.lms.service.UserBookService;
 import edu.sjsu.cmpe275.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class UserController {
 	UserService uService;
 	@Autowired
 	BookService bService;
+    @Autowired
+    UserBookService ubService;
 
 	/**
 	 * @return
@@ -92,20 +95,19 @@ public class UserController {
 
 	@RequestMapping(value = "/user/{userId}/books/{bookId}", method = RequestMethod.GET)
 	public Object requestBooks(@PathVariable("userId") Integer userId,
-			@PathVariable("bookId") Integer bookId,
-			ModelMap model,
-			HttpServletRequest request,
-			HttpServletResponse response) throws ParseException {
+			@PathVariable("bookId") Integer bookId) throws ParseException {
 		ModelAndView mv = new ModelAndView("books/request");
 		List<Book> currBooks = bService.listBooksOfUser(userId);
 		if (currBooks.size() > 9) {
             mv.addObject("status","Maximum 10 books can be issued at a time. Must return a book to issue new.");
             return mv;
         }
-		Book book = bService.findBookById(bookId);
-		User user = uService.findUser(userId);
-//		List<User> userlist = new ArrayList<User>();
-//		userlist.add(user);
+
+//        int userDayBookCount = ubService.getUserDayBookCount(userId);
+//        if (userDayBookCount > 4) {
+//            mv.addObject("status","Maximum 5 books can be issued in a day. Must return a book today or try tomorrow");
+//            return mv;
+//        }
 		String status = bService.requestBook(bookId,userId);
 		mv.addObject("status",status);
 		return mv;
@@ -113,16 +115,12 @@ public class UserController {
 
 	@RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
 	public Object returnBook(@PathVariable("userId") Integer userId,
-							   @PathVariable("bookId") Integer bookId,
-							   ModelMap model,
-							   HttpServletRequest request,
-							   HttpServletResponse response) throws ParseException {
+							   @PathVariable("bookId") Integer bookId) throws ParseException {
 		ModelAndView mv = new ModelAndView("books/userBookList");
 
 
 		bService.returnBook(bookId,userId);
 		//mv.addObject("status",status);
-
 		return mv;
 	}
 }

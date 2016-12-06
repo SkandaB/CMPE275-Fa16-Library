@@ -63,7 +63,7 @@ public class Book {
 	private String isbn;
 	@Column(name = "AUTHOR", nullable = false)
 	private String author;
-	@Column(name = "TITLE", nullable = false, unique = true)
+	@Column(name = "TITLE", nullable = false)
 	private String title;
 	@Column(name = "CALLNUMBER", length = 10)
 	private String callnumber;

@@ -305,6 +305,7 @@ public class BookController {
                 response.getWriter().close();
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
         }
     }

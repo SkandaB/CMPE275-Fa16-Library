@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"SJSUID", "ROLE"}))
+@Table(name = "USER", uniqueConstraints = @UniqueConstraint(columnNames = {"SJSUID", "ROLE"}))
 public class User {
 
 	public static final String ROLE_LIBRARIAN = "LIBRARIAN";

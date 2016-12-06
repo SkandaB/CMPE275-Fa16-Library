@@ -23,23 +23,22 @@ import java.util.GregorianCalendar;
 public class UserBook {
 
     @EmbeddedId
-    @Column(name = "id")
+    @Column(name = "ID")
     private UserBookId id;
     @ManyToOne
-    @JoinColumn(name = "book", insertable = false, updatable = false)
+    @JoinColumn(name = "BOOK", insertable = false, updatable = false)
     private Book book;
     @ManyToOne
-    @JoinColumn(name = "user", insertable = false, updatable = false)
+    @JoinColumn(name = "USER", insertable = false, updatable = false)
     private User user;
-    @Column(name = "checkoutDate")
-    private String date;
-    @Column(name = "renewFlag")
-    private Integer renewFlag;
+    @Column(name = "CHECKOUT_DATE")
+    private String checkout_date;
+    @Column(name = "RENEW_FLAG")
+    private Integer renew_flag;
 
     public UserBook() {
 
     }
-
 
     public UserBook(Book b, User u, LocalDate f, Integer renewFlag) {
         // create primary key
@@ -49,8 +48,8 @@ public class UserBook {
         this.book = b;
         this.user = u;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        this.date = dtf.format(LocalDate.now());
-        this.renewFlag = renewFlag;
+        this.checkout_date = dtf.format(LocalDate.now());
+        this.renew_flag = renewFlag;
 
         // update relationships to assure referential integrity
         /*System.out.println("user  "+u.getCurrentBooks().add(this));
@@ -74,7 +73,7 @@ public class UserBook {
 //        String dueDate = dtf.format(duedate);
 
         DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
-        Date duedate = dtf.parse(this.date);
+        Date duedate = dtf.parse(this.checkout_date);
 
 //        duedate = duedate;
         Calendar cal = new GregorianCalendar();
