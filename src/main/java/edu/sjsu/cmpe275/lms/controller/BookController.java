@@ -310,29 +310,27 @@ public class BookController {
     }
 
     @Transactional
-    @RequestMapping(value = "/searchBook", method = RequestMethod.GET)
-    ModelAndView searchBook(ModelAndView modelAndView) {
-        modelAndView = new ModelAndView("searchBook");
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView searchBookPage(ModelAndView modelAndView) {
+        modelAndView.setViewName("books/searchBook");
         modelAndView.addObject("book", new Book());
         return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     @Transactional
-    public ModelAndView submitForm(@ModelAttribute("book") Book book, ModelAndView modelAndView) {
-        modelAndView = new ModelAndView();
+    public ModelAndView searchBook(@ModelAttribute("book") Book book, ModelAndView modelAndView) {
         if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
-            modelAndView.setViewName("searchBook");
+            modelAndView.setViewName("books/searchBook");
             modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
             return modelAndView;
         }
 
-        modelAndView.setViewName("listBooks");
-        modelAndView.addObject("books", bookDao.searchBook(book));
+        modelAndView.setViewName("books/listBooks");
+        List<Book> books = bookDao.searchBook(book);
+        if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
+        modelAndView.addObject("books", books);
         return modelAndView;
     }
 
-
 }
-
-

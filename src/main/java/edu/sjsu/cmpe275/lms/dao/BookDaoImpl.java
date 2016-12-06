@@ -132,7 +132,7 @@ public class BookDaoImpl implements BookDao {
         if (book.getIsbn() != null && !book.getIsbn().isEmpty()) {
             querySB.append(" b.isbn = :isbn");
             q = entityManager.createQuery(querySB.toString(), Book.class);
-            q.setParameter("isbn", book.getIsbn());
+            q.setParameter("isbn", book.getIsbn().toLowerCase());
             //List<Book> books = q.getResultList();
             //return books;
         } else {
@@ -164,7 +164,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.author = :author");
+                querySB.append(" lower(b.author) LIKE :author");
                 paramPresent.put("author", true);
             }
 
@@ -174,7 +174,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.title = :title");
+                querySB.append(" lower(b.title) LIKE :title");
                 paramPresent.put("title", true);
             }
 
@@ -184,7 +184,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.callnumber = :callnumber");
+                querySB.append(" lower(b.callnumber) LIKE :callnumber");
                 paramPresent.put("callnumber", true);
             }
 
@@ -194,7 +194,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.publisher = :publisher");
+                querySB.append(" lower(b.publisher) LIKE :publisher");
                 paramPresent.put("publisher", true);
             }
 
@@ -204,7 +204,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.year_of_publication = :year_of_publication");
+                querySB.append(" lower(b.year_of_publication) LIKE :year_of_publication");
                 paramPresent.put("year_of_publication", true);
             }
 
@@ -214,7 +214,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.current_status = :current_status");
+                querySB.append(" lower(b.current_status) LIKE :current_status");
                 paramPresent.put("current_status", true);
             }
 
@@ -223,7 +223,7 @@ public class BookDaoImpl implements BookDao {
             for (Map.Entry entry : paramPresent.entrySet()) {
                 if ((Boolean) entry.getValue()) {
                     // set query parameters for those which have a value
-                    q.setParameter((String) entry.getKey(), paramValues.get(entry.getKey()));
+                    q.setParameter((String) entry.getKey(), "%"+paramValues.get(entry.getKey()).toLowerCase()+"%");
                 }
             }
         }
