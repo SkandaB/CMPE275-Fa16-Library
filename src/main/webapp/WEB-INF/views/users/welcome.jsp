@@ -7,12 +7,36 @@
 <html lang="en">
 
 <jsp:include page="../../fragments/header.jsp" />
+<style>
+    a:link {
+        text-decoration: none;
+    }
 
+    a:visited {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    a:active {
+        text-decoration: underline;
+    }
+</style>
 <body>
 
 <div class="container">
     <h2>Welcome !! </h2>
     ${message}
+    <br>
+    <c:choose>
+        <c:when test="${showsignin == 'true'}">
+    <a href="<c:url value="/register" />">Sign In</a>
+        </c:when>
+
+    </c:choose>
+
 </div>
 <jsp:include page="../../fragments/footer.jsp" />
 

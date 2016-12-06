@@ -127,6 +127,9 @@
         document.getElementById(formId).style.display = "block";
     }
     $(document).ready(function () {
+        var uemail  = '${useremail}';
+        console.log(uemail)
+        $("#loggedinusername").text(uemail);
         $("#addBtn").click(function () {
             $('#addBookModal').modal('show');
         });
@@ -144,11 +147,10 @@
         });
 
         getBooksData = function () {
-            var url = "/book/searchAllBooks";
-            var modelAttributeValue = ${books};
-            console.log(modelAttributeValue);
+            var url = "/book/getBooksJson";
             $.get(url, null, function (data) {
                console.log("here");
+               console.log(data)
             });
         }
 
@@ -179,13 +181,13 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i
+                    <a id="loggedinusername" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i
                             class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
                     <ul id="g-account-menu" class="dropdown-menu" role="menu">
                         <li><a href="#">My Profile</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+                <li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a>
             </ul>
         </div>
     </div>
@@ -371,6 +373,14 @@
                                 <h4 class="modal-title" id="viewbooksmodalid">List of all the books in LMS</h4>
                             </div>
                             <div class="modal-body">
+                                <c:forEach var="book" items="${books}">
+                                    <tr>
+                                        <td>${book.isbn}</td>
+                                        <td>${book.title}</td>
+                                        <td>${book.author}</td>
+                                        <td>${book.current_status}</td>
+                                    </tr>
+                                </c:forEach>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

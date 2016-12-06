@@ -2,7 +2,7 @@
 <div class="container">
 	<hr>
 	<footer>
-		<p> © Dhanya Ramesh & Skanda Bhargav</p>
+		<p> &copy; Group 2 - Dhanya Ramesh, Sagar Dafle, Shubham Vadhera, Skanda Bhargav</p>
 	</footer>
 </div>
 

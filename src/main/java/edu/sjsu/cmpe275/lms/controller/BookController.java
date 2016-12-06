@@ -341,4 +341,29 @@ public class BookController {
         return modelAndView;
     }
 
+    @Transactional
+    @RequestMapping( method = RequestMethod.GET, params = "json", produces = "application/json; charset=UTF-8")
+    public
+    @ResponseBody
+    String getBooksJson(@RequestParam(value = "json") String isJson, HttpServletResponse response) {
+        if (isJson.equals("true")) {
+            List<Book> booklist = bookDao.findAll();
+            /**
+             * If ID is not found in database
+             */
+            if (booklist.size() < 1) {
+                try {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                   // response.getWriter().write(Errors.getIDNotFoundErrorPage(Errors.PHONE_ENTITY, phoneid));
+                    response.getWriter().flush();
+                    response.getWriter().close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+            return Helper.bookJsonBuilder(booklist.get(0));
+        }
+        return "{\"Error\":\"json=" + isJson + " not a valid value\"}";
+    }
 }

@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.lms.controller;
 
+import edu.sjsu.cmpe275.lms.dao.BookDao;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserVerfToken;
 import edu.sjsu.cmpe275.lms.registration.RegistrationCompleteEvent;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -35,6 +37,9 @@ public class RegistrationController {
 
     @Autowired
     ServletContext servletContext;
+
+    @Autowired
+    private BookDao bookDao;
 
  /*   @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView landing() {
@@ -88,7 +93,7 @@ public class RegistrationController {
                 return mv;
             }
             ModelAndView mv = new ModelAndView("users/welcome");
-            mv.addObject("message", "User with email: " + added.getUseremail() + " successfully created! \r\n Please check your inbox and validate your account to use full user services.");
+            mv.addObject("message", "User with email: " + added.getUseremail() + " successfully created! \r\nPlease check your inbox and validate your account to use full user services.");
             return mv;
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,17 +121,11 @@ public class RegistrationController {
             mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination.");
             return mv;
         } else {
-            return new ModelAndView("librarian/dashboard");
-        }
-        /*{
-            if (loggedInUser.getRole().equals("ROLE_LIBRARIAN")) {
-                System.out.println("Librarian found++++++++++=");
-                mv = new ModelAndView("librarian/dashboard");
-            } else {
-                mv = new ModelAndView("users/welcome");
-            }
+            mv =  new ModelAndView("librarian/dashboard");
+            bookDao.findCountAvailable();
+            mv.addObject("useremail",user.getUseremail());
             return mv;
-        }*/
+        }
 
     }
 
@@ -142,7 +141,17 @@ public class RegistrationController {
         user.setEnabled(true);
         uService.saveValidatedUser(user);
         ModelAndView modelAndView = new ModelAndView("users/welcome");
+        modelAndView.addObject("showsignin" , "true");
         modelAndView.addObject("message", "Success! \r\n" + user.getUseremail() + " validation successful. You may now use the full user services ");
         return modelAndView;
     }
-}
+
+    @RequestMapping(value="/logoutuser", method = RequestMethod.GET)
+    public String logoutPage (HttpServletRequest request) {
+        System.out.println("Logout called !!");
+            HttpSession httpSession = request.getSession();
+            httpSession.invalidate();
+            return "redirect:/";
+        }
+    }
+
