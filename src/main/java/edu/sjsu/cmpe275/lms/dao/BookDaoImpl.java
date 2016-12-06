@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.lms.dao;
 
+import edu.sjsu.cmpe275.lms.email.SendEmail;
 import edu.sjsu.cmpe275.lms.entity.Book;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +23,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 
 @Transactional
@@ -36,6 +36,11 @@ public class BookDaoImpl implements BookDao {
      *
      * @param book
      */
+
+
+    @Autowired
+    private SendEmail eMail;
+
     @Override
     public boolean addBook(Book book) {
         entityManager.persist(book);
@@ -65,7 +70,10 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> findAll() {
-        List<Book> books = entityManager.createQuery("select b from Book b", Book.class).getResultList();
+        List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
+
+//    public List<Book> findAll() {
+//        List<Book> books = entityManager.createQuery("select b from Book b", Book.class).getResultList();
         return books;
 
     }
@@ -75,47 +83,42 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public String setBookRequest(Integer bookId, Integer userId) {
-        // TODO Auto-generated method stub
-        Book book = entityManager.find(Book.class, bookId);
-        User user = entityManager.find(User.class, userId);
-
-        UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
-
-        String returnStatus = "";
-        if (book.getCurrent_status().equalsIgnoreCase("available")) {
-            List<UserBook> currentUsers = book.getCurrentUsers();
-            try {
-                if (!currentUsers.contains(userBook)) {
-                    currentUsers.add(userBook);
-                    book.setCurrentUsers(currentUsers);
-                    entityManager.persist(userBook);
-                    userBook.UserBookPersist(book, user);
-                    returnStatus = "User request for the book successful";
-                } else {
-                    //have to include the loginc for extending the book
-                    returnStatus = "User has checked out the same book already";
-                }
-
-            } catch (EntityExistsException e) {
-                returnStatus = "User has checked out the same book already";
-            }
+		// TODO Auto-generated method stub
+		Book book = entityManager.find(Book.class, bookId);
+		User user = entityManager.find(User.class, userId);
 
 
-        } else {
-            List<User> waitlist = book.getWaitlist();
-            if (!waitlist.contains(user)) {
-                waitlist.add(user);
-                book.setWaitlist(waitlist);
-                returnStatus = "User is waitlisted! Waitlist number is " + book.getWaitlist().indexOf(user) + 1;
+		String returnStatus = "";
+		if (book.getCurrent_status().equalsIgnoreCase("available")) {
 
-            } else {
-                returnStatus = "User has already requested for the book! Waitlist number is " + book.getWaitlist().indexOf(user) + 1;
-            }
-        }
-        entityManager.merge(book);
+			List<UserBook> currentUsers = book.getCurrentUsers();
+			UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
+			currentUsers.add(userBook);
+			book.setCurrentUsers(currentUsers);
+			entityManager.merge(userBook);
+			userBook.UserBookPersist(book, user);
+			String due_date = userBook.getDueDate();
+			returnStatus = "User request for the book successful \n The Due date is " + due_date;
+			eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
 
-        return returnStatus;
-    }
+			updateBookStatus(book.getBookId());
+			return returnStatus;
+
+		} else {
+			List<User> waitlist = book.getWaitlist();
+			if (!waitlist.contains(user)) {
+				waitlist.add(user);
+				book.setWaitlist(waitlist);
+				entityManager.merge(book);
+				returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
+				eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
+
+			} else {
+				returnStatus = "User has already requested for the book! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
+			}
+			return returnStatus;
+		}
+	}
 
     /**
      * Search a book by any of its fields
@@ -132,7 +135,7 @@ public class BookDaoImpl implements BookDao {
         if (book.getIsbn() != null && !book.getIsbn().isEmpty()) {
             querySB.append(" b.isbn = :isbn");
             q = entityManager.createQuery(querySB.toString(), Book.class);
-            q.setParameter("isbn", book.getIsbn());
+            q.setParameter("isbn", book.getIsbn().toLowerCase());
             //List<Book> books = q.getResultList();
             //return books;
         } else {
@@ -164,7 +167,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.author = :author");
+                querySB.append(" lower(b.author) LIKE :author");
                 paramPresent.put("author", true);
             }
 
@@ -174,7 +177,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.title = :title");
+                querySB.append(" lower(b.title) LIKE :title");
                 paramPresent.put("title", true);
             }
 
@@ -184,7 +187,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.callnumber = :callnumber");
+                querySB.append(" lower(b.callnumber) LIKE :callnumber");
                 paramPresent.put("callnumber", true);
             }
 
@@ -194,7 +197,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.publisher = :publisher");
+                querySB.append(" lower(b.publisher) LIKE :publisher");
                 paramPresent.put("publisher", true);
             }
 
@@ -204,7 +207,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.year_of_publication = :year_of_publication");
+                querySB.append(" lower(b.year_of_publication) LIKE :year_of_publication");
                 paramPresent.put("year_of_publication", true);
             }
 
@@ -214,7 +217,7 @@ public class BookDaoImpl implements BookDao {
                     querySB.append(" AND");
                 }
                 first = false;
-                querySB.append(" b.current_status = :current_status");
+                querySB.append(" lower(b.current_status) LIKE :current_status");
                 paramPresent.put("current_status", true);
             }
 
@@ -223,7 +226,7 @@ public class BookDaoImpl implements BookDao {
             for (Map.Entry entry : paramPresent.entrySet()) {
                 if ((Boolean) entry.getValue()) {
                     // set query parameters for those which have a value
-                    q.setParameter((String) entry.getKey(), paramValues.get(entry.getKey()));
+                    q.setParameter((String) entry.getKey(), "%"+paramValues.get(entry.getKey()).toLowerCase()+"%");
                 }
             }
         }
@@ -242,26 +245,26 @@ public class BookDaoImpl implements BookDao {
         return book;
     }
 
-	@Override
-	public void updateBookStatus(Integer book_Id){
-		String book_query = "select b from Book b where b.bookId = " + book_Id;
+    @Override
+    public void updateBookStatus(Integer book_Id) {
+        String book_query = "select b from Book b where b.bookId = " + book_Id;
 
- 		Book book = (Book) entityManager.createQuery(book_query, Book.class).getSingleResult();
+        Book book = (Book) entityManager.createQuery(book_query, Book.class).getSingleResult();
 
-		System.out.println("book "+book.getBookId());
+        System.out.println("book " + book.getBookId());
 
-		String userbook_query = "select ub from UserBook ub where ub.book.bookId = "+book_Id;
+        String userbook_query = "select ub from UserBook ub where ub.book.bookId = " + book_Id;
 
 
-		List<UserBook> userBooks = 	entityManager.createQuery(userbook_query, UserBook.class).getResultList();
+        List<UserBook> userBooks = entityManager.createQuery(userbook_query, UserBook.class).getResultList();
 
-		System.out.println("userbook "+userBooks.size());
+        System.out.println("userbook " + userBooks.size());
 
-		if(book.getNum_of_copies()==userBooks.size()){
-			System.out.println("changing status");
-			book.setCurrent_status("Hold");
-			entityManager.merge(book);
-		}
-	}
+        if (book.getNum_of_copies() == userBooks.size()) {
+            System.out.println("changing status");
+            book.setCurrent_status("Hold");
+            entityManager.merge(book);
+        }
+    }
 
 }

@@ -33,7 +33,7 @@
 
         </tr>
         </thead>
-
+        <p><font color="red">${errorMessage}</font></p>
         <c:forEach var="book" items="${books}">
             <tr>
                 <td>${book.isbn}</td>
