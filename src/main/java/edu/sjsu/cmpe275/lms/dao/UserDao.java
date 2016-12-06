@@ -20,6 +20,7 @@ public interface UserDao {
 
 	public User getUser(Integer id);
 
+	public User findUserByEmail(String usermail);
 
 	void updateUser(User user);
 

@@ -28,7 +28,6 @@
 </head>
 <style>
     /*<!-- Making the form awesome --> */
-
     .form-style-9{
         max-width: 450px;
         background: #FAFAFA;
@@ -59,7 +58,6 @@
         -moz-transition: all 0.30s ease-in-out;
         -ms-transition: all 0.30s ease-in-out;
         -o-transition: all 0.30s ease-in-out;
-
     }.form-style-9 ul li  .field-style:focus{
          box-shadow: 0 0 5px #B0CFE0;
          border:1px solid #B0CFE0;
@@ -99,26 +97,21 @@
         background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
         background-color: #28739E;
     }
-
     /*End form styling*/
-
     /*Making the modal box awesome*/
-
     .modal {
         /*//height: 45%;*/
         text-align: center;
         padding: 0 !important;
     }
-
     /*.modal:before {*/
-        /*content: '';*/
-        /*display: inline-block;*/
-        /*height: 100%;*/
-        /*width: 100%;*/
-        /*vertical-align: middle;*/
-        /*margin-right: -4px; !* Adjusts for spacing *!*/
+    /*content: '';*/
+    /*display: inline-block;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*vertical-align: middle;*/
+    /*margin-right: -4px; !* Adjusts for spacing *!*/
     /*}*/
-
     .modal-body{
         height: 100%;
     }
@@ -128,7 +121,6 @@
         text-align: left;
         vertical-align: middle;
     }
-
     /*End modal styling*/
 </style>
 <script type="text/javascript">
@@ -139,12 +131,10 @@
         }
         document.getElementById(formId).style.display = "block";
     }
-
     $(document).ready(function () {
         $("#addBtn").click(function () {
             $('#addBookModal').modal('show');
         });
-
         $("#addBtn1").click(function () {
             $('#addBookModal').modal('show');
         });
@@ -233,8 +223,8 @@
                                 <ul class="nav nav-tabs" id="tabContent" data-tabs="tabs">
                                     <li>
                                         <a href="#" id="simpleadd" data-toggle="tab" onclick="displayForms(this,'simpleaddform');">Add via
-                                        ISBN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                         </a>
+                                            ISBN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </a>
                                     </li>
                                     <li>
                                         <a href="#" id="advancedadd" data-toggle="tab" onclick="displayForms(this,'advancedaddform');">Advanced
@@ -244,68 +234,98 @@
                                 </ul>
                                 <div id="my-tab-content" class="tab-content">
                                     <div class="tab-pane active" id="a">
-                                            <form:form class="form-style-9" method="post" action="book/addBook/" modelAttribute="book" name="simpleaddform" id="simpleaddform" style="display: none">
-                                                <ul>
-                                                    <li>
-                                                        <input type="text" id="isbn" class="field-style field-full align-none" name="isbn" placeholder="ISBN">
-                                                    </li>
-                                                    <li>
-                                                        <input type="text" name="callnumber" class="field-style field-split align-left" placeholder="Call Number" />
-                                                        <input type="text" name="location" class="field-style field-split align-right" placeholder="Location" />
-                                                    </li>
-                                                    <li>
-                                                        <input type="number" min="1" name="num_of_copies" class="field-style field-split align-left" placeholder="# of copies" />
-                                                        <input type="text" name="keywords" class="field-style field-split align-right" placeholder="Keywords" />
-                                                        <select class="selectpicker" name="current_status" data-style="btn-info">
-                                                            <option>Available</option>
-                                                            <option>Reserved</option>
-                                                            <option>Wait-Listed</option>
-                                                        </select>
-
-                                                    </li>
-                                                    <li>
-                                                        <input type="submit" value="Add Book" />
-                                                    </li>
-                                                </ul>
-                                            </form:form>
-                                    </div>
-                                    </div>
-                                    <div class="tab-pane" id="b">
-
-                                        <form:form class="form-style-9" method="post" action="book/addBook/" modelAttribute="book" id="advancedaddform" style="display: none">
+                                        <form:form class="form-style-9" method="post" action="book/addBook/"
+                                                   modelAttribute="book" name="simpleaddform" id="simpleaddform"
+                                                   style="display: none">
                                             <ul>
                                                 <li>
-                                                    <input type="text" class="field-style field-split align-left" name="isbn" placeholder="ISBN">
-                                                    <input type="text" name="title" class="field-style field-split align-right" placeholder="Title" />
+                                                    <input type="text" id="isbn"
+                                                           class="field-style field-full align-none" name="isbn"
+                                                           placeholder="ISBN">
                                                 </li>
                                                 <li>
-                                                    <input type="text" name="author" class="field-style field-split align-left" placeholder="Author" />
-                                                    <input type="text" name="publisher" class="field-style field-split align-right" placeholder="Publisher" />
+                                                    <input type="text" name="callnumber"
+                                                           class="field-style field-split align-left"
+                                                           placeholder="Call Number"/>
+                                                    <input type="text" name="location"
+                                                           class="field-style field-split align-right"
+                                                           placeholder="Location"/>
                                                 </li>
                                                 <li>
-                                                    <input type="text" name="year_of_publication" class="field-style field-split align-left" placeholder="Publication Year" />
-                                                    <input type="text" name="location" class="field-style field-split align-left" placeholder="Library Location" />
-                                                </li>
-                                                <li>
-                                                    <input type="number" min="1" name="num_of_copies" class="field-style field-split align-left" placeholder="# of Copies" />
-                                                    <input type="text" name="callnumber" class="field-style field-split align-left" placeholder="Call Number" />
-                                                </li>
-                                                <li>
-                                                    <select class="selectpicker" name="current_status" data-style="btn-info">
+                                                    <input type="number" min="1" name="num_of_copies"
+                                                           class="field-style field-split align-left"
+                                                           placeholder="# of copies"/>
+                                                    <input type="text" name="keywords"
+                                                           class="field-style field-split align-right"
+                                                           placeholder="Keywords"/>
+                                                    <select class="selectpicker" name="current_status"
+                                                            data-style="btn-info">
                                                         <option>Available</option>
                                                         <option>Reserved</option>
                                                         <option>Wait-Listed</option>
                                                     </select>
-                                                    <input type="text" name="keywords" class="field-style field-full align-none" placeholder="Keywords" />
-                                                </li>
 
+                                                </li>
                                                 <li>
-                                                    <input type="submit" value="Add Book" />
+                                                    <input type="submit" value="Add Book"/>
                                                 </li>
                                             </ul>
                                         </form:form>
+                                    </div>
                                 </div>
-                            <%--</div>--%>
+                                <div class="tab-pane" id="b">
+
+                                    <form:form class="form-style-9" method="post" action="book/addBook/"
+                                               modelAttribute="book" id="advancedaddform" style="display: none">
+                                        <ul>
+                                            <li>
+                                                <input type="text" class="field-style field-split align-left"
+                                                       name="isbn" placeholder="ISBN">
+                                                <input type="text" name="title"
+                                                       class="field-style field-split align-right" placeholder="Title"/>
+                                            </li>
+                                            <li>
+                                                <input type="text" name="author"
+                                                       class="field-style field-split align-left" placeholder="Author"/>
+                                                <input type="text" name="publisher"
+                                                       class="field-style field-split align-right"
+                                                       placeholder="Publisher"/>
+                                            </li>
+                                            <li>
+                                                <input type="text" name="year_of_publication"
+                                                       class="field-style field-split align-left"
+                                                       placeholder="Publication Year"/>
+                                                <input type="text" name="location"
+                                                       class="field-style field-split align-left"
+                                                       placeholder="Library Location"/>
+                                            </li>
+                                            <li>
+                                                <input type="number" min="1" name="num_of_copies"
+                                                       class="field-style field-split align-left"
+                                                       placeholder="# of Copies"/>
+                                                <input type="text" name="callnumber"
+                                                       class="field-style field-split align-left"
+                                                       placeholder="Call Number"/>
+                                            </li>
+                                            <li>
+                                                <select class="selectpicker" name="current_status"
+                                                        data-style="btn-info">
+                                                    <option>Available</option>
+                                                    <option>Reserved</option>
+                                                    <option>Wait-Listed</option>
+                                                </select>
+                                                <input type="text" name="keywords"
+                                                       class="field-style field-full align-none"
+                                                       placeholder="Keywords"/>
+                                            </li>
+
+                                            <li>
+                                                <input type="submit" value="Add Book"/>
+                                            </li>
+                                        </ul>
+                                    </form:form>
+                                </div>
+                                <%--</div>--%>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

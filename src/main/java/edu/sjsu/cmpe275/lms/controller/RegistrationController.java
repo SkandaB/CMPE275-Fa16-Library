@@ -84,6 +84,30 @@ public class RegistrationController {
         return mv;
     }
 
+
+    @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
+    public ModelAndView loginUser(HttpServletRequest request,
+                                  @Valid @ModelAttribute("loginForm") User user,
+                                  BindingResult bindingResult) {
+        System.out.println("Details from Login form: " + user.toString());
+        User loggedInUser = uService.findUserByEmail(user.getUseremail());
+        System.out.println("Logged in User from DB" + loggedInUser);
+        ModelAndView mv;
+        if (loggedInUser == null) {
+            mv = new ModelAndView("error");
+            mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination.");
+            return mv;
+        } else {
+            if (loggedInUser.getRole().equals("ROLE_LIBRARIAN")) {
+                System.out.println("Librarian found++++++++++=");
+                mv = new ModelAndView("librarian/dashboard");
+            } else {
+                mv = new ModelAndView("users/welcome");
+            }
+            return mv;
+        }
+    }
+
     @RequestMapping(value = "/register/confirmRegistration.html", method = RequestMethod.GET)
     public ModelAndView confirmRegisteredAccount(@RequestParam("token") String token) {
         System.out.println("*********** Token from URL = " + token);
