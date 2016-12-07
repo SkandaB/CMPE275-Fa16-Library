@@ -7,10 +7,10 @@
 <html>
 <head>
 
-    <link rel="stylesheet" type="text/css" href="/resources/core/css/style.css">
+    <link rel="stylesheet" type="text/css" href="resources/core/css/style.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.css">
-    <link rel="stylesheet" href="/resources/core/css/splash.css">
+    <link rel="stylesheet" href="resources/core/css/splash.css">
     <%--<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>--%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -258,7 +258,7 @@
 </div>
 
 </body>
-<script type="text/javascript" src="/resources/core/js/splash.js"></script>
+<script type="text/javascript" src="resources/core/js/splash.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.min.js"></script>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-animate.min.js"></script>
