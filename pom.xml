@@ -7,7 +7,6 @@
 	<packaging>war</packaging>
 
 
-
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>

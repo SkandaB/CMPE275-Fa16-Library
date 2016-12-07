@@ -304,12 +304,12 @@ public class BookDaoImpl implements BookDao {
 
         String userbook_query = "select ub from UserBook ub where ub.book = " + book_Id;
         List<UserBook> userBooks = entityManager.createQuery(userbook_query, UserBook.class).getResultList();
-            Book book = entityManager.find(Book.class,book_Id);
-            if (book.getNum_of_copies() == userBooks.size()) {
-                System.out.println("changing status");
-                book.setCurrent_status("Hold");
-                System.out.println("after changing in update fn " + book.getCurrent_status());
-            }
+        Book book = entityManager.find(Book.class, book_Id);
+        if (book.getNum_of_copies() == userBooks.size()) {
+            System.out.println("changing status");
+            book.setCurrent_status("Hold");
+            System.out.println("after changing in update fn " + book.getCurrent_status());
+        }
 
 
 
@@ -332,8 +332,8 @@ public class BookDaoImpl implements BookDao {
             String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = "+userId;
             UserBook userBook = entityManager.createQuery(userbookQuery,UserBook.class).getSingleResult();
             entityManager.remove(userBook);
-            User user = entityManager.find(User.class,userId);
-            eMail.sendMail(user.getUseremail(),"Book returned successfully","Book returned successfully");
+            User user = entityManager.find(User.class, userId);
+            eMail.sendMail(user.getUseremail(), "Book returned successfully", "Book returned successfully");
             return "Book returned successfully";
         }catch(Exception e){
 
