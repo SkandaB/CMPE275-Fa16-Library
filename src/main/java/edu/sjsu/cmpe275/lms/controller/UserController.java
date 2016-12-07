@@ -129,10 +129,16 @@ public class UserController {
             return mv;
         }
 
-		String status = bService.requestBook(bookId,userId);
-		mv.addObject("status",status);
-		return mv;
-	}
+        int userDayBookCount = ubService.getUserDayBookCount(userId);
+        if (userDayBookCount > 4) {
+            mv.addObject("status", "Maximum 5 books can be issued in a day. Must return a book today or try tomorrow");
+            return mv;
+        }
+
+        String status = bService.requestBook(bookId, userId);
+        mv.addObject("status", status);
+        return mv;
+    }
 
 	@RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
 	public Object returnBook(@PathVariable("userId") Integer userId,
