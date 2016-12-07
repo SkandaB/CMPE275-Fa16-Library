@@ -18,12 +18,12 @@ public class User {
 	public static final String ROLE_PATRON = "PATRON";
 	@OneToMany(mappedBy = "user",cascade = {CascadeType.REMOVE})
 	List<UserBook> currentBooks = new ArrayList<UserBook>();
-	// Added for search, add and update
-	@OneToMany(mappedBy = "user",cascade = {CascadeType.REMOVE})
-	List<LibUserBook> addUpdateList = new ArrayList<LibUserBook>();
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Id
-	@Column(name = "ID", length = 8, unique = true, nullable = false)
+    // Added for search, add and update
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
+    List<LibUserBook> addUpdateList = new ArrayList<LibUserBook>();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "ID", length = 8, unique = true, nullable = false)
 	private Integer id;
 	@Range(min = 100000, max = 999999, message = "SJSU ID is of fixed size 6 digits")
 	@Column(name = "SJSUID", nullable = false)
@@ -51,15 +51,15 @@ public class User {
 		this.role = role;
 		this.enabled = enabled;
 	}
-	// Add End
+    // Add End
 
-	public List<LibUserBook> getAddUpdateList() {
-		return addUpdateList;
-	}
+    public List<LibUserBook> getAddUpdateList() {
+        return addUpdateList;
+    }
 
-	public void setAddUpdateList(List<LibUserBook> addUpdateList) {
-		this.addUpdateList = addUpdateList;
-	}
+    public void setAddUpdateList(List<LibUserBook> addUpdateList) {
+        this.addUpdateList = addUpdateList;
+    }
 
 	public Integer getId() {
 		return id;

@@ -126,8 +126,8 @@ public class RegistrationController {
 //           int count =  bookDao.findCountAvailable();
 //            System.out.println("count  : "+count);
             // adding  it to session
-            request.getSession().setAttribute("user",loggedInUser);
-            mv.addObject("users",user);
+            request.getSession().setAttribute("user", loggedInUser);
+            mv.addObject("users", user);
             return mv;
         }
     }

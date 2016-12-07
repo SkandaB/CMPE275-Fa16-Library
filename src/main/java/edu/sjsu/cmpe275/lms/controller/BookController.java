@@ -98,8 +98,8 @@ public class BookController {
             ISBNValidator validator = new ISBNValidator();
             if (validator.isValid(book.getIsbn())) {
                 User user = (User) request.getSession().getAttribute("user");
-                System.out.println("user is - "+ user.toString());
-                queryGoogleBooks(book, response,user);
+                System.out.println("user is - " + user.toString());
+                queryGoogleBooks(book, response, user);
             } else {
                 throwNoISBNFoundError(response);
             }
@@ -109,9 +109,9 @@ public class BookController {
              * Save value to database.
              */
             User user = (User) request.getSession().getAttribute("user");
-            System.out.println("user is - "+ user.toString());
+            System.out.println("user is - " + user.toString());
             book.setIsbn(book.getIsbn());
-            addNewBook(book,book.getTitle(),book.getAuthor(),book.getYear_of_publication(),book.getPublisher(),response,user);
+            addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response, user);
         }
         return "librarian/dashboard";
     }
@@ -128,7 +128,7 @@ public class BookController {
         }
     }
 
-    public void queryGoogleBooks(Book book, HttpServletResponse response,User user) throws GeneralSecurityException, IOException, ServiceException {
+    public void queryGoogleBooks(Book book, HttpServletResponse response, User user) throws GeneralSecurityException, IOException, ServiceException {
         BooksService booksService = new BooksService("Library-System-Term-Project");
         URL url = new URL("http://www.google.com/books/feeds/volumes/?q=ISBN%3C" + book.getIsbn() + "%3E");
         System.out.println("URL is " + url.toString());
@@ -197,12 +197,12 @@ public class BookController {
         /**
          * Save the values to database
          */
-        addNewBook(book,title,author,year_of_publication,publisher,response,user);
+        addNewBook(book, title, author, year_of_publication, publisher, response, user);
     }
 
-    private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher , HttpServletResponse response,User user) {
+    private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher, HttpServletResponse response, User user) {
         try {
-            bookDao.addBook(book.getIsbn(), author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords(),book.getImage(),user);
+            bookDao.addBook(book.getIsbn(), author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords(), book.getImage(), user);
         }
         /**
          * If Unique key number is tried to repeat
@@ -222,11 +222,13 @@ public class BookController {
 
     @RequestMapping(value = "/searchAllBooks", method = RequestMethod.GET)
     @Transactional
-    public @ResponseBody List<BookPojo>  searchAllBooks(@ModelAttribute("book") Book book1, ModelAndView modelAndView){
+    public
+    @ResponseBody
+    List<BookPojo> searchAllBooks(@ModelAttribute("book") Book book1, ModelAndView modelAndView) {
         System.out.println("Here !!!");
         List<Book> books = bookDao.findAll();
         List<BookPojo> booksList = new ArrayList<>();
-        for(Book book : books){
+        for (Book book : books) {
             BookPojo bookPojo = new BookPojo();
             bookPojo.setTitle(book.getTitle());
             bookPojo.setAuthor(book.getAuthor());
@@ -284,13 +286,15 @@ public class BookController {
 
     @RequestMapping(value = "/getAllLibUserBook", method = RequestMethod.GET)
     @Transactional
-    public @ResponseBody HashMap<Integer,List<LibUserBookPojo>> searchAllUserLibBooks(@ModelAttribute("libUserBookPojo") LibUserBookPojo libUserBookPojo, ModelAndView modelAndView){
+    public
+    @ResponseBody
+    HashMap<Integer, List<LibUserBookPojo>> searchAllUserLibBooks(@ModelAttribute("libUserBookPojo") LibUserBookPojo libUserBookPojo, ModelAndView modelAndView) {
         System.out.println("Inside searchAllUserLibBooks !!!");
         List<LibUserBook> libUserBooks = bookDao.getAllLibUserBook();
-        System.out.println("libUserBooks "+libUserBooks.get(0).toString());
+        System.out.println("libUserBooks " + libUserBooks.get(0).toString());
         List<LibUserBookPojo> libUserBookPojoList = new ArrayList<LibUserBookPojo>();
-        HashMap<Integer,List<LibUserBookPojo>> hm = new HashMap<Integer,List<LibUserBookPojo>>();
-        for(LibUserBook libUserBook : libUserBooks){
+        HashMap<Integer, List<LibUserBookPojo>> hm = new HashMap<Integer, List<LibUserBookPojo>>();
+        for (LibUserBook libUserBook : libUserBooks) {
             LibUserBookPojo libUserBookPojo1 = new LibUserBookPojo();
             libUserBookPojo1.setAction(libUserBook.getAction());
             libUserBookPojo1.setAuthor(libUserBook.getBook().getAuthor());
@@ -303,13 +307,12 @@ public class BookController {
             libUserBookPojo1.setUserEmail(libUserBook.getUser().getUseremail());
             libUserBookPojo1.setUserId(libUserBook.getUser().getId());
             libUserBookPojo1.setUserName(libUserBook.getUser().getUseremail());
-            if(hm.containsKey(libUserBookPojo1.getUserId())){
+            if (hm.containsKey(libUserBookPojo1.getUserId())) {
                 hm.get(libUserBookPojo1.getUserId()).add(libUserBookPojo1);
-            }
-            else{
+            } else {
                 List<LibUserBookPojo> lubp = new ArrayList<>();
                 lubp.add(libUserBookPojo1);
-                hm.put(libUserBookPojo1.getUserId(),lubp);
+                hm.put(libUserBookPojo1.getUserId(), lubp);
             }
         }
         return hm;
@@ -318,7 +321,7 @@ public class BookController {
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "book/updateuser", method = RequestMethod.POST)
-    public ModelAndView updateBooks(){
+    public ModelAndView updateBooks() {
         System.out.println("Update called !!!");
         return null;
     }

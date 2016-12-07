@@ -45,7 +45,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
 
-    public boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image,User user) {
+    public boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image, User user) {
         Book book = new Book(isbn, author, title, callnumber, publisher, year_of_publication, location, num_of_copies, current_status, keywords, image);
 /*        List<User> addUpdateList = book.getAddUpdateUserlist();
         User userEntity = entityManager.find(User.class,user.getId());
@@ -66,22 +66,22 @@ public class BookDaoImpl implements BookDao {
         entityManager.merge(userEntity);*/
         entityManager.persist(book);
         entityManager.flush();
-        System.out.println("book"  + book.getBookId());
-        Book bookEntity = entityManager.find(Book.class,book.getBookId());
-        User userEntity = entityManager.find(User.class,user.getId());
-        LibUserBook libUserBook = new LibUserBook(bookEntity,userEntity,"add");
+        System.out.println("book" + book.getBookId());
+        Book bookEntity = entityManager.find(Book.class, book.getBookId());
+        User userEntity = entityManager.find(User.class, user.getId());
+        LibUserBook libUserBook = new LibUserBook(bookEntity, userEntity, "add");
         entityManager.persist(libUserBook);
         // newly add code
         List<LibUserBook> addUpdateList = bookEntity.getListAddUpdateUsers();
-        if(addUpdateList==null){
+        if (addUpdateList == null) {
             addUpdateList = new ArrayList<>();
         }
         addUpdateList.add(libUserBook);
         bookEntity.setListAddUpdateUsers(addUpdateList);
         entityManager.merge(bookEntity);
-        userEntity = entityManager.find(User.class,user.getId());
+        userEntity = entityManager.find(User.class, user.getId());
         List<LibUserBook> addUpdateList1 = userEntity.getAddUpdateList();
-        if(addUpdateList1==null){
+        if (addUpdateList1 == null) {
             addUpdateList1 = new ArrayList<>();
         }
         addUpdateList1.add(libUserBook);
@@ -172,8 +172,8 @@ public class BookDaoImpl implements BookDao {
 
                 return returnStatus;
             }
-		}
-	}
+        }
+    }
 
     /**
      * Search a book by any of its fields
@@ -377,7 +377,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<LibUserBook> getAllLibUserBook() {
         List<LibUserBook> libuserbooks = (List<LibUserBook>) entityManager.createQuery("SELECT lub FROM LibUserBook lub", LibUserBook.class).getResultList();
-        System.out.println("libuserbooks "+libuserbooks.get(0).toString());
+        System.out.println("libuserbooks " + libuserbooks.get(0).toString());
         return libuserbooks;
 
     }

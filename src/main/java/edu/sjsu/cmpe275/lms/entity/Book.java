@@ -47,18 +47,18 @@ public class Book {
 			joinColumns={ @JoinColumn(name="ISBN", referencedColumnName="ISBN") },
 			inverseJoinColumns={ @JoinColumn(name="ID", referencedColumnName="ID", unique=true) }
 			)*/
-    @OneToMany(mappedBy = "book",cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "book", cascade = {CascadeType.REMOVE})
     List<UserBook> currentUsers = new ArrayList<UserBook>();
-	@OneToMany(mappedBy = "book",cascade = {CascadeType.REMOVE})
-	List<LibUserBook> listAddUpdateUsers = new ArrayList<LibUserBook>();
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Id
-	@Column(name = "BOOK_ID", length = 8, unique = true, nullable = false)
+    @OneToMany(mappedBy = "book", cascade = {CascadeType.REMOVE})
+    List<LibUserBook> listAddUpdateUsers = new ArrayList<LibUserBook>();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "BOOK_ID", length = 8, unique = true, nullable = false)
 	private Integer bookId;
-		@Column(name = "ISBN", nullable = false,unique=true)
-	private String isbn;
-	@Column(name = "AUTHOR", nullable = false)
-	private String author;
+    @Column(name = "ISBN", nullable = false, unique = true)
+    private String isbn;
+    @Column(name = "AUTHOR", nullable = false)
+    private String author;
 	@Column(name = "TITLE", nullable = false)
 	private String title;
 	@Column(name = "CALLNUMBER", length = 10)
@@ -97,18 +97,18 @@ public class Book {
 
 	}
 
-	public List<LibUserBook> getListAddUpdateUsers() {
-		return listAddUpdateUsers;
-	}
+    public List<LibUserBook> getListAddUpdateUsers() {
+        return listAddUpdateUsers;
+    }
 
-	public void setListAddUpdateUsers(List<LibUserBook> listAddUpdateUsers) {
-		this.listAddUpdateUsers = listAddUpdateUsers;
-	}
+    public void setListAddUpdateUsers(List<LibUserBook> listAddUpdateUsers) {
+        this.listAddUpdateUsers = listAddUpdateUsers;
+    }
 
     // waitlist
-	@Override
-	public String toString() {
-		return "Book{" +
+    @Override
+    public String toString() {
+        return "Book{" +
 				"waitlist=" + waitlist +
 				", currentUsers=" + currentUsers +
 				", bookId=" + bookId +
