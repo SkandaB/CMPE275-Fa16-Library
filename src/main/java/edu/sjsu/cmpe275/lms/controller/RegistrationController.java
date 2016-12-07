@@ -121,7 +121,15 @@ public class RegistrationController {
             mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination.");
             return mv;
         } else {
-            mv =  new ModelAndView("librarian/dashboard");
+            if (loggedInUser.getRole().equalsIgnoreCase("ROLE_PATRON")) {
+
+                mv = new ModelAndView("users/userDashboard");
+                mv.addObject("userId", loggedInUser.getId());
+                return mv;
+            } else {
+
+                mv = new ModelAndView("librarian/dashboard");
+            }
 
 //           int count =  bookDao.findCountAvailable();
 //            System.out.println("count  : "+count);

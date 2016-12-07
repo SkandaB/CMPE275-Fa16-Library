@@ -128,8 +128,9 @@ public class BookDaoImpl implements BookDao {
                 waitlist.add(user);
                 book.setWaitlist(waitlist);
                 entityManager.merge(book);
-                returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
+                returnStatus = "User is waitlisted!" + "\n" + "Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
                 returnStatus = returnStatus+book.toString();
+                System.out.println("RS" + returnStatus);
                 eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
 
             } else {

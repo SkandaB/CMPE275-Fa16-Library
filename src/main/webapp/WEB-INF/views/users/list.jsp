@@ -42,9 +42,7 @@
     </table>
 
 </div>
-<div>
-    <a href="<c:url value="/logout" />">Logout</a>
-</div>
+
 <jsp:include page="../../fragments/footer.jsp" />
 
 </body>
