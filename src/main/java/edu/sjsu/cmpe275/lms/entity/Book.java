@@ -26,21 +26,21 @@ public class Book {
 			)
 	List<User> waitlist = new ArrayList<User>();
 
-	/*@Override
-	public String toString() {
-		return "Book{" +
-				"isbn='" + isbn + '\'' +
-				", author='" + author + '\'' +
-				", title='" + title + '\'' +
-				", callnumber='" + callnumber + '\'' +
-				", publisher='" + publisher + '\'' +
-				", year_of_publication='" + year_of_publication + '\'' +
-				'}';
-	}
+    /*@Override
+    public String toString() {
+        return "Book{" +
+                "isbn='" + isbn + '\'' +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", callnumber='" + callnumber + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", year_of_publication='" + year_of_publication + '\'' +
+                '}';
+    }
 */
-	//current users having the book
+    //current users having the book
     /*@Autowired
-	@OneToMany(cascade={CascadeType.ALL})
+    @OneToMany(cascade={CascadeType.ALL})
 	@JoinTable
 	(
 			name="USER_BOOK",
@@ -95,7 +95,7 @@ public class Book {
 		this.keywords = keywords;
 		this.image = image;
 
-	}
+    }
 
     public List<LibUserBook> getListAddUpdateUsers() {
         return listAddUpdateUsers;
@@ -126,141 +126,147 @@ public class Book {
 				'}';
 	}
 
-	/**
-	 * @return
-	 */
-	public String getIsbn() {
-		return isbn;
-	}
+    public String printBookInfo () {
+        return "ISBN: " + isbn + "\n" +
+                "Author: " + author + "\n" +
+                "Title'" + title + "\n" +
+                "Publisher: " + publisher + "\n" +
+                "Year of Publication: " + year_of_publication + "\n";
+    }
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+    /**
+     * @return
+     */
+    public String getIsbn() {
+        return isbn;
+    }
 
-	public String getAuthor() {
-		return author;
-	}
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+    public String getAuthor() {
+        return author;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getCallnumber() {
-		return callnumber;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setCallnumber(String callnumber) {
-		this.callnumber = callnumber;
-	}
+    public String getCallnumber() {
+        return callnumber;
+    }
 
-	public String getPublisher() {
-		return publisher;
-	}
+    public void setCallnumber(String callnumber) {
+        this.callnumber = callnumber;
+    }
 
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
+    public String getPublisher() {
+        return publisher;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public String getLocation() {
+        return location;
+    }
 
-	public int getNum_of_copies() {
-		return num_of_copies;
-	}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public void setNum_of_copies(int num_of_copies) {
-		this.num_of_copies = num_of_copies;
-	}
+    public int getNum_of_copies() {
+        return num_of_copies;
+    }
 
-	public String getCurrent_status() {
-		return current_status;
-	}
+    public void setNum_of_copies(int num_of_copies) {
+        this.num_of_copies = num_of_copies;
+    }
 
-	public void setCurrent_status(String current_status) {
-		this.current_status = current_status;
-	}
+    public String getCurrent_status() {
+        return current_status;
+    }
 
-	public String getKeywords() {
-		return keywords;
-	}
+    public void setCurrent_status(String current_status) {
+        this.current_status = current_status;
+    }
 
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
+    public String getKeywords() {
+        return keywords;
+    }
 
-	public byte[] getImage() {
-		return image;
-	}
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
 
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
+    public byte[] getImage() {
+        return image;
+    }
 
-	public String getYear_of_publication() {
-		return year_of_publication;
-	}
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
-	public void setYear_of_publication(String year_of_publication) {
-		this.year_of_publication = year_of_publication;
-	}
+    public String getYear_of_publication() {
+        return year_of_publication;
+    }
 
-	/**
-	 * @return the waitlist
-	 */
-	public List<User> getWaitlist() {
-		return waitlist;
-	}
+    public void setYear_of_publication(String year_of_publication) {
+        this.year_of_publication = year_of_publication;
+    }
 
-	/**
-	 * @param waitlist
-	 * the waitlist to set
-	 */
-	public void setWaitlist(List<User> waitlist) {
-		this.waitlist = waitlist;
-	}
+    /**
+     * @return the waitlist
+     */
+    public List<User> getWaitlist() {
+        return waitlist;
+    }
+
+    /**
+     * @param waitlist the waitlist to set
+     */
+    public void setWaitlist(List<User> waitlist) {
+        this.waitlist = waitlist;
+    }
 
 
-	/**
-	 * @return the currentUsers
-	 */
-	public List<UserBook> getCurrentUsers() {
-		return currentUsers;
-	}
+    /**
+     * @return the currentUsers
+     */
+    public List<UserBook> getCurrentUsers() {
+        return currentUsers;
+    }
 
-	/**
-	 * @param currentUsers the currentUsers to set
-	 */
-	public void setCurrentUsers(List<UserBook> currentUsers) {
-		this.currentUsers = currentUsers;
-	}
+    /**
+     * @param currentUsers the currentUsers to set
+     */
+    public void setCurrentUsers(List<UserBook> currentUsers) {
+        this.currentUsers = currentUsers;
+    }
 
-	/**
-	 * @return the bookId
-	 */
-	public Integer getBookId() {
-		return bookId;
-	}
+    /**
+     * @return the bookId
+     */
+    public Integer getBookId() {
+        return bookId;
+    }
 
-	/**
-	 * @param bookId the bookId to set
-	 */
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
-	}
-
+    /**
+     * @param bookId the bookId to set
+     */
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
 
 
 }

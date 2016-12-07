@@ -106,7 +106,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> findAll() {
         List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
-        System.out.println("Books "+books);
+        System.out.println("Books " + books);
         return books;
 
     }
@@ -137,19 +137,16 @@ public class BookDaoImpl implements BookDao {
             }
             return returnStatus;
 
-        }
-        else {
+        } else {
             List<UserBook> currentUsers = book.getCurrentUsers();
-            try{
-                String userBookQuery = "select ub from UserBook ub where ub.book.bookId = "+bookId + " and ub.user.id = "+userId;
-                UserBook thisub = entityManager.createQuery(userBookQuery,UserBook.class).getSingleResult();
+            try {
+                String userBookQuery = "select ub from UserBook ub where ub.book.bookId = " + bookId + " and ub.user.id = " + userId;
+                UserBook thisub = entityManager.createQuery(userBookQuery, UserBook.class).getSingleResult();
 
                 return "User has already checked out the same book";
 
 
-
-
-            }catch (Exception e){
+            } catch (Exception e) {
 
 
                 UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
@@ -158,7 +155,7 @@ public class BookDaoImpl implements BookDao {
 
                 String due_date = userBook.getDueDate();
                 returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
-                returnStatus = returnStatus+book.toString();
+                returnStatus = returnStatus + book.printBookInfo();
 
                 entityManager.persist(userBook);
                 updateBookStatus(book.getBookId());
@@ -166,7 +163,7 @@ public class BookDaoImpl implements BookDao {
                 eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
                 //entityManager.persist(book);
                 //userBook.UserBookPersist(book, user);
-                System.out.println("after mail book status "+book.getCurrent_status());
+                System.out.println("after mail book status " + book.getCurrent_status());
 
 
                 return returnStatus;
@@ -280,7 +277,7 @@ public class BookDaoImpl implements BookDao {
             for (Map.Entry entry : paramPresent.entrySet()) {
                 if ((Boolean) entry.getValue()) {
                     // set query parameters for those which have a value
-                    q.setParameter((String) entry.getKey(), "%"+paramValues.get(entry.getKey()).toLowerCase()+"%");
+                    q.setParameter((String) entry.getKey(), "%" + paramValues.get(entry.getKey()).toLowerCase() + "%");
                 }
             }
         }
@@ -300,7 +297,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public void updateBookStatus(Integer book_Id){
+    public void updateBookStatus(Integer book_Id) {
 
         String userbook_query = "select ub from UserBook ub where ub.book = " + book_Id;
         List<UserBook> userBooks = entityManager.createQuery(userbook_query, UserBook.class).getResultList();
@@ -326,11 +323,11 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public String setBookReturn(Integer bookId, Integer userId){
+    public String setBookReturn(Integer bookId, Integer userId) {
 
-        try{
-            String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = "+userId;
-            UserBook userBook = entityManager.createQuery(userbookQuery,UserBook.class).getSingleResult();
+        try {
+            String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = " + userId;
+            UserBook userBook = entityManager.createQuery(userbookQuery, UserBook.class).getSingleResult();
             entityManager.remove(userBook);
             User user = entityManager.find(User.class, userId);
             eMail.sendMail(user.getUseremail(), "Book returned successfully", "Book returned successfully");

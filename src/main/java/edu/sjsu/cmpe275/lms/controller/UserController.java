@@ -1,8 +1,12 @@
 package edu.sjsu.cmpe275.lms.controller;
 
+import edu.sjsu.cmpe275.lms.email.SendEmail;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
+import edu.sjsu.cmpe275.lms.entity.UserBookCart;
+import edu.sjsu.cmpe275.lms.errors.Err;
 import edu.sjsu.cmpe275.lms.service.BookService;
+import edu.sjsu.cmpe275.lms.service.UserBookCartService;
 import edu.sjsu.cmpe275.lms.service.UserBookService;
 import edu.sjsu.cmpe275.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,7 @@ import java.text.ParseException;
 import java.util.List;
 
 @Controller
+@Transactional
 public class UserController {
 	@Autowired
 	UserService uService;
@@ -28,6 +33,10 @@ public class UserController {
 	BookService bService;
     @Autowired
     UserBookService ubService;
+    @Autowired
+    UserBookCartService ubcService;
+    @Autowired
+    private SendEmail eMail;
 
 	/**
 	 * @return
@@ -122,24 +131,68 @@ public class UserController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/user/{userId}/books/{bookId}", method = RequestMethod.GET)
-	public Object requestBooks(@PathVariable("userId") Integer userId,
-			@PathVariable("bookId") Integer bookId) throws ParseException {
+//    @RequestMapping(value = "/user/{userId}/clearcart", method = RequestMethod.DELETE)
+//    public Object clearUserCart(@PathVariable("userId") Integer userId, ModelAndView modelAndView) {
+//        Err err = ubcService.addUserBookToCart(new UserBookCart(userId, bookId));
+//        String addToCartStatus;
+//        if (err.isAnError()) {
+//            addToCartStatus = err.getMessage();
+//
+//        } else {
+//            addToCartStatus = "Book added to cart";
+//        }
+//        modelAndView.addObject("addtocartstatus", addToCartStatus);
+//        modelAndView.setViewName("test/addtocart");
+//        return modelAndView;
+//    }
+
+    @RequestMapping(value = "/user/{userId}/books/{bookId}", method = RequestMethod.GET)
+    public Object addBookToUserCart(@PathVariable("userId") Integer userId,
+                               @PathVariable("bookId") Integer bookId, ModelAndView modelAndView) throws ParseException {
+        Err err = ubcService.addUserBookToCart(new UserBookCart(userId, bookId));
+        String addToCartStatus;
+        if (err.isAnError()) {
+            addToCartStatus = err.getMessage();
+
+        } else {
+            addToCartStatus = "Book added to cart";
+        }
+        modelAndView.addObject("addtocartstatus", addToCartStatus);
+        modelAndView.setViewName("test/addtocart");
+        return modelAndView;
+    }
+
+	@RequestMapping(value = "/user/{userId}/checkout", method = RequestMethod.GET)
+	public Object requestBooks(@PathVariable("userId") Integer userId) throws ParseException {
+        StringBuilder emailSummary = new StringBuilder();
 		ModelAndView mv = new ModelAndView("books/request");
+        List<UserBookCart> cart = ubcService.getUserCart(userId);
+        if (cart.size() == 0) {
+            mv.addObject("status","Cart is Empty. Nothing to checkout");
+            return mv;
+        }
 		List<Book> currBooks = bService.listBooksOfUser(userId);
-		if (currBooks.size() > 9) {
-            mv.addObject("status","Maximum 10 books can be issued at a time. Must return a book to issue new.");
+		if (currBooks.size() + cart.size()> 10) {
+            mv.addObject("status","Maximum 10 books can be issued at a time. Must return a book or remove from cart to issue new.");
             return mv;
         }
 
         int userDayBookCount = ubService.getUserDayBookCount(userId);
-        if (userDayBookCount > 4) {
-            mv.addObject("status", "Maximum 5 books can be issued in a day. Must return a book today or try tomorrow");
+        if (userDayBookCount + cart.size() > 5) {
+            mv.addObject("status", "Maximum 5 books can be issued in a day. Must return a book or remove from cart today or try tomorrow");
             return mv;
         }
 
-        String status = bService.requestBook(bookId, userId);
-        mv.addObject("status", status);
+        for (UserBookCart u : cart) {
+            emailSummary.append(bService.requestBook(u.getBook_id(), userId));
+            emailSummary.append("\n");
+        }
+
+        //sends consolidated email of checkout
+        eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
+
+        mv.addObject("status", "Books checked out! You will get details in email soon !");
+        ubcService.clearUserCart(userId);
         return mv;
     }
 

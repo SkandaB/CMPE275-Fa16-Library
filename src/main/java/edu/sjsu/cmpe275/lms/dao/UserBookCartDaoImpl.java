@@ -54,10 +54,11 @@ public class UserBookCartDaoImpl implements UserBookCartDao {
     }
 
     /**
+     *
      * @param
      */
     @Override
-    public boolean removeCartEntry(UserBookCart ubc) {
+    public boolean removeCartEntry (UserBookCart ubc) {
         entityManager.remove(ubc);
         return true;
     }

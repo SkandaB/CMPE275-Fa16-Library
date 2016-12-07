@@ -31,7 +31,6 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
-
     /* (non-Javadoc)
      * @see edu.sjsu.cmpe275.lms.dao.UserDao#getUser(long)
      */
