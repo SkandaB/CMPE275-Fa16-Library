@@ -47,13 +47,15 @@ public class Book {
 			joinColumns={ @JoinColumn(name="ISBN", referencedColumnName="ISBN") },
 			inverseJoinColumns={ @JoinColumn(name="ID", referencedColumnName="ID", unique=true) }
 			)*/
-	@OneToMany(mappedBy = "book", cascade = {CascadeType.REMOVE})
-	List<UserBook> currentUsers = new ArrayList<UserBook>();
+    @OneToMany(mappedBy = "book",cascade = {CascadeType.REMOVE})
+    List<UserBook> currentUsers = new ArrayList<UserBook>();
+	@OneToMany(mappedBy = "book",cascade = {CascadeType.REMOVE})
+	List<LibUserBook> listAddUpdateUsers = new ArrayList<LibUserBook>();
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "BOOK_ID", length = 8, unique = true, nullable = false)
 	private Integer bookId;
-	@Column(name = "ISBN", nullable = false, unique = true)
+		@Column(name = "ISBN", nullable = false,unique=true)
 	private String isbn;
 	@Column(name = "AUTHOR", nullable = false)
 	private String author;
@@ -80,8 +82,6 @@ public class Book {
 	private byte[] image;
 	public Book() {
 	}
-
-
 	public Book(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image) {
 		this.isbn = isbn;
 		this.author = author;
@@ -97,7 +97,15 @@ public class Book {
 
 	}
 
-	// waitlist
+	public List<LibUserBook> getListAddUpdateUsers() {
+		return listAddUpdateUsers;
+	}
+
+	public void setListAddUpdateUsers(List<LibUserBook> listAddUpdateUsers) {
+		this.listAddUpdateUsers = listAddUpdateUsers;
+	}
+
+    // waitlist
 	@Override
 	public String toString() {
 		return "Book{" +

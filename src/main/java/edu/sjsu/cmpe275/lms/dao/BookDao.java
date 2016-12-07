@@ -1,6 +1,8 @@
 package edu.sjsu.cmpe275.lms.dao;
 
 import edu.sjsu.cmpe275.lms.entity.Book;
+import edu.sjsu.cmpe275.lms.entity.LibUserBook;
+import edu.sjsu.cmpe275.lms.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
@@ -34,7 +36,7 @@ public interface BookDao {
      * @return true if add successful, false if failed
      */
 
-    boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image);
+    boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image,User user);
 
     /**
      * Return the book by isbn code
@@ -80,6 +82,9 @@ public interface BookDao {
      */
     public String setBookReturn(Integer bookId, Integer userId);
 
+    public int findCountAvailable();
+
+    public List<LibUserBook> getAllLibUserBook();
     public String findCountAvailable();
 
     boolean deleteBookByID(Integer id);

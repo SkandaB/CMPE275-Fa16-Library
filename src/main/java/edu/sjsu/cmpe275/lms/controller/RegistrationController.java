@@ -116,7 +116,7 @@ public class RegistrationController {
         User loggedInUser = uService.findUserByEmail(user.getUseremail());
         System.out.println("Logged in User from DB" + loggedInUser);
         ModelAndView mv;
-        if (loggedInUser == null) {
+        if (loggedInUser == null || !user.getPassword().equals(loggedInUser.getPassword())) {
             mv = new ModelAndView("error");
             mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination.");
             return mv;
@@ -125,7 +125,9 @@ public class RegistrationController {
 
 //           int count =  bookDao.findCountAvailable();
 //            System.out.println("count  : "+count);
-            mv.addObject("useremail",user.getUseremail());
+            // adding  it to session
+            request.getSession().setAttribute("user",loggedInUser);
+            mv.addObject("users",user);
             return mv;
         }
     }
