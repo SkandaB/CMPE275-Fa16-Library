@@ -29,11 +29,11 @@ public class UserController {
 	/**
 	 * @return
 //	 */
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public ModelAndView showUserCreationForm() {
-		ModelAndView modelAndView = new ModelAndView("users/dashboard_user");
-		return modelAndView;
-	}
+//	@RequestMapping(value = "/user", method = RequestMethod.GET)
+//	public ModelAndView showUserCreationForm() {
+//		ModelAndView modelAndView = new ModelAndView("users/userDashboard");
+//		return modelAndView;
+//	}
 /*
 * Comment from new branch Dhanya's Mac
 * /
@@ -50,22 +50,50 @@ public class UserController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public Object userCreating(@RequestParam long sjsuid,
-			@RequestParam String useremail,
-			@RequestParam String password,
-			ModelMap model,
-			HttpServletRequest request,
-			HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("users/dashboard_user");
-		User uEntity = uService.createUser(sjsuid, useremail, password);
-        String usertype = uEntity.getRole();
-        System.out.println("Usertrpe "+usertype);
-        if (usertype.equals("ROLE_LIBRARIAN")){
-            return "librarian/dashboard";
-        }
-        return "users/welcome";
-    }
+//	@RequestMapping(value = "/user", method = RequestMethod.POST)
+//	public Object userCreating(@RequestParam long sjsuid,
+//			@RequestParam String useremail,
+//			@RequestParam String password,
+//			ModelMap model,
+//			HttpServletRequest request,
+//			HttpServletResponse response) {
+//		ModelAndView mv = new ModelAndView("users/userDashboard");
+//		User uEntity = uService.createUser(sjsuid, useremail, password);
+//        String usertype = uEntity.getRole();
+//        System.out.println("Usertrpe "+usertype);
+//		mv.addObject("userId",uEntity.getId());
+//        if (usertype.equals("ROLE_LIBRARIAN")){
+//            return "librarian/dashboard";
+//        }
+//		System.out.println("user id "+uEntity.getId());
+//        return mv;
+//    }
+//
+//	/**
+//	 *
+//	 *
+//	 * dashboard
+//	 * @param sjsuid
+//	 * @param useremail
+//	 * @param password
+//	 * @param model
+//	 * @param request
+//	 * @param response
+//     * @return
+//     */
+//
+//	@RequestMapping(value = "/user/{userId}/dashboard", method = RequestMethod.GET)
+//	public Object userDashboard(@PathVariable Integer userId,
+//							   ModelMap model,
+//							   HttpServletRequest request,
+//							   HttpServletResponse response) {
+//
+//		ModelAndView mv = new ModelAndView("users/userDashboard");
+//		mv.addObject("userId",userId);
+//		return mv;
+//	}
+
+
 
 
 	@RequestMapping(value = "/user/showall", method = RequestMethod.GET)

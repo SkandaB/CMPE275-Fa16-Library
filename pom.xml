@@ -5,6 +5,10 @@
 	<artifactId>lms</artifactId>
 	<version>1.1</version>
 	<packaging>war</packaging>
+	<properties>
+		<aspectj.version>1.7.4</aspectj.version>
+	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -238,7 +242,30 @@
 			<version>1.4.0</version>
 		</dependency>
 
-</dependencies>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.7.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.7.4</version>
+		</dependency>
+
+	</dependencies>
 
 
 	<build>
