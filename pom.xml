@@ -272,6 +272,6 @@
 			</plugins>
 		</pluginManagement>
 
-		<finalName>Library</finalName>
+		<finalName>List_Books</finalName>
 	</build>
 </project>

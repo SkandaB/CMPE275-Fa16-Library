@@ -16,12 +16,8 @@
 <nav class="navbar navbar-inverse ">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${urlHome}">CMPE275-Fall16-Lab2</a>
+			<a class="navbar-brand" href="${urlHome}">CMPE275-Group2-Library Management System</a>
 		</div>
-		<div id="navbar">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="${urlAddUser}">Phones</a></li>
-			</ul>
-		</div>
+
 	</div>
 </nav>

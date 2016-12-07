@@ -1,19 +1,5 @@
 package edu.sjsu.cmpe275.lms.controller;
 
-import edu.sjsu.cmpe275.lms.dao.BookDao;
-import edu.sjsu.cmpe275.lms.entity.Book;
-import edu.sjsu.cmpe275.lms.errors.Errors;
-import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import com.google.gdata.client.books.BooksService;
 import com.google.gdata.client.books.VolumeQuery;
 import com.google.gdata.data.books.VolumeEntry;
@@ -24,6 +10,7 @@ import com.google.gdata.util.ServiceException;
 import edu.sjsu.cmpe275.lms.dao.BookDao;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.errors.Errors;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.ISBNValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.util.List;
@@ -91,6 +79,17 @@ public class BookController {
         //modelAndView.setViewName("addBook");
         return modelAndView;
     }
+
+
+
+
+
+
+
+
+
+
+
 
 //    @RequestMapping(method = RequestMethod.POST)
 //    public
@@ -288,7 +287,7 @@ public class BookController {
         /**
          * Save the values to database
          */
-        addNewBook(book,title,author,year_of_publication,publisher ,response);
+        addNewBook(book,title,author,year_of_publication,publisher,response);
     }
 
     private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher , HttpServletResponse response) {
@@ -305,32 +304,47 @@ public class BookController {
                 response.getWriter().close();
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
         }
     }
 
+
+
+
+    @RequestMapping(value = "/searchAllBooks", method = RequestMethod.GET)
     @Transactional
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView searchBookPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("books/searchBook");
-        modelAndView.addObject("book", new Book());
-        return modelAndView;
+    public @ResponseBody List<Book>  searchAllBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView){
+        System.out.println("Here !!!");
+        List<Book> books = bookDao.findAll();
+        //modelAndView.addObject("books", books);
+        return books;
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
     @Transactional
-    public ModelAndView searchBook(@ModelAttribute("book") Book book, ModelAndView modelAndView) {
-        if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
-            modelAndView.setViewName("books/searchBook");
-            modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
-            return modelAndView;
+    @RequestMapping( method = RequestMethod.GET, params = "json", produces = "application/json; charset=UTF-8")
+    public
+    @ResponseBody
+    String getBooksJson(@RequestParam(value = "json") String isJson, HttpServletResponse response) {
+        if (isJson.equals("true")) {
+            List<Book> booklist = bookDao.findAll();
+            /**
+             * If ID is not found in database
+             */
+            if (booklist.size() < 1) {
+                try {
+                    response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                   // response.getWriter().write(Errors.getIDNotFoundErrorPage(Errors.PHONE_ENTITY, phoneid));
+                    response.getWriter().flush();
+                    response.getWriter().close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+            /*return Helper.bookJsonBuilder(booklist.get(0));*/
+            return null;
         }
-
-        modelAndView.setViewName("books/listBooks");
-        List<Book> books = bookDao.searchBook(book);
-        if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
-        modelAndView.addObject("books", books);
-        return modelAndView;
+        return "{\"Error\":\"json=" + isJson + " not a valid value\"}";
     }
-
 }

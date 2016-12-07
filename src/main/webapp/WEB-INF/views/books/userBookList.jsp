@@ -21,7 +21,7 @@
         </div>
     </c:if>
 
-    <h1>All Books</h1>
+    <h1>Books</h1>
 
     <table class="table table-striped">
         <thead>
@@ -33,7 +33,7 @@
 
         </tr>
         </thead>
-        <p><font color="red">${errorMessage}</font></p>
+        <p><font color="#006400">${status}</font></p>
         <c:forEach var="book" items="${books}">
             <tr>
                 <td>${book.isbn}</td>
@@ -41,15 +41,15 @@
                 <td>${book.author}</td>
                 <td>${book.current_status}</td>
                 <td>
-                    <spring:url value="/user/${userId}/books/${book.bookId}" var="userUrl"/>
+                    <spring:url value="/user/${userId}/book/${book.bookId}" var="returnUrl"/>
                     <spring:url value="/user/${user.id}/books/wish/${book.bookId}" var="updateUrl"/>
                     <!--Dhanya, your add to wish_list will come here  of wishlist-->
 
                     <button class="btn btn-info"
-                            onclick="location.href='${userUrl}'">Request it
+                            onclick="location.href='${returnUrl}'">Return
                     </button>
                     <button class="btn btn-primary"
-                            onclick="location.href='${updateUrl}'">Wish to read Later
+                            onclick="location.href='${updateUrl}'">Renew
                     </button>
                 </td>
 

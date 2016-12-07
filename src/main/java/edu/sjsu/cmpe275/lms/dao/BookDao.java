@@ -6,7 +6,6 @@ import edu.sjsu.cmpe275.lms.entity.User;
 import java.text.ParseException;
 import java.util.List;
 
-import edu.sjsu.cmpe275.lms.entity.Book;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,5 +60,28 @@ public interface BookDao {
      */
     List<Book> searchBook(Book book);
 
-    public void updateBookStatus(Integer book_Id);
+    /**
+     * change status of book based on the number of copies checked out
+     * @param book_Id
+     */
+    public void updateBookStatus(Integer book_Id) throws InterruptedException;
+
+    /**
+     * l
+     * @param userId
+     * @return list of books currently checked out by an user
+     */
+
+    public List<Book> getBookByUserId(Integer userId);
+
+    /**
+     *
+     * @param bookId
+     * @param userId
+     *
+     *
+     */
+    public String setBookReturn(Integer bookId, Integer userId);
+
+    public int findCountAvailable();
 }

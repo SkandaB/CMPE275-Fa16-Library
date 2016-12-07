@@ -51,7 +51,6 @@ public class UserDaoImpl implements UserDao {
         Query query = em.createQuery("select id from User u where u.useremail = ?");
         query.setParameter(1, usermail);
         List userIds = query.getResultList();
-        // System.out.println("ID "+userIds.get(0));
         if (userIds.size() > 0) {
             User user = em.find(User.class, userIds.get(0));
             return user;

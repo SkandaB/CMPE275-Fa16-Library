@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Sagar
-  Date: 11/28/2016
-  Time: 2:41 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -13,13 +6,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Need to implement security-->
+    <!-- Need to implement security-->
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>Librarian Dashboard</title>
     <meta name="generator" content="Bootply"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!--[if lt IE 9]> -->
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -27,6 +20,7 @@
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+
 </head>
 <style>
     /*<!-- Making the form awesome --> */
@@ -106,14 +100,6 @@
         text-align: center;
         padding: 0 !important;
     }
-    /*.modal:before {*/
-    /*content: '';*/
-    /*display: inline-block;*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*vertical-align: middle;*/
-    /*margin-right: -4px; !* Adjusts for spacing *!*/
-    /*}*/
     .modal-body{
         height: 100%;
     }
@@ -123,9 +109,19 @@
         text-align: left;
         vertical-align: middle;
     }
+
+    #viewBooksModal {
+        width: 60%;
+        left: 40%;
+    }
+
+    #viewBooksContent {
+        width:101%;
+    }
+
     /*End modal styling*/
 </style>
-<script type="text/javascript">
+<script type="text/javascript"  th:inline="javascript">
     displayForms = function (link, formId) {
         // disable subsequent clicks
         link.onclick = function (event) {
@@ -134,12 +130,71 @@
         document.getElementById(formId).style.display = "block";
     }
     $(document).ready(function () {
+        var uemail  = '${useremail}';
+        console.log(uemail)
+        $("#loggedinusername").text(uemail);
         $("#addBtn").click(function () {
             $('#addBookModal').modal('show');
         });
         $("#addBtn1").click(function () {
             $('#addBookModal').modal('show');
         });
+        $("#viewBooksBtn").click(function () {
+            getBooksData();
+            $('#viewBooksModal').modal('show');
+
+        });
+        $("#viewBooksBtn1").click(function () {
+            getBooksData();
+            $('#viewBooksModal').modal('show');
+        });
+
+        getBooksData = function () {
+            var url = "/book/searchAllBooks";
+
+            $.get(url, null, function (data) {
+               console.log("here");
+               console.log(""+data);
+                var mymodal = $('#viewBooksModal');
+                mymodal.find('.modal-body').text('');
+                var jsonData = data;
+                console.log(jsonData.length);
+                console.log(jsonData);
+                var html = '<div class="table-responsive">'+
+                    '<table class="table">'+
+                    '<thead>' +
+                    '<tr>' +
+                    '<th>ID </th>'+
+                    '<th>ISBN </th>'+
+                    '<th>Title </th>'+
+                    '<th>Location </th>'+
+                    '<th>No. of copies </th>'+
+                    '<th>Author </th>'+
+                    '<th>Publisher </th>'+
+                    '<th>Call Number </th>'+
+                    '<th>Keywords</th>' +
+                    '</tr>';
+                for (i = 0; i < jsonData.length; i++) {
+                    //console.log("title string"+JSON.stringify(jsonData[i]));
+                    html = html + '<tr>';
+                    html = html + '<td>'+jsonData[i].bookId+'</td>';
+                    html = html + '<td>'+jsonData[i].isbn+'</td>';
+                    html = html + '<td>'+jsonData[i].title+'</td>';
+                    html = html + '<td>'+jsonData[i].location+'</td>';
+                    html = html + '<td>'+jsonData[i].author+'</td>';
+                    html = html + '<td>'+jsonData[i].callnumber+'</td>';
+                    html = html + '<td>'+jsonData[i].keywords+'</td>';
+                    html = html + '</tr>';
+                }
+                html = html + '</table>';
+                html = html + '</div>';
+
+                mymodal.find('.modal-body').append(html);
+
+            });
+
+        }
+
     });
 </script>
 <body>
@@ -159,13 +214,13 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i
+                    <a id="loggedinusername" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i
                             class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
                     <ul id="g-account-menu" class="dropdown-menu" role="menu">
                         <li><a href="#">My Profile</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+                <li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a>
             </ul>
         </div>
     </div>
@@ -190,7 +245,7 @@
                         <li><a id="addBtn1" href="#"><i class="glyphicon glyphicon-plus-sign"></i> Add a Book</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-edit"></i> Update a Book</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-remove"></i> Remove a Book</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-list"></i> View all books</a></li>
+                        <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
                     </ul>
@@ -216,7 +271,7 @@
                 <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content" id="addBookContent">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"
                                         aria-hidden="true">&times;</button>
@@ -339,6 +394,35 @@
                     </div>
                 </div>
 
+                <!-- Modal for viewing books -->
+                <div class="modal fade" id="viewBooksModal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" id="viewBooksContent">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="viewbooksmodalid">List of all the books in LMS</h4>
+                            </div>
+                            <div class="modal-body">
+                                <c:forEach var="book" items="${books}">
+                                    <tr>
+                                        <td>${book.isbn}</td>
+                                        <td>${book.title}</td>
+                                        <td>${book.author}</td>
+                                        <td>${book.current_status}</td>
+                                    </tr>
+                                </c:forEach>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <%--<button type="button" class="btn btn-primary">Add Book </button>--%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Modal for viewing books -->
 
                 <div class="btn-group btn-group-justified">
                     <a id="addBtn" href="#" class="btn btn-primary col-sm-3">
@@ -353,7 +437,7 @@
                         <i class="glyphicon glyphicon-remove"></i>
                         <br> Remove
                     </a>
-                    <a href="#" class="btn btn-primary col-sm-3">
+                    <a id="viewBooksBtn" href="#" class="btn btn-primary col-sm-3">
                         <i class="glyphicon glyphicon-list"></i>
                         <br> List
                     </a>
@@ -361,7 +445,7 @@
 
                 <hr>
 
-                <div class="panel panel-default">
+                <div id="reportsdata" class="panel panel-default">
                     <div class="panel-heading">
                         <h4>Reports</h4></div>
                     <security:authorize access="hasRole('ROLE_PATRON')">
