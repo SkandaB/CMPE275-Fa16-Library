@@ -23,6 +23,10 @@
 
 </head>
 <style>
+    .mytext {
+        width: 100px;
+    }
+
     /*<!-- Making the form awesome --> */
     .form-style-9{
         max-width: 450px;
@@ -111,9 +115,9 @@
     }
 
     #viewBooksModal {
-        width: 90%;
-        left: 17%;
-        height: 55%;
+        width: 100%;
+        left: 23%;
+        height: 100%;
         vertical-align: middle;
         /*center: 0%;*/
     }
@@ -135,6 +139,10 @@
         document.getElementById(formId).style.display = "block";
     }
     $(document).ready(function () {
+
+        $("#homeLink").click(function() {
+            window.location.reload();
+        });
         var uemail  = '${users.useremail}';
         console.log(uemail);
         var userid = '${users.id}';
@@ -142,6 +150,81 @@
         $("#loggedinusername").text(uemail);
         $("#addBtn").click(function () {
             $('#addBookModal').modal('show');
+        });
+        $("#logsBtn").click(function () {
+            $('#centerpagecontent').empty();
+
+            var url = "/book/getAllLibUserBook"
+
+            $.get(url, null, function (data) {
+                console.log("here");
+                console.log("" + JSON.stringify(data));
+                var booksRecord = data;
+                $('#centerpagecontent').append('<br><br><p style="text-align: center; font-weight: bold">Books additions by all librarians');
+//                var html = '<br><div class="table-responsive">'+
+//                    '<table class="table">'+
+//                    '<thead>' +
+//                    '<tr>' +
+//                    '<th style="text-align:center" >User Details:</th>'+
+//                    '</tr>'+
+//                    '</thead>';
+//
+//                for (var key in data) {
+//                    if (data.hasOwnProperty(key)) {
+//                        console.log(key + " -> " + JSON.stringify(data[key]));
+//                        html = html + '<tr>';
+//                        html = html+'<td style="text-align: center">' +key+ '</td>';
+//                        html = html + '</tr>';
+//                        break;
+//                    }
+//                }
+                html = html + '</table>';
+                html = html + '</div>';
+//
+//                $('#centerpagecontent').append(html);
+
+                var html = '<div class="table-responsive">'+
+                    '<table class="table">'+
+                    '<thead>' +
+                    '<tr>' +
+                    '<th>Book ID </th>'+
+                    '<th>Email </th>'+
+                    '<th>Action </th>'+
+                    '<th>Status </th>'+
+                    '<th>ISBN </th>'+
+                    '<th>Author </th>'+
+                    '<th># of copies </th>'+
+                    '<th>Title </th>'+
+                    '<th>Status </th>'+
+                    '</tr>';
+
+                for (var key in data) {
+                    if (data.hasOwnProperty(key)) {
+                        if (data.hasOwnProperty(key)) {
+                            var val = data[key];
+
+                        }
+                        for(var i in val){
+                            html = html + '<tr>';
+                            html = html + '<td>'+val[i].bookId+'</td>';
+                            html = html + '<td>'+val[i].userName+'</td>';
+                            html = html + '<td>'+val[i].action+'</td>';
+                            html = html + '<td>' +val[i].status + '</td>';
+                            html = html + '<td>'+val[i].isbn+'</td>';
+                            html = html + '<td>' +val[i].author + '</td>';
+                            html = html + '<td>' +val[i].noOfCopies + '</td>';
+                            html = html + '<td>'+val[i].bookName+'</td>';
+                            html = html + '<td>'+val[i].status+'</td>';
+                            html = html + '</tr>';
+                        }
+
+
+                    }
+                }
+                html = html + '</table>';
+                html = html + '</div>';
+                $('#centerpagecontent').append(html);
+            });
         });
         $("#addBtn1").click(function () {
             $('#addBookModal').modal('show');
@@ -156,6 +239,27 @@
             $('#viewBooksModal').modal('show');
         });
 
+        updateBook = function(rowId,bookid,isbn,title,author,publisher,location,callNumber,numberOfCopies,keywords){
+            var html = '';
+            html = html+'<form method="post" action="book/updatebook">'
+            html = html + '<tr id = '+bookid+'>';
+            html = html + '<td ><input type="text" style="width: 35px"  name="bookId" value='+bookid+'></td>';
+            html = html + '<td><input type="text" style="width: 120px" name="isbn" value=\"'+isbn+'\"'+'></td>';
+            html = html + '<td><input type="text" class="mytext" name="title" value=\"'+title+'\"'+'></td>';
+            html = html + '<td><input type="text" class="mytext" name="author" value=\"'+author+'\"'+'></td>';
+            html = html + '<td><input type="text" class="mytext" name="publisher" value=\"'+publisher+'\"'+'></td>';
+            html = html + '<td><input type="text" class="mytext" name="location" value=\"'+location+'\"'+'></td>';
+            html = html + '<td><input type="text" class="mytext" name="callNumber" value=\"'+callNumber+'\"'+'></td>';
+            html = html + '<td><input type="number" min="0" class="mytext" name="numberOfCopies" value=' +numberOfCopies+'></td>';
+            html = html + '<td><input type="text" class="mytext" name="keywords" value=\"'+keywords+'\"'+'></td>';
+            html = html + '<td>' + '  <button class="btn btn-info" id='+bookid+' onClick="updateBook(\'' +bookid + '\',\'' + bookid +'\',\''+isbn+'\',\''+title+'\',\''+author+'\',\''+publisher+'\',\''+location+'\',\''+callNumber+'\',\''+numberOfCopies+'\',\''+keywords+'\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
+            html = html + '</tr>';
+            html = html+'</form>'
+
+
+            row = $('#'+ rowId);
+            row.replaceWith(html);
+        }
         getBooksData = function () {
             var url = "/book/searchAllBooks";
 
@@ -184,17 +288,18 @@
                     '</tr>';
                 for (i = 0; i < jsonData.length; i++) {
                     //console.log("title string"+JSON.stringify(jsonData[i]));
-                    html = html + '<tr>';
-                    html = html + '<td>'+jsonData[i].bookId+'</td>';
+                    html = html + '<tr id = '+jsonData[i].bookId+'>';
+                    html = html + '<td >'+jsonData[i].bookId+'</td>';
                     html = html + '<td>'+jsonData[i].isbn+'</td>';
                     html = html + '<td>'+jsonData[i].title+'</td>';
                     html = html + '<td>'+jsonData[i].author+'</td>';
                     html = html + '<td>' + jsonData[i].publisher + '</td>';
                     html = html + '<td>' + jsonData[i].location + '</td>';
-                    html = html + '<td>'+jsonData[i].callnumber+'</td>';
-                    html = html + '<td>' + jsonData[i].num_of_copies + '</td>';
+                    html = html + '<td>'+jsonData[i].callNumber+'</td>';
+                    html = html + '<td>' + jsonData[i].numberOfCopies + '</td>';
                     html = html + '<td>'+jsonData[i].keywords+'</td>';
-                    html = html + '<td>' + '  <button class="btn btn-success" id="update_book" >Update</button> <button class="btn btn-danger" id="remove_book" >Remove</button>' + '</td>';
+                    var singleObj = jsonData[i];
+                    html = html + '<td>' + '  <button class="btn btn-info" id='+jsonData[i].bookId+' onClick="updateBook(\'' + jsonData[i].bookId + '\',\'' + jsonData[i].bookId +'\',\''+jsonData[i].isbn+'\',\''+jsonData[i].title+'\',\''+jsonData[i].author+'\',\''+jsonData[i].publisher+'\',\''+jsonData[i].location+'\',\''+jsonData[i].callNumber+'\',\''+jsonData[i].numberOfCopies+'\',\''+jsonData[i].keywords+'\')">Edit</button> <button onClick="return updatebookdetails();" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
                     html = html + '</tr>';
                 }
                 html = html + '</table>';
@@ -213,6 +318,14 @@
 
         $("#searchBtn1").click(function () {
             $('#searchBooksModal').modal('show');
+        });
+
+        $("updateBookFromUI").click(function () {
+            var url = "/book/updateUserBooks";
+
+            $.get(url, null, function (data) {
+
+            });
         });
 
     });
@@ -253,7 +366,7 @@
     <div class="row">
         <div class="col-sm-3">
             <!-- Left column -->
-            <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>
+            <%--<a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>--%>
 
             <hr>
 
@@ -261,8 +374,9 @@
                 <li class="nav-header"><a href="#" data-toggle="collapse" data-target="#userMenu">Settings <i
                         class="glyphicon glyphicon-chevron-down"></i></a>
                     <ul class="nav nav-stacked collapse in" id="userMenu">
-                        <li class="active"><a href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                        <li class="active"><a id="homeLink" href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
                         <li><a id="addBtn1" href="#"><i class="glyphicon glyphicon-plus-sign"></i> Add a Book</a></li>
+                        <li><a id="logsBtn" href="#"><i class="glyphicon glyphicon-flag"></i> Librarian Logs</a></li>
                         <li><a id="searchBtn1" href="#"><i class="glyphicon glyphicon-search"></i> Search a Book</a></li>
                         <%--<li><a href="#"><i class="glyphicon glyphicon-remove"></i> Remove a Book</a></li>--%>
                         <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a></li>
@@ -280,7 +394,7 @@
         </div>
         <div class="row">
             <!-- center left-->
-            <div class="col-md-6">
+            <div id="centerpagecontent" class="col-md-6">
                 <div style="font-weight: bold; text-align: center; vertical-align: middle" class="well">
                     <i class="glyphicon glyphicon-education"></i>&nbsp;&nbsp;Manage Books
                 </div>
@@ -762,8 +876,8 @@
 </div>
 <!-- /Main -->
 
-<footer class="text-center">Credits: This Bootstrap 3 dashboard layout is compliments of <a
-        href="http://www.bootply.com/85850"><strong>Bootply.com</strong></a></footer>
+<%--<footer class="text-center">Credits: This Bootstrap 3 dashboard layout is compliments of <a--%>
+        <%--href="http://www.bootply.com/85850"><strong>Bootply.com</strong></a></footer>--%>
 
 <%--<div class="modal" id="addWidgetModal">--%>
 <%--<div class="modal-dialog">--%>

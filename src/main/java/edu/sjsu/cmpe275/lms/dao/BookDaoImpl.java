@@ -2,11 +2,7 @@ package edu.sjsu.cmpe275.lms.dao;
 
 import edu.sjsu.cmpe275.lms.email.SendEmail;
 import edu.sjsu.cmpe275.lms.entity.Book;
-
-import javax.ejb.NoSuchEntityException;
-import javax.persistence.*;
-
-import edu.sjsu.cmpe275.lms.entity.Book;
+import edu.sjsu.cmpe275.lms.entity.LibUserBook;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +15,10 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-
-import static java.lang.Thread.sleep;
 
 
 @Transactional
@@ -56,10 +45,49 @@ public class BookDaoImpl implements BookDao {
 
     @Override
 
-    public boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image) {
+    public boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image,User user) {
         Book book = new Book(isbn, author, title, callnumber, publisher, year_of_publication, location, num_of_copies, current_status, keywords, image);
-
+/*        List<User> addUpdateList = book.getAddUpdateUserlist();
+        User userEntity = entityManager.find(User.class,user.getId());
+        if(addUpdateList==null){
+            addUpdateList = new ArrayList<>();
+        }
+        addUpdateList.add(userEntity);
+        book.setAddUpdateUserlist(addUpdateList);
         entityManager.persist(book);
+        entityManager.flush();
+        LibUserBook libUserBook = new LibUserBook(book,user,"add");
+        List<LibUserBook> libUpdateList = userEntity.getAddUpdateList();
+        if(libUpdateList==null){
+            libUpdateList = new ArrayList<LibUserBook>();
+        }
+        libUpdateList.add(libUserBook);
+        userEntity.setAddUpdateList(libUpdateList);
+        entityManager.merge(userEntity);*/
+        entityManager.persist(book);
+        entityManager.flush();
+        System.out.println("book"  + book.getBookId());
+        Book bookEntity = entityManager.find(Book.class,book.getBookId());
+        User userEntity = entityManager.find(User.class,user.getId());
+        LibUserBook libUserBook = new LibUserBook(bookEntity,userEntity,"add");
+        entityManager.persist(libUserBook);
+        // newly add code
+        List<LibUserBook> addUpdateList = bookEntity.getListAddUpdateUsers();
+        if(addUpdateList==null){
+            addUpdateList = new ArrayList<>();
+        }
+        addUpdateList.add(libUserBook);
+        bookEntity.setListAddUpdateUsers(addUpdateList);
+        entityManager.merge(bookEntity);
+        userEntity = entityManager.find(User.class,user.getId());
+        List<LibUserBook> addUpdateList1 = userEntity.getAddUpdateList();
+        if(addUpdateList1==null){
+            addUpdateList1 = new ArrayList<>();
+        }
+        addUpdateList1.add(libUserBook);
+        userEntity.setAddUpdateList(addUpdateList1);
+        entityManager.merge(userEntity);
+        entityManager.flush();
         return true;
     }
 
@@ -144,10 +172,6 @@ public class BookDaoImpl implements BookDao {
 
                 return returnStatus;
             }
-
-
-
-
 		}
 	}
 
@@ -320,7 +344,6 @@ public class BookDaoImpl implements BookDao {
             UserBook userBook = entityManager.createQuery(userbookQuery,UserBook.class).getSingleResult();
             entityManager.remove(userBook);
             return "Book returned successfully";
-
         }catch(Exception e){
 
             return "Invalid Book";
@@ -339,7 +362,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     public int findCountAvailable(){
-        Query query = entityManager.createQuery("select * from Book b where b.current_status = ?");
+        Query query = entityManager.createQuery("select Book from Book b where b.current_status = ?");
         query.setParameter(1, "available");
         List<Integer> bookIds = query.getResultList();
         System.out.println("Counts from DB "+bookIds.get(0));
@@ -347,6 +370,14 @@ public class BookDaoImpl implements BookDao {
             return bookIds.size();
         }
         return 0;
+    }
+
+    @Override
+    public List<LibUserBook> getAllLibUserBook() {
+        List<LibUserBook> libuserbooks = (List<LibUserBook>) entityManager.createQuery("SELECT lub FROM LibUserBook lub", LibUserBook.class).getResultList();
+        System.out.println("libuserbooks "+libuserbooks.get(0).toString());
+        return libuserbooks;
+
     }
 
 

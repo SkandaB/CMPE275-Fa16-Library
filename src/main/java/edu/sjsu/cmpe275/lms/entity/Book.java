@@ -16,6 +16,7 @@ import java.util.List;
 public class Book {
 
 
+
 			@Autowired
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinTable
@@ -49,6 +50,8 @@ public class Book {
 			)*/
     @OneToMany(mappedBy = "book",cascade = {CascadeType.REMOVE})
     List<UserBook> currentUsers = new ArrayList<UserBook>();
+	@OneToMany(mappedBy = "book",cascade = {CascadeType.REMOVE})
+	List<LibUserBook> listAddUpdateUsers = new ArrayList<LibUserBook>();
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "BOOK_ID", length = 8, unique = true, nullable = false)
@@ -80,8 +83,6 @@ public class Book {
 	private byte[] image;
 	public Book() {
 	}
-
-
 	public Book(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image) {
 		this.isbn = isbn;
 		this.author = author;
@@ -95,6 +96,14 @@ public class Book {
 		this.keywords = keywords;
 		this.image = image;
 
+	}
+
+	public List<LibUserBook> getListAddUpdateUsers() {
+		return listAddUpdateUsers;
+	}
+
+	public void setListAddUpdateUsers(List<LibUserBook> listAddUpdateUsers) {
+		this.listAddUpdateUsers = listAddUpdateUsers;
 	}
 
     // waitlist
