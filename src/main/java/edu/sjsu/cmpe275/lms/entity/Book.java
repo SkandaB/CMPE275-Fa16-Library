@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -108,22 +107,13 @@ public class Book {
     // waitlist
     @Override
     public String toString() {
-        return "Book{" +
-				"waitlist=" + waitlist +
-				", currentUsers=" + currentUsers +
-				", bookId=" + bookId +
-				", isbn='" + isbn + '\'' +
-				", author='" + author + '\'' +
-				", title='" + title + '\'' +
-				", callnumber='" + callnumber + '\'' +
-				", publisher='" + publisher + '\'' +
-				", year_of_publication='" + year_of_publication + '\'' +
-				", location='" + location + '\'' +
-				", num_of_copies=" + num_of_copies +
-				", current_status='" + current_status + '\'' +
-				", keywords='" + keywords + '\'' +
-				", image=" + Arrays.toString(image) +
-				'}';
+		return "Book Details " + "\n" +
+				" isbn='" + isbn + "\n" +
+				" author='" + author + "\n" +
+				" title='" + title + "\n" +
+				" callnumber='" + callnumber + "\n" +
+				" publisher='" + publisher + "\n" +
+				" year_of_publication='" + year_of_publication + "\n";
 	}
 
     public String printBookInfo() {

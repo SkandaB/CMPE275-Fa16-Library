@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
 <title>Spring MVC Form Handling Example</title>
@@ -17,7 +18,12 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="${urlHome}">CMPE275-Group2-Library Management System</a>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a></li>
+			</ul>
 		</div>
 
 	</div>
+
 </nav>

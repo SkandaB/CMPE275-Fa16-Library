@@ -128,7 +128,7 @@ public class BookDaoImpl implements BookDao {
                 waitlist.add(user);
                 book.setWaitlist(waitlist);
                 entityManager.merge(book);
-                returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
+                returnStatus = "User is waitlisted!" + "\n" + "Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
                 returnStatus = returnStatus+book.toString();
                 //eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
 
@@ -160,7 +160,7 @@ public class BookDaoImpl implements BookDao {
                 entityManager.persist(userBook);
                 updateBookStatus(book.getBookId());
 
-                //eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
+                eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
                 //entityManager.persist(book);
                 //userBook.UserBookPersist(book, user);
                 System.out.println("after mail book status " + book.getCurrent_status());

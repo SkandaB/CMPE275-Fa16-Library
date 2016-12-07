@@ -33,7 +33,7 @@
 
         </tr>
         </thead>
-        <p><font color="#006400">${status}</font></p>
+        <h2><font color="#006400">${status}</font></h2>
         <c:forEach var="book" items="${books}">
             <tr>
                 <td>${book.isbn}</td>
@@ -58,9 +58,7 @@
     </table>
 
 </div>
-<div>
-    <a href="<c:url value="/logout" />">Logout</a>
-</div>
+
 <jsp:include page="../../fragments/footer.jsp"/>
 
 </body>

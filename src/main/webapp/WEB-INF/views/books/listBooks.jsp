@@ -20,7 +20,7 @@
             <strong>${msg}</strong>
         </div>
     </c:if>
-
+    <div class="container">
     <h1>All Books</h1>
 
     <table class="table table-striped">
@@ -56,11 +56,11 @@
             </tr>
         </c:forEach>
     </table>
+    </div>
+
 
 </div>
-<div>
-    <a href="<c:url value="/logout" />">Logout</a>
-</div>
+
 <jsp:include page="../../fragments/footer.jsp"/>
 
 </body>
