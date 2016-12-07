@@ -81,104 +81,6 @@ public class BookController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-//    @RequestMapping(method = RequestMethod.POST)
-//    public
-//    @ResponseBody
-//    String uploadFileHandler(@ModelAttribute("book") Book book, @RequestParam("imagefile") MultipartFile imagefile, ModelAndView modelAndView) {
-//        //@RequestParam("isbn") String isbn, @RequestParam("author") String author, @RequestParam("title") String title, @RequestParam("callnumber") String callnumber, @RequestParam("publisher") String publisher, @RequestParam("year_of_publication") int year_of_publication, @RequestParam("location") String location, @RequestParam("num_of_copies") String num_of_copies, @RequestParam("keywords") String keywords,
-//      //  if (imagefile.isEmpty()) return "Failed to upload because the file was empty.";
-//        try {
-//            byte[] bytes = imagefile.getBytes();
-//            //System.out.println(bytes);
-//
-//            book.setImage(bytes);
-//            //bookDao.addBook(isbn, "xx", "xx", "xx", "xx", 2009, "xx", 5, "xx", "xx", bytes);
-//            bookDao.addBook(book);
-//
-//            /*// Creating the directory to store file
-//            String rootPath = System.getProperty("catalina.home");
-//            File dir = new File(rootPath + File.separator + "tmpFiles");
-//            if (!dir.exists()) dir.mkdirs();
-//
-//            // Create the file on server
-//            File serverFile = new File(dir.getAbsolutePath()
-//                    + File.separator + name);
-//            BufferedOutputStream stream = new BufferedOutputStream(
-//                    new FileOutputStream(serverFile));
-//            stream.write(bytes);
-//            stream.close();
-//
-//            System.out.println("Server File Location="
-//                    + serverFile.getAbsolutePath());*/
-//            modelAndView.addObject("book", new Book());
-//            return "Successfully uploaded file";
-//        } catch (Exception e) {
-//            return "Failed to upload => " + e.getMessage();
-//        }
-
-//
-//
-//            throwNoISBNFoundError(response);
-//            return null;
-
-//        //byte[] encodeBase64 = Base64.encodeBase64(book.getImage());
-//        String base64Encoded = "";
-//        try {
-//            base64Encoded = new String(encodeBase64, "UTF-8");
-//        } catch (UnsupportedEncodingException uee) {
-//            System.out.println("Error fetching image");
-//        }
-
-//        ModelAndView modelAndView = new ModelAndView("viewBook");
-//        modelAndView.addObject("book", book);
-//        //modelAndView.addObject("imageString", base64Encoded);
-//        //modelAndView.setViewName("addBook");
-//        return modelAndView;
-//    }
-
-//    @RequestMapping(method = RequestMethod.POST)
-//    public
-//    @ResponseBody
-//    String uploadFileHandler(@ModelAttribute("book") Book book, @RequestParam(value = "imagefile", required = false) MultipartFile imagefile, ModelAndView modelAndView) {
-//        if (imagefile.isEmpty()) return "Failed to upload because the file was empty.";
-//        try {
-//            byte[] bytes = imagefile.getBytes();
-//            //System.out.println(bytes);
-//
-//            book.setImage(bytes);
-//            //bookDao.addBook(isbn, "xx", "xx", "xx", "xx", 2009, "xx", 5, "xx", "xx", bytes);
-//            bookDao.addBook(book);
-//
-//            /*// Creating the directory to store file
-//            String rootPath = System.getProperty("catalina.home");
-//            File dir = new File(rootPath + File.separator + "tmpFiles");
-//            if (!dir.exists()) dir.mkdirs();
-//            // Create the file on server
-//            File serverFile = new File(dir.getAbsolutePath()
-//                    + File.separator + name);
-//            BufferedOutputStream stream = new BufferedOutputStream(
-//                    new FileOutputStream(serverFile));
-//            stream.write(bytes);
-//            stream.close();
-//            System.out.println("Server File Location="
-//                    + serverFile.getAbsolutePath());*/
-//            modelAndView.addObject("book", new Book());
-//            return "Successfully uploaded file";
-//        } catch (Exception e) {
-//            return "Failed to upload => " + e.getMessage();
-//        }
-//    }
-
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/addBook", method = RequestMethod.POST)
@@ -347,4 +249,16 @@ public class BookController {
         }
         return "{\"Error\":\"json=" + isJson + " not a valid value\"}";
     }
+
+
+    @RequestMapping(value = "/books/{book_id}", method = RequestMethod.GET)
+    @Transactional
+    public
+    @ResponseBody
+    Book searchBookByID(@ModelAttribute("book") Book book, ModelAndView modelAndView, @PathVariable("book_id") Integer id) {
+        Book res_book = bookDao.getBookbyId(id);
+        //modelAndView.addObject("books", books);
+        return res_book;
+    }
+
 }

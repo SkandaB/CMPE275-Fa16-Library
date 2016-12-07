@@ -111,12 +111,17 @@
     }
 
     #viewBooksModal {
-        width: 60%;
-        left: 40%;
+        width: 90%;
+        left: 17%;
+        height: 55%;
+        vertical-align: middle;
+        /*center: 0%;*/
     }
 
     #viewBooksContent {
-        width:101%;
+        width: 100%;
+        height: auto;
+        vertical-align: middle;
     }
 
     /*End modal styling*/
@@ -167,12 +172,13 @@
                     '<th>ID </th>'+
                     '<th>ISBN </th>'+
                     '<th>Title </th>'+
-                    '<th>Location </th>'+
-                    '<th>No. of copies </th>'+
                     '<th>Author </th>'+
                     '<th>Publisher </th>'+
+                    '<th>Location </th>' +
                     '<th>Call Number </th>'+
+                    '<th>No. of copies </th>' +
                     '<th>Keywords</th>' +
+                    '<th align="center" >Actions</th>' +
                     '</tr>';
                 for (i = 0; i < jsonData.length; i++) {
                     //console.log("title string"+JSON.stringify(jsonData[i]));
@@ -180,10 +186,13 @@
                     html = html + '<td>'+jsonData[i].bookId+'</td>';
                     html = html + '<td>'+jsonData[i].isbn+'</td>';
                     html = html + '<td>'+jsonData[i].title+'</td>';
-                    html = html + '<td>'+jsonData[i].location+'</td>';
                     html = html + '<td>'+jsonData[i].author+'</td>';
+                    html = html + '<td>' + jsonData[i].publisher + '</td>';
+                    html = html + '<td>' + jsonData[i].location + '</td>';
                     html = html + '<td>'+jsonData[i].callnumber+'</td>';
+                    html = html + '<td>' + jsonData[i].num_of_copies + '</td>';
                     html = html + '<td>'+jsonData[i].keywords+'</td>';
+                    html = html + '<td>' + '  <button class="btn btn-success" id="update_book" >Update</button> <button class="btn btn-danger" id="remove_book" >Remove</button>' + '</td>';
                     html = html + '</tr>';
                 }
                 html = html + '</table>';
