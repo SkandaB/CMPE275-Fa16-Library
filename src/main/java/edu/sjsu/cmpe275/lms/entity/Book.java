@@ -126,7 +126,7 @@ public class Book {
 				'}';
 	}
 
-    public String printBookInfo () {
+    public String printBookInfo() {
         return "ISBN: " + isbn + "\n" +
                 "Author: " + author + "\n" +
                 "Title'" + title + "\n" +

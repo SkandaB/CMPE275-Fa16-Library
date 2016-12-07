@@ -6,7 +6,6 @@ import edu.sjsu.cmpe275.lms.errors.Err;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Query;
 import java.util.List;
 
 @Service

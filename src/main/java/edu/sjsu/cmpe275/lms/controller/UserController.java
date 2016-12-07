@@ -148,7 +148,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/{userId}/books/{bookId}", method = RequestMethod.GET)
     public Object addBookToUserCart(@PathVariable("userId") Integer userId,
-                               @PathVariable("bookId") Integer bookId, ModelAndView modelAndView) throws ParseException {
+                                    @PathVariable("bookId") Integer bookId, ModelAndView modelAndView) throws ParseException {
         Err err = ubcService.addUserBookToCart(new UserBookCart(userId, bookId));
         String addToCartStatus;
         if (err.isAnError()) {
@@ -162,18 +162,18 @@ public class UserController {
         return modelAndView;
     }
 
-	@RequestMapping(value = "/user/{userId}/checkout", method = RequestMethod.GET)
-	public Object requestBooks(@PathVariable("userId") Integer userId) throws ParseException {
+    @RequestMapping(value = "/user/{userId}/checkout", method = RequestMethod.GET)
+    public Object requestBooks(@PathVariable("userId") Integer userId) throws ParseException {
         StringBuilder emailSummary = new StringBuilder();
-		ModelAndView mv = new ModelAndView("books/request");
+        ModelAndView mv = new ModelAndView("books/request");
         List<UserBookCart> cart = ubcService.getUserCart(userId);
         if (cart.size() == 0) {
-            mv.addObject("status","Cart is Empty. Nothing to checkout");
+            mv.addObject("status", "Cart is Empty. Nothing to checkout");
             return mv;
         }
-		List<Book> currBooks = bService.listBooksOfUser(userId);
-		if (currBooks.size() + cart.size()> 10) {
-            mv.addObject("status","Maximum 10 books can be issued at a time. Must return a book or remove from cart to issue new.");
+        List<Book> currBooks = bService.listBooksOfUser(userId);
+        if (currBooks.size() + cart.size() > 10) {
+            mv.addObject("status", "Maximum 10 books can be issued at a time. Must return a book or remove from cart to issue new.");
             return mv;
         }
 

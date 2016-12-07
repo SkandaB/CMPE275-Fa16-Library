@@ -14,14 +14,14 @@ public interface UserBookCartDao {
      * @param ubc UserBookCart
      * @return true if add successful, false if failed
      */
-    Err addUserBookToCart (UserBookCart ubc);
+    Err addUserBookToCart(UserBookCart ubc);
 
     /**
      * To get the cart for a user
      * @param userid int userid
      * @return List of UserBookCart
      */
-    List<UserBookCart> getUserCart (int userid);
+    List<UserBookCart> getUserCart(int userid);
 
-    boolean removeCartEntry (UserBookCart ubc);
+    boolean removeCartEntry(UserBookCart ubc);
 }

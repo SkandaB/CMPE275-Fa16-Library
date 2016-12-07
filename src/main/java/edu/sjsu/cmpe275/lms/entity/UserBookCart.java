@@ -6,7 +6,7 @@ import javax.persistence.*;
  * User Book Cart holds temporary cart for user who wants to issue the books
  */
 @Entity
-@Table(name="USER_BOOK_CART")
+@Table(name = "USER_BOOK_CART")
 public class UserBookCart {
 
     @Id
@@ -27,6 +27,7 @@ public class UserBookCart {
 
     /**
      * Id Getter
+     *
      * @return id
      */
     public int getId() {
@@ -35,6 +36,7 @@ public class UserBookCart {
 
     /**
      * Id setter
+     *
      * @param id
      */
     public void setId(int id) {
@@ -43,6 +45,7 @@ public class UserBookCart {
 
     /**
      * User_Id setter
+     *
      * @return user_id
      */
     public int getUser_id() {
@@ -51,6 +54,7 @@ public class UserBookCart {
 
     /**
      * User_Id setter
+     *
      * @param user_id
      */
     public void setUser_id(int user_id) {
@@ -59,6 +63,7 @@ public class UserBookCart {
 
     /**
      * Book_Id getter
+     *
      * @return book_id
      */
     public int getBook_id() {
@@ -67,6 +72,7 @@ public class UserBookCart {
 
     /**
      * Book_Id setter
+     *
      * @param book_id
      */
     public void setBook_id(int book_id) {

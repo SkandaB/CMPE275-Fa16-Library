@@ -25,7 +25,8 @@ public interface UserBookCartService {
 
     /**
      * Clears the books for user from cart
+     *
      * @param userid
      */
-    void clearUserCart (int userid);
+    void clearUserCart(int userid);
 }
