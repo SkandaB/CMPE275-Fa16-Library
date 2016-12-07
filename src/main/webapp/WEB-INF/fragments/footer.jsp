@@ -2,7 +2,7 @@
 <div class="container">
 	<hr>
 	<footer>
-		<p> © Dhanya Ramesh & Skanda Bhargav</p>
+		<p> ï¿½ Group 2 </p>
 	</footer>
 </div>
 
