@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"SJSUID", "ROLE"}))
+@Table(name = "USER", uniqueConstraints = @UniqueConstraint(columnNames = {"SJSUID", "ROLE"}))
 public class User {
 
 	public static final String ROLE_LIBRARIAN = "LIBRARIAN";
 	public static final String ROLE_PATRON = "PATRON";
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user",cascade = {CascadeType.REMOVE})
 	List<UserBook> currentBooks = new ArrayList<UserBook>();
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id

@@ -25,7 +25,20 @@ public class Book {
                     inverseJoinColumns = {@JoinColumn(name = "ID", referencedColumnName = "ID", unique = true)}
             )
     List<User> waitlist = new ArrayList<User>();
-    //current users having the book
+
+	/*@Override
+	public String toString() {
+		return "Book{" +
+				"isbn='" + isbn + '\'' +
+				", author='" + author + '\'' +
+				", title='" + title + '\'' +
+				", callnumber='" + callnumber + '\'' +
+				", publisher='" + publisher + '\'' +
+				", year_of_publication='" + year_of_publication + '\'' +
+				'}';
+	}
+*/
+	//current users having the book
     /*@Autowired
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinTable
@@ -34,7 +47,7 @@ public class Book {
 			joinColumns={ @JoinColumn(name="ISBN", referencedColumnName="ISBN") },
 			inverseJoinColumns={ @JoinColumn(name="ID", referencedColumnName="ID", unique=true) }
 			)*/
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book",cascade = {CascadeType.REMOVE})
     List<UserBook> currentUsers = new ArrayList<UserBook>();
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
@@ -44,7 +57,7 @@ public class Book {
 	private String isbn;
 	@Column(name = "AUTHOR", nullable = false)
 	private String author;
-	@Column(name = "TITLE", nullable = false, unique = true)
+	@Column(name = "TITLE", nullable = false)
 	private String title;
 	@Column(name = "CALLNUMBER", length = 10)
 	private String callnumber;

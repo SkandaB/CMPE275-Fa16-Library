@@ -287,7 +287,7 @@ public class BookController {
         /**
          * Save the values to database
          */
-        addNewBook(book,title,author,year_of_publication,publisher ,response);
+        addNewBook(book,title,author,year_of_publication,publisher,response);
     }
 
     private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher , HttpServletResponse response) {
@@ -304,33 +304,12 @@ public class BookController {
                 response.getWriter().close();
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
         }
     }
 
-    @Transactional
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView searchBookPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("books/searchBook");
-        modelAndView.addObject("book", new Book());
-        return modelAndView;
-    }
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
-    @Transactional
-    public ModelAndView searchBook(@ModelAttribute("book") Book book, ModelAndView modelAndView) {
-        if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
-            modelAndView.setViewName("books/searchBook");
-            modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
-            return modelAndView;
-        }
-
-        modelAndView.setViewName("books/listBooks");
-        List<Book> books = bookDao.searchBook(book);
-        if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
-        modelAndView.addObject("books", books);
-        return modelAndView;
-    }
 
 
     @RequestMapping(value = "/searchAllBooks", method = RequestMethod.GET)
@@ -363,7 +342,8 @@ public class BookController {
                 }
                 return null;
             }
-            return Helper.bookJsonBuilder(booklist.get(0));
+            /*return Helper.bookJsonBuilder(booklist.get(0));*/
+            return null;
         }
         return "{\"Error\":\"json=" + isJson + " not a valid value\"}";
     }
