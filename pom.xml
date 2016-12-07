@@ -301,6 +301,6 @@
 			</plugins>
 		</pluginManagement>
 
-		<finalName>Fix_Server_UI_ListBooks</finalName>
+        <finalName>Librarian_Book_Delete</finalName>
 	</build>
 </project>
