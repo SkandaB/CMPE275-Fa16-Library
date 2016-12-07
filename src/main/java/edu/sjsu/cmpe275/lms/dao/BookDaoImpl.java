@@ -323,15 +323,17 @@ public class BookDaoImpl implements BookDao {
 
     }
 
-    public int findCountAvailable(){
-        Query query = entityManager.createQuery("select * from Book b where b.current_status = ?");
-        query.setParameter(1, "available");
-        List<Integer> bookIds = query.getResultList();
+    public String findCountAvailable() {
+        Query query = entityManager.createQuery("select count(b.bookId) from Book b where b.current_status = :status");
+        query.setParameter("status", "available");
+        System.out.println("********** Available books= " + query.getResultList().get(0).toString());
+        return query.getResultList().get(0).toString();
+        /*List<Integer> bookIds = query.getResultList();
         System.out.println("Counts from DB "+bookIds.get(0));
         if (bookIds.size() > 0) {
             return bookIds.size();
         }
-        return 0;
+        return 0;*/
     }
 
     @Override

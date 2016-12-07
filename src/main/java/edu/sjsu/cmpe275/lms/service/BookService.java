@@ -24,4 +24,5 @@ public interface BookService {
 
 	public boolean deleteBookByID(Integer id);
 
+	String getAvailableBookCount();
 }

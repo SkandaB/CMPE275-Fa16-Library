@@ -92,4 +92,9 @@ public class BookServiceImpl implements BookService {
             return false;
         }
     }
+
+    @Override
+    public String getAvailableBookCount() {
+        return bookDao.findCountAvailable();
+    }
 }

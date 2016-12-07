@@ -80,7 +80,7 @@ public interface BookDao {
      */
     public String setBookReturn(Integer bookId, Integer userId);
 
-    public int findCountAvailable();
+    public String findCountAvailable();
 
     boolean deleteBookByID(Integer id);
 }

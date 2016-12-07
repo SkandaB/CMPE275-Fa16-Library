@@ -62,6 +62,8 @@ public class UserController {
         String usertype = uEntity.getRole();
         System.out.println("Usertrpe "+usertype);
         if (usertype.equals("ROLE_LIBRARIAN")){
+            String available_books = bService.getAvailableBookCount();
+            System.out.println(available_books);
             return "librarian/dashboard";
         }
         return "users/welcome";
