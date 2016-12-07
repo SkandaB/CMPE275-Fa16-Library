@@ -62,36 +62,36 @@ public class UserController {
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping(value = "/user", method = RequestMethod.POST)
-	public Object userCreating(@RequestParam long sjsuid,
-							   @RequestParam String useremail,
-							   @RequestParam String password,
-							   ModelMap model,
-							   HttpServletRequest request,
-							   HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("users/userDashboard");
-		User uEntity = uService.createUser(sjsuid, useremail, password);
-		String usertype = uEntity.getRole();
-		System.out.println("Usertrpe " + usertype);
-		mv.addObject("userId", uEntity.getId());
-		if (usertype.equals("ROLE_LIBRARIAN")) {
-			return "librarian/dashboard";
-		}
-		System.out.println("user id " + uEntity.getId());
-		return mv;
-	}
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public Object userCreating(@RequestParam long sjsuid,
+                               @RequestParam String useremail,
+                               @RequestParam String password,
+                               ModelMap model,
+                               HttpServletRequest request,
+                               HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView("users/userDashboard");
+        User uEntity = uService.createUser(sjsuid, useremail, password);
+        String usertype = uEntity.getRole();
+        System.out.println("Usertrpe " + usertype);
+        mv.addObject("userId", uEntity.getId());
+        if (usertype.equals("ROLE_LIBRARIAN")) {
+            return "librarian/dashboard";
+        }
+        System.out.println("user id " + uEntity.getId());
+        return mv;
+    }
 
 
-	@RequestMapping(value = "/user/{userId}/dashboard", method = RequestMethod.GET)
-	public Object userDashboard(@PathVariable Integer userId,
-								ModelMap model,
-								HttpServletRequest request,
-								HttpServletResponse response) {
+    @RequestMapping(value = "/user/{userId}/dashboard", method = RequestMethod.GET)
+    public Object userDashboard(@PathVariable Integer userId,
+                                ModelMap model,
+                                HttpServletRequest request,
+                                HttpServletResponse response) {
 
-		ModelAndView mv = new ModelAndView("users/userDashboard");
-		mv.addObject("userId", userId);
-		return mv;
-	}
+        ModelAndView mv = new ModelAndView("users/userDashboard");
+        mv.addObject("userId", userId);
+        return mv;
+    }
 
 
 
@@ -194,13 +194,13 @@ public class UserController {
 
 		if(status.equalsIgnoreCase("invalid book")){
 			mv.setViewName("books/request");
-			mv.addObject("userId", userId);
-			mv.addObject("status",status);
-			return mv;
+            mv.addObject("userId", userId);
+            mv.addObject("status", status);
+            return mv;
 		}
-		mv.addObject("userId", userId);
-		mv.addObject("status",status);
-		return mv;
+        mv.addObject("userId", userId);
+        mv.addObject("status", status);
+        return mv;
 	}
 
 	@Transactional
@@ -211,55 +211,55 @@ public class UserController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
-	@Transactional
-	public ModelAndView searchBookbyUser(ModelAndView modelAndView,
-										 @PathVariable("userId") Integer userId,
-										 @RequestParam(value = "isbn", required = false) String isbn,
-										 @RequestParam(value = "author", required = false) String author,
-										 @RequestParam(value = "publisher", required = false) String publisher,
-										 @RequestParam(value = "year_of_publication", required = false) String year_of_publication,
-										 @RequestParam(value = "num_of_copies", required = false) String num_of_copies,
-										 @RequestParam(value = "callnumber", required = false) String callnumber,
-										 @RequestParam(value = "current_status", required = false) String current_status,
-										 @RequestParam(value = "keywords", required = false) String keywords
-	) {
-		System.out.println("HEREEEEEEEEEEE!!!!!!!!!!");
-		Book book = new Book();
-		if (isbn != null && !isbn.isEmpty()) {
-			book.setIsbn(isbn);
-		}
-		if (author != null && !author.isEmpty()) {
-			book.setAuthor(author);
-		}
-		if (publisher != null && !publisher.isEmpty()) {
-			book.setPublisher(publisher);
-		}
-		if (year_of_publication != null && !year_of_publication.isEmpty()) {
-			book.setYear_of_publication(year_of_publication);
-		}
-		if (num_of_copies != null && !num_of_copies.isEmpty()) {
-			book.setNum_of_copies(Integer.parseInt(num_of_copies));
-		}
-		if (current_status != null && !current_status.isEmpty()) {
-			book.setCurrent_status(current_status);
-		}
-		if (keywords != null && !keywords.isEmpty()) {
-			book.setKeywords(keywords);
-		}
-		if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
-			modelAndView.setViewName("books/searchBook");
-			modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
-			return modelAndView;
-		}
-		modelAndView.setViewName("books/listBooks");
-		List<Book> books = bService.searchBookbyUser(book);
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
+    @Transactional
+    public ModelAndView searchBookbyUser(ModelAndView modelAndView,
+                                         @PathVariable("userId") Integer userId,
+                                         @RequestParam(value = "isbn", required = false) String isbn,
+                                         @RequestParam(value = "author", required = false) String author,
+                                         @RequestParam(value = "publisher", required = false) String publisher,
+                                         @RequestParam(value = "year_of_publication", required = false) String year_of_publication,
+                                         @RequestParam(value = "num_of_copies", required = false) String num_of_copies,
+                                         @RequestParam(value = "callnumber", required = false) String callnumber,
+                                         @RequestParam(value = "current_status", required = false) String current_status,
+                                         @RequestParam(value = "keywords", required = false) String keywords
+    ) {
+        System.out.println("HEREEEEEEEEEEE!!!!!!!!!!");
+        Book book = new Book();
+        if (isbn != null && !isbn.isEmpty()) {
+            book.setIsbn(isbn);
+        }
+        if (author != null && !author.isEmpty()) {
+            book.setAuthor(author);
+        }
+        if (publisher != null && !publisher.isEmpty()) {
+            book.setPublisher(publisher);
+        }
+        if (year_of_publication != null && !year_of_publication.isEmpty()) {
+            book.setYear_of_publication(year_of_publication);
+        }
+        if (num_of_copies != null && !num_of_copies.isEmpty()) {
+            book.setNum_of_copies(Integer.parseInt(num_of_copies));
+        }
+        if (current_status != null && !current_status.isEmpty()) {
+            book.setCurrent_status(current_status);
+        }
+        if (keywords != null && !keywords.isEmpty()) {
+            book.setKeywords(keywords);
+        }
+        if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
+            modelAndView.setViewName("books/searchBook");
+            modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
+            return modelAndView;
+        }
+        modelAndView.setViewName("books/listBooks");
+        List<Book> books = bService.searchBookbyUser(book);
 
-		if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
-		modelAndView.addObject("books", books);
-		modelAndView.addObject("userId", userId);
-		return modelAndView;
-	}
+        if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
+        modelAndView.addObject("books", books);
+        modelAndView.addObject("userId", userId);
+        return modelAndView;
+    }
 
 
     @RequestMapping(value = "/user/searchBook", method = RequestMethod.POST)

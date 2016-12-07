@@ -194,16 +194,16 @@
                 console.log(jsonData);
 
                 var html = '<div class="table-responsive">' +
-                        '<table class="table">' +
-                        '<thead>' +
-                        '<tr>' +
-                        '<th>ID </th>' +
-                        '<th>ISBN </th>' +
-                        '<th>Title </th>' +
-                        '<th>Location </th>' +
-                        '<th>No. of copies </th>' +
-                        '<th>Author </th>' +
-                        '<th>Publisher </th>'
+                    '<table class="table">' +
+                    '<thead>' +
+                    '<tr>' +
+                    '<th>ID </th>' +
+                    '<th>ISBN </th>' +
+                    '<th>Title </th>' +
+                    '<th>Location </th>' +
+                    '<th>No. of copies </th>' +
+                    '<th>Author </th>' +
+                    '<th>Publisher </th>'
                 '</tr>';
                 for (i = 0; i < jsonData.length; i++) {
                     //console.log("title string"+JSON.stringify(jsonData[i]));

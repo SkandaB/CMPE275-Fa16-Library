@@ -107,14 +107,14 @@ public class Book {
     // waitlist
     @Override
     public String toString() {
-		return "Book Details " + "\n" +
-				" isbn='" + isbn + "\n" +
-				" author='" + author + "\n" +
-				" title='" + title + "\n" +
-				" callnumber='" + callnumber + "\n" +
-				" publisher='" + publisher + "\n" +
-				" year_of_publication='" + year_of_publication + "\n";
-	}
+        return "Book Details " + "\n" +
+                " isbn='" + isbn + "\n" +
+                " author='" + author + "\n" +
+                " title='" + title + "\n" +
+                " callnumber='" + callnumber + "\n" +
+                " publisher='" + publisher + "\n" +
+                " year_of_publication='" + year_of_publication + "\n";
+    }
 
     public String printBookInfo() {
         return "ISBN: " + isbn + "\n" +
