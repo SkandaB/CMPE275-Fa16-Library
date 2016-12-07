@@ -119,6 +119,14 @@ public class Book {
                 '}';
     }
 
+    public String printBookInfo () {
+        return "ISBN: " + isbn + "\n" +
+                "Author: " + author + "\n" +
+                "Title'" + title + "\n" +
+                "Publisher: " + publisher + "\n" +
+                "Year of Publication: " + year_of_publication + "\n";
+    }
+
     /**
      * @return
      */

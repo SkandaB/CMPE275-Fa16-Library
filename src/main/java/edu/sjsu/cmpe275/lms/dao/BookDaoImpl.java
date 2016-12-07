@@ -5,7 +5,6 @@ import edu.sjsu.cmpe275.lms.entity.Book;
 
 import javax.ejb.NoSuchEntityException;
 import javax.persistence.*;
-
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
@@ -45,8 +44,8 @@ public class BookDaoImpl implements BookDao {
      */
 
 
-    @Autowired
-    private SendEmail eMail;
+    //@Autowired
+    //private SendEmail eMail;
 
     @Override
     public boolean addBook(Book book) {
@@ -78,7 +77,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> findAll() {
         List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
-        System.out.println("Books "+books);
+        System.out.println("Books " + books);
         return books;
 
     }
@@ -88,68 +87,63 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public String setBookRequest(Integer bookId, Integer userId) throws ParseException {
-		// TODO Auto-generated method stub
-		Book book = entityManager.find(Book.class, bookId);
-		User user = entityManager.find(User.class, userId);
+        // TODO Auto-generated method stub
+        Book book = entityManager.find(Book.class, bookId);
+        User user = entityManager.find(User.class, userId);
 
 
-		String returnStatus = "";
-		if (!book.getCurrent_status().equalsIgnoreCase("available")) {
+        String returnStatus = "";
+        if (!book.getCurrent_status().equalsIgnoreCase("available")) {
             List<User> waitlist = book.getWaitlist();
-			if (!waitlist.contains(user)) {
-				waitlist.add(user);
-				book.setWaitlist(waitlist);
-				entityManager.merge(book);
-				returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
-                returnStatus = returnStatus+book.toString();
-				eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
+            if (!waitlist.contains(user)) {
+                waitlist.add(user);
+                book.setWaitlist(waitlist);
+                entityManager.merge(book);
+                returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
+                returnStatus = returnStatus + book.toString();
+                //eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
 
-			} else {
-				returnStatus = "User has already requested for the book! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
-			}
-			return returnStatus;
+            } else {
+                returnStatus = "User has already requested for the book! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
+            }
+            return returnStatus;
 
-		}
-        else {
+        } else {
             List<UserBook> currentUsers = book.getCurrentUsers();
-            try{
-                String userBookQuery = "select ub from UserBook ub where ub.book.bookId = "+bookId + " and ub.user.id = "+userId;
-                UserBook thisub = entityManager.createQuery(userBookQuery,UserBook.class).getSingleResult();
+            try {
+                String userBookQuery = "select ub from UserBook ub where ub.book.bookId = " + bookId + " and ub.user.id = " + userId;
+                UserBook thisub = entityManager.createQuery(userBookQuery, UserBook.class).getSingleResult();
 
                 return "User has already checked out the same book";
 
 
-
-
-            }catch (Exception e){
+            } catch (Exception e) {
 
 
                 UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
                 //currentUsers.add(userBook);
-               // book.setCurrentUsers(currentUsers);
+                // book.setCurrentUsers(currentUsers);
 
                 String due_date = userBook.getDueDate();
                 returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
-                returnStatus = returnStatus+book.toString();
+                returnStatus = returnStatus + book.printBookInfo();
 
                 entityManager.persist(userBook);
                 updateBookStatus(book.getBookId());
 
-                eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
+                //eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
                 //entityManager.persist(book);
 
                 //userBook.UserBookPersist(book, user);
-                System.out.println("after mail book status "+book.getCurrent_status());
+                System.out.println("after mail book status " + book.getCurrent_status());
 
 
                 return returnStatus;
             }
 
 
-
-
-		}
-	}
+        }
+    }
 
     /**
      * Search a book by any of its fields
@@ -257,7 +251,7 @@ public class BookDaoImpl implements BookDao {
             for (Map.Entry entry : paramPresent.entrySet()) {
                 if ((Boolean) entry.getValue()) {
                     // set query parameters for those which have a value
-                    q.setParameter((String) entry.getKey(), "%"+paramValues.get(entry.getKey()).toLowerCase()+"%");
+                    q.setParameter((String) entry.getKey(), "%" + paramValues.get(entry.getKey()).toLowerCase() + "%");
                 }
             }
         }
@@ -277,7 +271,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public void updateBookStatus(Integer book_Id){
+    public void updateBookStatus(Integer book_Id) {
 
         System.out.println("in update");
         String userbook_query = "select ub from UserBook ub where ub.book = " + book_Id;
@@ -286,48 +280,48 @@ public class BookDaoImpl implements BookDao {
         List<UserBook> userBooks = entityManager.createQuery(userbook_query, UserBook.class).getResultList();
 
         System.out.println("userbook " + userBooks.size());
-       // if(userBooks.size()>=0){
+        // if(userBooks.size()>=0){
 
-            Book book = entityManager.find(Book.class,book_Id);
-            if (book.getNum_of_copies() == userBooks.size()) {
-                System.out.println("changing status");
-                book.setCurrent_status("Hold");
-              //  entityManager.persist(book);
+        Book book = entityManager.find(Book.class, book_Id);
+        if (book.getNum_of_copies() == userBooks.size()) {
+            System.out.println("changing status");
+            book.setCurrent_status("Hold");
+            //  entityManager.persist(book);
 
-                System.out.println("after changing in update fn " + book.getCurrent_status());
-            }
+            System.out.println("after changing in update fn " + book.getCurrent_status());
+        }
 
-       // }
+        // }
 
 
     }
 
 
     @Override
-    public List<Book> getBookByUserId(Integer userId){
-        String userbookList = "select ub.book from UserBook ub where ub.user.id = "+userId;
-        List<Book> books= entityManager.createQuery(userbookList,Book.class).getResultList();
-        System.out.println("user book list based on user id "+books.size());
+    public List<Book> getBookByUserId(Integer userId) {
+        String userbookList = "select ub.book from UserBook ub where ub.user.id = " + userId;
+        List<Book> books = entityManager.createQuery(userbookList, Book.class).getResultList();
+        System.out.println("user book list based on user id " + books.size());
         return books;
 
     }
 
     @Override
-    public String setBookReturn(Integer bookId, Integer userId){
+    public String setBookReturn(Integer bookId, Integer userId) {
 
-        try{
-            String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = "+userId;
-            UserBook userBook = entityManager.createQuery(userbookQuery,UserBook.class).getSingleResult();
+        try {
+            String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = " + userId;
+            UserBook userBook = entityManager.createQuery(userbookQuery, UserBook.class).getSingleResult();
             entityManager.remove(userBook);
             return "Book returned successfully";
 
-        }catch(Exception e){
+        } catch (Exception e) {
 
             return "Invalid Book";
         }
 
 
-       // entityManager.persist(userBook);
+        // entityManager.persist(userBook);
 
 //        Book book = entityManager.find(Book.class,bookId);
 //        List<UserBook> temp = book.getCurrentUsers();
@@ -338,11 +332,11 @@ public class BookDaoImpl implements BookDao {
 
     }
 
-    public int findCountAvailable(){
+    public int findCountAvailable() {
         Query query = entityManager.createQuery("select * from Book b where b.current_status = ?");
         query.setParameter(1, "available");
         List<Integer> bookIds = query.getResultList();
-        System.out.println("Counts from DB "+bookIds.get(0));
+        System.out.println("Counts from DB " + bookIds.get(0));
         if (bookIds.size() > 0) {
             return bookIds.size();
         }

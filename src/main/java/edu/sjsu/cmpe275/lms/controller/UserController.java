@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.lms.controller;
 
+import edu.sjsu.cmpe275.lms.email.SendEmail;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBookCart;
@@ -31,6 +32,8 @@ public class UserController {
     UserBookService ubService;
     @Autowired
     UserBookCartService ubcService;
+    @Autowired
+    private SendEmail eMail;
 
 	/**
 	 * @return
@@ -130,6 +133,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/{userId}/checkout", method = RequestMethod.GET)
 	public Object requestBooks(@PathVariable("userId") Integer userId) throws ParseException {
+        StringBuilder emailSummary = new StringBuilder();
 		ModelAndView mv = new ModelAndView("books/request");
         List<UserBookCart> cart = ubcService.getUserCart(userId);
         if (cart.size() == 0) {
@@ -149,8 +153,12 @@ public class UserController {
         }
 
         for (UserBookCart u : cart) {
-            bService.requestBook(u.getBook_id(), userId);
+            emailSummary.append(bService.requestBook(u.getBook_id(), userId));
+            emailSummary.append("\n");
         }
+
+        //sends consolidated email of checkout
+        eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
 
         mv.addObject("status", "Books checked out! You will get details in email soon !");
         ubcService.clearUserCart(userId);
