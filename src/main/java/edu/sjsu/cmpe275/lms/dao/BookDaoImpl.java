@@ -312,11 +312,20 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public void setBookReturn(Integer bookId, Integer userId){
+    public String setBookReturn(Integer bookId, Integer userId){
 
-        String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = "+userId;
-        UserBook userBook = entityManager.createQuery(userbookQuery,UserBook.class).getSingleResult();
-        entityManager.remove(userBook);
+        try{
+            String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = "+userId;
+            UserBook userBook = entityManager.createQuery(userbookQuery,UserBook.class).getSingleResult();
+            entityManager.remove(userBook);
+            return "Book returned successfully";
+
+        }catch(Exception e){
+
+            return "Invalid Book";
+        }
+
+
        // entityManager.persist(userBook);
 
 //        Book book = entityManager.find(Book.class,bookId);

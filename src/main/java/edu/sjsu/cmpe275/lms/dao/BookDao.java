@@ -82,5 +82,5 @@ public interface BookDao {
      *
      *
      */
-    public void setBookReturn(Integer bookId, Integer userId);
+    public String setBookReturn(Integer bookId, Integer userId);
 }

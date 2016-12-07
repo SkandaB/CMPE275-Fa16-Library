@@ -68,9 +68,15 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void returnBook(Integer bookId,Integer userId){
-		 bookDao.setBookReturn(bookId,userId);
+	public String returnBook(Integer bookId,Integer userId){
+		return bookDao.setBookReturn(bookId,userId);
 
+	}
+
+	@Override
+	public List<Book> searchBookbyUser(Book book){
+
+		return bookDao.searchBook(book);
 	}
 	
 
