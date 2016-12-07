@@ -106,7 +106,7 @@ public class BookController {
             book.setIsbn(book.getIsbn());
             addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response);
         }
-        return "addBook";
+        return "librarian/dashboard";
     }
 
     private void throwNoISBNFoundError(HttpServletResponse response) {

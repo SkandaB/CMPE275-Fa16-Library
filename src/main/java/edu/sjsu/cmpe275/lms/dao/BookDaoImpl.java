@@ -75,28 +75,28 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public String setBookRequest(Integer bookId, Integer userId) throws ParseException {
-		// TODO Auto-generated method stub
-		Book book = entityManager.find(Book.class, bookId);
-		User user = entityManager.find(User.class, userId);
+        // TODO Auto-generated method stub
+        Book book = entityManager.find(Book.class, bookId);
+        User user = entityManager.find(User.class, userId);
 
 
-		String returnStatus = "";
-		if (!book.getCurrent_status().equalsIgnoreCase("available")) {
+        String returnStatus = "";
+        if (!book.getCurrent_status().equalsIgnoreCase("available")) {
             List<User> waitlist = book.getWaitlist();
-			if (!waitlist.contains(user)) {
-				waitlist.add(user);
-				book.setWaitlist(waitlist);
-				entityManager.merge(book);
-				returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
+            if (!waitlist.contains(user)) {
+                waitlist.add(user);
+                book.setWaitlist(waitlist);
+                entityManager.merge(book);
+                returnStatus = "User is waitlisted! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
                 returnStatus = returnStatus+book.toString();
-				eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
+                eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
 
-			} else {
-				returnStatus = "User has already requested for the book! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
-			}
-			return returnStatus;
+            } else {
+                returnStatus = "User has already requested for the book! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
+            }
+            return returnStatus;
 
-		}
+        }
         else {
             List<UserBook> currentUsers = book.getCurrentUsers();
             try{
@@ -113,7 +113,7 @@ public class BookDaoImpl implements BookDao {
 
                 UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
                 //currentUsers.add(userBook);
-               // book.setCurrentUsers(currentUsers);
+                // book.setCurrentUsers(currentUsers);
 
                 String due_date = userBook.getDueDate();
                 returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
@@ -133,10 +133,8 @@ public class BookDaoImpl implements BookDao {
             }
 
 
-
-
-		}
-	}
+        }
+    }
 
     /**
      * Search a book by any of its fields
@@ -273,18 +271,18 @@ public class BookDaoImpl implements BookDao {
         List<UserBook> userBooks = entityManager.createQuery(userbook_query, UserBook.class).getResultList();
 
         System.out.println("userbook " + userBooks.size());
-       // if(userBooks.size()>=0){
+        // if(userBooks.size()>=0){
 
-            Book book = entityManager.find(Book.class,book_Id);
-            if (book.getNum_of_copies() == userBooks.size()) {
-                System.out.println("changing status");
-                book.setCurrent_status("Hold");
-              //  entityManager.persist(book);
+        Book book = entityManager.find(Book.class, book_Id);
+        if (book.getNum_of_copies() == userBooks.size()) {
+            System.out.println("changing status");
+            book.setCurrent_status("Hold");
+            //  entityManager.persist(book);
 
-                System.out.println("after changing in update fn " + book.getCurrent_status());
-            }
+            System.out.println("after changing in update fn " + book.getCurrent_status());
+        }
 
-       // }
+        // }
 
 
     }
@@ -314,7 +312,7 @@ public class BookDaoImpl implements BookDao {
         }
 
 
-       // entityManager.persist(userBook);
+        // entityManager.persist(userBook);
 
 //        Book book = entityManager.find(Book.class,bookId);
 //        List<UserBook> temp = book.getCurrentUsers();
@@ -340,8 +338,10 @@ public class BookDaoImpl implements BookDao {
     public boolean deleteBookByID(Integer id) {
         Book book = entityManager.find(Book.class, id);
         List<User> waitlist = book.getWaitlist();
-        waitlist.clear();
-        entityManager.merge(book);
+        if (!(waitlist.isEmpty())) {
+            waitlist.clear();
+            entityManager.merge(book);
+        }
         entityManager.remove(book);
         //remove_waitlist(book);
         return true;
