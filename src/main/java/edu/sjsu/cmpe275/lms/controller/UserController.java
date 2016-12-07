@@ -31,7 +31,7 @@ public class UserController {
 
 	/**
 	 * @return
-//	 */
+    //	 */
 //	@RequestMapping(value = "/user", method = RequestMethod.GET)
 //	public ModelAndView showUserCreationForm() {
 //		ModelAndView modelAndView = new ModelAndView("users/userDashboard");
