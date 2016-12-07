@@ -272,6 +272,6 @@
 			</plugins>
 		</pluginManagement>
 
-		<finalName>List_Books</finalName>
+		<finalName>Fix_Server_UI_ListBooks</finalName>
 	</build>
 </project>
