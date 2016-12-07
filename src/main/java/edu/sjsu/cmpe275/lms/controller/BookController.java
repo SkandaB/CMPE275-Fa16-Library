@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletResponse;
@@ -182,8 +183,7 @@ public class BookController {
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/addBook", method = RequestMethod.POST)
-    String addBookviaForm(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
-        System.out.println("boook" + book);
+    public ModelAndView addBookviaForm(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
         /**
          * Check if the mode of addition is via ISBN or advanced-mode.
          */
@@ -203,7 +203,7 @@ public class BookController {
             book.setIsbn(book.getIsbn());
             addNewBook(book,book.getTitle(),book.getAuthor(),book.getYear_of_publication(),book.getPublisher() ,response);
         }
-        return "addBook";
+        return new ModelAndView(new RedirectView("#"));
     }
 
     private void throwNoISBNFoundError(HttpServletResponse response) {
