@@ -2,11 +2,6 @@ package edu.sjsu.cmpe275.lms.dao;
 
 import edu.sjsu.cmpe275.lms.email.SendEmail;
 import edu.sjsu.cmpe275.lms.entity.Book;
-
-import javax.ejb.NoSuchEntityException;
-import javax.persistence.*;
-
-import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +17,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-
-import static java.lang.Thread.sleep;
 
 
 @Transactional
@@ -347,6 +334,13 @@ public class BookDaoImpl implements BookDao {
             return bookIds.size();
         }
         return 0;
+    }
+
+    @Override
+    public boolean deleteBookByID(Integer id) {
+        Book book = entityManager.find(Book.class, id);
+        entityManager.remove(book);
+        return true;
     }
 
 

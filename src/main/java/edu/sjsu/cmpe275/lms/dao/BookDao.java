@@ -1,13 +1,10 @@
 package edu.sjsu.cmpe275.lms.dao;
 
 import edu.sjsu.cmpe275.lms.entity.Book;
-import edu.sjsu.cmpe275.lms.entity.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.util.List;
-
-
-import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface BookDao {
@@ -84,4 +81,6 @@ public interface BookDao {
     public String setBookReturn(Integer bookId, Integer userId);
 
     public int findCountAvailable();
+
+    boolean deleteBookByID(Integer id);
 }

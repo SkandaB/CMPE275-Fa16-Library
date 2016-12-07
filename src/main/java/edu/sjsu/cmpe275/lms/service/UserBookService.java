@@ -9,4 +9,7 @@ public interface UserBookService {
      * @return number of books issued by user on current date
      */
     int getUserDayBookCount (int userId);
+
+    boolean checkIfEsxists(Integer bookid);
+
 }

@@ -3,11 +3,10 @@
  */
 package edu.sjsu.cmpe275.lms.service;
 
+import edu.sjsu.cmpe275.lms.entity.Book;
+
 import java.text.ParseException;
 import java.util.List;
-
-import edu.sjsu.cmpe275.lms.entity.Book;
-import edu.sjsu.cmpe275.lms.entity.User;
 
 /**
  * @author dhanyaramesh
@@ -22,5 +21,7 @@ public interface BookService {
 	public List<Book> listBooksOfUser(Integer userId);
 	public String returnBook(Integer bookId,Integer userId);
 	public List<Book> searchBookbyUser(Book book);
+
+	public boolean deleteBookByID(Integer id);
 
 }

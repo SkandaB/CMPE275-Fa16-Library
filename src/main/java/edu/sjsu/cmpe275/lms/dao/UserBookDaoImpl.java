@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 public class UserBookDaoImpl implements UserBookDao {
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager entityManager;
+
     /**
      * Returns number of books the user is holding on a particular day
      *
@@ -30,5 +31,17 @@ public class UserBookDaoImpl implements UserBookDao {
         q.setParameter("userid", userId);
         q.setParameter("checkout_date", dtf.format(LocalDate.now()));
         return q.getResultList().size();
+    }
+
+    @Override
+    public boolean exists(Integer bookid) {
+        boolean flag = true;
+        String query = "Select ub From UserBook ub WHERE ub.book.bookId = :book_id";
+        Query q = entityManager.createQuery(query, UserBook.class);
+        q.setParameter("book_id", bookid);
+        if (q.getResultList().isEmpty()) {
+            flag = false;
+        }
+        return flag;
     }
 }

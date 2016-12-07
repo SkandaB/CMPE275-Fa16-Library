@@ -10,4 +10,6 @@ public interface UserBookDao {
      * @return number of books issued by user on current date
      */
     public int getUserDayBookCount(int userId);
+
+    boolean exists(Integer bookid);
 }

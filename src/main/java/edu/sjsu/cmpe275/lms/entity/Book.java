@@ -16,15 +16,15 @@ import java.util.List;
 public class Book {
 
 
-			@Autowired
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinTable
-            (
-                    name = "USER_BOOK_WAITLIST",
-                    joinColumns = {@JoinColumn(name = "BOOK_ID", referencedColumnName = "BOOK_ID")},
-                    inverseJoinColumns = {@JoinColumn(name = "ID", referencedColumnName = "ID", unique = true)}
-            )
-    List<User> waitlist = new ArrayList<User>();
+	@Autowired
+	@OneToMany(cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+	@JoinTable
+			(
+					name = "USER_BOOK_WAITLIST",
+					joinColumns = {@JoinColumn(name = "BOOK_ID", referencedColumnName = "BOOK_ID")},
+					inverseJoinColumns = {@JoinColumn(name = "ID", referencedColumnName = "ID", unique = true)}
+			)
+	List<User> waitlist = new ArrayList<User>();
 
 	/*@Override
 	public String toString() {
@@ -47,13 +47,13 @@ public class Book {
 			joinColumns={ @JoinColumn(name="ISBN", referencedColumnName="ISBN") },
 			inverseJoinColumns={ @JoinColumn(name="ID", referencedColumnName="ID", unique=true) }
 			)*/
-    @OneToMany(mappedBy = "book",cascade = {CascadeType.REMOVE})
-    List<UserBook> currentUsers = new ArrayList<UserBook>();
+	@OneToMany(mappedBy = "book", cascade = {CascadeType.REMOVE})
+	List<UserBook> currentUsers = new ArrayList<UserBook>();
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name = "BOOK_ID", length = 8, unique = true, nullable = false)
 	private Integer bookId;
-		@Column(name = "ISBN", nullable = false,unique=true)
+	@Column(name = "ISBN", nullable = false, unique = true)
 	private String isbn;
 	@Column(name = "AUTHOR", nullable = false)
 	private String author;
@@ -97,7 +97,7 @@ public class Book {
 
 	}
 
-    // waitlist
+	// waitlist
 	@Override
 	public String toString() {
 		return "Book{" +
@@ -217,14 +217,12 @@ public class Book {
 	}
 
 	/**
-	 * @param waitlist 
+	 * @param waitlist
 	 * the waitlist to set
 	 */
 	public void setWaitlist(List<User> waitlist) {
 		this.waitlist = waitlist;
 	}
-	
-
 
 
 	/**

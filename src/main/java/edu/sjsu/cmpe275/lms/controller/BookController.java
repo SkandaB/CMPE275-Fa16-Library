@@ -10,6 +10,7 @@ import com.google.gdata.util.ServiceException;
 import edu.sjsu.cmpe275.lms.dao.BookDao;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.errors.Errors;
+import edu.sjsu.cmpe275.lms.service.BookService;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.ISBNValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +29,15 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 
-
 @Controller
 @RequestMapping("/book")
 public class BookController {
     static final String API_KEY =
             "AIzaSyDnl1Qdtcfq2OtPSecoLIx7K5JtoM8u8z8";
     private static final String APPLICATION_NAME = "Library-System-Term-Project";
+    @Autowired
+    BookService bookService;
     private String isbn = "";
-
     @Autowired
     private BookDao bookDao;
 
@@ -89,7 +90,7 @@ public class BookController {
         /**
          * Check if the mode of addition is via ISBN or advanced-mode.
          */
-        if(book.getAuthor()== null){ // There was no author as input. Has to be simple mode.
+        if (book.getAuthor() == null) { // There was no author as input. Has to be simple mode.
             isbn = book.getIsbn();
             ISBNValidator validator = new ISBNValidator();
             if (validator.isValid(book.getIsbn())) {
@@ -103,7 +104,7 @@ public class BookController {
              * Save value to database.
              */
             book.setIsbn(book.getIsbn());
-            addNewBook(book,book.getTitle(),book.getAuthor(),book.getYear_of_publication(),book.getPublisher() ,response);
+            addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response);
         }
         return "addBook";
     }
@@ -189,12 +190,12 @@ public class BookController {
         /**
          * Save the values to database
          */
-        addNewBook(book,title,author,year_of_publication,publisher,response);
+        addNewBook(book, title, author, year_of_publication, publisher, response);
     }
 
-    private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher , HttpServletResponse response) {
+    private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher, HttpServletResponse response) {
         try {
-            bookDao.addBook(book.getIsbn(), author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords(),book.getImage());
+            bookDao.addBook(book.getIsbn(), author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords(), book.getImage());
         }
         /**
          * If Unique key number is tried to repeat
@@ -212,11 +213,11 @@ public class BookController {
     }
 
 
-
-
     @RequestMapping(value = "/searchAllBooks", method = RequestMethod.GET)
     @Transactional
-    public @ResponseBody List<Book>  searchAllBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView){
+    public
+    @ResponseBody
+    List<Book> searchAllBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView) {
         System.out.println("Here !!!");
         List<Book> books = bookDao.findAll();
         //modelAndView.addObject("books", books);
@@ -224,7 +225,7 @@ public class BookController {
     }
 
     @Transactional
-    @RequestMapping( method = RequestMethod.GET, params = "json", produces = "application/json; charset=UTF-8")
+    @RequestMapping(method = RequestMethod.GET, params = "json", produces = "application/json; charset=UTF-8")
     public
     @ResponseBody
     String getBooksJson(@RequestParam(value = "json") String isJson, HttpServletResponse response) {
@@ -236,7 +237,7 @@ public class BookController {
             if (booklist.size() < 1) {
                 try {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                   // response.getWriter().write(Errors.getIDNotFoundErrorPage(Errors.PHONE_ENTITY, phoneid));
+                    // response.getWriter().write(Errors.getIDNotFoundErrorPage(Errors.PHONE_ENTITY, phoneid));
                     response.getWriter().flush();
                     response.getWriter().close();
                 } catch (IOException e) {
@@ -259,6 +260,16 @@ public class BookController {
         Book res_book = bookDao.getBookbyId(id);
         //modelAndView.addObject("books", books);
         return res_book;
+    }
+
+    @RequestMapping(value = "/book/{book_id}", method = RequestMethod.DELETE)
+    public boolean deleteBook(@PathVariable("book_id") Integer id) {
+        System.out.println("User requested to delete this book: " + id);
+        boolean status;
+        if (bookService.deleteBookByID(id)) {
+            status = true;
+        } else status = false;
+        return status;
     }
 
 }
