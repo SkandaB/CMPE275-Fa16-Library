@@ -262,7 +262,7 @@ public class BookController {
         return res_book;
     }
 
-    @RequestMapping(value = "/book/{book_id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deletebook/{book_id}", method = RequestMethod.GET)
     public boolean deleteBook(@PathVariable("book_id") Integer id) {
         System.out.println("User requested to delete this book: " + id);
         boolean status;

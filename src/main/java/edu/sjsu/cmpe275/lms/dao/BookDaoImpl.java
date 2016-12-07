@@ -339,9 +339,22 @@ public class BookDaoImpl implements BookDao {
     @Override
     public boolean deleteBookByID(Integer id) {
         Book book = entityManager.find(Book.class, id);
+        List<User> waitlist = book.getWaitlist();
+        waitlist.clear();
+        entityManager.merge(book);
         entityManager.remove(book);
+        //remove_waitlist(book);
         return true;
     }
 
+/*
+    public boolean remove_waitlist(Book book) {
+
+        List<User> waitlist = book.getWaitlist();
+        waitlist.clear();
+        book.setWaitlist(waitlist);
+        entityManager.persist(book);
+        return true;
+    }*/
 
 }
