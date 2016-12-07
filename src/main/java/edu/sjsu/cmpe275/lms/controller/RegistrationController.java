@@ -125,7 +125,7 @@ public class RegistrationController {
 
 //           int count =  bookDao.findCountAvailable();
 //            System.out.println("count  : "+count);
-            mv.addObject("useremail",user.getUseremail());
+            mv.addObject("users",user);
             return mv;
         }
     }

@@ -309,15 +309,11 @@ public class BookController {
         }
     }
 
-
-
-
     @RequestMapping(value = "/searchAllBooks", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody List<Book>  searchAllBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView){
         System.out.println("Here !!!");
         List<Book> books = bookDao.findAll();
-        //modelAndView.addObject("books", books);
         return books;
     }
 

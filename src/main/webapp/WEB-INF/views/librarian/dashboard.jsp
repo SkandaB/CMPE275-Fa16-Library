@@ -130,8 +130,10 @@
         document.getElementById(formId).style.display = "block";
     }
     $(document).ready(function () {
-        var uemail  = '${useremail}';
-        console.log(uemail)
+        var uemail  = '${users.useremail}';
+        console.log(uemail);
+        var userid = '${users.id}';
+        console.log(userid);
         $("#loggedinusername").text(uemail);
         $("#addBtn").click(function () {
             $('#addBookModal').modal('show');
@@ -150,11 +152,11 @@
         });
 
         getBooksData = function () {
-            var url = "${pageContext.request.contextPath}/book/searchAllBooks";
+            var url = "/book/searchAllBooks";
 
             $.get(url, null, function (data) {
-               console.log("here");
-               console.log(""+data);
+                console.log("here");
+                console.log(""+data);
                 var mymodal = $('#viewBooksModal');
                 mymodal.find('.modal-body').text('');
                 var jsonData = data;
@@ -194,6 +196,15 @@
             });
 
         }
+
+
+        $("#searchBtn").click(function () {
+            $('#searchBooksModal').modal('show');
+        });
+
+        $("#searchBtn1").click(function () {
+            $('#searchBooksModal').modal('show');
+        });
 
     });
 </script>
@@ -243,8 +254,8 @@
                     <ul class="nav nav-stacked collapse in" id="userMenu">
                         <li class="active"><a href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
                         <li><a id="addBtn1" href="#"><i class="glyphicon glyphicon-plus-sign"></i> Add a Book</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-edit"></i> Update a Book</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-remove"></i> Remove a Book</a></li>
+                        <li><a id="searchBtn1" href="#"><i class="glyphicon glyphicon-search"></i> Search a Book</a></li>
+                        <%--<li><a href="#"><i class="glyphicon glyphicon-remove"></i> Remove a Book</a></li>--%>
                         <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
@@ -267,7 +278,7 @@
 
                 <hr>
 
-                <!-- Modal -->
+                <!-- Modal for adding books-->
                 <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                      aria-hidden="true">
                     <div class="modal-dialog">
@@ -393,6 +404,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- END: Modal for adding books-->
 
                 <!-- Modal for viewing books -->
                 <div class="modal fade" id="viewBooksModal" tabindex="-1" role="dialog"
@@ -424,19 +436,90 @@
                 </div>
                 <!-- END: Modal for viewing books -->
 
+                <div class="modal fade" id="searchBooksModal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content" id="searchBooksContent">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="searchbooksmodalid">Search Books</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form:form class="form-style-9" method="post" action="user/searchBook"
+                                           modelAttribute="book" id="searchbooksform" >
+                                    <ul>
+                                        <li>
+                                            <input type="text" class="field-style field-split align-left"
+                                                   name="isbn" placeholder="ISBN">
+                                            <input type="text" name="title"
+                                                   class="field-style field-split align-right" placeholder="Title"/>
+                                        </li>
+                                        <li>
+                                            <input type="text" name="author"
+                                                   class="field-style field-split align-left" placeholder="Author"/>
+                                            <input type="text" name="publisher"
+                                                   class="field-style field-split align-right"
+                                                   placeholder="Publisher"/>
+                                        </li>
+                                        <li>
+                                            <input type="text" name="year_of_publication"
+                                                   class="field-style field-split align-left"
+                                                   placeholder="Publication Year"/>
+                                            <input type="text" name="location"
+                                                   class="field-style field-split align-left"
+                                                   placeholder="Library Location"/>
+                                        </li>
+                                        <li>
+                                            <input type="number" min="1" name="num_of_copies"
+                                                   class="field-style field-split align-left"
+                                                   placeholder="# of Copies"/>
+                                            <input type="text" name="callnumber"
+                                                   class="field-style field-split align-left"
+                                                   placeholder="Call Number"/>
+                                        </li>
+                                        <li>
+                                            <select class="selectpicker" name="current_status"
+                                                    data-style="btn-info">
+                                                <option>Available</option>
+                                                <option>Reserved</option>
+                                                <option>Wait-Listed</option>
+                                            </select>
+                                            <input type="text" name="keywords"
+                                                   class="field-style field-full align-none"
+                                                   placeholder="Keywords"/>
+                                        </li>
+
+                                        <li>
+                                            <input type="submit" value="Search now"/>
+                                        </li>
+                                    </ul>
+                                </form:form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
                 <div class="btn-group btn-group-justified">
                     <a id="addBtn" href="#" class="btn btn-primary col-sm-3">
                         <i class="glyphicon glyphicon-plus"></i>
                         <br> Add
                     </a>
-                    <a href="#" class="btn btn-primary col-sm-3">
-                        <i class="glyphicon glyphicon-edit"></i>
-                        <br> Update
+                    <a href="#" id="searchBtn" class="btn btn-primary col-sm-3">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <br> Search
                     </a>
-                    <a href="#" class="btn btn-primary col-sm-3">
-                        <i class="glyphicon glyphicon-remove"></i>
-                        <br> Remove
-                    </a>
+                    <%--<a href="#" class="btn btn-primary col-sm-3">--%>
+                    <%--<i class="glyphicon glyphicon-remove"></i>--%>
+                    <%--<br> Remove--%>
+                    <%--</a>--%>
                     <a id="viewBooksBtn" href="#" class="btn btn-primary col-sm-3">
                         <i class="glyphicon glyphicon-list"></i>
                         <br> List
