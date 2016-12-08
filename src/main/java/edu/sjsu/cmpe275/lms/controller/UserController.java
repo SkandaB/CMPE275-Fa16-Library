@@ -209,9 +209,8 @@ public class UserController {
 	}
 
 
-
-	@Transactional
-	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
+    @Transactional
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
 	public ModelAndView searchBookPage(ModelAndView modelAndView) {
 		modelAndView.setViewName("books/searchBook");
 		modelAndView.addObject("book", new Book());
@@ -309,9 +308,9 @@ public class UserController {
             modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
 			return modelAndView;
 		}
-		//add whatever is needed
-		modelAndView.setViewName("librarian/listBooksByLibrarian");
-		List<Book> books = bService.searchBookbyUser(book);
+        //add whatever is needed
+        modelAndView.setViewName("librarian/listBooksByLibrarian");
+        List<Book> books = bService.searchBookbyUser(book);
 
 		if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
 		modelAndView.addObject("books", books);

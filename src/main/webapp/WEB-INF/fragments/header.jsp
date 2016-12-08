@@ -11,7 +11,7 @@
 <link href="${coreCss}" rel="stylesheet" />
 </head>
 
-<spring:url value="${pageContext.request.contextPath}/dashboard" var="urlHome" />
+<spring:url value="${pageContext.request.contextPath}/dashboard" var="urlHome"/>
 <spring:url value="/users/add" var="urlAddUser" />
 
 <nav class="navbar navbar-inverse ">

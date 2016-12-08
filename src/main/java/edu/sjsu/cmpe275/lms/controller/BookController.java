@@ -322,10 +322,10 @@ public class BookController {
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/updatebook", method = RequestMethod.POST)
-    public ModelAndView updateBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView,HttpServletRequest request) {
-        modelAndView =  new ModelAndView("librarian/dashboard");
+    public ModelAndView updateBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletRequest request) {
+        modelAndView = new ModelAndView("librarian/dashboard");
 //        System.out.println("GG YO"+book);
-        bookService.updateBooks(book,request);
+        bookService.updateBooks(book, request);
         System.out.println("Update called !!!");
         return modelAndView;
     }
@@ -333,11 +333,10 @@ public class BookController {
     @RequestMapping(value = "/deletebook/{book_id}", method = RequestMethod.GET)
     public ModelAndView deleteBook(@PathVariable("book_id") Integer id) {
         System.out.println("User requested to delete this book: " + id);
-        if(bookService.deleteBookByID(id)) {
+        if (bookService.deleteBookByID(id)) {
             System.out.println("Book Deleted Sucessfully!!");
             return new ModelAndView(new RedirectView("/dashboard"));
-        }
-        else {
+        } else {
             return new ModelAndView("error");
         }
     }

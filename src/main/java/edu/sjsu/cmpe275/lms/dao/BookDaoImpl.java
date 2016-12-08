@@ -161,7 +161,7 @@ public class BookDaoImpl implements BookDao {
                 entityManager.persist(userBook);
                 updateBookStatus(book.getBookId());
 
-                eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
+                //eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
                 //entityManager.persist(book);
                 //userBook.UserBookPersist(book, user);
                 System.out.println("after mail book status " + book.getCurrent_status());
@@ -339,8 +339,7 @@ public class BookDaoImpl implements BookDao {
         }
 
 
-
-       // entityManager.persist(userBook);
+        // entityManager.persist(userBook);
         // entityManager.persist(userBook);
 
 //        Book book = entityManager.find(Book.class,bookId);
@@ -396,7 +395,7 @@ public class BookDaoImpl implements BookDao {
         return true;
     }*/
 
-    public Book updateBooks(Book book, HttpServletRequest request){
+    public Book updateBooks(Book book, HttpServletRequest request) {
 //        Book bookupdated = entityManager.persist(book);
 //        entityManager.flush();
 //        System.out.println("book" + updatedbook.getBookId());

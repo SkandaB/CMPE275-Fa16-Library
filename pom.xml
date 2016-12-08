@@ -301,6 +301,6 @@
 			</plugins>
 		</pluginManagement>
 
-        <finalName>Librarian_Book_Delete</finalName>
+		<finalName>Library</finalName>
 	</build>
 </project>

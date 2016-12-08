@@ -112,13 +112,13 @@ public class RegistrationController {
                                       ModelAndView mv) {
         mv = new ModelAndView();
         User us = (User) request.getSession().getAttribute("user");
-        System.out.println("Dashboard get "+us);
-        if(us.getRole().equals("ROLE_LIBRARIAN")) {
+        System.out.println("Dashboard get " + us);
+        if (us.getRole().equals("ROLE_LIBRARIAN")) {
             System.out.println("Lib found");
             mv.setViewName("librarian/dashboard");
-        }         else {
+        } else {
             System.out.println("patron found");
-                            mv.setViewName("user/dashboard");
+            mv.setViewName("user/dashboard");
         }
         return mv;
 
@@ -149,8 +149,8 @@ public class RegistrationController {
 //           int count =  bookDao.findCountAvailable();
 //            System.out.println("count  : "+count);
             // adding  it to session
-            request.getSession().setAttribute("user",loggedInUser);
-            mv.addObject("users",user);
+            request.getSession().setAttribute("user", loggedInUser);
+            mv.addObject("users", user);
             return mv;
         }
     }

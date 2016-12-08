@@ -24,6 +24,8 @@ public interface BookService {
 	public List<Book> searchBookbyUser(Book book);
 
 	public boolean deleteBookByID(Integer id);
-	public Book updateBooks(Book updatedbook ,HttpServletRequest request);
-	String getAvailableBookCount();
+
+    public Book updateBooks(Book updatedbook, HttpServletRequest request);
+
+    String getAvailableBookCount();
 }
