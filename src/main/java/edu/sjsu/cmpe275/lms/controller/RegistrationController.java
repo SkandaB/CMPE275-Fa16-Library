@@ -107,7 +107,22 @@ public class RegistrationController {
         }
     }
 
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public ModelAndView showDashBoard(HttpServletRequest request,
+                                      ModelAndView mv) {
+        mv = new ModelAndView();
+        User us = (User) request.getSession().getAttribute("user");
+        System.out.println("Dashboard get "+us);
+        if(us.getRole().equals("ROLE_LIBRARIAN")) {
+            System.out.println("Lib found");
+            mv.setViewName("librarian/dashboard");
+        }         else {
+            System.out.println("patron found");
+                            mv.setViewName("user/dashboard");
+        }
+        return mv;
 
+    }
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public ModelAndView loginUser(HttpServletRequest request,
                                   @Valid @ModelAttribute("loginForm") User user,
@@ -126,8 +141,8 @@ public class RegistrationController {
 //           int count =  bookDao.findCountAvailable();
 //            System.out.println("count  : "+count);
             // adding  it to session
-            request.getSession().setAttribute("user", loggedInUser);
-            mv.addObject("users", user);
+            request.getSession().setAttribute("user",loggedInUser);
+            mv.addObject("users",user);
             return mv;
         }
     }

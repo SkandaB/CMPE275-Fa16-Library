@@ -24,7 +24,13 @@
 </head>
 <style>
     .mytext {
-        width: 100px;
+        width: 110px;
+    }
+
+    #updatebookform , #id1, #id2, #id3{
+        display:inline;
+        float:left;
+
     }
 
     /*<!-- Making the form awesome --> */
@@ -37,6 +43,20 @@
         border-radius: 10px;
         border: 6px solid #305A72;
     }
+    #label {
+        top:5px;
+        box-sizing: border-box;
+        position: absolute;
+        /*!*background: blue;*!  left: 5%;*/
+        width: 1200px;
+        /*border:5px solid #990000;*/
+        overflow:hidden;
+        border-radius:10px;
+        /*background: rgba(60, 85, 100, 0.7);*/
+    }
+
+
+
     .form-style-9 ul{
         padding:0;
         margin:0;
@@ -141,7 +161,8 @@
     $(document).ready(function () {
 
         $("#homeLink").click(function () {
-            window.location.reload();
+            //window.location.reload();
+            window.open ('${pageContext.request.contextPath}/dashboard','_self',false)
         });
         var uemail = '${users.useremail}';
         console.log(uemail);
@@ -160,7 +181,7 @@
                 console.log("here");
                 console.log("" + JSON.stringify(data));
                 var booksRecord = data;
-                $('#centerpagecontent').append('<br><br><p style="text-align: center; font-weight: bold">Books additions by all librarians');
+                $('#centerpagecontent').append('<br><br><p style="text-align: center; font-weight: bold">Books added/updated by all librarians');
 //                var html = '<br><div class="table-responsive">'+
 //                    '<table class="table">'+
 //                    '<thead>' +
@@ -183,7 +204,7 @@
 //
 //                $('#centerpagecontent').append(html);
 
-                var html = '<div class="table-responsive">' +
+                var html = '<br><br><br><div class="table-responsive">' +
                     '<table class="table">' +
                     '<thead>' +
                     '<tr>' +
@@ -241,20 +262,24 @@
 
         updateBook = function (rowId, bookid, isbn, title, author, publisher, location, callNumber, numberOfCopies, keywords) {
             var html = '';
-            html = html + '<form method="post" action="book/updatebook">'
+            html = html +'<br><div id="label">';
+            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">'
             html = html + '<tr id = ' + bookid + '>';
-            html = html + '<td ><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '></td>';
-            html = html + '<td><input type="text" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + '></td>';
-            html = html + '<td><input type="text" class="mytext" name="title" value=\"' + title + '\"' + '></td>';
-            html = html + '<td><input type="text" class="mytext" name="author" value=\"' + author + '\"' + '></td>';
-            html = html + '<td><input type="text" class="mytext" name="publisher" value=\"' + publisher + '\"' + '></td>';
-            html = html + '<td><input type="text" class="mytext" name="location" value=\"' + location + '\"' + '></td>';
-            html = html + '<td><input type="text" class="mytext" name="callNumber" value=\"' + callNumber + '\"' + '></td>';
-            html = html + '<td><input type="number" min="0" class="mytext" name="numberOfCopies" value=' + numberOfCopies + '></td>';
-            html = html + '<td><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
+            html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid +'  disabled ></td>';
+            html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + '></td>';
+            html = html + '<td id="td3"><input type="text" class="mytext" name="title" value=\"' + title + '\"' + '></td>';
+            html = html + '<td id="td4"><input type="text" class="mytext" name="author" value=\"' + author + '\"' + '></td>';
+            html = html + '<td id="td5"><input type="text" class="mytext" name="publisher" value=\"' + publisher + '\"' + '></td>';
+            html = html + '<td id="td6"><input type="text" class="mytext" name="location" value=\"' + location + '\"' + '></td>';
+            html = html + '<td id="td7"><input type="text" class="mytext" name="callNumber" value=\"' + callNumber + '\"' + '></td>';
+            html = html + '<td id="td8"><input type="number" min="0" class="mytext" name="numberOfCopies" value=' + numberOfCopies + '></td>';
+            html = html + '<td id="td9"><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
             html = html + '<td>' + '  <button class="btn btn-info" id=' + bookid + ' onClick="updateBook(\'' + bookid + '\',\'' + bookid + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + publisher + '\',\'' + location + '\',\'' + callNumber + '\',\'' + numberOfCopies + '\',\'' + keywords + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
             html = html + '</tr>';
+
             html = html + '</form>'
+            html = html + '</div>';
+
 
 
             row = $('#' + rowId);
@@ -262,7 +287,6 @@
         }
         getBooksData = function () {
             var url = "/book/searchAllBooks";
-
             $.get(url, null, function (data) {
                 console.log("here");
                 console.log("" + data);
@@ -271,7 +295,7 @@
                 var jsonData = data;
                 console.log(jsonData.length);
                 console.log(jsonData);
-                var html = '<div class="table-responsive">'+
+                var html = '<br><br><br><div class="table-responsive">'+
                     '<table class="table">'+
                     '<thead>' +
                     '<tr>' +
@@ -320,13 +344,6 @@
             $('#searchBooksModal').modal('show');
         });
 
-        $("updateBookFromUI").click(function () {
-            var url = "/book/updateUserBooks";
-
-            $.get(url, null, function (data) {
-
-            });
-        });
 
     });
 </script>
@@ -429,7 +446,7 @@
                                 </ul>
                                 <div id="my-tab-content" class="tab-content">
                                     <div class="tab-pane active" id="a">
-                                        <form:form class="form-style-9" method="post" action="book/addBook/"
+                                        <form:form class="form-style-9" method="post" action="${pageContext.request.contextPath}/book/addBook/"
                                                    modelAttribute="book" name="simpleaddform" id="simpleaddform"
                                                    style="display: none">
                                             <ul>
@@ -470,7 +487,7 @@
                                 </div>
                                 <div class="tab-pane" id="b">
 
-                                    <form:form class="form-style-9" method="post" action="book/addBook/"
+                                    <form:form class="form-style-9" method="post" action="${pageContext.request.contextPath}/book/addBook/"
                                                modelAttribute="book" id="advancedaddform" style="display: none">
                                         <ul>
                                             <li>
@@ -572,7 +589,7 @@
                                 <h4 class="modal-title" id="searchbooksmodalid">Search Books</h4>
                             </div>
                             <div class="modal-body">
-                                <form:form class="form-style-9" method="post" action="user/searchBook"
+                                <form:form class="form-style-9" method="post" action="${pageContext.request.contextPath}/user/searchBook"
                                            modelAttribute="book" id="searchbooksform">
                                     <ul>
                                         <li>

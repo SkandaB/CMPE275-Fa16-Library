@@ -5,6 +5,7 @@ import edu.sjsu.cmpe275.lms.entity.LibUserBook;
 import edu.sjsu.cmpe275.lms.entity.User;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.List;
 
@@ -87,4 +88,7 @@ public interface BookDao {
     public String findCountAvailable();
 
     boolean deleteBookByID(Integer id);
+
+
+    public Book updateBooks(Book updatedbook,HttpServletRequest request);
 }
