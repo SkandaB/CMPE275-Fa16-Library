@@ -96,6 +96,7 @@ public class UserController {
 
 
 
+
 	@RequestMapping(value = "/user/showall", method = RequestMethod.GET)
 	public Object showAll() {
 		ModelAndView mv = new ModelAndView("users/list");
@@ -207,6 +208,8 @@ public class UserController {
         return mv;
 	}
 
+
+
 	@Transactional
 	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
 	public ModelAndView searchBookPage(ModelAndView modelAndView) {
@@ -306,7 +309,8 @@ public class UserController {
             modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
 			return modelAndView;
 		}
-		modelAndView.setViewName("books/listBooks");
+		//add whatever is needed
+		modelAndView.setViewName("librarian/listBooksByLibrarian");
 		List<Book> books = bService.searchBookbyUser(book);
 
 		if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");

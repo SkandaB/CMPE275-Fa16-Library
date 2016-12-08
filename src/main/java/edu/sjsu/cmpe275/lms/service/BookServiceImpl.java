@@ -8,6 +8,7 @@ import edu.sjsu.cmpe275.lms.entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.List;
 
@@ -96,5 +97,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public String getAvailableBookCount() {
         return bookDao.findCountAvailable();
+    }
+
+    @Override
+    public Book updateBooks(Book updatedbook, HttpServletRequest request) {
+        return bookDao.updateBooks(updatedbook,request);
     }
 }

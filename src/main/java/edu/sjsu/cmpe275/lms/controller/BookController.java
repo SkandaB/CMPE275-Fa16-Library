@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
@@ -320,20 +321,25 @@ public class BookController {
 
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(value = "book/updateuser", method = RequestMethod.POST)
-    public ModelAndView updateBooks() {
+    @RequestMapping(value = "/updatebook", method = RequestMethod.POST)
+    public ModelAndView updateBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView,HttpServletRequest request) {
+        modelAndView =  new ModelAndView("librarian/dashboard");
+//        System.out.println("GG YO"+book);
+        bookService.updateBooks(book,request);
         System.out.println("Update called !!!");
-        return null;
+        return modelAndView;
     }
 
     @RequestMapping(value = "/deletebook/{book_id}", method = RequestMethod.GET)
-    public boolean deleteBook(@PathVariable("book_id") Integer id) {
+    public ModelAndView deleteBook(@PathVariable("book_id") Integer id) {
         System.out.println("User requested to delete this book: " + id);
-        boolean status;
-        if (bookService.deleteBookByID(id)) {
-            status = true;
-        } else status = false;
-        return status;
+        if(bookService.deleteBookByID(id)) {
+            System.out.println("Book Deleted Sucessfully!!");
+            return new ModelAndView(new RedirectView("/dashboard"));
+        }
+        else {
+            return new ModelAndView("error");
+        }
     }
 
 }
