@@ -219,11 +219,11 @@
 		</dependency>
 
 
-				<dependency>
-					<groupId>com.google.apis</groupId>
-					<artifactId>google-api-services-books</artifactId>
-					<version>v1-rev89-1.22.0</version>
-				</dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-books</artifactId>
+            <version>v1-rev89-1.22.0</version>
+        </dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.google.gdata/core -->
 		<dependency>
@@ -300,7 +300,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
 		<finalName>Library</finalName>
 	</build>
 </project>
