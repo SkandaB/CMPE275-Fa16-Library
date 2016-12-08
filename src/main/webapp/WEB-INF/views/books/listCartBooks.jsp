@@ -20,7 +20,7 @@
 <nav class="navbar navbar-inverse ">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/user/${userId}/dashboard">My Dashboard</a>
+            <a class="navbar-brand" href="/user/${userId}/dashboard">My Dashboard</a>
         </div>
 
     </div>
@@ -77,7 +77,7 @@
 
         </table>
 
-        <spring:url value="${pageContext.request.contextPath}/user/${userId}/checkout" var="checkoutUrl"/>
+        <spring:url value="/user/${userId}/checkout" var="checkoutUrl"/>
         <button class="btn btn-info"
                 onclick="location.href='${checkoutUrl}'">Checkout
         </button>

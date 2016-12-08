@@ -12,7 +12,7 @@
 <nav class="navbar navbar-inverse ">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/user/${userId}/dashboard">&nbsp; &nbsp;
+            <a class="navbar-brand" href="/user/${userId}/dashboard">&nbsp; &nbsp;
                 &nbsp; My Dashboard</a>
 
         </div>
@@ -51,9 +51,9 @@
                 <td>${book.author}</td>
                 <td>${book.current_status}</td>
                 <td>
-                    <spring:url value="${pageContext.request.contextPath}/user/${userId}/books/${book.bookId}"
+                    <spring:url value="/user/${userId}/books/${book.bookId}"
                                 var="userUrl"/>
-                    <spring:url value="${pageContext.request.contextPath}/user/${user.id}/books/wish/${book.bookId}"
+                    <spring:url value="/user/${user.id}/books/wish/${book.bookId}"
                                 var="updateUrl"/>
                     <!--Dhanya, your add to wish_list will come here  of wishlist-->
 
