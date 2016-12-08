@@ -20,7 +20,8 @@
 			<a class="navbar-brand" href="${urlHome}">CMPE275-Group2-Library Management System</a>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a></li>
+				<li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
+				</li>
 			</ul>
 		</div>
 

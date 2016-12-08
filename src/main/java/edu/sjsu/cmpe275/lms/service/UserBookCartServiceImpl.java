@@ -1,6 +1,7 @@
 package edu.sjsu.cmpe275.lms.service;
 
 import edu.sjsu.cmpe275.lms.dao.UserBookCartDao;
+import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.UserBookCart;
 import edu.sjsu.cmpe275.lms.errors.Err;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,13 @@ public class UserBookCartServiceImpl implements UserBookCartService {
         for (UserBookCart u : userBookCartList) {
             userBookCartDao.removeCartEntry(u);
         }
+    }
+
+    @Override
+    public List<Book> getUserBooks(int userId) {
+
+        List<Book> books = userBookCartDao.getUserBooksInCart(userId);
+        return books;
+
     }
 }

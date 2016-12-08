@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.lms.dao;
 
+import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.UserBookCart;
 import edu.sjsu.cmpe275.lms.errors.Err;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,4 +25,6 @@ public interface UserBookCartDao {
     List<UserBookCart> getUserCart(int userid);
 
     boolean removeCartEntry(UserBookCart ubc);
+
+    List<Book> getUserBooksInCart(int userId);
 }

@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.lms.dao;
 
+import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.UserBookCart;
 import edu.sjsu.cmpe275.lms.errors.Err;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
@@ -61,6 +63,18 @@ public class UserBookCartDaoImpl implements UserBookCartDao {
     public boolean removeCartEntry(UserBookCart ubc) {
         entityManager.remove(ubc);
         return true;
+    }
+
+    @Override
+    public List<Book> getUserBooksInCart(int userId) {
+
+        List<UserBookCart> ubcs = this.getUserCart(userId);
+        List<Book> books = new ArrayList<Book>();
+        for (UserBookCart u : ubcs) {
+            books.add(entityManager.find(Book.class, u.getBook_id()));
+
+        }
+        return books;
     }
 
 }

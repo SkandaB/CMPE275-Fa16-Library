@@ -13,7 +13,10 @@
 <nav class="navbar navbar-inverse ">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/user/${userId}/books">My Books</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/user/${userId}/books">My Books</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/user/${userId}/dashboard">&nbsp; &nbsp;
+                &nbsp; My Dashboard</a>
+
         </div>
 
     </div>

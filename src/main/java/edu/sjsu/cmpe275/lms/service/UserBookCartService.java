@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.lms.service;
 
+import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.UserBookCart;
 import edu.sjsu.cmpe275.lms.errors.Err;
 
@@ -29,4 +30,6 @@ public interface UserBookCartService {
      * @param userid
      */
     void clearUserCart(int userid);
+
+    List<Book> getUserBooks(int userId);
 }

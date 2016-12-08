@@ -182,7 +182,7 @@
         });
 
         getBooksData = function () {
-            var url = "/user/${userId}/books/";
+            var url = "${pageContext.request.contextPath}/user/${userId}/books/";
             console.log("here in function");
             $.get(url, null, function (data) {
                 console.log("here");
@@ -215,7 +215,7 @@
                     html = html + '<td>' + jsonData[i].author + '</td>';
                     html = html + '<td>' + jsonData[i].callnumber + '</td>';
                     html = html + '<td>' + jsonData[i].keywords + '</td>';
-                    var userUrl = "/user/${userId}/book/" + jsonData[i].bookId;
+                    var userUrl = "${pageContext.request.contextPath}/user/${userId}/book/" + jsonData[i].bookId;
                     console.log(userUrl);
                     // html = html + '<td>'+ '<button class="btn btn-info" id="retbtn"  >Return it </button>' +'</td>';
 
@@ -309,7 +309,7 @@
             <!-- center left-->
             <div class="col-md-6">
                 <div style="font-weight: bold; text-align: center; vertical-align: middle" class="well">
-                    <i class="glyphicon glyphicon-education"></i>&nbsp;&nbsp;Manage Books
+                    <i class="glyphicon glyphicon-education"></i>&nbsp;&nbsp;Library
                 </div>
 
                 <hr>
@@ -455,7 +455,7 @@
                             </div>
                             <div class="modal-body">
                                 <form:form class="form-style-9" method="post"
-                                           action="/user/${userId}/book/${book.bookId}"
+                                           action="${pageContext.request.contextPath}/user/${userId}/book/${book.bookId}"
                                            modelAttribute="book" id="viewbooksform">
                                     <c:forEach var="book" items="${books}">
                                         <tr>
@@ -489,7 +489,8 @@
                                 <h4 class="modal-title" id="searchbooksmodalid">Search Books</h4>
                             </div>
                             <div class="modal-body">
-                                <form:form class="form-style-9" method="post" action="/user/${userId}"
+                                <form:form class="form-style-9" method="post"
+                                           action="${pageContext.request.contextPath}/user/${userId}"
                                            modelAttribute="book" id="searchbooksform">
 
                                     <ul>

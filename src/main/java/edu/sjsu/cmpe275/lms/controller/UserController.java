@@ -146,7 +146,11 @@ public class UserController {
             addToCartStatus = "Book added to cart";
         }
         modelAndView.addObject("addtocartstatus", addToCartStatus);
-        modelAndView.setViewName("test/addtocart");
+        modelAndView.setViewName("books/listCartBooks");
+        modelAndView.addObject("userId", userId);
+        modelAndView.addObject("status", addToCartStatus);
+        List<Book> books = ubcService.getUserBooks(userId);
+        modelAndView.addObject("books", books);
         return modelAndView;
     }
 
