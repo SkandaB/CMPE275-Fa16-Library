@@ -9,6 +9,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +52,7 @@
             <td>${book.current_status}</td>
             <td>
                 <spring:url value="/user/${userId}/books/${book.bookId}" var="userUrl"/>
-                <spring:url value="/book/deletebook/${book.bookId}" var="deleteUrl"/>
+                <spring:url value="${pageContext.request.contextPath}/book/deletebook/${book.bookId}" var="deleteUrl"/>
 
                 <button class="btn btn-success"
                         onclick="location.href='${userUrl}'">Update Book
