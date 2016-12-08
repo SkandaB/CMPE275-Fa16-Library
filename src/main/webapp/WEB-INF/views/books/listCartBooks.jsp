@@ -77,7 +77,7 @@
 
         </table>
 
-        <spring:url value="${pageContext.request.contextPath}/user/${userId}/checkout" var="checkoutUrl"/>
+        <spring:url value="/user/${userId}/checkout" var="checkoutUrl"/>
         <button class="btn btn-info"
                 onclick="location.href='${checkoutUrl}'">Checkout
         </button>

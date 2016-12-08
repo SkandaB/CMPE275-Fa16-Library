@@ -44,14 +44,14 @@
         <p><font color="red">${errorMessage}</font></p>
         <form:form
         <c:forEach var="book" items="${books}">
-            <tr>
-                <td>${book.isbn}</td>
-                <td>${book.title}</td>
-                <td>${book.author}</td>
-                <td>${book.current_status}</td>
-                <td>
-                    <spring:url value="/user/${userId}/books/${book.bookId}" var="userUrl"/>
-                    <spring:url value="${pageContext.request.contextPath}/book/deletebook/${book.bookId}" var="deleteUrl"/>
+        <tr>
+            <td>${book.isbn}</td>
+            <td>${book.title}</td>
+            <td>${book.author}</td>
+            <td>${book.current_status}</td>
+            <td>
+                <spring:url value="/user/${userId}/books/${book.bookId}" var="userUrl"/>
+                <spring:url value="${pageContext.request.contextPath}/book/deletebook/${book.bookId}" var="deleteUrl"/>
 
                 <button class="btn btn-success"
                         onclick="location.href='${userUrl}'">Update Book
