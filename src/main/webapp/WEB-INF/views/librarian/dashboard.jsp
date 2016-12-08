@@ -175,7 +175,7 @@
         $("#logsBtn").click(function () {
             $('#centerpagecontent').empty();
 
-            var url = "/book/getAllLibUserBook"
+            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook"
 
             $.get(url, null, function (data) {
                 console.log("here");
@@ -286,7 +286,7 @@
             row.replaceWith(html);
         }
         getBooksData = function () {
-            var url = "/book/searchAllBooks";
+            var url = "${pageContext.request.contextPath}/book/searchAllBooks";
             $.get(url, null, function (data) {
                 console.log("here");
                 console.log("" + data);

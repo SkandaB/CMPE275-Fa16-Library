@@ -409,33 +409,34 @@ public class BookDaoImpl implements BookDao {
     }*/
 
     public Book updateBooks(Book book, HttpServletRequest request){
-//        Book bookupdated = entityManager.persist(book);
+            entityManager.merge(book);
+            //entityManager.flush();
+//        System.out.println("book" + bookupdated.getBookId());
+//        entityManager.merge(book);
 //        entityManager.flush();
-//        System.out.println("book" + updatedbook.getBookId());
-        entityManager.merge(book);
-        Book bookEntity = entityManager.find(Book.class, book.getBookId());
-        User user = (User) request.getSession().getAttribute("user");
-        User userEntity = entityManager.find(User.class, user.getId());
-        LibUserBook libUserBook = new LibUserBook(bookEntity, userEntity, "update");
-        entityManager.merge(libUserBook);
-        entityManager.flush();
-        // newly add code
-        List<LibUserBook> addUpdateList = bookEntity.getListAddUpdateUsers();
-        if (addUpdateList == null) {
-            addUpdateList = new ArrayList<>();
-        }
-        addUpdateList.add(libUserBook);
-        bookEntity.setListAddUpdateUsers(addUpdateList);
-        entityManager.merge(bookEntity);
-        userEntity = entityManager.find(User.class, user.getId());
-        List<LibUserBook> addUpdateList1 = userEntity.getAddUpdateList();
-        if (addUpdateList1 == null) {
-            addUpdateList1 = new ArrayList<>();
-        }
-        addUpdateList1.add(libUserBook);
-        userEntity.setAddUpdateList(addUpdateList1);
-        entityManager.merge(userEntity);
-        entityManager.flush();
+//        Book bookEntity = entityManager.find(Book.class, book.getBookId());
+//        User user = (User) request.getSession().getAttribute("user");
+//        User userEntity = entityManager.find(User.class, user.getId());
+//        LibUserBook libUserBook = new LibUserBook(bookEntity, userEntity, "update");
+//        entityManager.merge(libUserBook);
+//        entityManager.flush();
+//        // newly add code
+//        List<LibUserBook> addUpdateList = bookEntity.getListAddUpdateUsers();
+//        if (addUpdateList == null) {
+//            addUpdateList = new ArrayList<>();
+//        }
+//        addUpdateList.add(libUserBook);
+//        bookEntity.setListAddUpdateUsers(addUpdateList);
+//        entityManager.merge(bookEntity);
+//        userEntity = entityManager.find(User.class, user.getId());
+//        List<LibUserBook> addUpdateList1 = userEntity.getAddUpdateList();
+//        if (addUpdateList1 == null) {
+//            addUpdateList1 = new ArrayList<>();
+//        }
+//        addUpdateList1.add(libUserBook);
+//        userEntity.setAddUpdateList(addUpdateList1);
+//        entityManager.merge(userEntity);
+//        entityManager.flush();
         return book;
     }
 

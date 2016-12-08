@@ -324,7 +324,7 @@ public class BookController {
     @RequestMapping(value = "/updatebook", method = RequestMethod.POST)
     public ModelAndView updateBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView,HttpServletRequest request) {
         modelAndView =  new ModelAndView("librarian/dashboard");
-//        System.out.println("GG YO"+book);
+        System.out.println("GG YO"+book);
         bookService.updateBooks(book,request);
         System.out.println("Update called !!!");
         return modelAndView;
