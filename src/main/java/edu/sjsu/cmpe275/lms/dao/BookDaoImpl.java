@@ -395,7 +395,7 @@ public class BookDaoImpl implements BookDao {
         return true;
     }*/
 
-    public Book updateBooks(Book book, HttpServletRequest request) {
+    /*public Book updateBooks(Book book, HttpServletRequest request) {
 //        Book bookupdated = entityManager.persist(book);
 //        entityManager.flush();
 //        System.out.println("book" + updatedbook.getBookId());
@@ -405,6 +405,37 @@ public class BookDaoImpl implements BookDao {
         User userEntity = entityManager.find(User.class, user.getId());
         LibUserBook libUserBook = new LibUserBook(bookEntity, userEntity, "update");
         entityManager.merge(libUserBook);
+        entityManager.flush();
+        // newly add code
+        List<LibUserBook> addUpdateList = bookEntity.getListAddUpdateUsers();
+        if (addUpdateList == null) {
+            addUpdateList = new ArrayList<>();
+        }
+        addUpdateList.add(libUserBook);
+        bookEntity.setListAddUpdateUsers(addUpdateList);
+        entityManager.merge(bookEntity);
+        userEntity = entityManager.find(User.class, user.getId());
+        List<LibUserBook> addUpdateList1 = userEntity.getAddUpdateList();
+        if (addUpdateList1 == null) {
+            addUpdateList1 = new ArrayList<>();
+        }
+        addUpdateList1.add(libUserBook);
+        userEntity.setAddUpdateList(addUpdateList1);
+        entityManager.merge(userEntity);
+        entityManager.flush();
+        return book;
+    }*/
+
+    public Book updateBooks(Book book, HttpServletRequest request) {
+        //        Book bookupdated = entityManager.persist(book);
+//        entityManager.flush();
+//        System.out.println("book" + updatedbook.getBookId());
+        entityManager.merge(book);
+        Book bookEntity = entityManager.find(Book.class, book.getBookId());
+        User user = (User) request.getSession().getAttribute("user");
+        User userEntity = entityManager.find(User.class, user.getId());
+        LibUserBook libUserBook = new LibUserBook(bookEntity, userEntity, "update");
+        entityManager.persist(libUserBook);
         entityManager.flush();
         // newly add code
         List<LibUserBook> addUpdateList = bookEntity.getListAddUpdateUsers();
