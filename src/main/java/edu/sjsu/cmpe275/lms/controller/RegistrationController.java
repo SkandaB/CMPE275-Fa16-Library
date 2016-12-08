@@ -107,7 +107,22 @@ public class RegistrationController {
         }
     }
 
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public ModelAndView showDashBoard(HttpServletRequest request,
+                                      ModelAndView mv) {
+        mv = new ModelAndView();
+        User us = (User) request.getSession().getAttribute("user");
+        System.out.println("Dashboard get " + us);
+        if (us.getRole().equals("ROLE_LIBRARIAN")) {
+            System.out.println("Lib found");
+            mv.setViewName("librarian/dashboard");
+        } else {
+            System.out.println("patron found");
+            mv.setViewName("user/dashboard");
+        }
+        return mv;
 
+    }
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public ModelAndView loginUser(HttpServletRequest request,
                                   @Valid @ModelAttribute("loginForm") User user,
@@ -116,16 +131,26 @@ public class RegistrationController {
         User loggedInUser = uService.findUserByEmail(user.getUseremail());
         System.out.println("Logged in User from DB" + loggedInUser);
         ModelAndView mv;
-        if (loggedInUser == null) {
+        if (loggedInUser == null || !user.getPassword().equals(loggedInUser.getPassword())) {
             mv = new ModelAndView("error");
             mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination.");
             return mv;
         } else {
-            mv =  new ModelAndView("librarian/dashboard");
+            if (loggedInUser.getRole().equalsIgnoreCase("ROLE_PATRON")) {
+
+                mv = new ModelAndView("users/userDashboard");
+                mv.addObject("userId", loggedInUser.getId());
+                return mv;
+            } else {
+
+                mv = new ModelAndView("librarian/dashboard");
+            }
 
 //           int count =  bookDao.findCountAvailable();
 //            System.out.println("count  : "+count);
-            mv.addObject("useremail",user.getUseremail());
+            // adding  it to session
+            request.getSession().setAttribute("user", loggedInUser);
+            mv.addObject("users", user);
             return mv;
         }
     }

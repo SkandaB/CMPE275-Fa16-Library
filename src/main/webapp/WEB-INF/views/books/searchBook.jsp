@@ -14,6 +14,7 @@
 </head>
 
 <body>
+<div class="container">
     <form:form method="post" modelAttribute="book">
         <p><font color="red">${errorMessage}</font></p>
         <table>
@@ -47,6 +48,7 @@
             </tr>
         </table>
     </form:form>
+</div>
 
 
 </body>

@@ -9,6 +9,16 @@
 <jsp:include page="../../fragments/header.jsp"/>
 
 <body>
+<nav class="navbar navbar-inverse ">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/user/${userId}/dashboard">&nbsp; &nbsp;
+                &nbsp; My Dashboard</a>
+
+        </div>
+
+    </div>
+</nav>
 
 <div class="container">
 
@@ -20,7 +30,7 @@
             <strong>${msg}</strong>
         </div>
     </c:if>
-
+    <div class="container">
     <h1>All Books</h1>
 
     <table class="table table-striped">
@@ -41,12 +51,14 @@
                 <td>${book.author}</td>
                 <td>${book.current_status}</td>
                 <td>
-                    <spring:url value="/user/${userId}/books/${book.bookId}" var="userUrl"/>
-                    <spring:url value="/user/${user.id}/books/wish/${book.bookId}" var="updateUrl"/>
+                    <spring:url value="${pageContext.request.contextPath}/user/${userId}/books/${book.bookId}"
+                                var="userUrl"/>
+                    <spring:url value="${pageContext.request.contextPath}/user/${user.id}/books/wish/${book.bookId}"
+                                var="updateUrl"/>
                     <!--Dhanya, your add to wish_list will come here  of wishlist-->
 
                     <button class="btn btn-info"
-                            onclick="location.href='${userUrl}'">Request it
+                            onclick="location.href='${userUrl}'">Add To Cart
                     </button>
                     <button class="btn btn-primary"
                             onclick="location.href='${updateUrl}'">Wish to read Later
@@ -56,11 +68,11 @@
             </tr>
         </c:forEach>
     </table>
+    </div>
+
 
 </div>
-<div>
-    <a href="<c:url value="/logout" />">Logout</a>
-</div>
+
 <jsp:include page="../../fragments/footer.jsp"/>
 
 </body>

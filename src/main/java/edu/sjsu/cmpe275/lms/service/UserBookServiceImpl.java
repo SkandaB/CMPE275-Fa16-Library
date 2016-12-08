@@ -19,4 +19,11 @@ public class UserBookServiceImpl implements UserBookService {
     public int getUserDayBookCount(int userId) {
         return userBookDao.getUserDayBookCount(userId);
     }
+
+    @Override
+    public boolean checkIfEsxists(Integer bookid) {
+        return userBookDao.exists(bookid);
+    }
+
+
 }
