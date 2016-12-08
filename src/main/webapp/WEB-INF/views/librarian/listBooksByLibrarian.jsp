@@ -51,7 +51,7 @@
             <td>${book.current_status}</td>
             <td>
                 <spring:url value="/user/${userId}/books/${book.bookId}" var="userUrl"/>
-                <spring:url value="${pageContext.request.contextPath}/book/deletebook/${book.bookId}" var="deleteUrl"/>
+                <spring:url value="/book/deletebook/${book.bookId}" var="deleteUrl"/>
 
                 <button class="btn btn-success"
                         onclick="location.href='${userUrl}'">Update Book
