@@ -266,9 +266,7 @@
 			<artifactId>aspectjtools</artifactId>
 			<version>${aspectj.version}</version>
 		</dependency>-->
-
 	</dependencies>
-
 
 	<build>
 		<pluginManagement>
