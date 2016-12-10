@@ -430,6 +430,7 @@ public class BookDaoImpl implements BookDao {
         //        Book bookupdated = entityManager.persist(book);
 //        entityManager.flush();
 //        System.out.println("book" + updatedbook.getBookId());
+
         entityManager.merge(book);
         Book bookEntity = entityManager.find(Book.class, book.getBookId());
         User user = (User) request.getSession().getAttribute("user");
