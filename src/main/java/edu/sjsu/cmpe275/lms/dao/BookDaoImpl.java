@@ -45,7 +45,6 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-
     public boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image, User user) {
         Book book = new Book(isbn, author, title, callnumber, publisher, year_of_publication, location, num_of_copies, current_status, keywords, image);
 /*        List<User> addUpdateList = book.getAddUpdateUserlist();
@@ -130,7 +129,7 @@ public class BookDaoImpl implements BookDao {
                 book.setWaitlist(waitlist);
                 entityManager.merge(book);
                 returnStatus = "User is waitlisted!" + "\n" + "Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
-                returnStatus = returnStatus+book.toString();
+                returnStatus = returnStatus + book.toString();
                 //eMail.sendMail(user.getUseremail(), returnStatus, returnStatus);
 
             } else {
@@ -310,15 +309,13 @@ public class BookDaoImpl implements BookDao {
         }
 
 
-
-
     }
 
 
     @Override
-    public List<Book> getBookByUserId(Integer userId){
-        String userbookList = "select ub.book from UserBook ub where ub.user.id = "+userId;
-        List<Book> books= entityManager.createQuery(userbookList,Book.class).getResultList();
+    public List<Book> getBookByUserId(Integer userId) {
+        String userbookList = "select ub.book from UserBook ub where ub.user.id = " + userId;
+        List<Book> books = entityManager.createQuery(userbookList, Book.class).getResultList();
         return books;
 
     }
@@ -333,7 +330,7 @@ public class BookDaoImpl implements BookDao {
             User user = entityManager.find(User.class, userId);
             eMail.sendMail(user.getUseremail(), "Book returned successfully", "Book returned successfully");
             return "Book returned successfully";
-        }catch(Exception e){
+        } catch (Exception e) {
 
             return "Invalid Book";
         }

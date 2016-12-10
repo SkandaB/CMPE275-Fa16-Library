@@ -64,7 +64,7 @@ public interface BookDao {
      * change status of book based on the number of copies checked out
      * @param book_Id
      */
-    public void updateBookStatus(Integer book_Id) throws InterruptedException;
+    void updateBookStatus(Integer book_Id) throws InterruptedException;
 
     /**
      * l
@@ -72,7 +72,7 @@ public interface BookDao {
      * @return list of books currently checked out by an user
      */
 
-    public List<Book> getBookByUserId(Integer userId);
+    List<Book> getBookByUserId(Integer userId);
 
     /**
      *
@@ -81,14 +81,14 @@ public interface BookDao {
      *
      *
      */
-    public String setBookReturn(Integer bookId, Integer userId);
+    String setBookReturn(Integer bookId, Integer userId);
 
 
-    public List<LibUserBook> getAllLibUserBook();
-    public String findCountAvailable();
+    List<LibUserBook> getAllLibUserBook();
+    String findCountAvailable();
 
     boolean deleteBookByID(Integer id);
 
 
-    public Book updateBooks(Book updatedbook, HttpServletRequest request);
+    Book updateBooks(Book updatedbook, HttpServletRequest request);
 }

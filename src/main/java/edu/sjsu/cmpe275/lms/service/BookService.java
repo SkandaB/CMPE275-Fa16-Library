@@ -4,6 +4,8 @@
 package edu.sjsu.cmpe275.lms.service;
 
 import edu.sjsu.cmpe275.lms.entity.Book;
+import edu.sjsu.cmpe275.lms.entity.LibUserBook;
+import edu.sjsu.cmpe275.lms.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -15,17 +17,42 @@ import java.util.List;
  */
 public interface BookService {
 	
-	public List<Book> listBooks();
-	public Book findBook(String isbn);
-	public String requestBook(Integer bookId,Integer userId) throws ParseException;
-	public Book findBookById(Integer bookId);
-	public List<Book> listBooksOfUser(Integer userId);
-	public String returnBook(Integer bookId,Integer userId);
-	public List<Book> searchBookbyUser(Book book);
+    List<Book> listBooks();
+	Book findBook(String isbn);
+	String requestBook(Integer bookId,Integer userId) throws ParseException;
+	Book findBookById(Integer bookId);
+	List<Book> listBooksOfUser(Integer userId);
+	String returnBook(Integer bookId,Integer userId);
+	List<Book> searchBookbyUser(Book book);
 
-	public boolean deleteBookByID(Integer id);
+	boolean deleteBookByID(Integer id);
 
-    public Book updateBooks(Book updatedbook, HttpServletRequest request);
+    Book updateBooks(Book updatedbook, HttpServletRequest request);
 
     String getAvailableBookCount();
+
+
+	Book getBookByISBN(String isbn);
+
+    /**
+     * Add a book to database
+     *
+     * @param isbn                10 or 13 digit ISBN code, must be uniqur
+     * @param author              Author of the book
+     * @param title               Title of the book, must be unique
+     * @param callnumber          Call Number
+     * @param publisher           Publisher of the book
+     * @param year_of_publication Year of publication
+     * @param location            Location of the book in library
+     * @param num_of_copies       Number of copies
+     * @param current_status      Current Status
+     * @param keywords            Keywords
+     * @param image               Bytes as image
+     * @return true if add successful, false if failed
+     */
+	boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image, User user);
+
+    List<Book> findAll();
+
+    List<LibUserBook> getAllLibUserBook();
 }

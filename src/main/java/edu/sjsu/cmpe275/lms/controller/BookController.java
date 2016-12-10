@@ -7,7 +7,6 @@ import com.google.gdata.data.books.VolumeFeed;
 import com.google.gdata.data.dublincore.Creator;
 import com.google.gdata.data.dublincore.Publisher;
 import com.google.gdata.util.ServiceException;
-import edu.sjsu.cmpe275.lms.dao.BookDao;
 import edu.sjsu.cmpe275.lms.entity.*;
 import edu.sjsu.cmpe275.lms.errors.Errors;
 import edu.sjsu.cmpe275.lms.service.BookService;
@@ -42,8 +41,7 @@ public class BookController {
     @Autowired
     BookService bookService;
     private String isbn = "";
-    @Autowired
-    private BookDao bookDao;
+
 
     //comment
     @RequestMapping(method = RequestMethod.GET)
@@ -54,7 +52,7 @@ public class BookController {
 
     @RequestMapping(value = "/{isbn}", method = RequestMethod.GET)
     public ModelAndView getBook(@PathVariable("isbn") String isbn, HttpServletResponse response) {
-        Book book = bookDao.getBookByISBN(isbn);
+        Book book = bookService.getBookByISBN(isbn);
         /**
          * If ID is not found in database
          */
@@ -203,7 +201,7 @@ public class BookController {
 
     private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher, HttpServletResponse response, User user) {
         try {
-            bookDao.addBook(book.getIsbn(), author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords(), book.getImage(), user);
+            bookService.addBook(book.getIsbn(), author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords(), book.getImage(), user);
         }
         /**
          * If Unique key number is tried to repeat
@@ -227,7 +225,7 @@ public class BookController {
     @ResponseBody
     List<BookPojo> searchAllBooks(@ModelAttribute("book") Book book1, ModelAndView modelAndView) {
         System.out.println("Here !!!");
-        List<Book> books = bookDao.findAll();
+        List<Book> books = bookService.findAll();
         List<BookPojo> booksList = new ArrayList<>();
         for (Book book : books) {
             BookPojo bookPojo = new BookPojo();
@@ -253,7 +251,7 @@ public class BookController {
     @ResponseBody
     String getBooksJson(@RequestParam(value = "json") String isJson, HttpServletResponse response) {
         if (isJson.equals("true")) {
-            List<Book> booklist = bookDao.findAll();
+            List<Book> booklist = bookService.findAll();
             /**
              * If ID is not found in database
              */
@@ -280,7 +278,7 @@ public class BookController {
     public
     @ResponseBody
     Book searchBookByID(@ModelAttribute("book") Book book, ModelAndView modelAndView, @PathVariable("book_id") Integer id) {
-        Book res_book = bookDao.getBookbyId(id);
+        Book res_book = bookService.findBookById(id);
         //modelAndView.addObject("books", books);
         return res_book;
     }
@@ -291,7 +289,7 @@ public class BookController {
     @ResponseBody
     HashMap<Integer, List<LibUserBookPojo>> searchAllUserLibBooks(@ModelAttribute("libUserBookPojo") LibUserBookPojo libUserBookPojo, ModelAndView modelAndView) {
         System.out.println("Inside searchAllUserLibBooks !!!");
-        List<LibUserBook> libUserBooks = bookDao.getAllLibUserBook();
+        List<LibUserBook> libUserBooks = bookService.getAllLibUserBook();
         System.out.println("libUserBooks " + libUserBooks.get(0).toString());
         List<LibUserBookPojo> libUserBookPojoList = new ArrayList<LibUserBookPojo>();
         HashMap<Integer, List<LibUserBookPojo>> hm = new HashMap<Integer, List<LibUserBookPojo>>();

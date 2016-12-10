@@ -1,6 +1,5 @@
 package edu.sjsu.cmpe275.lms.controller;
 
-import edu.sjsu.cmpe275.lms.dao.BookDao;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserVerfToken;
 import edu.sjsu.cmpe275.lms.registration.RegistrationCompleteEvent;
@@ -37,9 +36,6 @@ public class RegistrationController {
 
     @Autowired
     ServletContext servletContext;
-
-    @Autowired
-    private BookDao bookDao;
 
  /*   @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView landing() {
