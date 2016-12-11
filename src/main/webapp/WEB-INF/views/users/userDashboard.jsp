@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dhanyaramesh
-  Date: 12/6/16
-  Time: 6:48 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -161,6 +154,17 @@
 //        $("#addBtn1").click(function () {
 //            $('#addBookModal').modal('show');
 //        });
+
+        $("#mybooks").click(function () {
+            getBooksData();
+            <%--var url = "${pageContext.request.contextPath}/user/${userId}/books";--%>
+            <%--$.get(url, null, function (data) {--%>
+            <%--console.log("here");--%>
+            <%--console.log("" + data);--%>
+        <%--});--%>
+            window.open('${pageContext.request.contextPath}/user/${userId}/books', '_self', false)
+        });
+
         $("#viewBooksBtn").click(function () {
             getBooksData();
             $('#viewBooksModal').modal('show');
@@ -294,6 +298,7 @@
                         <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a>
                         </li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
+                        <li><a id="mybooks" href="#"><i class="glyphicon glyphicon-flag"></i>My Books</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
                     </ul>
                 </li>
