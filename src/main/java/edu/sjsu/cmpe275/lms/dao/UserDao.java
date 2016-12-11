@@ -11,17 +11,32 @@ import java.util.List;
 @Transactional
 public interface UserDao {
 
-	/**
-	 * @param uEntity
-	 * @return
-	 */
-	User createUser(User uEntity);
-	List<User> findAll();
+    /**
+     * @param uEntity
+     * @return
+     */
+    User createUser(User uEntity);
 
-	public User getUser(Integer id);
+    /**
+     * @return
+     */
+    List<User> findAll();
 
-	public User findUserByEmail(String usermail);
+    /**
+     * @param id
+     * @return
+     */
+    User getUser(Integer id);
 
-	void updateUser(User user);
+    /**
+     * @param usermail
+     * @return
+     */
+    User findUserByEmail(String usermail);
+
+    /**
+     * @param user
+     */
+    void updateUser(User user);
 
 }

@@ -12,6 +12,7 @@ public interface UserBookCartDao {
 
     /**
      * Adds the given book against the user to card
+     *
      * @param ubc UserBookCart
      * @return true if add successful, false if failed
      */
@@ -19,12 +20,23 @@ public interface UserBookCartDao {
 
     /**
      * To get the cart for a user
+     *
      * @param userid int userid
      * @return List of UserBookCart
      */
     List<UserBookCart> getUserCart(int userid);
 
+    /**
+     *
+     * @param ubc
+     * @return
+     */
     boolean removeCartEntry(UserBookCart ubc);
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     List<Book> getUserBooksInCart(int userId);
 }

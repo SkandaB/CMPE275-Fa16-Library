@@ -28,7 +28,7 @@
 
 <div class="container">
     <h2>Welcome !! </h2>
-    ${message}
+    <h3> ${message} </h3>
     <br>
     <c:choose>
         <c:when test="${showsignin == 'true'}">

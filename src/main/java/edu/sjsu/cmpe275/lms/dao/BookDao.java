@@ -47,14 +47,31 @@ public interface BookDao {
      */
     Book getBookByISBN(String isbn);
 
+    /**
+     *
+     * @return
+     */
     List<Book> findAll();
 
+    /**
+     *
+     * @param bookId
+     * @return
+     */
     Book getBookbyId(Integer bookId);
 
+    /**
+     *
+     * @param bookId
+     * @param userId
+     * @return
+     * @throws ParseException
+     */
     String setBookRequest(Integer bookId, Integer userId) throws ParseException;
 
     /**
      * Search a book by any of its fields
+     *
      * @param book
      * @return A list of books that match the search criteria
      */
@@ -62,33 +79,50 @@ public interface BookDao {
 
     /**
      * change status of book based on the number of copies checked out
+     *
      * @param book_Id
      */
-    public void updateBookStatus(Integer book_Id) throws InterruptedException;
+    void updateBookStatus(Integer book_Id) throws InterruptedException;
 
     /**
      * l
+     *
      * @param userId
      * @return list of books currently checked out by an user
      */
 
-    public List<Book> getBookByUserId(Integer userId);
+    List<Book> getBookByUserId(Integer userId);
+
+    /**
+     * @param bookId
+     * @param userId
+     */
+    String setBookReturn(Integer bookId, Integer userId);
 
     /**
      *
-     * @param bookId
-     * @param userId
-     *
-     *
+     * @return
      */
-    public String setBookReturn(Integer bookId, Integer userId);
+    List<LibUserBook> getAllLibUserBook();
 
+    /**
+     *
+     * @return
+     */
+    String findCountAvailable();
 
-    public List<LibUserBook> getAllLibUserBook();
-    public String findCountAvailable();
-
+    /**
+     *
+     * @param id
+     * @return
+     */
     boolean deleteBookByID(Integer id);
 
-
-    public Book updateBooks(Book updatedbook, HttpServletRequest request);
+    /**
+     *
+     * @param updatedbook
+     * @param request
+     * @return
+     */
+    Book updateBooks(Book updatedbook, HttpServletRequest request);
 }

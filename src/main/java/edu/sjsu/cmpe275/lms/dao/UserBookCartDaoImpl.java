@@ -56,8 +56,8 @@ public class UserBookCartDaoImpl implements UserBookCartDao {
     }
 
     /**
-     *
-     * @param
+     * @param ubc
+     * @return
      */
     @Override
     public boolean removeCartEntry(UserBookCart ubc) {
@@ -65,6 +65,10 @@ public class UserBookCartDaoImpl implements UserBookCartDao {
         return true;
     }
 
+    /**
+     * @param userId
+     * @return
+     */
     @Override
     public List<Book> getUserBooksInCart(int userId) {
 

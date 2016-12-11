@@ -5,6 +5,8 @@ package edu.sjsu.cmpe275.lms.service;
 
 import edu.sjsu.cmpe275.lms.dao.BookDao;
 import edu.sjsu.cmpe275.lms.entity.Book;
+import edu.sjsu.cmpe275.lms.entity.LibUserBook;
+import edu.sjsu.cmpe275.lms.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +58,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findBookById(Integer bookId) {
-        Book book = bookDao.getBookbyId(bookId);
-        return book;
+        return bookDao.getBookbyId(bookId);
     }
 
     @Override
@@ -102,5 +103,42 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book updateBooks(Book updatedbook, HttpServletRequest request) {
         return bookDao.updateBooks(updatedbook, request);
+    }
+
+    @Override
+    public Book getBookByISBN(String isbn) {
+        return bookDao.getBookByISBN(isbn);
+    }
+
+    /**
+     * Add a book to database
+     *
+     * @param isbn                10 or 13 digit ISBN code, must be uniqur
+     * @param author              Author of the book
+     * @param title               Title of the book, must be unique
+     * @param callnumber          Call Number
+     * @param publisher           Publisher of the book
+     * @param year_of_publication Year of publication
+     * @param location            Location of the book in library
+     * @param num_of_copies       Number of copies
+     * @param current_status      Current Status
+     * @param keywords            Keywords
+     * @param image               Bytes as image
+     * @param user
+     * @return true if add successful, false if failed
+     */
+    @Override
+    public boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image, User user) {
+        return bookDao.addBook(isbn, author, title, callnumber, publisher, year_of_publication, location, num_of_copies, current_status, keywords, image, user);
+    }
+
+    @Override
+    public List<Book> findAll() {
+        return bookDao.findAll();
+    }
+
+    @Override
+    public List<LibUserBook> getAllLibUserBook() {
+        return bookDao.getAllLibUserBook();
     }
 }

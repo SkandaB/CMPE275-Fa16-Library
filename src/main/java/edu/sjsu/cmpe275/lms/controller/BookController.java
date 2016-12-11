@@ -7,7 +7,6 @@ import com.google.gdata.data.books.VolumeFeed;
 import com.google.gdata.data.dublincore.Creator;
 import com.google.gdata.data.dublincore.Publisher;
 import com.google.gdata.util.ServiceException;
-import edu.sjsu.cmpe275.lms.dao.BookDao;
 import edu.sjsu.cmpe275.lms.entity.*;
 import edu.sjsu.cmpe275.lms.errors.Errors;
 import edu.sjsu.cmpe275.lms.service.BookService;
@@ -32,7 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/book")
 public class BookController {
@@ -42,19 +40,24 @@ public class BookController {
     @Autowired
     BookService bookService;
     private String isbn = "";
-    @Autowired
-    private BookDao bookDao;
 
-    //comment
+    /**
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAddBookPage() {
         ModelAndView modelAndView = new ModelAndView("addBook");
         return modelAndView;
     }
 
+    /**
+     * @param isbn
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/{isbn}", method = RequestMethod.GET)
     public ModelAndView getBook(@PathVariable("isbn") String isbn, HttpServletResponse response) {
-        Book book = bookDao.getBookByISBN(isbn);
+        Book book = bookService.getBookByISBN(isbn);
         /**
          * If ID is not found in database
          */
@@ -81,11 +84,19 @@ public class BookController {
         ModelAndView modelAndView = new ModelAndView("viewBook");
         modelAndView.addObject("book", book);
         modelAndView.addObject("imageString", base64Encoded);
-        //modelAndView.setViewName("addBook");
         return modelAndView;
     }
 
-
+    /**
+     * @param book
+     * @param modelAndView
+     * @param request
+     * @param response
+     * @return
+     * @throws GeneralSecurityException
+     * @throws IOException
+     * @throws ServiceException
+     */
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/addBook", method = RequestMethod.POST)
@@ -117,6 +128,9 @@ public class BookController {
         return "librarian/dashboard";
     }
 
+    /**
+     * @param response
+     */
     private void throwNoISBNFoundError(HttpServletResponse response) {
 
         try {
@@ -129,6 +143,14 @@ public class BookController {
         }
     }
 
+    /**
+     * @param book
+     * @param response
+     * @param user
+     * @throws GeneralSecurityException
+     * @throws IOException
+     * @throws ServiceException
+     */
     public void queryGoogleBooks(Book book, HttpServletResponse response, User user) throws GeneralSecurityException, IOException, ServiceException {
         BooksService booksService = new BooksService("Library-System-Term-Project");
         URL url = new URL("http://www.google.com/books/feeds/volumes/?q=ISBN%3C" + book.getIsbn() + "%3E");
@@ -201,9 +223,18 @@ public class BookController {
         addNewBook(book, title, author, year_of_publication, publisher, response, user);
     }
 
+    /**
+     * @param book
+     * @param title
+     * @param author
+     * @param year_of_publication
+     * @param publisher
+     * @param response
+     * @param user
+     */
     private void addNewBook(Book book, String title, String author, String year_of_publication, String publisher, HttpServletResponse response, User user) {
         try {
-            bookDao.addBook(book.getIsbn(), author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords(), book.getImage(), user);
+            bookService.addBook(book.getIsbn(), author, title, book.getCallnumber(), publisher, year_of_publication, book.getLocation(), book.getNum_of_copies(), book.getCurrent_status(), book.getKeywords(), book.getImage(), user);
         }
         /**
          * If Unique key number is tried to repeat
@@ -220,14 +251,18 @@ public class BookController {
         }
     }
 
-
+    /**
+     * @param book1
+     * @param modelAndView
+     * @return
+     */
     @RequestMapping(value = "/searchAllBooks", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
     List<BookPojo> searchAllBooks(@ModelAttribute("book") Book book1, ModelAndView modelAndView) {
         System.out.println("Here !!!");
-        List<Book> books = bookDao.findAll();
+        List<Book> books = bookService.findAll();
         List<BookPojo> booksList = new ArrayList<>();
         for (Book book : books) {
             BookPojo bookPojo = new BookPojo();
@@ -247,20 +282,24 @@ public class BookController {
         return booksList;
     }
 
+    /**
+     * @param isJson
+     * @param response
+     * @return
+     */
     @Transactional
     @RequestMapping(method = RequestMethod.GET, params = "json", produces = "application/json; charset=UTF-8")
     public
     @ResponseBody
     String getBooksJson(@RequestParam(value = "json") String isJson, HttpServletResponse response) {
         if (isJson.equals("true")) {
-            List<Book> booklist = bookDao.findAll();
+            List<Book> booklist = bookService.findAll();
             /**
              * If ID is not found in database
              */
             if (booklist.size() < 1) {
                 try {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                    // response.getWriter().write(Errors.getIDNotFoundErrorPage(Errors.PHONE_ENTITY, phoneid));
                     response.getWriter().flush();
                     response.getWriter().close();
                 } catch (IOException e) {
@@ -268,32 +307,38 @@ public class BookController {
                 }
                 return null;
             }
-            /*return Helper.bookJsonBuilder(booklist.get(0));*/
             return null;
         }
         return "{\"Error\":\"json=" + isJson + " not a valid value\"}";
     }
 
-
+    /**
+     * @param book
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/books/{book_id}", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
-    Book searchBookByID(@ModelAttribute("book") Book book, ModelAndView modelAndView, @PathVariable("book_id") Integer id) {
-        Book res_book = bookDao.getBookbyId(id);
-        //modelAndView.addObject("books", books);
+    Book searchBookByID(@ModelAttribute("book") Book book, @PathVariable("book_id") Integer id) {
+        Book res_book = bookService.findBookById(id);
         return res_book;
     }
 
+    /**
+     * @param libUserBookPojo
+     * @param modelAndView
+     * @return
+     */
     @RequestMapping(value = "/getAllLibUserBook", method = RequestMethod.GET)
     @Transactional
     public
     @ResponseBody
     HashMap<Integer, List<LibUserBookPojo>> searchAllUserLibBooks(@ModelAttribute("libUserBookPojo") LibUserBookPojo libUserBookPojo, ModelAndView modelAndView) {
         System.out.println("Inside searchAllUserLibBooks !!!");
-        List<LibUserBook> libUserBooks = bookDao.getAllLibUserBook();
+        List<LibUserBook> libUserBooks = bookService.getAllLibUserBook();
         System.out.println("libUserBooks " + libUserBooks.get(0).toString());
-        List<LibUserBookPojo> libUserBookPojoList = new ArrayList<LibUserBookPojo>();
         HashMap<Integer, List<LibUserBookPojo>> hm = new HashMap<Integer, List<LibUserBookPojo>>();
         for (LibUserBook libUserBook : libUserBooks) {
             LibUserBookPojo libUserBookPojo1 = new LibUserBookPojo();
@@ -319,17 +364,26 @@ public class BookController {
         return hm;
     }
 
+    /**
+     * @param book
+     * @param modelAndView
+     * @param request
+     * @return
+     */
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/updatebook", method = RequestMethod.POST)
     public ModelAndView updateBooks(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletRequest request) {
         modelAndView = new ModelAndView("librarian/dashboard");
-//        System.out.println("GG YO"+book);
         bookService.updateBooks(book, request);
         System.out.println("Update called !!!");
         return modelAndView;
     }
 
+    /**
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/deletebook/{book_id}", method = RequestMethod.GET)
     public ModelAndView deleteBook(@PathVariable("book_id") Integer id) {
         System.out.println("User requested to delete this book: " + id);
@@ -340,5 +394,4 @@ public class BookController {
             return new ModelAndView("error");
         }
     }
-
 }

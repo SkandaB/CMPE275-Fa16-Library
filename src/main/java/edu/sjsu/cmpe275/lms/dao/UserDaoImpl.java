@@ -19,31 +19,47 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
+    /**
+     * @param uEntity
+     * @return
+     */
     @Override
     public User createUser(User uEntity) {
         em.persist(uEntity);
         return uEntity;
     }
 
+    /**
+     * @return
+     */
     @Override
     public List<User> findAll() {
         List<User> users = (List<User>) em.createQuery("select u from User u", User.class).getResultList();
         return users;
     }
 
-    /* (non-Javadoc)
-     * @see edu.sjsu.cmpe275.lms.dao.UserDao#getUser(long)
+    /**
+     * @param id
+     * @return
      */
     @Override
     public User getUser(Integer id) {
         User user = em.find(User.class, id);
         return user;
     }
+
+    /**
+     * @param user
+     */
     @Override
     public void updateUser(User user) {
         em.merge(user);
     }
 
+    /**
+     * @param usermail
+     * @return
+     */
     @Override
     public User findUserByEmail(String usermail) {
         System.out.println("Email to Query:" + usermail);
