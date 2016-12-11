@@ -189,9 +189,10 @@
             <div class="wrap">
                 <p class="form-title">Sign In</p>
                 <form:form class="login" action="${pageContext.request.contextPath}/dashboard" commandName="loginForm">
-                    <input name="useremail" placeholder="Email" type="text" path="useremail" size="30"/>
+                    <input name="useremail" placeholder="Email" type="text" path="useremail" size="30"/> <form:errors
+                        cssStyle="border: dashed" path="useremail"/>
                     <input name="password" placeholder="Password" type="password" path="password"
-                           placeholder="Password"/>
+                           placeholder="Password"/> <form:errors path="password"/>
                     <input type="submit" value="Sign In" class="btn btn-default btn-sm"/>
                     <%--<div class="remember-forgot">--%>
 
@@ -234,15 +235,17 @@
                     <ul>
                         <li>
                             <input type="text" id="sjsuid" name="sjsuid" class="field-style field-full align-none"
-                                   placeholder="SJSU ID">
+                                   placeholder="SJSU ID"> <form:errors path="sjsuid"/>
                         </li>
                         <li>
                             <input type="text" name="useremail" class="field-style field-full align-none"
-                                   placeholder="Email"/>
+                                   placeholder="Email"/> <form:errors path="useremail"/>
+
                         </li>
                         <li>
                             <input type="password" name="password" class="field-style field-full align-none"
-                                   placeholder="Password"/>
+                                   placeholder="Password"/> <form:errors path="password"/>
+
                         </li>
                         <li>
                             <input type="submit" value="Register"/>
