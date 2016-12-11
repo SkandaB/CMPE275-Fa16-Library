@@ -369,7 +369,6 @@
                     <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
                     ></i> Admin <span class="caret"></span></p>
                 </li>
-                <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
                 <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
                 </li>
             </ul>

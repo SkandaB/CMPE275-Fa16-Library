@@ -16,7 +16,7 @@
     <!-- Need to implement security-->
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>User Dashboard</title>
+    <title>Patron Dashboard</title>
     <meta name="generator" content="Bootply"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -152,15 +152,12 @@
         document.getElementById(formId).style.display = "block";
     }
     $(document).ready(function () {
-        var uemail = '${useremail}';
-        console.log(uemail)
+        var uemail = '${users.useremail}';
+        console.log(uemail);
+        var userid = '${users.id}';
+        console.log(userid);
         $("#loggedinusername").text(uemail);
-//        $("#addBtn").click(function () {
-//            $('#addBookModal').modal('show');
-//        });
-//        $("#addBtn1").click(function () {
-//            $('#addBookModal').modal('show');
-//        });
+
         $("#viewBooksBtn").click(function () {
             getBooksData();
             $('#viewBooksModal').modal('show');
@@ -255,17 +252,15 @@
             </button>
             <a class="navbar-brand" href="#">LMS- Group2 Dashboard</a>
         </div>
+        <spring:url value="/register" var="userlogout"/>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a id="loggedinusername" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i
-                            class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
-                    <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                        <li><a href="#">My Profile</a></li>
-                    </ul>
+                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
+                    ></i> Admin <span class="caret"></span></p>
                 </li>
-                <%--<li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a>--%>
-
+                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
+                </li>
             </ul>
         </div>
     </div>

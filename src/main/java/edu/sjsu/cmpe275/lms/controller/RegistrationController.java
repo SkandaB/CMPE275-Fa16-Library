@@ -114,16 +114,6 @@ public class RegistrationController {
     public ModelAndView showDashBoard(HttpServletRequest request,
                                       @Valid @ModelAttribute("loginForm") User user,
                                       BindingResult bindingResult) {
-        /*mv = new ModelAndView();
-        User us = (User) request.getSession().getAttribute("user");
-        if (us.getRole().equals("ROLE_LIBRARIAN")) {
-            System.out.println("Lib found");
-            mv.setViewName("librarian/dashboard");
-        } else {
-            System.out.println("patron found");
-            mv.setViewName("user/dashboard");
-        }
-        return mv;*/
 
         ModelAndView mv;
         User loggedInUser = uService.findUserByEmail(user.getUseremail());
@@ -133,16 +123,16 @@ public class RegistrationController {
             return new ModelAndView(new RedirectView("/register"));
         } else {
             if (loggedInUser.getRole().equalsIgnoreCase("ROLE_PATRON")) {
-
+                System.out.println("Patron found !!!!!!!");
                 mv = new ModelAndView("users/userDashboard");
-                mv.addObject("userId", loggedInUser.getId());
+                System.out.println("users++++++++++++ " + user);
+                mv.addObject("users", user);
                 return mv;
             } else {
-
                 mv = new ModelAndView("librarian/dashboard");
+                mv.addObject("users", user);
             }
             request.getSession().setAttribute("user", loggedInUser);
-            mv.addObject("users", user);
             return mv;
         }
 
@@ -174,14 +164,15 @@ public class RegistrationController {
             if (loggedInUser.getRole().equalsIgnoreCase("ROLE_PATRON")) {
 
                 mv = new ModelAndView("users/userDashboard");
+                mv.addObject("users", user);
                 mv.addObject("userId", loggedInUser.getId());
                 return mv;
             } else {
-
                 mv = new ModelAndView("librarian/dashboard");
+                mv.addObject("users", user);
+
             }
             request.getSession().setAttribute("user", loggedInUser);
-            mv.addObject("users", user);
             return mv;
         }
     }
