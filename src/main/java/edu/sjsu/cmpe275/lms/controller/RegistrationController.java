@@ -115,6 +115,7 @@ public class RegistrationController {
                                       ModelAndView mv) {
         mv = new ModelAndView();
         User us = (User) request.getSession().getAttribute("user");
+        System.out.println("User enabled? " + us.isEnabled());
         System.out.println("Dashboard get " + us);
         if (us.getRole().equals("ROLE_LIBRARIAN")) {
             System.out.println("Lib found");
@@ -141,9 +142,9 @@ public class RegistrationController {
         User loggedInUser = uService.findUserByEmail(user.getUseremail());
         System.out.println("Logged in User from DB" + loggedInUser);
         ModelAndView mv;
-        if (loggedInUser == null || !user.getPassword().equals(loggedInUser.getPassword())) {
+        if (loggedInUser == null || !user.getPassword().equals(loggedInUser.getPassword()) || !loggedInUser.isEnabled()) {
             mv = new ModelAndView("error");
-            mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination.");
+            mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination. \r\n Is your account validation pending? If so, please check inbox and re-validate account.");
             return mv;
         } else {
             if (loggedInUser.getRole().equalsIgnoreCase("ROLE_PATRON")) {

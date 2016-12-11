@@ -243,7 +243,6 @@ public class UserController {
                                          @RequestParam(value = "current_status", required = false) String current_status,
                                          @RequestParam(value = "keywords", required = false) String keywords
     ) {
-        System.out.println("HEREEEEEEEEEEE!!!!!!!!!!");
         Book book = new Book();
         if (isbn != null && !isbn.isEmpty()) {
             book.setIsbn(isbn);
@@ -303,7 +302,6 @@ public class UserController {
                                    @RequestParam(value = "current_status", required = false) String current_status,
                                    @RequestParam(value = "keywords", required = false) String keywords
     ) {
-        System.out.println("HEREEEEEEEEEEE!!!!!!!!!!");
         Book book = new Book();
         if (isbn != null && !isbn.isEmpty()) {
             book.setIsbn(isbn);
