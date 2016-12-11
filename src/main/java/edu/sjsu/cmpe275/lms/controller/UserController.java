@@ -138,6 +138,7 @@ public class UserController {
         modelAndView.setViewName("books/listCartBooks");
         modelAndView.addObject("userId", userId);
         modelAndView.addObject("status", addToCartStatus);
+        modelAndView.addObject("checkouturl", "checkout");
         List<Book> books = ubcService.getUserBooks(userId, false);
         modelAndView.addObject("books", books);
         return modelAndView;
@@ -197,6 +198,7 @@ public class UserController {
         modelAndView.setViewName("books/listCartBooks");
         modelAndView.addObject("userId", userId);
         modelAndView.addObject("status", addToCartStatus);
+        modelAndView.addObject("checkouturl", "returnCheckout");
         List<Book> books = ubcService.getUserBooks(userId, true);
         modelAndView.addObject("books", books);
         return modelAndView;
