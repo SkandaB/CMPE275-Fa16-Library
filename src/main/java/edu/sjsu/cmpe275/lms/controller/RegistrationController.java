@@ -48,10 +48,13 @@ public class RegistrationController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView showUserCreationForm(HttpServletRequest request/*, Map<String,Object> model*/) {
+    public ModelAndView showUserCreationForm(@RequestParam(value = "error", required = false) String error) {
         User user = new User();
         ModelAndView modelAndView = new ModelAndView("users/addUser");
         modelAndView.addObject("userForm", user);
+        /*if(error.matches("true")){
+            modelAndView.addObject("error","Authentication Issue or Email not Validated. Signup if you are a new user");
+        }*/
         return modelAndView;
     }
 
@@ -113,13 +116,14 @@ public class RegistrationController {
         mv = new ModelAndView();
         User us = (User) request.getSession().getAttribute("user");
         System.out.println("Dashboard get " + us);
-        if (us.getRole().equals("ROLE_LIBRARIAN")) {
+        /*if (us.getRole().equals("ROLE_LIBRARIAN")) {
             System.out.println("Lib found");
             mv.setViewName("librarian/dashboard");
         } else {
             System.out.println("patron found");
             mv.setViewName("user/dashboard");
-        }
+        }*/
+        mv.setViewName("librarian/dashboard");
         return mv;
 
     }

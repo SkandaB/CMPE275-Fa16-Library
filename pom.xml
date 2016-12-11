@@ -298,6 +298,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<finalName>Library</finalName>
+		<finalName>Account_Validation</finalName>
 	</build>
 </project>

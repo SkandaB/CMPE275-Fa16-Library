@@ -1,6 +1,7 @@
 package edu.sjsu.cmpe275.lms.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,8 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableWebSecurity
+@ComponentScan({"edu.sjsu.cmpe275.lms"})
+/*@Import({SecurityConfiguration.class})*/
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -29,8 +32,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-                .antMatchers("/user/showall").access("hasRole('ROLE_LIBRARIAN')")
-                .and().formLogin();
+                .antMatchers("/", "/register").permitAll()
+                .antMatchers("/dashboard").access("hasRole('ROLE_LIBRARIAN')")
+                .and().formLogin().loginPage("/register").failureUrl("/register?error=true")
+                .usernameParameter("USEREMAIL").passwordParameter("PASSWORD");
+
         httpSecurity.csrf().disable();
     }
 

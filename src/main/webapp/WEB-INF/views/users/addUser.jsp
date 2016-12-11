@@ -188,9 +188,15 @@
 
             <div class="wrap">
                 <p class="form-title">Sign In</p>
-                <form:form class="login" action="${pageContext.request.contextPath}/dashboard" commandName="loginForm">
-                    <input name="useremail" placeholder="Email" type="text" path="useremail" size="30"/>
+                <%--<form:form class="login" action="${pageContext.request.contextPath}/dashboard" commandName="loginForm">--%>
+                <c:url var="loginUrl" value="/register"/>
+
+                <form name="login" class="login" action="${loginUrl}" method="post">
+                    <%--<input name="useremail" placeholder="Email" type="text" path="useremail" size="30"/>
                     <input name="password" placeholder="Password" type="password" path="password"
+                           placeholder="Password"/>--%>
+                    <input name="USEREMAIL" placeholder="Email" type="text" id="useremail" size="30"/>
+                    <input name="PASSWORD" placeholder="Password" type="password" id="password"
                            placeholder="Password"/>
                     <input type="submit" value="Sign In" class="btn btn-default btn-sm"/>
                     <%--<div class="remember-forgot">--%>
@@ -207,7 +213,13 @@
                     <%--<a href="javascription:void(0)" if="fgtpass" class="forgot-pass">Forgot Password</a>--%>
                     <%--</div>--%>
                     <%--</div>--%>
-                </form:form>
+                </form>
+                <div style="text-align: center;">
+                    <H2 style="color: red">
+                        Authentication Failure
+                    </H2>
+                </div>
+
             </div>
         </div>
     </div>
@@ -266,5 +278,24 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    function validate() {
+        if (document.login.useremail.value == "" && document.login.password.value == "") {
+            alert("Username and password are required");
+            document.login.useremail.focus();
+            return false;
+        }
+        if (document.login.useremail.value == "") {
+            alert("Username is required");
+            document.f.username.focus();
+            return false;
+        }
+        if (document.login.password.value == "") {
+            alert("Password is required");
+            document.f.password.focus();
+            return false;
+        }
+    }
+</script>
 
 </html>
