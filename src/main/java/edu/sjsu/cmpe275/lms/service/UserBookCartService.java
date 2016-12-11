@@ -20,16 +20,24 @@ public interface UserBookCartService {
      * To get the cart for a user
      *
      * @param userid int userid
+     * @param isTypeReturn
      * @return List of UserBookCart
      */
-    public List<UserBookCart> getUserCart(int userid);
+    public List<UserBookCart> getUserCart(int userid, boolean isTypeReturn);
 
     /**
      * Clears the books for user from cart
      *
      * @param userid
+     * @param isTypeReturn
      */
-    void clearUserCart(int userid);
+    void clearUserCart(int userid, boolean isTypeReturn);
 
-    List<Book> getUserBooks(int userId);
+    /**
+     *
+     * @param userId
+     * @param isTypeReturn
+     * @return
+     */
+    List<Book> getUserBooks(int userId, boolean isTypeReturn);
 }

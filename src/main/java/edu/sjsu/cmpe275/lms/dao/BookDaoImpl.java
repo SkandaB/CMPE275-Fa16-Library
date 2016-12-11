@@ -314,17 +314,16 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public String setBookReturn(Integer bookId, Integer userId) {
-
         try {
+            User user = entityManager.find(User.class, userId);
+            Book book = entityManager.find(Book.class, bookId);
             String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = " + userId;
             UserBook userBook = entityManager.createQuery(userbookQuery, UserBook.class).getSingleResult();
             entityManager.remove(userBook);
-            User user = entityManager.find(User.class, userId);
-            eMail.sendMail(user.getUseremail(), "Book returned successfully", "Book returned successfully");
-            return "Book returned successfully";
+            //eMail.sendMail(user.getUseremail(), "Book returned successfully", "Book returned successfully");
+            return "Book returned successfully: " + book.printBookInfo();
         } catch (Exception e) {
-
-            return "Invalid Book";
+            return  "Some error occurred while returning book. Please contact system admin";
         }
     }
 
