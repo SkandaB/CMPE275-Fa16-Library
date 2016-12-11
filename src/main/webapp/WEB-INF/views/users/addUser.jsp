@@ -237,16 +237,16 @@
                         <li>
                             <input type="text" autofocus id="sjsuid" name="sjsuid"
                                    class="field-style field-full align-none"
-                                   placeholder="SJSU ID"> <form:errors path="sjsuid" required="required"/>
+                                   placeholder="SJSU ID"> <form:errors path="sjsuid" ata-rule-required="true"/>
                         </li>
                         <li>
                             <input type="text" name="useremail" class="field-style field-full align-none"
-                                   placeholder="Email"/> <form:errors path="useremail" required="required"/>
+                                   placeholder="Email"/> <form:errors path="useremail" ata-rule-required="true"/>
 
                         </li>
                         <li>
                             <input type="password" name="password" class="field-style field-full align-none"
-                                   placeholder="Password"/> <form:errors path="password" required="required"/>
+                                   placeholder="Password"/> <form:errors path="password" ata-rule-required="true"/>
 
                         </li>
                         <li>
