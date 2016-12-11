@@ -2,9 +2,6 @@ package edu.sjsu.cmpe275.lms.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by SkandaBhargav on 11/28/16.
- */
 @Entity
 public class UserVerfToken {
     @Id

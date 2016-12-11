@@ -33,6 +33,10 @@ public class UserBookDaoImpl implements UserBookDao {
         return q.getResultList().size();
     }
 
+    /**
+     * @param bookid
+     * @return
+     */
     @Override
     public boolean exists(Integer bookid) {
         boolean flag = true;

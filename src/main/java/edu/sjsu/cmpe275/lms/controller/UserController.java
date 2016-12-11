@@ -27,10 +27,10 @@ import java.util.List;
 @Controller
 @Transactional
 public class UserController {
-	@Autowired
-	UserService uService;
-	@Autowired
-	BookService bService;
+    @Autowired
+    UserService uService;
+    @Autowired
+    BookService bService;
     @Autowired
     UserBookService ubService;
     @Autowired
@@ -38,30 +38,14 @@ public class UserController {
     @Autowired
     private SendEmail eMail;
 
-	/**
-	 * @return
-    //	 */
-//	@RequestMapping(value = "/user", method = RequestMethod.GET)
-//	public ModelAndView showUserCreationForm() {
-//		ModelAndView modelAndView = new ModelAndView("users/userDashboard");
-//		return modelAndView;
-//	}
-/*
-* Comment from new branch Dhanya's Mac
-* /
- */
-
-
-/*	*/
-
-	/**
-	 * @param sjsuid
-	 * @param useremail
-	 * @param password
-	 * @param model
-	 * @param request
-	 * @param response
-	 */
+    /**
+     * @param sjsuid
+     * @param useremail
+     * @param password
+     * @param model
+     * @param request
+     * @param response
+     */
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public Object userCreating(@RequestParam long sjsuid,
                                @RequestParam String useremail,
@@ -81,7 +65,13 @@ public class UserController {
         return mv;
     }
 
-
+    /**
+     * @param userId
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/user/{userId}/dashboard", method = RequestMethod.GET)
     public Object userDashboard(@PathVariable Integer userId,
                                 ModelMap model,
@@ -93,48 +83,46 @@ public class UserController {
         return mv;
     }
 
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/user/showall", method = RequestMethod.GET)
+    public Object showAll() {
+        ModelAndView mv = new ModelAndView("users/list");
+        List<User> users = uService.listUsers();
+        System.out.println(users.get(0).toString());
+        mv.addObject("users", users);
+        return mv;
+    }
 
+    /**
+     * @param userId
+     * @param model
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/user/{userId}/books", method = RequestMethod.GET)
+    public Object showBooks(@PathVariable("userId") Integer userId,
+                            ModelMap model,
+                            HttpServletRequest request,
+                            HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView("books/userBookList");
+        List<Book> books = bService.listBooksOfUser(userId);
+        if (books.size() < 1)
+            mv.addObject("errorMessage", "No Books");
+        mv.addObject("userId", userId);
+        mv.addObject("books", books);
+        return mv;
+    }
 
-
-
-	@RequestMapping(value = "/user/showall", method = RequestMethod.GET)
-	public Object showAll() {
-		ModelAndView mv = new ModelAndView("users/list");
-		List<User> users = uService.listUsers();
-		System.out.println(users.get(0).toString());
-		mv.addObject("users", users);
-		return mv;
-	}
-
-	@RequestMapping(value = "/user/{userId}/books", method = RequestMethod.GET)
-	public Object showBooks(@PathVariable("userId") Integer userId,
-							ModelMap model,
-							HttpServletRequest request,
-							HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("books/userBookList");
-		List<Book> books = bService.listBooksOfUser(userId);
-		if(books.size()<1)
-			mv.addObject("errorMessage","No Books");
-		mv.addObject("userId",userId);
-		mv.addObject("books", books);
-		return mv;
-	}
-
-//    @RequestMapping(value = "/user/{userId}/clearcart", method = RequestMethod.DELETE)
-//    public Object clearUserCart(@PathVariable("userId") Integer userId, ModelAndView modelAndView) {
-//        Err err = ubcService.addUserBookToCart(new UserBookCart(userId, bookId));
-//        String addToCartStatus;
-//        if (err.isAnError()) {
-//            addToCartStatus = err.getMessage();
-//
-//        } else {
-//            addToCartStatus = "Book added to cart";
-//        }
-//        modelAndView.addObject("addtocartstatus", addToCartStatus);
-//        modelAndView.setViewName("test/addtocart");
-//        return modelAndView;
-//    }
-
+    /**
+     * @param userId
+     * @param bookId
+     * @param modelAndView
+     * @return
+     * @throws ParseException
+     */
     @RequestMapping(value = "/user/{userId}/books/{bookId}", method = RequestMethod.GET)
     public Object addBookToUserCart(@PathVariable("userId") Integer userId,
                                     @PathVariable("bookId") Integer bookId, ModelAndView modelAndView) throws ParseException {
@@ -155,6 +143,11 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     * @param userId
+     * @return
+     * @throws ParseException
+     */
     @RequestMapping(value = "/user/{userId}/checkout", method = RequestMethod.GET)
     public Object requestBooks(@PathVariable("userId") Integer userId) throws ParseException {
         StringBuilder emailSummary = new StringBuilder();
@@ -189,36 +182,56 @@ public class UserController {
         return mv;
     }
 
-	@RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
-	public Object returnBook(@PathVariable("userId") Integer userId,
-							   @PathVariable("bookId") Integer bookId) throws ParseException {
-		ModelAndView mv = new ModelAndView("books/userBookList");
+    /**
+     * @param userId
+     * @param bookId
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
+    public Object returnBook(@PathVariable("userId") Integer userId,
+                             @PathVariable("bookId") Integer bookId) throws ParseException {
+        ModelAndView mv = new ModelAndView("books/userBookList");
 
 
-		String status = bService.returnBook(bookId,userId);
+        String status = bService.returnBook(bookId, userId);
 
-		if(status.equalsIgnoreCase("invalid book")){
-			mv.setViewName("books/request");
+        if (status.equalsIgnoreCase("invalid book")) {
+            mv.setViewName("books/request");
             mv.addObject("userId", userId);
             mv.addObject("status", status);
             return mv;
-		}
+        }
         mv.addObject("userId", userId);
         mv.addObject("status", status);
         return mv;
-	}
+    }
 
-
-    @Transactional
+    /**
+     * @param modelAndView
+     * @return
+     */
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
-	public ModelAndView searchBookPage(ModelAndView modelAndView) {
-		modelAndView.setViewName("books/searchBook");
-		modelAndView.addObject("book", new Book());
-		return modelAndView;
-	}
+    public ModelAndView searchBookPage(ModelAndView modelAndView) {
+        modelAndView.setViewName("books/searchBook");
+        modelAndView.addObject("book", new Book());
+        return modelAndView;
+    }
 
+    /**
+     * @param modelAndView
+     * @param userId
+     * @param isbn
+     * @param author
+     * @param publisher
+     * @param year_of_publication
+     * @param num_of_copies
+     * @param callnumber
+     * @param current_status
+     * @param keywords
+     * @return
+     */
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
-    @Transactional
     public ModelAndView searchBookbyUser(ModelAndView modelAndView,
                                          @PathVariable("userId") Integer userId,
                                          @RequestParam(value = "isbn", required = false) String isbn,
@@ -267,9 +280,19 @@ public class UserController {
         return modelAndView;
     }
 
-
+    /**
+     * @param modelAndView
+     * @param isbn
+     * @param author
+     * @param publisher
+     * @param year_of_publication
+     * @param num_of_copies
+     * @param callnumber
+     * @param current_status
+     * @param keywords
+     * @return
+     */
     @RequestMapping(value = "/user/searchBook", method = RequestMethod.POST)
-    @Transactional
     public ModelAndView searchBook(ModelAndView modelAndView,
                                    @RequestParam(value = "isbn", required = false) String isbn,
                                    @RequestParam(value = "author", required = false) String author,
@@ -306,15 +329,14 @@ public class UserController {
         if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
             modelAndView.setViewName("books/searchBook");
             modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
-			return modelAndView;
-		}
+            return modelAndView;
+        }
         //add whatever is needed
         modelAndView.setViewName("librarian/listBooksByLibrarian");
         List<Book> books = bService.searchBookbyUser(book);
 
-		if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
-		modelAndView.addObject("books", books);
-		return modelAndView;
-	}
+        if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
+        modelAndView.addObject("books", books);
+        return modelAndView;
+    }
 }
-

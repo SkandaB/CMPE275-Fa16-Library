@@ -6,10 +6,16 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserBookDao {
     /**
      * Returns number of books the user is holding on a particular day
+     *
      * @param userId
      * @return number of books issued by user on current date
      */
-    public int getUserDayBookCount(int userId);
+    int getUserDayBookCount(int userId);
 
+    /**
+     *
+     * @param bookid
+     * @return
+     */
     boolean exists(Integer bookid);
 }

@@ -6,9 +6,6 @@ package edu.sjsu.cmpe275.lms.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * @author Sagar Dafle
- */
 @Entity
 @Table(name = "LIB_USER_BOOK_STATUS")
 public class LibUserBook {
@@ -39,9 +36,6 @@ public class LibUserBook {
         this.book = b;
         this.user = u;
         this.action = action;
-        // update relationships to assure referential integrity
-        /*System.out.println("user  "+u.getCurrentBooks().add(this));
-        System.out.println("book  "+b.getCurrentUsers().add(this));*/
     }
 
     public LibUserBookId getId() {

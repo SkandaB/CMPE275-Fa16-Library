@@ -9,22 +9,25 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 
-/**
- * Created by SkandaBhargav on 11/30/16.
- */
 @Repository
 @Transactional
 public class TokenDaoImpl implements TokenDao {
     @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
+    /**
+     * @param token
+     * @return
+     */
     @Override
     public UserVerfToken findToken(String token) {
         TypedQuery<UserVerfToken> query = em.createQuery("SELECT u from UserVerfToken u WHERE u.token = :value1", UserVerfToken.class).setParameter("value1", token);
         return query.getSingleResult();
-
     }
 
+    /**
+     * @param userVerfToken
+     */
     @Override
     public void storeToken(UserVerfToken userVerfToken) {
         em.persist(userVerfToken);

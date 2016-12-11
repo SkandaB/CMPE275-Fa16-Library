@@ -1,8 +1,5 @@
 package edu.sjsu.cmpe275.lms.entity;
 
-/**
- * Created by Sagar on 12/7/2016.
- */
 public class LibUserBookPojo {
     int bookId;
     int userId;

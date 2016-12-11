@@ -22,9 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-/**
- * Created by SkandaBhargav on 11/28/16.
- */
 @Controller
 public class RegistrationController {
 
@@ -37,20 +34,25 @@ public class RegistrationController {
     @Autowired
     ServletContext servletContext;
 
- /*   @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView landing() {
-        return new ModelAndView(new RedirectView("/register"));
-    }*/
-
-
+    /**
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView showUserCreationForm(HttpServletRequest request/*, Map<String,Object> model*/) {
+    public ModelAndView showUserCreationForm(HttpServletRequest request) {
         User user = new User();
         ModelAndView modelAndView = new ModelAndView("users/addUser");
         modelAndView.addObject("userForm", user);
         return modelAndView;
     }
 
+    /**
+     * @param request
+     * @param user
+     * @param bindingResult
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerNewUserAccount(
             HttpServletRequest request,
@@ -103,6 +105,11 @@ public class RegistrationController {
         }
     }
 
+    /**
+     * @param request
+     * @param mv
+     * @return
+     */
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ModelAndView showDashBoard(HttpServletRequest request,
                                       ModelAndView mv) {
@@ -119,6 +126,13 @@ public class RegistrationController {
         return mv;
 
     }
+
+    /**
+     * @param request
+     * @param user
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public ModelAndView loginUser(HttpServletRequest request,
                                   @Valid @ModelAttribute("loginForm") User user,
@@ -141,16 +155,16 @@ public class RegistrationController {
 
                 mv = new ModelAndView("librarian/dashboard");
             }
-
-//           int count =  bookDao.findCountAvailable();
-//            System.out.println("count  : "+count);
-            // adding  it to session
             request.getSession().setAttribute("user", loggedInUser);
             mv.addObject("users", user);
             return mv;
         }
     }
 
+    /**
+     * @param token
+     * @return
+     */
     @RequestMapping(value = "/register/confirmRegistration.html", method = RequestMethod.GET)
     public ModelAndView confirmRegisteredAccount(@RequestParam("token") String token) {
         System.out.println("*********** Token from URL = " + token);
@@ -163,17 +177,20 @@ public class RegistrationController {
         user.setEnabled(true);
         uService.saveValidatedUser(user);
         ModelAndView modelAndView = new ModelAndView("users/welcome");
-        modelAndView.addObject("showsignin" , "true");
+        modelAndView.addObject("showsignin", "true");
         modelAndView.addObject("message", "Success! \r\n" + user.getUseremail() + " validation successful. You may now use the full user services ");
         return modelAndView;
     }
 
-    @RequestMapping(value="/logoutuser", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request) {
+    /**
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/logoutuser", method = RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request) {
         System.out.println("Logout called !!");
-            HttpSession httpSession = request.getSession();
-            httpSession.invalidate();
-            return "redirect:/";
-        }
+        HttpSession httpSession = request.getSession();
+        httpSession.invalidate();
+        return "redirect:/";
     }
-
+}
