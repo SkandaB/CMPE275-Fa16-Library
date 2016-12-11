@@ -12,17 +12,19 @@
 </head>
 
 <spring:url value="/dashboard" var="urlHome"/>
-<spring:url value="/users/add" var="urlAddUser" />
+<spring:url value="/register" var="userlogout"/>
 
 <nav class="navbar navbar-inverse ">
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="${urlHome}">CMPE275-Group2-Library Management System</a>
+            <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+            <a style="padding-left: 600px" class="navbar-brand" href="${userlogout}">Logout</a>
 
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>&nbsp;&nbsp;&nbsp;Logout</a>
-				</li>
-			</ul>
+            <%--&lt;%&ndash;<ul class="nav navbar-nav navbar-right">&ndash;%&gt;--%>
+            <%--<li style="padding-left: 1000px;"><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a>--%>
+            <%--</li>--%>
+            <%--</ul>--%>
 		</div>
 	</div>
 
