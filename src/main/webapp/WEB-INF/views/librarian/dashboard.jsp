@@ -365,11 +365,11 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a id="loggedinusername" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i
-                            class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
-                    <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                        <li><a href="#">My Profile</a></li>
-                    </ul>
+                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
+                    ></i> Admin <span class="caret"></span></p>
+                    <%--<ul id="g-account-menu" class="dropdown-menu" role="menu">--%>
+                    <%--<li><a href="#">My Profile</a></li>--%>
+                    <%--</ul>--%>
                 </li>
                 <li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a>
             </ul>
