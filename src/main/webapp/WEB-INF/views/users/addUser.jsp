@@ -189,8 +189,8 @@
             <div class="wrap">
                 <p class="form-title">Sign In</p>
                 <form:form class="login" action="${pageContext.request.contextPath}/dashboard" commandName="loginForm">
-                    <input name="useremail" placeholder="Email" type="text" path="useremail" size="30"/> <form:errors
-                        cssStyle="border: dashed" path="useremail"/>
+                    <input name="useremail" autofocus placeholder="Email" type="text" path="useremail" size="30"/>
+                    <form:errors cssStyle="font-kerning: auto" path="useremail"/>
                     <input name="password" placeholder="Password" type="password" path="password"
                            placeholder="Password"/> <form:errors path="password"/>
                     <input type="submit" value="Sign In" class="btn btn-default btn-sm"/>
@@ -231,20 +231,22 @@
                 <%--<a id="registerBtn">Register</a>--%>
                 <%--</form:form>--%>
                 <form:form class="form-style-9" method="post" action="${pageContext.request.contextPath}/register"
-                           commandName="userForm" modelAttribute="user" name="registeruserform" id="registeruserform">
+                           commandName="userForm" modelAttribute="user" name="registeruserform" id="registeruserform"
+                           onsubmit="return validate()">
                     <ul>
                         <li>
-                            <input type="text" id="sjsuid" name="sjsuid" class="field-style field-full align-none"
-                                   placeholder="SJSU ID"> <form:errors path="sjsuid"/>
+                            <input type="text" autofocus id="sjsuid" name="sjsuid"
+                                   class="field-style field-full align-none"
+                                   placeholder="SJSU ID"> <form:errors path="sjsuid" required="required"/>
                         </li>
                         <li>
                             <input type="text" name="useremail" class="field-style field-full align-none"
-                                   placeholder="Email"/> <form:errors path="useremail"/>
+                                   placeholder="Email"/> <form:errors path="useremail" required="required"/>
 
                         </li>
                         <li>
                             <input type="password" name="password" class="field-style field-full align-none"
-                                   placeholder="Password"/> <form:errors path="password"/>
+                                   placeholder="Password"/> <form:errors path="password" required="required"/>
 
                         </li>
                         <li>
@@ -269,5 +271,24 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    function validate() {
+        if (document.registeruserform.useremail.value == "" && document.registeruserform.password.value == "") {
+            alert("Username and password are required");
+            document.login.useremail.focus();
+            return false;
+        }
+        if (document.registeruserform.useremail.value == "") {
+            alert("Username is required");
+            document.f.username.focus();
+            return false;
+        }
+        if (document.registeruserform.password.value == "") {
+            alert("Password is required");
+            document.f.password.focus();
+            return false;
+        }
+    }
+</script>
 
 </html>
