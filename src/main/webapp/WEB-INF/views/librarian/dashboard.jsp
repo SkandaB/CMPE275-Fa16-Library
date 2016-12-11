@@ -362,16 +362,16 @@
             </button>
             <a class="navbar-brand" href="#">LMS- Group2 Dashboard</a>
         </div>
+        <spring:url value="/register" var="userlogout"/>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
                     ></i> Admin <span class="caret"></span></p>
-                    <%--<ul id="g-account-menu" class="dropdown-menu" role="menu">--%>
-                    <%--<li><a href="#">My Profile</a></li>--%>
-                    <%--</ul>--%>
                 </li>
-                <li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a>
+                <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
+                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
+                </li>
             </ul>
         </div>
     </div>
