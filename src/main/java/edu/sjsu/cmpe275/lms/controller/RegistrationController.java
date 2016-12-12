@@ -119,9 +119,11 @@ public class RegistrationController {
         if (us.getRole().equals("ROLE_LIBRARIAN")) {
             System.out.println("Lib found");
             mv.setViewName("librarian/dashboard");
+            mv.addObject("users", user);
         } else {
             System.out.println("patron found");
             mv.setViewName("user/dashboard");
+            mv.addObject("users", user);
         }
         return mv;
 
@@ -146,6 +148,13 @@ public class RegistrationController {
             return mv;
         }*/
 
+    }
+
+    @RequestMapping(value = "/lmsdashboard", method = RequestMethod.GET)
+    public ModelAndView showlmsdashboard(HttpServletRequest request) {
+        ModelAndView mv;
+        mv = new ModelAndView("librarian/dashboard");
+        return mv;
     }
 
     /**
@@ -174,14 +183,15 @@ public class RegistrationController {
             if (loggedInUser.getRole().equalsIgnoreCase("ROLE_PATRON")) {
 
                 mv = new ModelAndView("users/userDashboard");
+                mv.addObject("users", user);
                 mv.addObject("userId", loggedInUser.getId());
                 return mv;
             } else {
-
                 mv = new ModelAndView("librarian/dashboard");
+                mv.addObject("users", user);
             }
             request.getSession().setAttribute("user", loggedInUser);
-            mv.addObject("users", user);
+
             return mv;
         }
     }
