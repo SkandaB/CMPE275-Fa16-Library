@@ -359,7 +359,8 @@ public class BookDaoImpl implements BookDao {
         List<User> waitlist = book.getWaitlist();
         if (!(waitlist.isEmpty())) {
             waitlist.clear();
-            entityManager.merge(book);
+            book.setWaitlist(waitlist);
+            entityManager.persist(book);
         }
         entityManager.remove(book);
         //remove_waitlist(book);

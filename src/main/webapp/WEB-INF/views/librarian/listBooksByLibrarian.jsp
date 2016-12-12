@@ -43,7 +43,6 @@
         </tr>
         </thead>
         <p><font color="red">${errorMessage}</font></p>
-        <form:form
         <c:forEach var="book" items="${books}">
         <tr>
             <td>${book.isbn}</td>
