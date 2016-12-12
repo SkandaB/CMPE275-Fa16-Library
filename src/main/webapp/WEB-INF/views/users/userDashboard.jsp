@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: dhanyaramesh
+  Date: 12/6/16
+  Time: 6:48 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -9,7 +16,7 @@
     <!-- Need to implement security-->
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>User Dashboard</title>
+    <title>Patron Dashboard</title>
     <meta name="generator" content="Bootply"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -145,9 +152,17 @@
         document.getElementById(formId).style.display = "block";
     }
     $(document).ready(function () {
-        var uemail = '${useremail}';
-        console.log(uemail)
+
+        $("#homeLink").click(function () {
+            window.open('${pageContext.request.contextPath}/user/${userId}/dashboard', '_self', false);
+            <%--window.open('${pageContext.request.contextPath}/dashboard', '_self', false);--%>
+        });
+        var uemail = '${users.useremail}';
+        console.log(uemail);
+        var userid = '${users.id}';
+        console.log(userid);
         $("#loggedinusername").text(uemail);
+
 //        $("#addBtn").click(function () {
 //            $('#addBookModal').modal('show');
 //        });
@@ -259,17 +274,15 @@
             </button>
             <a class="navbar-brand" href="#">LMS- Group2 Dashboard</a>
         </div>
+        <spring:url value="/register" var="userlogout"/>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a id="loggedinusername" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i
-                            class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
-                    <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                        <li><a href="#">My Profile</a></li>
-                    </ul>
+                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
+                    ></i> Admin <span class="caret"></span></p>
                 </li>
-                <%--<li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a>--%>
-
+                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -282,7 +295,7 @@
     <div class="row">
         <div class="col-sm-3">
             <!-- Left column -->
-            <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>
+            <%--<a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>--%>
 
             <hr>
 
@@ -290,12 +303,13 @@
                 <li class="nav-header"><a href="#" data-toggle="collapse" data-target="#userMenu">Settings <i
                         class="glyphicon glyphicon-chevron-down"></i></a>
                     <ul class="nav nav-stacked collapse in" id="userMenu">
-                        <li class="active"><a href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                        <li class="active"><a id="homeLink" href="#"><i class="glyphicon glyphicon-home"></i> Home</a>
+                        </li>
                         <%--<li><a id="addBtn1" href="#"><i class="glyphicon glyphicon-plus-sign"></i> Add a Book</a></li>--%>
                         <li><a id="searchBtn1" href="#"><i class="glyphicon glyphicon-search"></i> Search a Book</a>
                         </li>
                         <%--<li><a href="#"><i class="glyphicon glyphicon-remove"></i> Remove a Book</a></li>--%>
-                        <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a>
+                        <%--<li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a>--%>
                         </li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
                         <li><a id="mybooks" href="#"><i class="glyphicon glyphicon-flag"></i>My Books</a></li>
@@ -521,11 +535,11 @@
                                             <%--placeholder="Library Location"/>--%>
                                             <%--</li>--%>
                                         <li>
-                                            <input type="text" min="1" name="keywords"
-                                                   class="field-style field-split align-left"
-                                                   placeholder="Keywords"/>
+                                                <%--<input type="text" min="1" name="keywords"--%>
+                                                <%--class="field-style field-split align-left"--%>
+                                                <%--placeholder="Keywords"/>--%>
                                             <input type="text" name="callnumber"
-                                                   class="field-style field-split align-left"
+                                                   class="field-style field-full align-none"
                                                    placeholder="Call Number"/>
                                         </li>
                                             <%--<li>--%>
@@ -567,10 +581,10 @@
                     <%--<i class="glyphicon glyphicon-remove"></i>--%>
                     <%--<br> Remove--%>
                     <%--</a>--%>
-                    <a id="viewBooksBtn" href="#" class="btn btn-primary col-sm-3">
-                        <i class="glyphicon glyphicon-list"></i>
-                        <br> List
-                    </a>
+                        <%--<a id="viewBooksBtn" href="#" class="btn btn-primary col-sm-3">--%>
+                        <%--<i class="glyphicon glyphicon-list"></i>--%>
+                        <%--<br> List--%>
+                        <%--</a>--%>
                 </div>
 
                 <hr>

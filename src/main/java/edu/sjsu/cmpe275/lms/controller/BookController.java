@@ -13,6 +13,7 @@ import edu.sjsu.cmpe275.lms.service.BookService;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.ISBNValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
+@EnableAspectJAutoProxy
 @RequestMapping("/book")
 public class BookController {
     static final String API_KEY =
@@ -391,7 +393,7 @@ public class BookController {
             System.out.println("Book Deleted Sucessfully!!");
             return new ModelAndView(new RedirectView("/dashboard"));
         } else {
-            return new ModelAndView("error");
+            return new ModelAndView("error").addObject("errorMessage", "Unable to delete book, book is checked out already.");
         }
     }
 }

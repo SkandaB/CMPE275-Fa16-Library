@@ -125,4 +125,11 @@ public interface BookDao {
      * @return
      */
     Book updateBooks(Book updatedbook, HttpServletRequest request);
+
+    /**
+     * @param bookId
+     * @param userId
+     * @return the renew status
+     */
+    String setBookRenew(Integer bookId, Integer userId) throws ParseException;
 }

@@ -10,6 +10,17 @@
 
 <body>
 
+<nav class="navbar navbar-inverse ">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/user/${userId}/dashboard">&nbsp; &nbsp;
+                &nbsp; My Dashboard</a>
+
+        </div>
+
+    </div>
+</nav>
+
 <div class="container">
 
     <c:if test="${not empty msg}">
@@ -21,7 +32,9 @@
         </div>
     </c:if>
 
+
     <h1>Books</h1>
+
 
     <table class="table table-striped">
         <thead>
@@ -43,15 +56,15 @@
                 <td>
                     <spring:url value="/user/${userId}/book/${book.bookId}"
                                 var="returnUrl"/>
-                    <spring:url value="/user/${user.id}/books/wish/${book.bookId}"
-                                var="updateUrl"/>
+                    <spring:url value="/user/${userId}/book/${book.bookId}/renew"
+                                var="renewUrl"/>
                     <!--Dhanya, your add to wish_list will come here  of wishlist-->
 
                     <button class="btn btn-info"
                             onclick="location.href='${returnUrl}'">Return
                     </button>
                     <button class="btn btn-primary"
-                            onclick="location.href='${updateUrl}'">Renew
+                            onclick="location.href='${renewUrl}'">Renew
                     </button>
                 </td>
 

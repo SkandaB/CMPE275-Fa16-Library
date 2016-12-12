@@ -16,6 +16,7 @@ import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -118,7 +119,7 @@ public class BookDaoImpl implements BookDao {
 
 
         String returnStatus = "";
-        if (!book.getCurrent_status().equalsIgnoreCase("available")) {
+        if (!book.getCurrent_status().equalsIgnoreCase("available") || !book.getWaitlist().isEmpty()) {
             List<User> waitlist = book.getWaitlist();
             if (!waitlist.contains(user)) {
                 waitlist.add(user);
@@ -147,8 +148,9 @@ public class BookDaoImpl implements BookDao {
                 returnStatus = returnStatus + book.printBookInfo();
 
                 entityManager.persist(userBook);
+                userBook.UserBookPersist(book, user);
                 updateBookStatus(book.getBookId());
-                System.out.println("after mail book status " + book.getCurrent_status());
+                System.out.println("after userbook persist " + book.getCurrentUsers().size() + "user " + user.getCurrentBooks().size());
                 return returnStatus;
             }
         }
@@ -315,12 +317,23 @@ public class BookDaoImpl implements BookDao {
     @Override
     public String setBookReturn(Integer bookId, Integer userId) {
         try {
-            User user = entityManager.find(User.class, userId);
+            /*User user = entityManager.find(User.class, userId);*/
             Book book = entityManager.find(Book.class, bookId);
             String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = " + userId;
             UserBook userBook = entityManager.createQuery(userbookQuery, UserBook.class).getSingleResult();
+
+            book.setCurrent_status("Available");
+            if (!book.getWaitlist().isEmpty()) {
+                User firstWaitlistUser = book.getWaitlist().get(0);
+                System.out.println("The first user in waitlist for this book is " + firstWaitlistUser.toString());
+                //eMail.sendMail(firstWaitlistUser.getUseremail(), "Book Available", "The following book is available " + book.toString());
+
+            }
+
+            entityManager.merge(book);
+
             entityManager.remove(userBook);
-            //eMail.sendMail(user.getUseremail(), "Book returned successfully", "Book returned successfully");
+
             return "Book returned successfully: " + book.printBookInfo();
         } catch (Exception e) {
             return  "Some error occurred while returning book. Please contact system admin";
@@ -357,8 +370,9 @@ public class BookDaoImpl implements BookDao {
         Book book = entityManager.find(Book.class, id);
         List<User> waitlist = book.getWaitlist();
         if (!(waitlist.isEmpty())) {
-            waitlist.clear();
-            entityManager.merge(book);
+            book.getWaitlist().removeAll(waitlist);
+            System.out.println("book waitlist size after remove " + book.getWaitlist().size());
+            entityManager.persist(book);
         }
         entityManager.remove(book);
         //remove_waitlist(book);
@@ -390,6 +404,56 @@ public class BookDaoImpl implements BookDao {
         entityManager.merge(userEntity);
         entityManager.flush();
         return book;
+    }
+
+
+    @Override
+    public String setBookRenew(Integer bookId, Integer userId) throws ParseException {
+        String status = "not renewed yet";
+        UserBook userBook = entityManager.createQuery("select ub from UserBook ub where ub.book = " + bookId + " and ub.user = " + userId, UserBook.class).getSingleResult();
+        Book book = entityManager.find(Book.class, bookId);
+        User user = entityManager.find(User.class, userId);
+
+        if (userBook.getFine() > 0) {
+            Long userFine = entityManager.createQuery("select sum(ub.fine) from UserBook ub where ub.user = " + userId + " group by ub.user", Long.class).getSingleResult();
+            status = "Cannot renew the book. You have an outstanding fine of $" + userFine;
+            eMail.sendMail(user.getUseremail(), "Book renew Unsuccessfull", status);
+            return status;
+        }
+
+        if (!book.getWaitlist().isEmpty()) {
+            status = "Cannot renew book since there is a waitlist for this book. Please return the book by " + userBook.getDueDate() + " to avoid fine";
+            eMail.sendMail(user.getUseremail(), "Book renew Unsuccessfull", status);
+            return status;
+        }
+
+
+        if (userBook.getRenew_flag() == 2) {
+            status = "Renewed the same book two times already. Cannot renew now. Please return the book by " + userBook.getDueDate() + " to avoid fine";
+            eMail.sendMail(user.getUseremail(), "Book renew Unsuccessfull", status);
+            return status;
+        }
+        if (userBook.getRenew_flag() == 1) {
+            userBook.setRenew_flag(2);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            userBook.setCheckout_date(dtf.format(LocalDate.now()));
+            entityManager.merge(userBook);
+            status = "Book renewed successfully. The new due date is " + userBook.getDueDate();
+            eMail.sendMail(user.getUseremail(), "Book renew Successfull", status);
+            return status;
+        }
+        if (userBook.getRenew_flag() == 0) {
+            userBook.setRenew_flag(1);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            userBook.setCheckout_date(dtf.format(LocalDate.now()));
+            entityManager.merge(userBook);
+            status = "Book renewed successfully. The new due date is " + userBook.getDueDate();
+            eMail.sendMail(user.getUseremail(), "Book renew Successfull", status);
+            return status;
+
+        }
+        return status;
+
     }
 
 }

@@ -162,8 +162,7 @@
     $(document).ready(function () {
 
         $("#homeLink").click(function () {
-            //window.location.reload();
-            window.open('${pageContext.request.contextPath}/dashboard', '_self', false)
+            window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
         });
         var uemail = '${users.useremail}';
         console.log(uemail);
@@ -362,16 +361,15 @@
             </button>
             <a class="navbar-brand" href="#">LMS- Group2 Dashboard</a>
         </div>
+        <spring:url value="/register" var="userlogout"/>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a id="loggedinusername" class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i
-                            class="glyphicon glyphicon-user"></i> Admin <span class="caret"></span></a>
-                    <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                        <li><a href="#">My Profile</a></li>
-                    </ul>
+                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
+                    ></i> Admin <span class="caret"></span></p>
                 </li>
-                <li><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a>
+                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -632,9 +630,9 @@
                                                 <option>Reserved</option>
                                                 <option>Wait-Listed</option>
                                             </select>
-                                            <input type="text" name="keywords"
-                                                   class="field-style field-full align-none"
-                                                   placeholder="Keywords"/>
+                                                <%--<input type="text" name="keywords"--%>
+                                                <%--class="field-style field-full align-none"--%>
+                                                <%--placeholder="Keywords"/>--%>
                                         </li>
 
                                         <li>
