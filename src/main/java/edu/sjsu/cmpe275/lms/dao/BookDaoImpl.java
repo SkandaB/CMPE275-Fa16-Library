@@ -316,17 +316,17 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public String setBookReturn(Integer bookId, Integer userId) {
-
         try {
+            /*User user = entityManager.find(User.class, userId);*/
+            Book book = entityManager.find(Book.class, bookId);
             String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = " + userId;
             UserBook userBook = entityManager.createQuery(userbookQuery, UserBook.class).getSingleResult();
-            User user = entityManager.find(User.class, userId);
-            Book book = entityManager.find(Book.class, bookId);
+
             book.setCurrent_status("Available");
             if (!book.getWaitlist().isEmpty()) {
                 User firstWaitlistUser = book.getWaitlist().get(0);
                 System.out.println("The first user in waitlist for this book is " + firstWaitlistUser.toString());
-                eMail.sendMail(firstWaitlistUser.getUseremail(), "Book Available", "The following book is available " + book.toString());
+                //eMail.sendMail(firstWaitlistUser.getUseremail(), "Book Available", "The following book is available " + book.toString());
 
             }
 
@@ -334,11 +334,9 @@ public class BookDaoImpl implements BookDao {
 
             entityManager.remove(userBook);
 
-            eMail.sendMail(user.getUseremail(), "Book returned successfully", "Book returned successfully");
-            return "Book returned successfully";
+            return "Book returned successfully: " + book.printBookInfo();            return "Book returned successfully";
         } catch (Exception e) {
-
-            return "Invalid Book";
+            return  "Some error occurred while returning book. Please contact system admin";
         }
     }
 

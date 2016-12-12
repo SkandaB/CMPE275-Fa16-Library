@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: dhanyaramesh
-  Date: 12/7/16
-  Time: 3:22 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page session="false" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -77,7 +70,7 @@
 
         </table>
 
-        <spring:url value="/user/${userId}/checkout" var="checkoutUrl"/>
+        <spring:url value="/user/${userId}/${checkouturl}" var="checkoutUrl"/>
         <button class="btn btn-info"
                 onclick="location.href='${checkoutUrl}'">Checkout
         </button>

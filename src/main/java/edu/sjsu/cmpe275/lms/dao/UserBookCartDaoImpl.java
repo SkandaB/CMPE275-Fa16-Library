@@ -27,10 +27,25 @@ public class UserBookCartDaoImpl implements UserBookCartDao {
      * @return Err false if add successful, true with error message if failed
      */
     @Override
-    public Err addUserBookToCart(UserBookCart ubc) {
-        List<UserBookCart> ubcList = this.getUserCart(ubc.getUser_id());
+    public Err addUserBookToCartIssue(UserBookCart ubc) {
+        List<UserBookCart> ubcList = this.getUserCartIssue(ubc.getUser_id());
         if (ubcList.size() > 4) {
             return new Err(true, "You can only add 5 books to the cart at a time");
+        }
+        for (UserBookCart u : ubcList) {
+            if (u.getBook_id() == ubc.getBook_id()) {
+                return new Err(true, "Book already added to cart!");
+            }
+        }
+        entityManager.persist(ubc);
+        return new Err();
+    }
+
+    @Override
+    public Err addUserBookToCartReturn(UserBookCart ubc) {
+        List<UserBookCart> ubcList = this.getUserCartReturn(ubc.getUser_id());
+        if (ubcList.size() > 9) {
+            return new Err(true, "You can only add 10 books to the cart at a time");
         }
         for (UserBookCart u : ubcList) {
             if (u.getBook_id() == ubc.getBook_id()) {
@@ -48,8 +63,22 @@ public class UserBookCartDaoImpl implements UserBookCartDao {
      * @return List of UserBookCart
      */
     @Override
-    public List<UserBookCart> getUserCart(int userid) {
-        String query = "Select ubc From UserBookCart ubc WHERE ubc.user_id = :userid";
+    public List<UserBookCart> getUserCartIssue(int userid) {
+        String query = "Select ubc From UserBookCart ubc WHERE ubc.user_id = :userid AND ubc.type_return = 0";
+        Query q = entityManager.createQuery(query, UserBookCart.class);
+        q.setParameter("userid", userid);
+        return q.getResultList();
+    }
+
+    /**
+     * To get the return cart for a user
+     *
+     * @param userid
+     * @return
+     */
+    @Override
+    public List<UserBookCart> getUserCartReturn(int userid) {
+        String query = "Select ubc From UserBookCart ubc WHERE ubc.user_id = :userid AND ubc.type_return > 0";
         Query q = entityManager.createQuery(query, UserBookCart.class);
         q.setParameter("userid", userid);
         return q.getResultList();
@@ -70,9 +99,24 @@ public class UserBookCartDaoImpl implements UserBookCartDao {
      * @return
      */
     @Override
-    public List<Book> getUserBooksInCart(int userId) {
+    public List<Book> getUserBooksInCartIssue(int userId) {
 
-        List<UserBookCart> ubcs = this.getUserCart(userId);
+        List<UserBookCart> ubcs = this.getUserCartIssue(userId);
+        List<Book> books = new ArrayList<Book>();
+        for (UserBookCart u : ubcs) {
+            books.add(entityManager.find(Book.class, u.getBook_id()));
+
+        }
+        return books;
+    }
+
+    /**
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Book> getUserBooksInCartReturn(int userId) {
+        List<UserBookCart> ubcs = this.getUserCartReturn(userId);
         List<Book> books = new ArrayList<Book>();
         for (UserBookCart u : ubcs) {
             books.add(entityManager.find(Book.class, u.getBook_id()));

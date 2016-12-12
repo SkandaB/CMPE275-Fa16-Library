@@ -11,20 +11,34 @@ import java.util.List;
 public interface UserBookCartDao {
 
     /**
-     * Adds the given book against the user to card
+     * Adds the given book against the user to cart for issue
      *
      * @param ubc UserBookCart
      * @return true if add successful, false if failed
      */
-    Err addUserBookToCart(UserBookCart ubc);
+    Err addUserBookToCartIssue(UserBookCart ubc);
 
     /**
-     * To get the cart for a user
+     * Adds the given book against the user to cart for return
+     * @param ubc
+     * @return
+     */
+    Err addUserBookToCartReturn(UserBookCart ubc);
+
+    /**
+     * To get the issue cart for a user
      *
      * @param userid int userid
      * @return List of UserBookCart
      */
-    List<UserBookCart> getUserCart(int userid);
+    List<UserBookCart> getUserCartIssue(int userid);
+
+    /**
+     * To get the return cart for a user
+     * @param userid
+     * @return
+     */
+    List<UserBookCart> getUserCartReturn(int userid);
 
     /**
      *
@@ -38,5 +52,12 @@ public interface UserBookCartDao {
      * @param userId
      * @return
      */
-    List<Book> getUserBooksInCart(int userId);
+    List<Book> getUserBooksInCartIssue(int userId);
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    List<Book> getUserBooksInCartReturn(int userId);
 }

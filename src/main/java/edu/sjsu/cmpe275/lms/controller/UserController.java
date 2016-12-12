@@ -128,7 +128,7 @@ public class UserController {
     @RequestMapping(value = "/user/{userId}/books/{bookId}", method = RequestMethod.GET)
     public Object addBookToUserCart(@PathVariable("userId") Integer userId,
                                     @PathVariable("bookId") Integer bookId, ModelAndView modelAndView) throws ParseException {
-        Err err = ubcService.addUserBookToCart(new UserBookCart(userId, bookId));
+        Err err = ubcService.addUserBookToCart(new UserBookCart(userId, bookId, 0));
         String addToCartStatus;
         if (err.isAnError()) {
             addToCartStatus = err.getMessage();
@@ -140,7 +140,8 @@ public class UserController {
         modelAndView.setViewName("books/listCartBooks");
         modelAndView.addObject("userId", userId);
         modelAndView.addObject("status", addToCartStatus);
-        List<Book> books = ubcService.getUserBooks(userId);
+        modelAndView.addObject("checkouturl", "checkout");
+        List<Book> books = ubcService.getUserBooks(userId, false);
         modelAndView.addObject("books", books);
         return modelAndView;
     }
@@ -154,7 +155,7 @@ public class UserController {
     public Object requestBooks(@PathVariable("userId") Integer userId) throws ParseException {
         StringBuilder emailSummary = new StringBuilder();
         ModelAndView mv = new ModelAndView("books/request");
-        List<UserBookCart> cart = ubcService.getUserCart(userId);
+        List<UserBookCart> cart = ubcService.getUserCart(userId, false);
         if (cart.size() == 0) {
             mv.addObject("status", "Cart is Empty. Nothing to checkout");
             return mv;
@@ -180,33 +181,73 @@ public class UserController {
         eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
 
         mv.addObject("status", "Books checked out! You will get details in email soon !");
-        ubcService.clearUserCart(userId);
+        ubcService.clearUserCart(userId, false);
         return mv;
+    }
+
+    @RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
+    public Object addBookToReturnUserCart(@PathVariable("userId") Integer userId,
+                                    @PathVariable("bookId") Integer bookId, ModelAndView modelAndView) throws ParseException {
+        Err err = ubcService.addUserBookToCart(new UserBookCart(userId, bookId, 1));
+        String addToCartStatus;
+        if (err.isAnError()) {
+            addToCartStatus = err.getMessage();
+
+        } else {
+            addToCartStatus = "Book added to return cart";
+        }
+        modelAndView.addObject("addtocartstatus", addToCartStatus);
+        modelAndView.setViewName("books/listCartBooks");
+        modelAndView.addObject("userId", userId);
+        modelAndView.addObject("status", addToCartStatus);
+        modelAndView.addObject("checkouturl", "returnCheckout");
+        List<Book> books = ubcService.getUserBooks(userId, true);
+        modelAndView.addObject("books", books);
+        return modelAndView;
     }
 
     /**
      * @param userId
-     * @param bookId
      * @return
      * @throws ParseException
      */
-    @RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
-    public Object returnBook(@PathVariable("userId") Integer userId,
-                             @PathVariable("bookId") Integer bookId) throws ParseException {
-        ModelAndView mv = new ModelAndView("books/userBookList");
+    @RequestMapping(value = "/user/{userId}/returnCheckout", method = RequestMethod.GET)
+    public Object returnBook(@PathVariable("userId") Integer userId) throws ParseException {
 
-
-        String status = bService.returnBook(bookId, userId);
-
-        if (status.equalsIgnoreCase("invalid book")) {
-            mv.setViewName("books/request");
-            mv.addObject("userId", userId);
-            mv.addObject("status", status);
+        StringBuilder emailSummary = new StringBuilder();
+        ModelAndView mv = new ModelAndView("books/request");
+        List<UserBookCart> cart = ubcService.getUserCart(userId, true);
+        if (cart.size() == 0) {
+            mv.addObject("status", "Cart is Empty. Nothing to checkout");
             return mv;
         }
-        mv.addObject("userId", userId);
-        mv.addObject("status", status);
+
+        for (UserBookCart u : cart) {
+            emailSummary.append(bService.returnBook(u.getBook_id(), userId));
+            emailSummary.append("\n");
+        }
+
+        //sends consolidated email of checkout
+        eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
+
+        mv.addObject("status", "Books returned! You will get details in email soon !");
+        ubcService.clearUserCart(userId, true);
         return mv;
+
+//        ModelAndView mv = new ModelAndView("books/userBookList");
+//
+//
+//        String status = bService.returnBook(bookId, userId);
+//
+//        if (status.equalsIgnoreCase("invalid book")) {
+//            mv.setViewName("books/request");
+//            mv.addObject("userId", userId);
+//            mv.addObject("status", status);
+//            return mv;
+//        }
+//        mv.addObject("userId", userId);
+//        mv.addObject("status", status);
+//        return mv;
     }
 
     /**
@@ -345,7 +386,6 @@ public class UserController {
             book.setKeywords(keywords);
         }
         if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
-            System.out.println("Inside null condition----------");
             modelAndView.setViewName("books/searchBook");
             modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
             return modelAndView;

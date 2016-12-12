@@ -20,9 +20,15 @@ public class UserBookCart {
     @Column(name = "BOOK_ID")
     private int book_id;
 
-    public UserBookCart(int user_id, int book_id) {
+    @Column(name = "TYPE_RETURN")
+    private int type_return;
+
+    public UserBookCart() {}
+
+    public UserBookCart(int user_id, int book_id, int type_return) {
         this.user_id = user_id;
         this.book_id = book_id;
+        this.type_return = type_return;
     }
 
     /**
@@ -66,6 +72,7 @@ public class UserBookCart {
      *
      * @return book_id
      */
+
     public int getBook_id() {
         return book_id;
     }
@@ -77,5 +84,13 @@ public class UserBookCart {
      */
     public void setBook_id(int book_id) {
         this.book_id = book_id;
+    }
+
+    public int getType_return() {
+        return type_return;
+    }
+
+    public void setType_return(int type_return) {
+        this.type_return = type_return;
     }
 }

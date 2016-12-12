@@ -23,7 +23,11 @@ public class UserBookCartServiceImpl implements UserBookCartService {
      */
     @Override
     public Err addUserBookToCart(UserBookCart ubc) {
-        return userBookCartDao.addUserBookToCart(ubc);
+        if (ubc.getType_return() > 0) {
+            return userBookCartDao.addUserBookToCartReturn(ubc);
+        } else {
+            return userBookCartDao.addUserBookToCartIssue(ubc);
+        }
     }
 
     /**
@@ -33,8 +37,13 @@ public class UserBookCartServiceImpl implements UserBookCartService {
      * @return List of UserBookCart
      */
     @Override
-    public List<UserBookCart> getUserCart(int userid) {
-        return userBookCartDao.getUserCart(userid);
+    public List<UserBookCart> getUserCart(int userid, boolean isTypeReturn) {
+        if (isTypeReturn) {
+            return userBookCartDao.getUserCartReturn(userid);
+        } else {
+            return userBookCartDao.getUserCartIssue(userid);
+        }
+
     }
 
     /**
@@ -43,17 +52,26 @@ public class UserBookCartServiceImpl implements UserBookCartService {
      * @param userid
      */
     @Override
-    public void clearUserCart(int userid) {
-        List<UserBookCart> userBookCartList = userBookCartDao.getUserCart(userid);
+    public void clearUserCart(int userid, boolean isTypeReturn) {
+        List<UserBookCart> userBookCartList;
+        if (isTypeReturn){
+            userBookCartList = userBookCartDao.getUserCartReturn(userid);
+        } else {
+            userBookCartList = userBookCartDao.getUserCartIssue(userid);
+        }
         for (UserBookCart u : userBookCartList) {
             userBookCartDao.removeCartEntry(u);
         }
     }
 
     @Override
-    public List<Book> getUserBooks(int userId) {
-
-        List<Book> books = userBookCartDao.getUserBooksInCart(userId);
+    public List<Book> getUserBooks(int userId, boolean isTypeReturn) {
+        List<Book> books;
+        if (isTypeReturn){
+            books = userBookCartDao.getUserBooksInCartReturn(userId);
+        } else {
+            books = userBookCartDao.getUserBooksInCartIssue(userId);
+        }
         return books;
 
     }
