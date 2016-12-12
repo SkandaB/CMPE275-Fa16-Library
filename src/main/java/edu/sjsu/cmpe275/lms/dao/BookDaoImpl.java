@@ -334,7 +334,7 @@ public class BookDaoImpl implements BookDao {
 
             entityManager.remove(userBook);
 
-            return "Book returned successfully: " + book.printBookInfo();            return "Book returned successfully";
+            return "Book returned successfully: " + book.printBookInfo();
         } catch (Exception e) {
             return  "Some error occurred while returning book. Please contact system admin";
         }
