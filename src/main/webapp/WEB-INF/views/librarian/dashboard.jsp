@@ -632,9 +632,9 @@
                                                 <option>Reserved</option>
                                                 <option>Wait-Listed</option>
                                             </select>
-                                            <input type="text" name="keywords"
-                                                   class="field-style field-full align-none"
-                                                   placeholder="Keywords"/>
+                                                <%--<input type="text" name="keywords"--%>
+                                                <%--class="field-style field-full align-none"--%>
+                                                <%--placeholder="Keywords"/>--%>
                                         </li>
 
                                         <li>

@@ -235,17 +235,19 @@ public class UserController {
     public ModelAndView searchBookbyUser(ModelAndView modelAndView,
                                          @PathVariable("userId") Integer userId,
                                          @RequestParam(value = "isbn", required = false) String isbn,
+                                         @RequestParam(value = "title", required = false) String title,
                                          @RequestParam(value = "author", required = false) String author,
                                          @RequestParam(value = "publisher", required = false) String publisher,
                                          @RequestParam(value = "year_of_publication", required = false) String year_of_publication,
                                          @RequestParam(value = "num_of_copies", required = false) String num_of_copies,
                                          @RequestParam(value = "callnumber", required = false) String callnumber,
-                                         @RequestParam(value = "current_status", required = false) String current_status,
-                                         @RequestParam(value = "keywords", required = false) String keywords
-    ) {
+                                         @RequestParam(value = "current_status", required = false) String current_status) {
         Book book = new Book();
         if (isbn != null && !isbn.isEmpty()) {
             book.setIsbn(isbn);
+        }
+        if (title != null && !title.isEmpty()) {
+            book.setTitle(title);
         }
         if (author != null && !author.isEmpty()) {
             book.setAuthor(author);
@@ -262,10 +264,26 @@ public class UserController {
         if (current_status != null && !current_status.isEmpty()) {
             book.setCurrent_status(current_status);
         }
-        if (keywords != null && !keywords.isEmpty()) {
-            book.setKeywords(keywords);
-        }
-        if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
+
+        if (
+                (book.getIsbn() == null || book.getIsbn().isEmpty())
+                        &&
+                        (book.getAuthor() == null || book.getAuthor().isEmpty())
+                        &&
+                        (book.getTitle() == null || book.getTitle().isEmpty())
+                        &&
+                        (book.getCallnumber() == null || book.getCallnumber().isEmpty())
+                        &&
+                        (book.getPublisher() == null || book.getPublisher().isEmpty())
+                        &&
+                        (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty())
+                        &&
+                        (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())
+
+                )
+
+        {
+            System.out.println("Null check  search book !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             modelAndView.setViewName("books/searchBook");
             modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
             return modelAndView;
@@ -325,6 +343,7 @@ public class UserController {
             book.setKeywords(keywords);
         }
         if ((book.getIsbn() == null || book.getIsbn().isEmpty()) && (book.getAuthor() == null || book.getAuthor().isEmpty()) && (book.getTitle() == null || book.getTitle().isEmpty()) && (book.getCallnumber() == null || book.getCallnumber().isEmpty()) && (book.getPublisher() == null || book.getPublisher().isEmpty()) && (book.getYear_of_publication() == null || book.getYear_of_publication().isEmpty()) && (book.getCurrent_status() == null || book.getCurrent_status().isEmpty())) {
+            System.out.println("Inside null condition----------");
             modelAndView.setViewName("books/searchBook");
             modelAndView.addObject("errorMessage", "At least one search criteria is mandatory");
             return modelAndView;
