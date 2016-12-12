@@ -393,7 +393,7 @@ public class BookController {
             System.out.println("Book Deleted Sucessfully!!");
             return new ModelAndView(new RedirectView("/dashboard"));
         } else {
-            return new ModelAndView("error");
+            return new ModelAndView("error").addObject("errorMessage", "Unable to delete book, book is checked out already.");
         }
     }
 }

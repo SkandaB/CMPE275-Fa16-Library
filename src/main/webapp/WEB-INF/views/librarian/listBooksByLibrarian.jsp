@@ -29,7 +29,16 @@
             <strong>${msg}</strong>
         </div>
     </c:if>
+    <nav class="navbar navbar-inverse ">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/lmsdashboard">&nbsp; &nbsp;
+                    &nbsp; My Dashboard</a>
 
+            </div>
+
+        </div>
+    </nav>
     <h1>Librarian Book Search Page</h1>
 
     <table class="table table-striped">
@@ -43,7 +52,6 @@
         </tr>
         </thead>
         <p><font color="red">${errorMessage}</font></p>
-        <form:form
         <c:forEach var="book" items="${books}">
         <tr>
             <td>${book.isbn}</td>
@@ -68,9 +76,9 @@
     </table>
 
 </div>
-<div>
-    <a href="<c:url value="/logout" />">Logout</a>
-</div>
+<%--<div>--%>
+<%--<a href="<c:url value="/logout" />">Logout</a>--%>
+<%--</div>--%>
 <jsp:include page="../../fragments/footer.jsp"/>
 
 </body>

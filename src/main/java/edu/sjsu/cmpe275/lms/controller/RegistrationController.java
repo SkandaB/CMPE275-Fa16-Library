@@ -109,45 +109,32 @@ public class RegistrationController {
 
     /**
      * @param request
-     * @param mv
+     * @param
      * @return
      */
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ModelAndView showDashBoard(HttpServletRequest request,
-                                      ModelAndView mv) {
-        mv = new ModelAndView();
+                                      @Valid @ModelAttribute("loginForm") User user,
+                                      BindingResult bindingResult) {
+        ModelAndView mv = new ModelAndView();
         User us = (User) request.getSession().getAttribute("user");
-        System.out.println("User enabled? " + us.isEnabled());
-        System.out.println("Dashboard get " + us);
         if (us.getRole().equals("ROLE_LIBRARIAN")) {
             System.out.println("Lib found");
             mv.setViewName("librarian/dashboard");
+            mv.addObject("users", user);
         } else {
             System.out.println("patron found");
             mv.setViewName("user/dashboard");
+            mv.addObject("users", user);
         }
         return mv;
 
-    }
-
-    /**
-     * @param request
-     * @param user
-     * @param bindingResult
-     * @return
-     */
-    @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
-    public ModelAndView loginUser(HttpServletRequest request,
-                                  @Valid @ModelAttribute("loginForm") User user,
-                                  BindingResult bindingResult) {
-        System.out.println("Details from Login form: " + user.toString());
+        /*ModelAndView mv;
         User loggedInUser = uService.findUserByEmail(user.getUseremail());
-        System.out.println("Logged in User from DB" + loggedInUser);
-        ModelAndView mv;
         if (loggedInUser == null || !user.getPassword().equals(loggedInUser.getPassword()) || !loggedInUser.isEnabled()) {
             mv = new ModelAndView("error");
             mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination. \r\n Is your account validation pending? If so, please check inbox and re-validate account.");
-            return mv;
+            return new ModelAndView(new RedirectView("/register"));
         } else {
             if (loggedInUser.getRole().equalsIgnoreCase("ROLE_PATRON")) {
 
@@ -160,6 +147,53 @@ public class RegistrationController {
             }
             request.getSession().setAttribute("user", loggedInUser);
             mv.addObject("users", user);
+            return mv;
+        }*/
+
+    }
+
+    @RequestMapping(value = "/lmsdashboard", method = RequestMethod.GET)
+    public ModelAndView showlmsdashboard(HttpServletRequest request) {
+        ModelAndView mv;
+        mv = new ModelAndView("librarian/dashboard");
+        return mv;
+    }
+
+    /**
+     * @param request
+     * @param user
+     * @param bindingResult
+     * @return
+     */
+    @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
+    public ModelAndView loginUser(HttpServletRequest request,
+                                  @Valid @ModelAttribute("loginForm") User user,
+                                  BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            System.out.println("******** Result has errors: ******");
+            return new ModelAndView("users/addUser");
+        }
+
+        User loggedInUser = uService.findUserByEmail(user.getUseremail());
+        ModelAndView mv;
+        if (loggedInUser == null || !user.getPassword().equals(loggedInUser.getPassword()) || !loggedInUser.isEnabled()) {
+            mv = new ModelAndView("error");
+            mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination. \r\n Is your account validation pending? If so, please check inbox and re-validate account.");
+            return mv;
+        } else {
+            if (loggedInUser.getRole().equalsIgnoreCase("ROLE_PATRON")) {
+
+                mv = new ModelAndView("users/userDashboard");
+                mv.addObject("users", user);
+                mv.addObject("userId", loggedInUser.getId());
+                return mv;
+            } else {
+                mv = new ModelAndView("librarian/dashboard");
+                mv.addObject("users", user);
+            }
+            request.getSession().setAttribute("user", loggedInUser);
+
             return mv;
         }
     }
