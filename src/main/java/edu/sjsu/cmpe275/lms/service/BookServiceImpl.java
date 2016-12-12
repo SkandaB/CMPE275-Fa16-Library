@@ -141,4 +141,9 @@ public class BookServiceImpl implements BookService {
     public List<LibUserBook> getAllLibUserBook() {
         return bookDao.getAllLibUserBook();
     }
+
+    @Override
+    public String renewBook(Integer bookId, Integer userId) throws ParseException {
+        return bookDao.setBookRenew(bookId, userId);
+    }
 }

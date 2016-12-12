@@ -10,6 +10,7 @@ import edu.sjsu.cmpe275.lms.service.UserBookCartService;
 import edu.sjsu.cmpe275.lms.service.UserBookService;
 import edu.sjsu.cmpe275.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -25,6 +26,7 @@ import java.text.ParseException;
 import java.util.List;
 
 @Controller
+@EnableAspectJAutoProxy
 @Transactional
 public class UserController {
     @Autowired
@@ -336,5 +338,32 @@ public class UserController {
         if (books.isEmpty()) modelAndView.addObject("errorMessage", "Sorry, no books matching search criteria found.");
         modelAndView.addObject("books", books);
         return modelAndView;
+    }
+
+    /**
+     * @param userId
+     * @param bookId
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "/user/{userId}/book/{bookId}/renew", method = RequestMethod.GET)
+    public Object renewBook(@PathVariable("userId") Integer userId,
+                            @PathVariable("bookId") Integer bookId) throws ParseException {
+        ModelAndView mv = new ModelAndView("books/userBookList");
+
+        String status = bService.renewBook(bookId, userId);
+
+        if (status.equalsIgnoreCase("invalid book")) {
+            mv.setViewName("books/request");
+            mv.addObject("userId", userId);
+            mv.addObject("status", status);
+            return mv;
+        }
+
+        List<Book> books = bService.listBooksOfUser(userId);
+        mv.addObject("books", books);
+        mv.addObject("userId", userId);
+        mv.addObject("status", status);
+        return mv;
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public class Book {
 
     @Autowired
-    @OneToMany(cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.ALL})
     @JoinTable
             (
                     name = "USER_BOOK_WAITLIST",

@@ -55,4 +55,6 @@ public interface BookService {
     List<Book> findAll();
 
     List<LibUserBook> getAllLibUserBook();
+
+	String renewBook(Integer bookId, Integer userId) throws ParseException;
 }

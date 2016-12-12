@@ -29,8 +29,12 @@ public class UserBook {
     private User user;
     @Column(name = "CHECKOUT_DATE")
     private String checkout_date;
+    // 0 or 1 or 2
     @Column(name = "RENEW_FLAG")
     private Integer renew_flag;
+    @Column(name = "FINE")
+    private Integer fine;
+
 
     public UserBook() {
 
@@ -46,6 +50,56 @@ public class UserBook {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         this.checkout_date = dtf.format(LocalDate.now());
         this.renew_flag = renewFlag;
+        this.fine = 0;
+
+    }
+
+    public UserBookId getId() {
+        return id;
+    }
+
+    public void setId(UserBookId id) {
+        this.id = id;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getCheckout_date() {
+        return checkout_date;
+    }
+
+    public void setCheckout_date(String checkout_date) {
+        this.checkout_date = checkout_date;
+    }
+
+    public Integer getRenew_flag() {
+        return renew_flag;
+    }
+
+    public void setRenew_flag(Integer renew_flag) {
+        this.renew_flag = renew_flag;
+    }
+
+    public Integer getFine() {
+        return fine;
+    }
+
+    public void setFine(Integer fine) {
+        this.fine = fine;
     }
 
     public void UserBookPersist(Book b, User u) {
@@ -64,7 +118,7 @@ public class UserBook {
         cal.add(Calendar.DATE, 30);
 
         String dueDate = dtf.format(cal.getTime());
-        System.out.println("String new due date " + dueDate);
+        // System.out.println("String new due date " + dueDate);
 
         return dueDate;
     }

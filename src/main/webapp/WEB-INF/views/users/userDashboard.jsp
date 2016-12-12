@@ -516,10 +516,10 @@
                                             <%--placeholder="Library Location"/>--%>
                                             <%--</li>--%>
                                         <li>
-                                            <input type="text" min="1" name="keywords"
+                                            <input type="text" name="keywords" path="keywords"
                                                    class="field-style field-split align-left"
                                                    placeholder="Keywords"/>
-                                            <input type="text" name="callnumber"
+                                            <input type="text" name="callnumber" path="callnumber"
                                                    class="field-style field-split align-left"
                                                    placeholder="Call Number"/>
                                         </li>
