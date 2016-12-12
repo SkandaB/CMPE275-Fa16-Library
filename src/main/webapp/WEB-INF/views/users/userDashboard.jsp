@@ -517,11 +517,11 @@
                                             <%--placeholder="Library Location"/>--%>
                                             <%--</li>--%>
                                         <li>
-                                            <input type="text" name="keywords" path="keywords"
-                                                   class="field-style field-split align-left"
-                                                   placeholder="Keywords"/>
-                                            <input type="text" name="callnumber" path="callnumber"
-                                                   class="field-style field-split align-left"
+                                                <%--<input type="text" min="1" name="keywords"--%>
+                                                <%--class="field-style field-split align-left"--%>
+                                                <%--placeholder="Keywords"/>--%>
+                                            <input type="text" name="callnumber"
+                                                   class="field-style field-full align-none"
                                                    placeholder="Call Number"/>
                                         </li>
                                             <%--<li>--%>
