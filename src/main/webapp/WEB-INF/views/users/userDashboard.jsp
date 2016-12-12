@@ -152,6 +152,11 @@
         document.getElementById(formId).style.display = "block";
     }
     $(document).ready(function () {
+
+        $("#homeLink").click(function () {
+            window.open('${pageContext.request.contextPath}/user/${userId}/dashboard', '_self', false);
+            <%--window.open('${pageContext.request.contextPath}/dashboard', '_self', false);--%>
+        });
         var uemail = '${users.useremail}';
         console.log(uemail);
         var userid = '${users.id}';
@@ -273,7 +278,7 @@
     <div class="row">
         <div class="col-sm-3">
             <!-- Left column -->
-            <a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>
+            <%--<a href="#"><strong><i class="glyphicon glyphicon-wrench"></i> Tools</strong></a>--%>
 
             <hr>
 
@@ -281,12 +286,13 @@
                 <li class="nav-header"><a href="#" data-toggle="collapse" data-target="#userMenu">Settings <i
                         class="glyphicon glyphicon-chevron-down"></i></a>
                     <ul class="nav nav-stacked collapse in" id="userMenu">
-                        <li class="active"><a href="#"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+                        <li class="active"><a id="homeLink" href="#"><i class="glyphicon glyphicon-home"></i> Home</a>
+                        </li>
                         <%--<li><a id="addBtn1" href="#"><i class="glyphicon glyphicon-plus-sign"></i> Add a Book</a></li>--%>
                         <li><a id="searchBtn1" href="#"><i class="glyphicon glyphicon-search"></i> Search a Book</a>
                         </li>
                         <%--<li><a href="#"><i class="glyphicon glyphicon-remove"></i> Remove a Book</a></li>--%>
-                        <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a>
+                        <%--<li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a>--%>
                         </li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
@@ -557,10 +563,10 @@
                     <%--<i class="glyphicon glyphicon-remove"></i>--%>
                     <%--<br> Remove--%>
                     <%--</a>--%>
-                    <a id="viewBooksBtn" href="#" class="btn btn-primary col-sm-3">
-                        <i class="glyphicon glyphicon-list"></i>
-                        <br> List
-                    </a>
+                        <%--<a id="viewBooksBtn" href="#" class="btn btn-primary col-sm-3">--%>
+                        <%--<i class="glyphicon glyphicon-list"></i>--%>
+                        <%--<br> List--%>
+                        <%--</a>--%>
                 </div>
 
                 <hr>

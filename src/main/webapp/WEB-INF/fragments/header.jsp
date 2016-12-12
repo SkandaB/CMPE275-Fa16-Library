@@ -11,13 +11,13 @@
 <link href="${coreCss}" rel="stylesheet" />
 </head>
 
-<spring:url value="/dashboard" var="urlHome"/>
+<%--<spring:url value="/lmsdashboard" var="urlHome"/>--%>
 <spring:url value="/register" var="userlogout"/>
 
 <nav class="navbar navbar-inverse ">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${urlHome}">CMPE275-Group2-Library Management System</a>
+            <a class="navbar-brand">CMPE275-Group2-Library Management System</a>
             <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
             <a style="padding-left: 600px" class="navbar-brand" href="${userlogout}">Logout</a>
 

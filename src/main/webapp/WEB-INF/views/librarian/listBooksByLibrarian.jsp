@@ -29,7 +29,16 @@
             <strong>${msg}</strong>
         </div>
     </c:if>
+    <nav class="navbar navbar-inverse ">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/lmsdashboard">&nbsp; &nbsp;
+                    &nbsp; My Dashboard</a>
 
+            </div>
+
+        </div>
+    </nav>
     <h1>Librarian Book Search Page</h1>
 
     <table class="table table-striped">

@@ -114,10 +114,12 @@ public class RegistrationController {
     public ModelAndView showDashBoard(HttpServletRequest request,
                                       @Valid @ModelAttribute("loginForm") User user,
                                       BindingResult bindingResult) {
-
+        System.out.println("Inside dashboard func");
         ModelAndView mv;
         User loggedInUser = uService.findUserByEmail(user.getUseremail());
         if (loggedInUser == null || !user.getPassword().equals(loggedInUser.getPassword()) || !loggedInUser.isEnabled()) {
+            System.out.println("Inside dashboard func::error re baba");
+
             mv = new ModelAndView("error");
             mv.addObject("errorMessage", "Bad Credentials. No user found with this email/password combination. \r\n Is your account validation pending? If so, please check inbox and re-validate account.");
             return new ModelAndView(new RedirectView("/register"));
@@ -136,6 +138,13 @@ public class RegistrationController {
             return mv;
         }
 
+    }
+
+    @RequestMapping(value = "/lmsdashboard", method = RequestMethod.GET)
+    public ModelAndView showlmsdashboard(HttpServletRequest request) {
+        ModelAndView mv;
+        mv = new ModelAndView("librarian/dashboard");
+        return mv;
     }
 
     /**

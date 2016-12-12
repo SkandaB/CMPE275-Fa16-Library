@@ -162,8 +162,7 @@
     $(document).ready(function () {
 
         $("#homeLink").click(function () {
-            //window.location.reload();
-            window.open('${pageContext.request.contextPath}/dashboard', '_self', false)
+            window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
         });
         var uemail = '${users.useremail}';
         console.log(uemail);
