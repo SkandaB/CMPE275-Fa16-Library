@@ -176,7 +176,7 @@
             <%--$.get(url, null, function (data) {--%>
             <%--console.log("here");--%>
             <%--console.log("" + data);--%>
-        <%--});--%>
+            <%--});--%>
             window.open('${pageContext.request.contextPath}/user/${userId}/books', '_self', false)
         });
 

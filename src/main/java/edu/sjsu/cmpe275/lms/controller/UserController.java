@@ -187,7 +187,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
     public Object addBookToReturnUserCart(@PathVariable("userId") Integer userId,
-                                    @PathVariable("bookId") Integer bookId, ModelAndView modelAndView) throws ParseException {
+                                          @PathVariable("bookId") Integer bookId, ModelAndView modelAndView) throws ParseException {
         Err err = ubcService.addUserBookToCart(new UserBookCart(userId, bookId, 1));
         String addToCartStatus;
         if (err.isAnError()) {

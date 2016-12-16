@@ -23,7 +23,8 @@ public class UserBookCart {
     @Column(name = "TYPE_RETURN")
     private int type_return;
 
-    public UserBookCart() {}
+    public UserBookCart() {
+    }
 
     public UserBookCart(int user_id, int book_id, int type_return) {
         this.user_id = user_id;

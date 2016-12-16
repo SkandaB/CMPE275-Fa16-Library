@@ -34,7 +34,6 @@ public interface UserBookCartService {
     void clearUserCart(int userid, boolean isTypeReturn);
 
     /**
-     *
      * @param userId
      * @param isTypeReturn
      * @return
