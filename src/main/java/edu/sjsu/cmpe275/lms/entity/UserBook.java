@@ -125,6 +125,8 @@ public class UserBook {
     public void setCalculateFine() throws ParseException {
         DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date checkDate = dtf.parse(this.getDueDate());
+        System.out.println("setCalculateFine: checkoutDate: " + this.checkout_date);
+        System.out.println("setCalculateFine: getDueDate: " + this.getDueDate());
         //Date checkDate = new Date();
         Date currDate = new Date();
         //LocalDate checkDate = dtf.parse(this.checkout_date).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

@@ -317,14 +317,16 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public String setBookReturn(Integer bookId, Integer userId) {
+        System.out.println("setBookReturn: starts now");
         String returnMessage = "";
         try {
             /*User user = entityManager.find(User.class, userId);*/
             Book book = entityManager.find(Book.class, bookId);
             String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = " + userId;
             UserBook userBook = entityManager.createQuery(userbookQuery, UserBook.class).getSingleResult();
-
             book.setCurrent_status("Available");
+            entityManager.refresh(userBook);
+            System.out.println("setBookReturn: Book checkout date: " + userBook.getCheckout_date());
             if (!book.getWaitlist().isEmpty()) {
                 User firstWaitlistUser = book.getWaitlist().get(0);
                 System.out.println("The first user in waitlist for this book is " + firstWaitlistUser.toString());
