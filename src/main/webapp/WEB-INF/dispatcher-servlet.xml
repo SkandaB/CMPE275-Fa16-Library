@@ -7,13 +7,19 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<!-- It register the beans in context and scan the annotations inside beans 
 		and activate them -->
 	<context:component-scan base-package="edu.sjsu.cmpe275.lms"/>
 
-	<!-- This allow for dispatching requests to Controllers -->
+
+    <context:annotation-config/>
+    <aop:aspectj-autoproxy/>
+    <bean id="aspectLogging" class="edu.sjsu.cmpe275.lms.logging.LoggingAspect"/>
+
+    <!-- This allow for dispatching requests to Controllers -->
 	<mvc:annotation-driven />
 
 	<bean id="dataSource"
@@ -89,10 +95,8 @@
 		</property>
 	</bean>
 
-	<context:annotation-config/>
-	<aop:aspectj-autoproxy/>
 
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<!-- This resolves messages from resource bundles for different locales -->
 	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 

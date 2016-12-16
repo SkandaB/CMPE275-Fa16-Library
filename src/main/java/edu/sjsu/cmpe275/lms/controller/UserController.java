@@ -11,6 +11,7 @@ import edu.sjsu.cmpe275.lms.service.UserBookService;
 import edu.sjsu.cmpe275.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.util.List;
 
+@Component
 @Controller
 @EnableAspectJAutoProxy
 @Transactional
