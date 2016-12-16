@@ -15,6 +15,7 @@ import org.apache.commons.validator.routines.ISBNValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@Component
 @Controller
 @EnableAspectJAutoProxy
 @RequestMapping("/book")
@@ -263,7 +265,6 @@ public class BookController {
     public
     @ResponseBody
     List<BookPojo> searchAllBooks(@ModelAttribute("book") Book book1, ModelAndView modelAndView) {
-        System.out.println("Here !!!");
         List<Book> books = bookService.findAll();
         List<BookPojo> booksList = new ArrayList<>();
         for (Book book : books) {

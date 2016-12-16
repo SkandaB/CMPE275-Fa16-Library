@@ -25,4 +25,4 @@ out/
 /.classpath
 /.springBeans
 /.idea/
-aop_logging.txt
+/aop_logging.txt
