@@ -3,6 +3,8 @@
  */
 package edu.sjsu.cmpe275.lms.entity;
 
+import org.aspectj.org.eclipse.jdt.internal.core.SourceType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -128,76 +130,21 @@ public class UserBook {
 
     public void setCalculateFine() throws ParseException {
         DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//        Date checkDate = dtf.parse(this.getDueDate());
-        Date checkDate = new Date();
+        Date checkDate = dtf.parse(this.getDueDate());
+        //Date checkDate = new Date();
         Date currDate = new Date();
         //LocalDate checkDate = dtf.parse(this.checkout_date).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         //LocalDate currDate = LocalDate.now();
         //Period p = Period.between(checkDate, currDate);
         long hours = (currDate.getTime() - checkDate.getTime())  / (60 * 60 * 1000);
+        System.out.println("setCalculateFine: long hours: " + hours);
         if (hours <=0) {
             this.fine = 0;
             return;
         }
         Integer intHours = (int) (long) hours;
-        this.fine = (intHours % 24) + 1;
-    }
-
-    @Embeddable
-    public static class UserBookId implements Serializable {
-
-        @Column(name = "book")
-        protected Integer bookId;
-
-        @Column(name = "user")
-        protected Integer userId;
-
-        public UserBookId() {
-
-        }
-
-        public UserBookId(Integer bookId, Integer userId) {
-            this.bookId = bookId;
-            this.userId = userId;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result
-                    + ((bookId == null) ? 0 : bookId.hashCode());
-            result = prime * result
-                    + ((userId == null) ? 0 : userId.hashCode());
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-
-            UserBookId other = (UserBookId) obj;
-
-            if (bookId == null) {
-                if (other.bookId != null)
-                    return false;
-            } else if (!bookId.equals(other.bookId))
-                return false;
-
-            if (userId == null) {
-                if (other.userId != null)
-                    return false;
-            } else if (!userId.equals(other.userId))
-                return false;
-
-            return true;
-        }
-
+        System.out.println("setCalculateFine: intHours: " + intHours);
+        this.fine = ((intHours / 24) + 1);
     }
 
 }

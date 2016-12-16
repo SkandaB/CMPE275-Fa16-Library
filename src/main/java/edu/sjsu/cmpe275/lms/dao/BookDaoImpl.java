@@ -334,7 +334,7 @@ public class BookDaoImpl implements BookDao {
 
             returnMessage = "Book returned successfully: " + book.printBookInfo();
             userBook.setCalculateFine();
-            if (userBook.getFine() > 0) returnMessage+= "You did not return this book in time. Your fine is: " + userBook.getFine();
+            if (userBook.getFine() > 0) returnMessage+= "You did not return this book in time. Your fine is $" + userBook.getFine();
 
             entityManager.merge(book);
 
