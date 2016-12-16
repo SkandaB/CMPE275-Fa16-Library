@@ -14,13 +14,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Transactional
@@ -125,10 +125,12 @@ public class BookDaoImpl implements BookDao {
                 waitlist.add(user);
                 book.setWaitlist(waitlist);
                 entityManager.merge(book);
+                /* do not change the return message. Further logic is dependent on the content of message*/
                 returnStatus = "User is waitlisted!" + "\n" + "Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
                 returnStatus = returnStatus + book.toString();
 
             } else {
+                /* do not change the return message. Further logic is dependent on the content of message*/
                 returnStatus = "User has already requested for the book! Waitlist number is " + (book.getWaitlist().indexOf(user) + 1);
             }
             return returnStatus;
@@ -141,7 +143,7 @@ public class BookDaoImpl implements BookDao {
                 return "User has already checked out the same book";
             } catch (Exception e) {
 
-                UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
+                UserBook userBook = new UserBook(book, user, LocalDateTime.now(), 0);
 
                 String due_date = userBook.getDueDate();
                 returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
@@ -306,7 +308,6 @@ public class BookDaoImpl implements BookDao {
         String userbookList = "select ub.book from UserBook ub where ub.user.id = " + userId;
         List<Book> books = entityManager.createQuery(userbookList, Book.class).getResultList();
         return books;
-
     }
 
     /**
@@ -316,6 +317,7 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public String setBookReturn(Integer bookId, Integer userId) {
+        String returnMessage = "";
         try {
             /*User user = entityManager.find(User.class, userId);*/
             Book book = entityManager.find(Book.class, bookId);
@@ -330,11 +332,15 @@ public class BookDaoImpl implements BookDao {
 
             }
 
+            returnMessage = "Book returned successfully: " + book.printBookInfo();
+            userBook.setCalculateFine();
+            if (userBook.getFine() > 0) returnMessage+= "You did not return this book in time. Your fine is $" + userBook.getFine();
+
             entityManager.merge(book);
 
             entityManager.remove(userBook);
 
-            return "Book returned successfully: " + book.printBookInfo();
+            return returnMessage;
         } catch (Exception e) {
             return "Some error occurred while returning book. Please contact system admin";
         }
@@ -435,20 +441,20 @@ public class BookDaoImpl implements BookDao {
         }
         if (userBook.getRenew_flag() == 1) {
             userBook.setRenew_flag(2);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            userBook.setCheckout_date(dtf.format(LocalDate.now()));
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            userBook.setCheckout_date(dtf.format(LocalDateTime.now()));
             entityManager.merge(userBook);
             status = "Book renewed successfully. The new due date is " + userBook.getDueDate();
-            eMail.sendMail(user.getUseremail(), "Book renew Successfull", status);
+            eMail.sendMail(user.getUseremail(), "Book renew Successful", status);
             return status;
         }
         if (userBook.getRenew_flag() == 0) {
             userBook.setRenew_flag(1);
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            userBook.setCheckout_date(dtf.format(LocalDate.now()));
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            userBook.setCheckout_date(dtf.format(LocalDateTime.now()));
             entityManager.merge(userBook);
             status = "Book renewed successfully. The new due date is " + userBook.getDueDate();
-            eMail.sendMail(user.getUseremail(), "Book renew Successfull", status);
+            eMail.sendMail(user.getUseremail(), "Book renew Successful", status);
             return status;
 
         }

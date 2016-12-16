@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Transactional
@@ -25,11 +26,11 @@ public class UserBookDaoImpl implements UserBookDao {
      */
     @Override
     public int getUserDayBookCount(int userId) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         String query = "Select ub From UserBook ub WHERE ub.user.id = :userid AND ub.checkout_date = :checkout_date";
         Query q = entityManager.createQuery(query, UserBook.class);
         q.setParameter("userid", userId);
-        q.setParameter("checkout_date", dtf.format(LocalDate.now()));
+        q.setParameter("checkout_date", dtf.format(LocalDateTime.now()));
         return q.getResultList().size();
     }
 

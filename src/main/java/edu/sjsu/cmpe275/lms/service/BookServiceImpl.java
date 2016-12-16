@@ -14,16 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.List;
 
-/**
- * @author dhanyaramesh
- */
-
 @Service
 public class BookServiceImpl implements BookService {
-
-	/* (non-Javadoc)
-     * @see edu.sjsu.cmpe275.lms.service.BookService#listBooks()
-	 */
 
     @Autowired
     BookDao bookDao;
@@ -31,13 +23,19 @@ public class BookServiceImpl implements BookService {
     @Autowired
     UserBookService userBookService;
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Book> listBooks() {
         return bookDao.findAll();
     }
 
-    /* (non-Javadoc)
-     * @see edu.sjsu.cmpe275.lms.service.BookService#findBook()
+    /**
+     *
+     * @param isbn
+     * @return
      */
     @Override
     public Book findBook(String isbn) {
@@ -46,8 +44,12 @@ public class BookServiceImpl implements BookService {
         return book;
     }
 
-    /* (non-Javadoc)
-     * @see edu.sjsu.cmpe275.lms.service.BookService#requestBook(java.lang.Integer)
+    /**
+     *
+     * @param bookId
+     * @param userId
+     * @return
+     * @throws ParseException
      */
     @Override
     public String requestBook(Integer bookId, Integer userId) throws ParseException {
@@ -56,21 +58,34 @@ public class BookServiceImpl implements BookService {
 
     }
 
+    /**
+     *
+     * @param bookId
+     * @return
+     */
     @Override
     public Book findBookById(Integer bookId) {
         return bookDao.getBookbyId(bookId);
     }
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public List<Book> listBooksOfUser(Integer userId) {
 
         List<Book> books = bookDao.getBookByUserId(userId);
-
-
         return books;
-
     }
 
+    /**
+     *
+     * @param bookId
+     * @param userId
+     * @return
+     */
     @Override
     public String returnBook(Integer bookId, Integer userId) {
         return bookDao.setBookReturn(bookId, userId);
