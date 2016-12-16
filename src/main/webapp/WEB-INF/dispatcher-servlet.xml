@@ -15,11 +15,11 @@
 	<context:component-scan base-package="edu.sjsu.cmpe275.lms"/>
 
 
-    <context:annotation-config/>
-    <aop:aspectj-autoproxy/>
-    <bean id="aspectLogging" class="edu.sjsu.cmpe275.lms.logging.LoggingAspect"/>
+	<context:annotation-config/>
+	<aop:aspectj-autoproxy/>
+	<bean id="aspectLogging" class="edu.sjsu.cmpe275.lms.logging.LoggingAspect"/>
 
-    <!-- This allow for dispatching requests to Controllers -->
+	<!-- This allow for dispatching requests to Controllers -->
 	<mvc:annotation-driven />
 
 	<bean id="dataSource"
@@ -96,7 +96,7 @@
 	</bean>
 
 
-    <mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
 
 	<!-- This resolves messages from resource bundles for different locales -->
 	<!-- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 

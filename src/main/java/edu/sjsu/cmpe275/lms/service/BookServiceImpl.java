@@ -24,7 +24,6 @@ public class BookServiceImpl implements BookService {
     UserBookService userBookService;
 
     /**
-     *
      * @return
      */
     @Override
@@ -59,7 +58,6 @@ public class BookServiceImpl implements BookService {
     }
 
     /**
-     *
      * @param bookId
      * @return
      */

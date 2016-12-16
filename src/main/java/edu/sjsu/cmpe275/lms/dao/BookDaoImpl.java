@@ -14,13 +14,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Transactional
@@ -334,7 +334,8 @@ public class BookDaoImpl implements BookDao {
 
             returnMessage = "Book returned successfully: " + book.printBookInfo();
             userBook.setCalculateFine();
-            if (userBook.getFine() > 0) returnMessage+= "You did not return this book in time. Your fine is $" + userBook.getFine();
+            if (userBook.getFine() > 0)
+                returnMessage += "You did not return this book in time. Your fine is $" + userBook.getFine();
 
             entityManager.merge(book);
 

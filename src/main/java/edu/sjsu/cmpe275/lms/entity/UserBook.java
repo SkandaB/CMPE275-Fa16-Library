@@ -3,17 +3,11 @@
  */
 package edu.sjsu.cmpe275.lms.entity;
 
-import org.aspectj.org.eclipse.jdt.internal.core.SourceType;
-
 import javax.persistence.*;
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -136,9 +130,9 @@ public class UserBook {
         //LocalDate checkDate = dtf.parse(this.checkout_date).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         //LocalDate currDate = LocalDate.now();
         //Period p = Period.between(checkDate, currDate);
-        long hours = (currDate.getTime() - checkDate.getTime())  / (60 * 60 * 1000);
+        long hours = (currDate.getTime() - checkDate.getTime()) / (60 * 60 * 1000);
         System.out.println("setCalculateFine: long hours: " + hours);
-        if (hours <=0) {
+        if (hours <= 0) {
             this.fine = 0;
             return;
         }
