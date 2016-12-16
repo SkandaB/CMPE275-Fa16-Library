@@ -9,6 +9,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,15 +43,15 @@ public class UserBook {
 
     }
 
-    public UserBook(Book b, User u, LocalDate f, Integer renewFlag) {
+    public UserBook(Book b, User u, LocalDateTime f, Integer renewFlag) {
         // create primary key
         this.id = new UserBookId(b.getBookId(), u.getId());
 
         // initialize attributes
         this.book = b;
         this.user = u;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        this.checkout_date = dtf.format(LocalDate.now());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        this.checkout_date = dtf.format(LocalDateTime.now());
         this.renew_flag = renewFlag;
         this.fine = 0;
 
@@ -110,7 +113,7 @@ public class UserBook {
 
     public String getDueDate() throws ParseException {
 
-        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date duedate = dtf.parse(this.checkout_date);
 
         Calendar cal = new GregorianCalendar();
@@ -121,6 +124,23 @@ public class UserBook {
         // System.out.println("String new due date " + dueDate);
 
         return dueDate;
+    }
+
+    public void setCalculateFine() throws ParseException {
+        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//        Date checkDate = dtf.parse(this.getDueDate());
+        Date checkDate = new Date();
+        Date currDate = new Date();
+        //LocalDate checkDate = dtf.parse(this.checkout_date).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        //LocalDate currDate = LocalDate.now();
+        //Period p = Period.between(checkDate, currDate);
+        long hours = (currDate.getTime() - checkDate.getTime())  / (60 * 60 * 1000);
+        if (hours <=0) {
+            this.fine = 0;
+            return;
+        }
+        Integer intHours = (int) (long) hours;
+        this.fine = (intHours % 24) + 1;
     }
 
     @Embeddable
