@@ -336,7 +336,7 @@ public class BookDaoImpl implements BookDao {
 
             return "Book returned successfully: " + book.printBookInfo();
         } catch (Exception e) {
-            return  "Some error occurred while returning book. Please contact system admin";
+            return "Some error occurred while returning book. Please contact system admin";
         }
     }
 

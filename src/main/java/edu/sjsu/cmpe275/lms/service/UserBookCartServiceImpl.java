@@ -54,7 +54,7 @@ public class UserBookCartServiceImpl implements UserBookCartService {
     @Override
     public void clearUserCart(int userid, boolean isTypeReturn) {
         List<UserBookCart> userBookCartList;
-        if (isTypeReturn){
+        if (isTypeReturn) {
             userBookCartList = userBookCartDao.getUserCartReturn(userid);
         } else {
             userBookCartList = userBookCartDao.getUserCartIssue(userid);
@@ -67,7 +67,7 @@ public class UserBookCartServiceImpl implements UserBookCartService {
     @Override
     public List<Book> getUserBooks(int userId, boolean isTypeReturn) {
         List<Book> books;
-        if (isTypeReturn){
+        if (isTypeReturn) {
             books = userBookCartDao.getUserBooksInCartReturn(userId);
         } else {
             books = userBookCartDao.getUserBooksInCartIssue(userId);
