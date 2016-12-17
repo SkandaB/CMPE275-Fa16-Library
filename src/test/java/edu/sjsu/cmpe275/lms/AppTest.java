@@ -57,10 +57,6 @@ public class AppTest {
         userBook1 = new UserBook(book1, user1, LocalDateTime.now(), 0);
     }
 
-    /**
-     * BOOK tests
-     */
-
     @Test
     public void deleteBookByIDTest() {
         bookDao.addBook(book1);
@@ -137,10 +133,6 @@ public class AppTest {
         userBookDao.removeUserBook(userBook1);
 
     }
-
-    /**
-     * USER Tests
-     */
 
     @Test
     public void removeUserTest() {
