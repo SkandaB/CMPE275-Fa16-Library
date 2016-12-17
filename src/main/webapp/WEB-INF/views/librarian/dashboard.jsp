@@ -265,14 +265,14 @@
             html = html + '<br><div id="label">';
             html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">'
             html = html + '<tr id = ' + bookid + '>';
-            html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '  disabled ></td>';
+            html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '  readonly ></td>';
             html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + '></td>';
             html = html + '<td id="td3"><input type="text" class="mytext" name="title" value=\"' + title + '\"' + '></td>';
             html = html + '<td id="td4"><input type="text" class="mytext" name="author" value=\"' + author + '\"' + '></td>';
             html = html + '<td id="td5"><input type="text" class="mytext" name="publisher" value=\"' + publisher + '\"' + '></td>';
             html = html + '<td id="td6"><input type="text" class="mytext" name="location" value=\"' + location + '\"' + '></td>';
-            html = html + '<td id="td7"><input type="text" class="mytext" name="callNumber" value=\"' + callNumber + '\"' + '></td>';
-            html = html + '<td id="td8"><input type="number" min="0" class="mytext" name="numberOfCopies" value=' + numberOfCopies + '></td>';
+            html = html + '<td id="td7"><input type="text" class="mytext" name="callnumber" value=\"' + callNumber + '\"' + '></td>';
+            html = html + '<td id="td8"><input type="number" min="0" class="mytext" name="num_of_copies" value=' + numberOfCopies + '></td>';
             html = html + '<td id="td9"><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
             html = html + '<td>' + '  <button class="btn btn-info" id=' + bookid + ' onClick="updateBook(\'' + bookid + '\',\'' + bookid + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + publisher + '\',\'' + location + '\',\'' + callNumber + '\',\'' + numberOfCopies + '\',\'' + keywords + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
             html = html + '</tr>';
@@ -450,6 +450,16 @@
                                                    modelAttribute="book" name="simpleaddform" id="simpleaddform"
                                                    style="display: none">
                                             <ul>
+
+                                                    <%--<li>--%>
+                                                    <%--<input type="text" id="isbn"--%>
+                                                    <%--class="field-style field-split align-left" name="isbn"--%>
+                                                    <%--placeholder="ISBN">--%>
+                                                    <%--<input type="number" name="id" value="${nextbookid}"--%>
+                                                    <%--class="field-style field-split align-right"--%>
+                                                    <%--placeholder="ID"/>--%>
+                                                    <%--</li>--%>
+
                                                 <li>
                                                     <input type="text" id="isbn"
                                                            class="field-style field-full align-none" name="isbn"

@@ -359,6 +359,7 @@ public class BookDaoImpl implements BookDao {
         return query.getResultList().get(0).toString();
     }
 
+
     /**
      * @return
      */
@@ -388,21 +389,40 @@ public class BookDaoImpl implements BookDao {
         return true;
     }
 
+//    public String getBookISBN(String isbn){
+//        Book bookentity = (Book) entityManager.createQuery("SELECT b FROM Book b where b.isbn = :value1")
+//                .setParameter("value1", isbn).getSingleResult();
+//        return bookentity.getIsbn();
+//    }
+
     public Book updateBooks(Book book, HttpServletRequest request) {
-        entityManager.merge(book);
-        Book bookEntity = entityManager.find(Book.class, book.getBookId());
+//        System.out.println("getBookISBN(book.getIsbn())++"+ getBookISBN(book.getIsbn()));
+        System.out.println("Update book form +++ " + book);
+        Book updatedbook = entityManager.find(Book.class, book.getBookId());
+        updatedbook.setAuthor(book.getAuthor());
+        updatedbook.setIsbn(book.getIsbn());
+        updatedbook.setTitle(book.getTitle());
+        updatedbook.setKeywords(book.getKeywords());
+        updatedbook.setPublisher(book.getPublisher());
+        updatedbook.setCallnumber(book.getCallnumber());
+        updatedbook.setLocation(book.getLocation());
+        updatedbook.setNum_of_copies(book.getNum_of_copies());
+        updatedbook.setKeywords(book.getKeywords());
+        // entityManager.merge(updatedbook);
+//        Book bookEntity = entityManager.find(Book.class, book.getBookId());
         User user = (User) request.getSession().getAttribute("user");
         User userEntity = entityManager.find(User.class, user.getId());
-        LibUserBook libUserBook = new LibUserBook(bookEntity, userEntity, "update");
-        entityManager.persist(libUserBook);
+        LibUserBook libUserBook = new LibUserBook(updatedbook, userEntity, "update");
+        entityManager.merge(libUserBook);
         entityManager.flush();
-        List<LibUserBook> addUpdateList = bookEntity.getListAddUpdateUsers();
+        List<LibUserBook> addUpdateList = updatedbook.getListAddUpdateUsers();
         if (addUpdateList == null) {
             addUpdateList = new ArrayList<>();
         }
         addUpdateList.add(libUserBook);
-        bookEntity.setListAddUpdateUsers(addUpdateList);
-        entityManager.merge(bookEntity);
+        updatedbook.setListAddUpdateUsers(addUpdateList);
+        entityManager.merge(updatedbook);
+        entityManager.flush();
         userEntity = entityManager.find(User.class, user.getId());
         List<LibUserBook> addUpdateList1 = userEntity.getAddUpdateList();
         if (addUpdateList1 == null) {

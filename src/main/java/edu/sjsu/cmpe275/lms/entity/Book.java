@@ -121,15 +121,22 @@ public class Book {
     /**
      * @return
      */
+
     @Override
     public String toString() {
-        return "Book Details " + "\n" +
-                " isbn='" + isbn + "\n" +
-                " author='" + author + "\n" +
-                " title='" + title + "\n" +
-                " callnumber='" + callnumber + "\n" +
-                " publisher='" + publisher + "\n" +
-                " year_of_publication='" + year_of_publication + "\n";
+        return "Book{" +
+                "bookId=" + bookId +
+                ", isbn='" + isbn + '\'' +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", callnumber='" + callnumber + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", year_of_publication='" + year_of_publication + '\'' +
+                ", location='" + location + '\'' +
+                ", num_of_copies=" + num_of_copies +
+                ", current_status='" + current_status + '\'' +
+                ", keywords='" + keywords + '\'' +
+                '}';
     }
 
     /**
