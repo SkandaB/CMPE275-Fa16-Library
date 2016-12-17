@@ -132,4 +132,6 @@ public interface BookDao {
      * @return the renew status
      */
     String setBookRenew(Integer bookId, Integer userId) throws ParseException;
+
+//    public String getBookISBN(String isbn);
 }
