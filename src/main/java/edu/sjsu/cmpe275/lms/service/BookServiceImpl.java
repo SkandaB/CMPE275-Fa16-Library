@@ -8,12 +8,17 @@ import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.LibUserBook;
 import edu.sjsu.cmpe275.lms.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.List;
 
+/**
+ * @author dhanyaramesh
+ */
+@EnableScheduling
 @Service
 public class BookServiceImpl implements BookService {
 

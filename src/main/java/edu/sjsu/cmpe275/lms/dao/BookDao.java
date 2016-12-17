@@ -3,12 +3,15 @@ package edu.sjsu.cmpe275.lms.dao;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.LibUserBook;
 import edu.sjsu.cmpe275.lms.entity.User;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.List;
 
+@EnableScheduling
 @Transactional
 public interface BookDao {
 
@@ -133,5 +136,29 @@ public interface BookDao {
      */
     String setBookRenew(Integer bookId, Integer userId) throws ParseException;
 
-//    public String getBookISBN(String isbn);
+    /**
+     * returns the due date for check out for a waitlisted user when a book becomes available
+     *
+     * @param book
+     * @return
+     */
+    LocalDate bookAvailabilityDueDate(Book book);
+
+    /**
+     * @param bookId
+     */
+    public void waitlistMadeAvailable(Integer userId, Integer bookId);
+
+    /**
+     * Check if the waitlisted user checked out the book once it became available
+     *
+     * @param userId
+     * @param bookId
+     */
+    public void didWLUserCheckoutBook(Integer userId, Integer bookId);
+
+    /**
+     * cron to call didWLUserCheckoutBook
+     */
+    public void waitlistCron();
 }

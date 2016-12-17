@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public class Book {
                     joinColumns = {@JoinColumn(name = "BOOK_ID", referencedColumnName = "BOOK_ID")},
                     inverseJoinColumns = {@JoinColumn(name = "ID", referencedColumnName = "ID", unique = true)}
             )
-    List<User> waitlist = new ArrayList<User>();
+    List<User> waitlist = new LinkedList<User>();
 
     @OneToMany(mappedBy = "book", cascade = {CascadeType.REMOVE})
     List<UserBook> currentUsers = new ArrayList<UserBook>();
@@ -69,6 +70,12 @@ public class Book {
 
     @Column(name = "IMAGE")
     private byte[] image;
+
+    @Column(name = "LAST_AVAILABLE_DATE")
+    private String last_available_date;
+
+    @Column(name = "WAITLISTED_USER")
+    private Integer wtUId;
 
     /**
      *
@@ -347,4 +354,33 @@ public class Book {
         this.bookId = bookId;
     }
 
+    /**
+     * @return last_available_date (updated when a book is retured and becomes available)
+     */
+    public String getLast_available_date() {
+        return last_available_date;
+    }
+
+    /**
+     * @param last_available_date
+     */
+    public void setLast_available_date(String last_available_date) {
+        this.last_available_date = last_available_date;
+    }
+
+    /**
+     * Waitlisted user who is can check out the book once it becomes available
+     *
+     * @return
+     */
+    public Integer getWtUId() {
+        return wtUId;
+    }
+
+    /**
+     * @param wtUId
+     */
+    public void setWtUId(Integer wtUId) {
+        this.wtUId = wtUId;
+    }
 }
