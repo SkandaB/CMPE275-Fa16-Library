@@ -1,6 +1,7 @@
 package edu.sjsu.cmpe275.lms;
 
 import edu.sjsu.cmpe275.lms.dao.BookDao;
+import edu.sjsu.cmpe275.lms.dao.UserBookDao;
 import edu.sjsu.cmpe275.lms.dao.UserDao;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.User;
@@ -31,6 +32,9 @@ public class AppTest {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private UserBookDao userBookDao;
 
     private Book book1;
     private Book book2;
@@ -97,28 +101,6 @@ public class AppTest {
         bookDao.deleteBookByID(books.get(1).getBookId());
     }
 
-    /**
-     * USER Tests
-     */
-
-    @Test
-    public void removeUserTest() {
-        userDao.createUser(user1);
-        int id = user1.getId();
-        Assert.assertNotNull(userDao.getUser(id));
-        userDao.removeUser(id);
-        Assert.assertNull(userDao.getUser(id));
-    }
-
-    @Test
-    public void createUserTest() {
-        userDao.createUser(user1);
-        int id = user1.getId();
-        Assert.assertEquals(user1, userDao.getUser(id));
-        //cleanup
-        userDao.removeUser(id);
-    }
-
     @Test
     public void updateBookStatusTest() {
         userDao.createUser(user1);
@@ -147,9 +129,36 @@ public class AppTest {
         Assert.assertEquals("Hold",book3.getCurrent_status());
 
         //cleanup
+        book3 = null;
+        book3 = new Book("3333333333333", "Author", "Title", "12:34:56", "Publisher", "2016", "MLK", 1, "Available", "test,book",null);
         bookDao.deleteBookByID(bookid1);
         bookDao.deleteBookByID(bookid3);
         userDao.removeUser(userid);
+        userBookDao.removeUserBook(userBook1);
 
     }
+
+    /**
+     * USER Tests
+     */
+
+    @Test
+    public void removeUserTest() {
+        userDao.createUser(user1);
+        int id = user1.getId();
+        Assert.assertNotNull(userDao.getUser(id));
+        userDao.removeUser(id);
+        Assert.assertNull(userDao.getUser(id));
+    }
+
+    @Test
+    public void createUserTest() {
+        userDao.createUser(user1);
+        int id = user1.getId();
+        Assert.assertEquals(user1, userDao.getUser(id));
+        //cleanup
+        userDao.removeUser(id);
+    }
+
+
 }

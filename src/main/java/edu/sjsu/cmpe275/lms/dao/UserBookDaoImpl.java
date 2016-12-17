@@ -48,4 +48,10 @@ public class UserBookDaoImpl implements UserBookDao {
         }
         return flag;
     }
+
+    @Override
+    public boolean removeUserBook(UserBook userBook) {
+        entityManager.remove(userBook);
+        return true;
+    }
 }
