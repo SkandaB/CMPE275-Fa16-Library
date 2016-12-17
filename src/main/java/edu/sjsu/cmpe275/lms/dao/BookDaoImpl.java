@@ -288,7 +288,6 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public void updateBookStatus(Integer book_Id) {
-
         String userbook_query = "select ub from UserBook ub where ub.book = " + book_Id;
         List<UserBook> userBooks = entityManager.createQuery(userbook_query, UserBook.class).getResultList();
         Book book = entityManager.find(Book.class, book_Id);

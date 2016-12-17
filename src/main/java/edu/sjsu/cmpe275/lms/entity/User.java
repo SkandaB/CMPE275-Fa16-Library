@@ -51,6 +51,14 @@ public class User {
         this.role = role;
         this.enabled = enabled;
     }
+
+    public User(long sjsuid, String useremail, String password, String role, boolean enabled) {
+        this.sjsuid = sjsuid;
+        this.useremail = useremail;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
+    }
     // Add End
 
     public List<LibUserBook> getAddUpdateList() {
