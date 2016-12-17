@@ -4,11 +4,10 @@
 package edu.sjsu.cmpe275.lms.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,15 +39,15 @@ public class UserBook {
 
     }
 
-    public UserBook(Book b, User u, LocalDate f, Integer renewFlag) {
+    public UserBook(Book b, User u, LocalDateTime f, Integer renewFlag) {
         // create primary key
         this.id = new UserBookId(b.getBookId(), u.getId());
 
         // initialize attributes
         this.book = b;
         this.user = u;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        this.checkout_date = dtf.format(LocalDate.now());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        this.checkout_date = dtf.format(LocalDateTime.now());
         this.renew_flag = renewFlag;
         this.fine = 0;
 
@@ -110,7 +109,7 @@ public class UserBook {
 
     public String getDueDate() throws ParseException {
 
-        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date duedate = dtf.parse(this.checkout_date);
 
         Calendar cal = new GregorianCalendar();
@@ -123,61 +122,25 @@ public class UserBook {
         return dueDate;
     }
 
-    @Embeddable
-    public static class UserBookId implements Serializable {
-
-        @Column(name = "book")
-        protected Integer bookId;
-
-        @Column(name = "user")
-        protected Integer userId;
-
-        public UserBookId() {
-
+    public void setCalculateFine() throws ParseException {
+        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date checkDate = dtf.parse(this.getDueDate());
+        System.out.println("setCalculateFine: checkoutDate: " + this.checkout_date);
+        System.out.println("setCalculateFine: getDueDate: " + this.getDueDate());
+        //Date checkDate = new Date();
+        Date currDate = new Date();
+        //LocalDate checkDate = dtf.parse(this.checkout_date).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        //LocalDate currDate = LocalDate.now();
+        //Period p = Period.between(checkDate, currDate);
+        long hours = (currDate.getTime() - checkDate.getTime()) / (60 * 60 * 1000);
+        System.out.println("setCalculateFine: long hours: " + hours);
+        if (hours <= 0) {
+            this.fine = 0;
+            return;
         }
-
-        public UserBookId(Integer bookId, Integer userId) {
-            this.bookId = bookId;
-            this.userId = userId;
-        }
-
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result
-                    + ((bookId == null) ? 0 : bookId.hashCode());
-            result = prime * result
-                    + ((userId == null) ? 0 : userId.hashCode());
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-
-            UserBookId other = (UserBookId) obj;
-
-            if (bookId == null) {
-                if (other.bookId != null)
-                    return false;
-            } else if (!bookId.equals(other.bookId))
-                return false;
-
-            if (userId == null) {
-                if (other.userId != null)
-                    return false;
-            } else if (!userId.equals(other.userId))
-                return false;
-
-            return true;
-        }
-
+        Integer intHours = (int) (long) hours;
+        System.out.println("setCalculateFine: intHours: " + intHours);
+        this.fine = ((intHours / 24) + 1);
     }
 
 }
