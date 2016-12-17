@@ -11,6 +11,7 @@ import edu.sjsu.cmpe275.lms.service.UserBookService;
 import edu.sjsu.cmpe275.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.util.List;
 
+@Component
 @Controller
 @EnableAspectJAutoProxy
 @Transactional
@@ -172,15 +174,22 @@ public class UserController {
             return mv;
         }
 
+        boolean isWaitlisted = false;
         for (UserBookCart u : cart) {
-            emailSummary.append(bService.requestBook(u.getBook_id(), userId));
+            String status = bService.requestBook(u.getBook_id(), userId);
+            if (status.contains("wait")) {
+                isWaitlisted = true;
+            }
+            emailSummary.append(status);
             emailSummary.append("\n");
         }
 
         //sends consolidated email of checkout
         eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
-
-        mv.addObject("status", "Books checked out! You will get details in email soon !");
+        String returnStatus = "Books checked out! ";
+        if (isWaitlisted) returnStatus += "Some books were waitlisted. ";
+        returnStatus += "You will get details in email soon !";
+        mv.addObject("status", returnStatus);
         ubcService.clearUserCart(userId, false);
         return mv;
     }
@@ -207,6 +216,7 @@ public class UserController {
     }
 
     /**
+     * Checkout method for return cart
      * @param userId
      * @return
      * @throws ParseException
@@ -229,7 +239,6 @@ public class UserController {
 
         //sends consolidated email of checkout
         eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
-
         mv.addObject("status", "Books returned! You will get details in email soon !");
         ubcService.clearUserCart(userId, true);
         return mv;
@@ -271,7 +280,6 @@ public class UserController {
      * @param num_of_copies
      * @param callnumber
      * @param current_status
-     * @param keywords
      * @return
      */
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
