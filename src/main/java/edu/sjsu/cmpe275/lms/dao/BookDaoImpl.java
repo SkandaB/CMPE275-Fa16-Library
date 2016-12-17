@@ -6,6 +6,8 @@ import edu.sjsu.cmpe275.lms.entity.LibUserBook;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +16,15 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-
+@EnableScheduling
 @Transactional
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -103,7 +105,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> findAll() {
         List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
-        System.out.println("Books " + books);
+        // System.out.println("Books " + books);
         return books;
 
     }
@@ -120,6 +122,22 @@ public class BookDaoImpl implements BookDao {
 
         String returnStatus = "";
         if (!book.getCurrent_status().equalsIgnoreCase("available") || !book.getWaitlist().isEmpty()) {
+            if (book.getWtUId() == userId) {
+                UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
+
+                String due_date = userBook.getDueDate();
+                returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
+                returnStatus = returnStatus + book.printBookInfo();
+
+                entityManager.persist(userBook);
+                userBook.UserBookPersist(book, user);
+                updateBookStatus(book.getBookId());
+                System.out.println("after userbook persist " + book.getCurrentUsers().size() + "user " + user.getCurrentBooks().size());
+                return returnStatus;
+
+
+            }
+
             List<User> waitlist = book.getWaitlist();
             if (!waitlist.contains(user)) {
                 waitlist.add(user);
@@ -137,8 +155,12 @@ public class BookDaoImpl implements BookDao {
             List<UserBook> currentUsers = book.getCurrentUsers();
             try {
                 String userBookQuery = "select ub from UserBook ub where ub.book.bookId = " + bookId + " and ub.user.id = " + userId;
-                entityManager.createQuery(userBookQuery, UserBook.class).getSingleResult();
-                return "User has already checked out the same book";
+                UserBook ub = entityManager.createQuery(userBookQuery, UserBook.class).getSingleResult();
+                if (ub != null) {
+                    System.out.println("******* user has already checked out the same book *********");
+                    return "User has already checked out the same book";
+                }
+
             } catch (Exception e) {
 
                 UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
@@ -150,10 +172,11 @@ public class BookDaoImpl implements BookDao {
                 entityManager.persist(userBook);
                 userBook.UserBookPersist(book, user);
                 updateBookStatus(book.getBookId());
-                System.out.println("after userbook persist " + book.getCurrentUsers().size() + "user " + user.getCurrentBooks().size());
+                book.setWtUId(-1);
                 return returnStatus;
             }
         }
+        return "checkout not successfull";
     }
 
     /**
@@ -322,12 +345,15 @@ public class BookDaoImpl implements BookDao {
             String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = " + userId;
             UserBook userBook = entityManager.createQuery(userbookQuery, UserBook.class).getSingleResult();
 
-            book.setCurrent_status("Available");
+
             if (!book.getWaitlist().isEmpty()) {
-                User firstWaitlistUser = book.getWaitlist().get(0);
-                System.out.println("The first user in waitlist for this book is " + firstWaitlistUser.toString());
+                waitlistMadeAvailable(userId, bookId);
+                //User firstWaitlistUser = book.getWaitlist().get(0);
+                //System.out.println("The first user in waitlist for this book is " + firstWaitlistUser.toString());
                 //eMail.sendMail(firstWaitlistUser.getUseremail(), "Book Available", "The following book is available " + book.toString());
 
+            } else {
+                book.setCurrent_status("Available");
             }
 
             entityManager.merge(book);
@@ -453,6 +479,105 @@ public class BookDaoImpl implements BookDao {
 
         }
         return status;
+
+    }
+
+    @Override
+    public void waitlistMadeAvailable(Integer userId, Integer bookId) {
+        System.out.println("in waitlist available @ " + LocalDate.now());
+        Book book = entityManager.find(Book.class, bookId);
+        List<User> waitlistedUser = book.getWaitlist();
+        for (User user : waitlistedUser) {
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            book.setLast_available_date(dtf.format(LocalDate.now()));
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.append("The following book you requested for is now available. Please check out the book before " + bookAvailabilityDueDate(book) + "\n");
+            emailBody.append("\n");
+            emailBody.append(book.printBookInfo());
+            waitlistedUser.remove(user);
+            book.setWaitlist(waitlistedUser);
+            book.setWtUId(userId);
+            eMail.sendMail(user.getUseremail(), "Book is now available", emailBody.toString());
+
+
+        }
+    }
+
+    @Override
+    public LocalDate bookAvailabilityDueDate(Book book) {
+
+
+        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+        Date duedate = null;
+        try {
+            duedate = dtf.parse(book.getLast_available_date());
+        } catch (ParseException e) {
+            System.out.println("last available date exception");
+            e.printStackTrace();
+        }
+
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(duedate);
+        cal.add(Calendar.DATE, 3);
+
+
+        //  String dueDate = dtf.format(cal.getTime());
+        // System.out.println("String new due date " + dueDate);
+
+        LocalDate date = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return date;
+    }
+
+    //@Scheduled(cron = "0 0 1 * * *")
+    public void didWLUserCheckoutBook(Integer userId, Integer bookId) {
+
+        Book book = entityManager.find(Book.class, bookId);
+        if (LocalDate.now().isAfter(bookAvailabilityDueDate(book))) {
+
+            System.out.println("here inside if");
+
+            try {
+                UserBook userBook = entityManager.createQuery("select ub from UserBook ub where ub.book = " + bookId + " and ub.user = " + userId, UserBook.class).getSingleResult();
+
+                DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+                Date chdate = dtf.parse(userBook.getCheckout_date());
+                LocalDate checkoutDate = chdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                Date availDate = dtf.parse(book.getLast_available_date());
+                LocalDate lastAvailDate = availDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+
+                if (!checkoutDate.isAfter(lastAvailDate)) {
+                    waitlistMadeAvailable(userId, bookId);
+
+                } else {
+                    System.out.println("do nothing");
+                }
+
+            } catch (Exception e) {
+                waitlistMadeAvailable(userId, bookId);
+            }
+
+        } else {
+            //do nothing
+        }
+    }
+
+
+    @Override
+    @Scheduled(cron = "0 0 1 * * *")
+    public void waitlistCron() {
+        System.out.println("in cron ");
+
+        List<Book> books = findAll();
+        for (Book book : books) {
+            if (book.getWtUId() != -1) {
+                didWLUserCheckoutBook(book.getWtUId(), book.getBookId());
+
+            }
+
+        }
 
     }
 
