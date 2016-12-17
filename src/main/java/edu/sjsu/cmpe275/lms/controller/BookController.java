@@ -10,6 +10,7 @@ import com.google.gdata.util.ServiceException;
 import edu.sjsu.cmpe275.lms.entity.*;
 import edu.sjsu.cmpe275.lms.errors.Errors;
 import edu.sjsu.cmpe275.lms.service.BookService;
+import edu.sjsu.cmpe275.lms.time.ClockService;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.validator.routines.ISBNValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,10 @@ public class BookController {
     private static final String APPLICATION_NAME = "Library-System-Term-Project";
     @Autowired
     BookService bookService;
+
+    @Autowired
+    ClockService clockService;
+
     private String isbn = "";
 
     /**

@@ -63,6 +63,7 @@
 		<property name="suffix">
 			<value>.jsp</value>
 		</property>
+		<property name="exposeContextBeansAsAttributes" value="true"/>
 	</bean>
 
     <bean id="multipartResolver"
