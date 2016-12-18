@@ -177,19 +177,15 @@
 
         clock_popup();
         call_home();
+        get_loggedIn_UserName();
+        show_modal_addBookModal();
+        show_modal_addBookModal1();
+        show_modal_viewBooksModal();
+        show_modal_viewBooksModal1();
+        show_modal_searchBooksModal();
+        show_modal_searchBooksModal1();
 
-        /* $("#homeLink").click(function () {
-         window.open('
-        ${pageContext.request.contextPath}/lmsdashboard', '_self', false);
-         });*/
-        var uemail = '${users.useremail}';
-        console.log(uemail);
-        var userid = '${users.id}';
-        console.log(userid);
-        $("#loggedinusername").text(uemail);
-        $("#addBtn").click(function () {
-            $('#addBookModal').modal('show');
-        });
+
         $("#logsBtn").click(function () {
             $('#centerpagecontent').empty();
             var url = "${pageContext.request.contextPath}/book/getAllLibUserBook";
@@ -198,27 +194,8 @@
                 console.log("" + JSON.stringify(data));
                 var booksRecord = data;
                 $('#centerpagecontent').append('<br><br><p style="text-align: center; font-weight: bold">Books added/updated by all librarians');
-//                var html = '<br><div class="table-responsive">'+
-//                    '<table class="table">'+
-//                    '<thead>' +
-//                    '<tr>' +
-//                    '<th style="text-align:center" >User Details:</th>'+
-//                    '</tr>'+
-//                    '</thead>';
-//
-//                for (var key in data) {
-//                    if (data.hasOwnProperty(key)) {
-//                        console.log(key + " -> " + JSON.stringify(data[key]));
-//                        html = html + '<tr>';
-//                        html = html+'<td style="text-align: center">' +key+ '</td>';
-//                        html = html + '</tr>';
-//                        break;
-//                    }
-//                }
                 html = html + '</table>';
                 html = html + '</div>';
-//
-//                $('#centerpagecontent').append(html);
                 var html = '<br><br><br><div class="table-responsive">' +
                     '<table class="table">' +
                     '<thead>' +
@@ -257,17 +234,6 @@
                 html = html + '</div>';
                 $('#centerpagecontent').append(html);
             });
-        });
-        $("#addBtn1").click(function () {
-            $('#addBookModal').modal('show');
-        });
-        $("#viewBooksBtn").click(function () {
-            getBooksData();
-            $('#viewBooksModal').modal('show');
-        });
-        $("#viewBooksBtn1").click(function () {
-            getBooksData();
-            $('#viewBooksModal').modal('show');
         });
         updateBook = function (rowId, bookid, isbn, title, author, publisher, location, callNumber, numberOfCopies, keywords) {
             var html = '';
@@ -336,13 +302,6 @@
                 mymodal.find('.modal-body').append(html);
             });
         };
-        $("#searchBtn").click(function () {
-            $('#searchBooksModal').modal('show');
-        });
-        $("#searchBtn1").click(function () {
-            $('#searchBooksModal').modal('show');
-        });
-
     });
 
 
@@ -356,6 +315,53 @@
             window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
         });
     }
+
+    function get_loggedIn_UserName() {
+        var uemail = '${users.useremail}';
+        console.log(uemail);
+        var userid = '${users.id}';
+        console.log(userid);
+        jQuery("#loggedinusername").text(uemail);
+    }
+
+    function show_modal_addBookModal() {
+        jQuery("#addBtn").click(function () {
+            $('#addBookModal').modal('show');
+        });
+    }
+
+    function show_modal_addBookModal1() {
+        jQuery("#addBtn1").click(function () {
+            $('#addBookModal').modal('show');
+        });
+    }
+
+    function show_modal_viewBooksModal() {
+        jQuery("#viewBooksBtn").click(function () {
+            getBooksData();
+            $('#viewBooksModal').modal('show');
+        });
+    }
+
+    function show_modal_viewBooksModal1() {
+        jQuery("#viewBooksBtn1").click(function () {
+            getBooksData();
+            $('#viewBooksModal').modal('show');
+        });
+    }
+
+    function show_modal_searchBooksModal() {
+        jQuery("#searchBtn").click(function () {
+            $('#searchBooksModal').modal('show');
+        });
+    }
+
+    function show_modal_searchBooksModal1() {
+        jQuery("#searchBtn1").click(function () {
+            $('#searchBooksModal').modal('show');
+        });
+    }
+
 
 </script>
 <body>
