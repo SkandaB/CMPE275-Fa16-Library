@@ -124,7 +124,7 @@ public class BookDaoImpl implements BookDao {
         String returnStatus = "";
         if (!book.getCurrent_status().equalsIgnoreCase("available") || !book.getWaitlist().isEmpty()) {
             if (book.getWtUId() == userId) {
-                UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
+                UserBook userBook = new UserBook(book, user, LocalDateTime.now(), 0);
 
                 String due_date = userBook.getDueDate();
                 returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";

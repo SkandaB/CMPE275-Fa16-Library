@@ -251,7 +251,7 @@
             html = html + '<td id="td4"><input type="text" class="mytext" name="author" value=\"' + author + '\"' + '></td>';
             html = html + '<td id="td5"><input type="text" class="mytext" name="publisher" value=\"' + publisher + '\"' + '></td>';
             html = html + '<td id="td6"><input type="text" class="mytext" name="location" value=\"' + location + '\"' + '></td>';
-            html = html + '<td id="td7"><input type="text" class="mytext" name="callnumber" value=\"' + callNumber + '\"' + '></td>';
+            html = html + '<td id="td7"><input type="text" class="mytext" size="10" name="callnumber" value=\"' + callNumber + '\"' + '></td>';
             html = html + '<td id="td8"><input type="number" min="0" class="mytext" name="num_of_copies" value=' + numberOfCopies + '></td>';
             html = html + '<td id="td9"><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
             html = html + '<td>' + '  <button class="btn btn-info" id=' + bookid + ' onClick="updateBook(\'' + bookid + '\',\'' + bookid + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + publisher + '\',\'' + location + '\',\'' + callNumber + '\',\'' + numberOfCopies + '\',\'' + keywords + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
@@ -431,25 +431,25 @@
                                                 <li>
                                                     <input type="text" id="isbn"
                                                            class="field-style field-full align-none" name="isbn"
-                                                           placeholder="ISBN">
+                                                           placeholder="ISBN" required>
                                                 </li>
                                                 <li>
-                                                    <input type="text" name="callnumber"
+                                                    <input type="text" name="callnumber" size="10"
                                                            class="field-style field-split align-left"
-                                                           placeholder="Call Number"/>
+                                                           placeholder="Call Number" required/>
                                                     <input type="text" name="location"
                                                            class="field-style field-split align-right"
-                                                           placeholder="Location"/>
+                                                           placeholder="Location" required/>
                                                 </li>
                                                 <li>
                                                     <input type="number" min="1" name="num_of_copies"
                                                            class="field-style field-split align-left"
-                                                           placeholder="# of copies"/>
+                                                           placeholder="# of copies" required/>
                                                     <input type="text" name="keywords"
                                                            class="field-style field-split align-right"
-                                                           placeholder="Keywords"/>
+                                                           placeholder="Keywords" required/>
                                                     <select class="selectpicker" name="current_status"
-                                                            data-style="btn-info">
+                                                            data-style="btn-info" required>
                                                         <option>Available</option>
                                                         <option>Reserved</option>
                                                         <option>Wait-Listed</option>
@@ -471,43 +471,45 @@
                                         <ul>
                                             <li>
                                                 <input type="text" class="field-style field-split align-left"
-                                                       name="isbn" placeholder="ISBN">
+                                                       name="isbn" placeholder="ISBN" required>
                                                 <input type="text" name="title"
-                                                       class="field-style field-split align-right" placeholder="Title"/>
+                                                       class="field-style field-split align-right" placeholder="Title"
+                                                       required/>
                                             </li>
                                             <li>
                                                 <input type="text" name="author"
-                                                       class="field-style field-split align-left" placeholder="Author"/>
+                                                       class="field-style field-split align-left" placeholder="Author"
+                                                       required/>
                                                 <input type="text" name="publisher"
                                                        class="field-style field-split align-right"
-                                                       placeholder="Publisher"/>
+                                                       placeholder="Publisher" required/>
                                             </li>
                                             <li>
                                                 <input type="text" name="year_of_publication"
                                                        class="field-style field-split align-left"
-                                                       placeholder="Publication Year"/>
+                                                       placeholder="Publication Year" required/>
                                                 <input type="text" name="location"
                                                        class="field-style field-split align-left"
-                                                       placeholder="Library Location"/>
+                                                       placeholder="Library Location" required/>
                                             </li>
                                             <li>
                                                 <input type="number" min="1" name="num_of_copies"
                                                        class="field-style field-split align-left"
-                                                       placeholder="# of Copies"/>
-                                                <input type="text" name="callnumber"
+                                                       placeholder="# of Copies" required/>
+                                                <input type="text" name="callnumber" size="10"
                                                        class="field-style field-split align-left"
-                                                       placeholder="Call Number"/>
+                                                       placeholder="Call Number" required/>
                                             </li>
                                             <li>
                                                 <select class="selectpicker" name="current_status"
-                                                        data-style="btn-info">
+                                                        data-style="btn-info" required>
                                                     <option>Available</option>
                                                     <option>Reserved</option>
                                                     <option>Wait-Listed</option>
                                                 </select>
                                                 <input type="text" name="keywords"
                                                        class="field-style field-full align-none"
-                                                       placeholder="Keywords"/>
+                                                       placeholder="Keywords" required/>
                                             </li>
 
                                             <li>
@@ -597,7 +599,7 @@
                                             <input type="number" min="1" name="num_of_copies"
                                                    class="field-style field-split align-left"
                                                    placeholder="# of Copies"/>
-                                            <input type="text" name="callnumber"
+                                            <input type="text" name="callnumber" size="10"
                                                    class="field-style field-split align-left"
                                                    placeholder="Call Number"/>
                                         </li>
