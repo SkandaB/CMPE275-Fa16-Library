@@ -167,5 +167,5 @@ public interface BookDao {
      *
      * @throws ParseException
      */
-    void remaindedEmailCron() throws ParseException;
+    void remainderEmailCron() throws ParseException;
 }

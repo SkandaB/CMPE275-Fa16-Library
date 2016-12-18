@@ -190,8 +190,8 @@ public class UserController {
         mv.addObject("status", emailSummary);
         //sends consolidated email of checkout
         eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
-        String returnStatus = "Books checked out! ";
-        if (isWaitlisted) returnStatus += "Some books were waitlisted. ";
+        String returnStatus = "Transaction successful! ";
+        // if (isWaitlisted) returnStatus += "Some books were waitlisted. ";
         returnStatus += "You will get details in email soon !";
         mv.addObject("status", returnStatus);
         ubcService.clearUserCart(userId, false);

@@ -5,6 +5,7 @@ import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.LibUserBook;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
+import edu.sjsu.cmpe275.lms.time.ClockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,7 +21,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -34,6 +34,8 @@ public class BookDaoImpl implements BookDao {
 
     @Autowired
     private SendEmail eMail;
+    @Autowired
+    private ClockService clockService;
 
     /**
      * @param book
@@ -124,11 +126,17 @@ public class BookDaoImpl implements BookDao {
         String returnStatus = "";
         if (!book.getCurrent_status().equalsIgnoreCase("available") || !book.getWaitlist().isEmpty()) {
             if (book.getWtUId() == userId) {
-                UserBook userBook = new UserBook(book, user, LocalDateTime.now(), 0);
+                Calendar cal = clockService.getCalendar();
+
+                UserBook userBook = new UserBook(book, user, /*LocalDateTime.now()*/cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), 0);
 
                 String due_date = userBook.getDueDate();
                 returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
                 returnStatus = returnStatus + book.printBookInfo();
+
+                book.setWtUId(-1);
+                book.setLast_available_date(null);
+                entityManager.merge(book);
 
                 entityManager.persist(userBook);
                 userBook.UserBookPersist(book, user);
@@ -165,8 +173,9 @@ public class BookDaoImpl implements BookDao {
                 }
 
             } catch (Exception e) {
+                Calendar cal = clockService.getCalendar();
 
-                UserBook userBook = new UserBook(book, user, LocalDateTime.now(), 0);
+                UserBook userBook = new UserBook(book, user, cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), 0);
 
                 String due_date = userBook.getDueDate();
                 returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
@@ -349,7 +358,6 @@ public class BookDaoImpl implements BookDao {
             String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = " + userId;
             UserBook userBook = entityManager.createQuery(userbookQuery, UserBook.class).getSingleResult();
 
-            book.setCurrent_status("Available");
             if (!book.getWaitlist().isEmpty()) {
                 waitlistMadeAvailable(userId, bookId);
                 //User firstWaitlistUser = book.getWaitlist().get(0);
@@ -365,7 +373,7 @@ public class BookDaoImpl implements BookDao {
             System.out.println("setBookReturn: Book checkout date: " + userBook.getCheckout_date());
 
             returnMessage = "Book returned successfully: " + book.printBookInfo();
-            userBook.setCalculateFine();
+            userBook.setCalculateFine(clockService.getCalendar().getTime());
             if (userBook.getFine() > 0)
                 returnMessage += "You did not return this book in time. Your fine is $" + userBook.getFine();
 
@@ -495,7 +503,7 @@ public class BookDaoImpl implements BookDao {
         if (userBook.getRenew_flag() == 1) {
             userBook.setRenew_flag(2);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            userBook.setCheckout_date(dtf.format(LocalDateTime.now()));
+            userBook.setCheckout_date(dtf.format(clockService.getCalendar().getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
             entityManager.merge(userBook);
             status = "Book renewed successfully. The new due date is " + userBook.getDueDate();
             eMail.sendMail(user.getUseremail(), "Book renew Successful", status);
@@ -504,7 +512,7 @@ public class BookDaoImpl implements BookDao {
         if (userBook.getRenew_flag() == 0) {
             userBook.setRenew_flag(1);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            userBook.setCheckout_date(dtf.format(LocalDateTime.now()));
+            userBook.setCheckout_date(dtf.format(clockService.getCalendar().getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
             entityManager.merge(userBook);
             status = "Book renewed successfully. The new due date is " + userBook.getDueDate();
             eMail.sendMail(user.getUseremail(), "Book renew Successful", status);
@@ -517,7 +525,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public void waitlistMadeAvailable(Integer userId, Integer bookId) {
-        System.out.println("in waitlist available @ " + LocalDate.now());
+        System.out.println("in waitlist available");
         Book book = entityManager.find(Book.class, bookId);
         List<User> waitlistedUser = book.getWaitlist();
         if (waitlistedUser.isEmpty()) {
@@ -529,14 +537,14 @@ public class BookDaoImpl implements BookDao {
         else {
             User user = waitlistedUser.get(0);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            book.setLast_available_date(dtf.format(LocalDate.now()));
+            book.setLast_available_date(dtf.format(clockService.getCalendar().getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
             StringBuilder emailBody = new StringBuilder();
             emailBody.append("The following book you requested for is now available. Please check out the book before " + bookAvailabilityDueDate(book) + "\n");
             emailBody.append("\n");
             emailBody.append(book.printBookInfo());
             waitlistedUser.remove(user);
             book.setWaitlist(waitlistedUser);
-            book.setWtUId(userId);
+            book.setWtUId(user.getId());
             entityManager.merge(book);
             eMail.sendMail(user.getUseremail(), "Book is now available", emailBody.toString());
             System.out.println("mail sent to user " + user.getId());
@@ -575,7 +583,8 @@ public class BookDaoImpl implements BookDao {
     public void didWLUserCheckoutBook(Integer userId, Integer bookId) {
 
         Book book = entityManager.find(Book.class, bookId);
-        if (LocalDate.now().isAfter(bookAvailabilityDueDate(book))) {
+        LocalDate timenow = clockService.getCalendar().getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if (timenow.isAfter(bookAvailabilityDueDate(book))) {
 
             System.out.println("here inside if");
 
@@ -607,29 +616,45 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
+    /**
+     * Executes every five minutes
+     *
+     * @throws ParseException
+     */
 
     @Override
     @Scheduled(cron = "0 0/5  * * * ?")
     //@Scheduled(fixedDelay = 10000)
     public void waitlistCron() throws ParseException {
         System.out.println("in cron ");
+        try {
+            List<Book> books = findAll();
+            if (books != null) {
+                for (Book book : books) {
+                    if (book.getWtUId() != -1) {
+                        didWLUserCheckoutBook(book.getWtUId(), book.getBookId());
+                    }
 
-        List<Book> books = findAll();
-        for (Book book : books) {
-            if (book.getWtUId() != -1) {
-                didWLUserCheckoutBook(book.getWtUId(), book.getBookId());
+                }
 
             }
 
+        } catch (Exception e) {
+
         }
 
-//
 
     }
 
+
+    /**
+     * Executes every five minutes
+     *
+     * @throws ParseException
+     */
     @Override
-    @Scheduled(cron = "0 0/5 * * * ?")
-    public void remaindedEmailCron() throws ParseException {
+    @Scheduled(cron = "0 0/2 * * * ?")
+    public void remainderEmailCron() throws ParseException {
 
         System.out.println("in remainder cron");
 
@@ -652,10 +677,17 @@ public class BookDaoImpl implements BookDao {
             cal.add(Calendar.DATE, -5);
             LocalDate start_diffdate = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            System.out.println("start " + start_diffdate + " now " + LocalDate.now() + " end " + checkoutDate);
+
+            //Date data_now = clockService.getCalendar().getTime();   //Date.from(checkoutDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            //cal.setTime(data_now);
+            //cal.add(Calendar.DATE, -5);
+            LocalDate dateNow = clockService.getCalendar().getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
 
-            if (LocalDate.now().isAfter(start_diffdate) && LocalDate.now().isBefore(checkoutDate)   /*( checkoutDate.isEqual(diffDate) || checkoutDate.isBefore(diffDate))*/) {
+            System.out.println("start " + start_diffdate + " now " + clockService.getCalendar().getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime() + " end " + checkoutDate);
+
+
+            if (dateNow.isAfter(start_diffdate) && dateNow.isBefore(checkoutDate)   /*( checkoutDate.isEqual(diffDate) || checkoutDate.isBefore(diffDate))*/) {
                 //have to send mail every data
 
                 System.out.println("inside the if of date");

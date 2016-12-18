@@ -17,6 +17,7 @@ import java.util.GregorianCalendar;
 @Table(name = "USER_BOOK")
 public class UserBook {
 
+
     @EmbeddedId
     @Column(name = "ID")
     private UserBookId id;
@@ -122,13 +123,17 @@ public class UserBook {
         return dueDate;
     }
 
-    public void setCalculateFine() throws ParseException {
+    public void setCalculateFine(Date currDate) throws ParseException {
+
+
+
+
         DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date checkDate = dtf.parse(this.getDueDate());
         System.out.println("setCalculateFine: checkoutDate: " + this.checkout_date);
         System.out.println("setCalculateFine: getDueDate: " + this.getDueDate());
         //Date checkDate = new Date();
-        Date currDate = new Date();
+        // Date currDate = new Date();
         //LocalDate checkDate = dtf.parse(this.checkout_date).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         //LocalDate currDate = LocalDate.now();
         //Period p = Period.between(checkDate, currDate);
