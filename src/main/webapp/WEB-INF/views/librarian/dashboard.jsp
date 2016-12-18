@@ -383,21 +383,24 @@
         </div>--%>
         <spring:url value="/register" var="userlogout"/>
         <div class="navbar-collapse collapse">
-            <form style="color: forestgreen; font-size: medium;" method="post"
-                  action="${pageContext.request.contextPath}/dashboard/changedate">
-                <%
-                    ApplicationContext ac = RequestContextUtils.getWebApplicationContext(request);
-                    Custom_Clock jsp_clock = (Custom_Clock) ac.getBean("Custom_Clock");
-                    Calendar jsp_calendar = jsp_clock.getCalendar();
-                %>
-                Current App Time: <%=jsp_calendar.getTime() %> <input id="datetimepicker" type="text" name="newdate"
-                                                                      placeholder="Click here to set new time">
-                <input style="color: #0a0a0a" type="submit" value="Change Date/Time"/>
-            </form>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
-                    ></i> Admin <span class="caret"></span></p>
+                <li>
+                    <form style="color: forestgreen; font-size: medium;" method="post"
+                          action="${pageContext.request.contextPath}/dashboard/changedate">
+                        <%
+                            ApplicationContext ac = RequestContextUtils.getWebApplicationContext(request);
+                            Custom_Clock jsp_clock = (Custom_Clock) ac.getBean("Custom_Clock");
+                            Calendar jsp_calendar = jsp_clock.getCalendar();
+                        %>
+                        Current App Time: <%=jsp_calendar.getTime() %> <input id="datetimepicker" type="text"
+                                                                              name="newdate"
+                                                                              placeholder="Click here to set new time">
+                        <input style="color: #0a0a0a" type="submit" value="Change Date/Time"/>
+                    </form>
+                </li>
+                <li>
+                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i></i> Admin <span
+                            class="caret"></span></p>
                 </li>
                 <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
                 </li>
