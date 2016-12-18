@@ -534,14 +534,14 @@
                                             <%--class="field-style field-split align-left"--%>
                                             <%--placeholder="Library Location"/>--%>
                                             <%--</li>--%>
-                                        <li>
-                                                <%--<input type="text" min="1" name="keywords"--%>
-                                                <%--class="field-style field-split align-left"--%>
-                                                <%--placeholder="Keywords"/>--%>
-                                            <input type="text" name="callnumber"
-                                                   class="field-style field-full align-none"
-                                                   placeholder="Call Number"/>
-                                        </li>
+                                            <%--<li>--%>
+                                            <%--&lt;%&ndash;<input type="text" min="1" name="keywords"&ndash;%&gt;--%>
+                                            <%--&lt;%&ndash;class="field-style field-split align-left"&ndash;%&gt;--%>
+                                            <%--&lt;%&ndash;placeholder="Keywords"/>&ndash;%&gt;--%>
+                                            <%--<input type="text" name="callnumber"--%>
+                                            <%--class="field-style field-full align-none"--%>
+                                            <%--placeholder="Call Number"/>--%>
+                                            <%--</li>--%>
                                             <%--<li>--%>
                                             <%--<select class="selectpicker" name="current_status"--%>
                                             <%--data-style="btn-info">--%>
