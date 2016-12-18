@@ -13,6 +13,18 @@
 
 <html lang="en">
 <style>
+    #label {
+        padding-top: 170px;
+        top: 15px;
+        box-sizing: border-box;
+        position: absolute;
+        /*!*background: blue;*!  left: 5%;*/
+        width: 1200px;
+        /*border:5px solid #990000;*/
+        overflow: hidden;
+        border-radius: 10px;
+        /*background: rgba(60, 85, 100, 0.7);*/
+    }
     .mytext {
         width: 110px;
     }
@@ -27,8 +39,6 @@
 
 <script type="text/javascript">
     var array = [];
-
-
     array.push("Available");
     array.push("Reserved");
     array.push("Wait-Listed");
@@ -42,7 +52,7 @@
         console.log(author);
         console.log(status);
         document.getElementById("updateBookFromUI").disabled = false;
-        document.getElementById("replacedheaders").style.display = 'block';
+        //document.getElementById("replacedheaders").style.display = 'block';
 
         var html = '';
         html = html + '<br><div id="label">';
@@ -65,7 +75,7 @@
         html = html + '</div>';
         row = $('#' + bookId);
         row.replaceWith(html);
-        $('#ogiheaders').replaceWith();
+        //$('#ogiheaders').replaceWith();
 
 
     }
@@ -108,7 +118,7 @@
             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUTHOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PUBLISHER</th>
             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# of copies</th>
-            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AVAILABILITY</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS</th>
         </tr>
         <tbody id="replacedtablebody">
         </tbody>
@@ -123,7 +133,7 @@
             <th>AUTHOR</th>
             <th>PUBLISHER</th>
             <th># of copies</th>
-            <th>AVAILABILITY</th>
+            <th>STATUS</th>
 
         </tr>
         </thead>
