@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.lms.dao;
 
+import edu.sjsu.cmpe275.lms.entity.UserBook;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -18,4 +19,11 @@ public interface UserBookDao {
      * @return
      */
     boolean exists(Integer bookid);
+
+    /**
+     * Removes the user book entity
+     * @param userBook
+     * @return
+     */
+    boolean removeUserBook(UserBook userBook);
 }
