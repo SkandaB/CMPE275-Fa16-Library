@@ -186,7 +186,7 @@ public class RegistrationController {
         }
         System.out.print("!!!!!!!!!!!!!!!!!!!! Displaying the system set app time: ");
         clockService.displayCurrentTime();
-        return new ModelAndView("redirect:/librarian/dashboard");
+        return new ModelAndView("redirect:/dashboard");
     }
 
     /**
