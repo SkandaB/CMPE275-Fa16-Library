@@ -18,12 +18,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!--[if lt IE 9]> -->
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="../../../resources/core/js/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../resources/core/css/jquery.datetimepicker.min.css"/>
+    <script src="../../../resources/core/js/build/jquery.datetimepicker.full.min.js"></script>
 </head>
 <style>
     .mytext {
@@ -175,21 +179,25 @@
     };
     $(document).ready(function () {
 
-        clock_popup();
-        call_home();
+        $("#addBtn").click(function () {
+            $('#addBookModal').modal('show');
+        });
 
-        /* $("#homeLink").click(function () {
-         window.open('
-        ${pageContext.request.contextPath}/lmsdashboard', '_self', false);
-         });*/
+        $("#addBtn1").click(function () {
+            $('#addBookModal').modal('show');
+        });
+
+        $('#homeLink').click(function () {
+            window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
+        });
+
         var uemail = '${users.useremail}';
         console.log(uemail);
         var userid = '${users.id}';
         console.log(userid);
         $("#loggedinusername").text(uemail);
-        $("#addBtn").click(function () {
-            $('#addBookModal').modal('show');
-        });
+
+
         $("#logsBtn").click(function () {
             $('#centerpagecontent').empty();
             var url = "${pageContext.request.contextPath}/book/getAllLibUserBook";
@@ -198,27 +206,6 @@
                 console.log("" + JSON.stringify(data));
                 var booksRecord = data;
                 $('#centerpagecontent').append('<br><br><p style="text-align: center; font-weight: bold">Books added/updated by all librarians');
-//                var html = '<br><div class="table-responsive">'+
-//                    '<table class="table">'+
-//                    '<thead>' +
-//                    '<tr>' +
-//                    '<th style="text-align:center" >User Details:</th>'+
-//                    '</tr>'+
-//                    '</thead>';
-//
-//                for (var key in data) {
-//                    if (data.hasOwnProperty(key)) {
-//                        console.log(key + " -> " + JSON.stringify(data[key]));
-//                        html = html + '<tr>';
-//                        html = html+'<td style="text-align: center">' +key+ '</td>';
-//                        html = html + '</tr>';
-//                        break;
-//                    }
-//                }
-                html = html + '</table>';
-                html = html + '</div>';
-//
-//                $('#centerpagecontent').append(html);
                 var html = '<br><br><br><div class="table-responsive">' +
                     '<table class="table">' +
                     '<thead>' +
@@ -258,9 +245,7 @@
                 $('#centerpagecontent').append(html);
             });
         });
-        $("#addBtn1").click(function () {
-            $('#addBookModal').modal('show');
-        });
+
         $("#viewBooksBtn").click(function () {
             getBooksData();
             $('#viewBooksModal').modal('show');
@@ -342,21 +327,13 @@
         $("#searchBtn1").click(function () {
             $('#searchBooksModal').modal('show');
         });
-
+        clock_popup();
     });
-
 
     function clock_popup() {
         console.log("From the function clock_popup");
         jQuery('#datetimepicker').datetimepicker()
     }
-
-    function call_home() {
-        jQuery('#homeLink').click(function () {
-            window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
-        });
-    }
-
 </script>
 <body>
 <!-- header -->
@@ -368,7 +345,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" onclick="call_home()">LMS- Group2 Dashboard</a>
+            <a class="navbar-brand" href="#">LMS- Group2 Dashboard</a>
         </div>
         <link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css"/>
         <link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet"/>
@@ -717,9 +694,10 @@
 
                         <small>Available</small>
                         <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="72"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 72%">
-                                <span class="sr-only">72% Complete</span>
+                            <div id="availablecount" class="progress-bar progress-bar-success" role="progressbar"
+                                 aria-valuenow=${availablecount} aria-valuemin="0" aria-valuemax="100"
+                                 style="width: 70%">
+                                <span class="sr-only"></span>
                             </div>
                         </div>
                         <small>Reserved</small>
@@ -733,7 +711,7 @@
                         <div class="progress">
                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
                                  aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                <span class="sr-only">60% Complete (warning)</span>
+                                <span id="" class="sr-only">60% Complete (warning)</span>
                             </div>
                         </div>
                         <small>Failures</small>
@@ -784,12 +762,12 @@
 <!-- /.modal -->
 <!-- script references -->
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/core/css/jquery.datetimepicker.min.css"/>
-<script src="resources/core/js/jquery.js"></script>
-<script src="resources/core/js/build/jquery.datetimepicker.full.min.js"></script>
+
+<%--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>--%>
+<%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
+<%--<script src="js/scripts.js"></script>--%>
+<%--<link rel="stylesheet" type="text/css" href="../../../resources/core/css/jquery.datetimepicker.min.css"/>--%>
+<%--<script src="../../../resources/core/js/jquery.js"></script>--%>
 
 </body>
 </html>
