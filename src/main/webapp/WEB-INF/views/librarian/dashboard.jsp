@@ -978,7 +978,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href=${pageContext.request.contextPath}/lmsdashboard>LMS- Group2 Dashboard</a>
+            <a class="navbar-brand" href="/dashboard">LMS- Group2 Dashboard</a>
         </div>
         <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
 
@@ -1006,7 +1006,7 @@
                     <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
                     ></i> Admin <span class="caret"></span></p>
                 </li>
-                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
+                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout   </a>
                 </li>
                 <li>
                     <form style="color: forestgreen; font-size: medium;" method="post"
@@ -1016,9 +1016,9 @@
                             Custom_Clock jsp_clock = (Custom_Clock) ac.getBean("Custom_Clock");
                             Calendar jsp_calendar = jsp_clock.getCalendar();
                         %>
-                        Current App Time: <%=jsp_calendar.getTime() %> <input id="datetimepicker" type="text"
-                                                                              name="newdate"
-                                                                              placeholder="Click here to set new time">
+                        App Time: <%=jsp_calendar.getTime() %> <input id="datetimepicker" type="text"
+                                                                      name="newdate"
+                                                                      placeholder="Click here to set new time">
                         <input style="color: #0a0a0a" type="submit" value="Change Date/Time"/>
                     </form>
                 </li>
