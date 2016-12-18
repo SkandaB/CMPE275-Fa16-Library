@@ -6,6 +6,8 @@ import edu.sjsu.cmpe275.lms.entity.LibUserBook;
 import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +16,16 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-
+@EnableScheduling
 @Transactional
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -102,8 +105,8 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public List<Book> findAll() {
-        List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
-        System.out.println("Books " + books);
+        List<Book> books = entityManager.createQuery("select b from Book b", Book.class).getResultList();
+        // System.out.println("Books " + books);
         return books;
 
     }
@@ -120,6 +123,22 @@ public class BookDaoImpl implements BookDao {
 
         String returnStatus = "";
         if (!book.getCurrent_status().equalsIgnoreCase("available") || !book.getWaitlist().isEmpty()) {
+            if (book.getWtUId() == userId) {
+                UserBook userBook = new UserBook(book, user, LocalDateTime.now(), 0);
+
+                String due_date = userBook.getDueDate();
+                returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
+                returnStatus = returnStatus + book.printBookInfo();
+
+                entityManager.persist(userBook);
+                userBook.UserBookPersist(book, user);
+                updateBookStatus(book.getBookId());
+                System.out.println("after userbook persist " + book.getCurrentUsers().size() + "user " + user.getCurrentBooks().size());
+                return returnStatus;
+
+
+            }
+
             List<User> waitlist = book.getWaitlist();
             if (!waitlist.contains(user)) {
                 waitlist.add(user);
@@ -139,8 +158,12 @@ public class BookDaoImpl implements BookDao {
             List<UserBook> currentUsers = book.getCurrentUsers();
             try {
                 String userBookQuery = "select ub from UserBook ub where ub.book.bookId = " + bookId + " and ub.user.id = " + userId;
-                entityManager.createQuery(userBookQuery, UserBook.class).getSingleResult();
-                return "User has already checked out the same book";
+                UserBook ub = entityManager.createQuery(userBookQuery, UserBook.class).getSingleResult();
+                if (ub != null) {
+                    System.out.println("******* user has already checked out the same book *********");
+                    return "User has already checked out the same book";
+                }
+
             } catch (Exception e) {
 
                 UserBook userBook = new UserBook(book, user, LocalDateTime.now(), 0);
@@ -152,10 +175,11 @@ public class BookDaoImpl implements BookDao {
                 entityManager.persist(userBook);
                 userBook.UserBookPersist(book, user);
                 updateBookStatus(book.getBookId());
-                System.out.println("after userbook persist " + book.getCurrentUsers().size() + "user " + user.getCurrentBooks().size());
+                book.setWtUId(-1);
                 return returnStatus;
             }
         }
+        return "checkout not successfull";
     }
 
     /**
@@ -324,15 +348,21 @@ public class BookDaoImpl implements BookDao {
             Book book = entityManager.find(Book.class, bookId);
             String userbookQuery = "select ub from UserBook ub where ub.book.id = " + bookId + "and ub.user.id = " + userId;
             UserBook userBook = entityManager.createQuery(userbookQuery, UserBook.class).getSingleResult();
+
             book.setCurrent_status("Available");
-            entityManager.refresh(userBook);
-            System.out.println("setBookReturn: Book checkout date: " + userBook.getCheckout_date());
             if (!book.getWaitlist().isEmpty()) {
-                User firstWaitlistUser = book.getWaitlist().get(0);
-                System.out.println("The first user in waitlist for this book is " + firstWaitlistUser.toString());
+                waitlistMadeAvailable(userId, bookId);
+                //User firstWaitlistUser = book.getWaitlist().get(0);
+                //System.out.println("The first user in waitlist for this book is " + firstWaitlistUser.toString());
                 //eMail.sendMail(firstWaitlistUser.getUseremail(), "Book Available", "The following book is available " + book.toString());
 
+            } else {
+                book.setCurrent_status("Available");
+
             }
+
+            entityManager.refresh(userBook);
+            System.out.println("setBookReturn: Book checkout date: " + userBook.getCheckout_date());
 
             returnMessage = "Book returned successfully: " + book.printBookInfo();
             userBook.setCalculateFine();
@@ -358,6 +388,7 @@ public class BookDaoImpl implements BookDao {
         System.out.println("********** Available books= " + query.getResultList().get(0).toString());
         return query.getResultList().get(0).toString();
     }
+
 
     /**
      * @return
@@ -388,21 +419,40 @@ public class BookDaoImpl implements BookDao {
         return true;
     }
 
+//    public String getBookISBN(String isbn){
+//        Book bookentity = (Book) entityManager.createQuery("SELECT b FROM Book b where b.isbn = :value1")
+//                .setParameter("value1", isbn).getSingleResult();
+//        return bookentity.getIsbn();
+//    }
+
     public Book updateBooks(Book book, HttpServletRequest request) {
-        entityManager.merge(book);
-        Book bookEntity = entityManager.find(Book.class, book.getBookId());
+//        System.out.println("getBookISBN(book.getIsbn())++"+ getBookISBN(book.getIsbn()));
+        System.out.println("Update book form +++ " + book);
+        Book updatedbook = entityManager.find(Book.class, book.getBookId());
+        updatedbook.setAuthor(book.getAuthor());
+        updatedbook.setIsbn(book.getIsbn());
+        updatedbook.setTitle(book.getTitle());
+        updatedbook.setKeywords(book.getKeywords());
+        updatedbook.setPublisher(book.getPublisher());
+        updatedbook.setCallnumber(book.getCallnumber());
+        updatedbook.setLocation(book.getLocation());
+        updatedbook.setNum_of_copies(book.getNum_of_copies());
+        updatedbook.setKeywords(book.getKeywords());
+        // entityManager.merge(updatedbook);
+//        Book bookEntity = entityManager.find(Book.class, book.getBookId());
         User user = (User) request.getSession().getAttribute("user");
         User userEntity = entityManager.find(User.class, user.getId());
-        LibUserBook libUserBook = new LibUserBook(bookEntity, userEntity, "update");
-        entityManager.persist(libUserBook);
+        LibUserBook libUserBook = new LibUserBook(updatedbook, userEntity, "update");
+        entityManager.merge(libUserBook);
         entityManager.flush();
-        List<LibUserBook> addUpdateList = bookEntity.getListAddUpdateUsers();
+        List<LibUserBook> addUpdateList = updatedbook.getListAddUpdateUsers();
         if (addUpdateList == null) {
             addUpdateList = new ArrayList<>();
         }
         addUpdateList.add(libUserBook);
-        bookEntity.setListAddUpdateUsers(addUpdateList);
-        entityManager.merge(bookEntity);
+        updatedbook.setListAddUpdateUsers(addUpdateList);
+        entityManager.merge(updatedbook);
+        entityManager.flush();
         userEntity = entityManager.find(User.class, user.getId());
         List<LibUserBook> addUpdateList1 = userEntity.getAddUpdateList();
         if (addUpdateList1 == null) {
@@ -463,6 +513,160 @@ public class BookDaoImpl implements BookDao {
         }
         return status;
 
+    }
+
+    @Override
+    public void waitlistMadeAvailable(Integer userId, Integer bookId) {
+        System.out.println("in waitlist available @ " + LocalDate.now());
+        Book book = entityManager.find(Book.class, bookId);
+        List<User> waitlistedUser = book.getWaitlist();
+        if (waitlistedUser.isEmpty()) {
+            book.setCurrent_status("Available");
+            book.setWtUId(-1);
+            entityManager.merge(book);
+        }
+        //for (User user : waitlistedUser)
+        else {
+            User user = waitlistedUser.get(0);
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            book.setLast_available_date(dtf.format(LocalDate.now()));
+            StringBuilder emailBody = new StringBuilder();
+            emailBody.append("The following book you requested for is now available. Please check out the book before " + bookAvailabilityDueDate(book) + "\n");
+            emailBody.append("\n");
+            emailBody.append(book.printBookInfo());
+            waitlistedUser.remove(user);
+            book.setWaitlist(waitlistedUser);
+            book.setWtUId(userId);
+            entityManager.merge(book);
+            eMail.sendMail(user.getUseremail(), "Book is now available", emailBody.toString());
+            System.out.println("mail sent to user " + user.getId());
+
+        }
+    }
+
+    @Override
+    public LocalDate bookAvailabilityDueDate(Book book) {
+
+
+        DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+        Date duedate = null;
+        try {
+            duedate = dtf.parse(book.getLast_available_date());
+        } catch (ParseException e) {
+            System.out.println("last available date exception");
+            e.printStackTrace();
+        }
+
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(duedate);
+        cal.add(Calendar.DATE, 3);
+
+
+        //  String dueDate = dtf.format(cal.getTime());
+        // System.out.println("String new due date " + dueDate);
+
+        LocalDate date = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        System.out.println(date);
+        return date;
+    }
+
+    //@Scheduled(cron = "0 0  1 * * *")
+    public void didWLUserCheckoutBook(Integer userId, Integer bookId) {
+
+        Book book = entityManager.find(Book.class, bookId);
+        if (LocalDate.now().isAfter(bookAvailabilityDueDate(book))) {
+
+            System.out.println("here inside if");
+
+            try {
+                UserBook userBook = entityManager.createQuery("select ub from UserBook ub where ub.book = " + bookId + " and ub.user = " + userId, UserBook.class).getSingleResult();
+
+                DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd");
+                Date chdate = dtf.parse(userBook.getCheckout_date());
+                LocalDate checkoutDate = chdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                Date availDate = dtf.parse(book.getLast_available_date());
+                LocalDate lastAvailDate = availDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+
+                if (!checkoutDate.isAfter(lastAvailDate)) {
+                    System.out.println("is not after");
+                    waitlistMadeAvailable(userId, bookId);
+
+                } else {
+                    System.out.println("do nothing");
+                }
+
+            } catch (Exception e) {
+                waitlistMadeAvailable(userId, bookId);
+            }
+
+        } else {
+            //do nothing
+        }
+    }
+
+
+    @Override
+    @Scheduled(cron = "0 0/5  * * * ?")
+    //@Scheduled(fixedDelay = 10000)
+    public void waitlistCron() throws ParseException {
+        System.out.println("in cron ");
+
+        List<Book> books = findAll();
+        for (Book book : books) {
+            if (book.getWtUId() != -1) {
+                didWLUserCheckoutBook(book.getWtUId(), book.getBookId());
+
+            }
+
+        }
+
+//
+
+    }
+
+    @Override
+    @Scheduled(cron = "0 0/5 * * * ?")
+    public void remaindedEmailCron() throws ParseException {
+
+        System.out.println("in remainder cron");
+
+        List<UserBook> userBooks = entityManager.createQuery("select ub from UserBook ub", UserBook.class).getResultList();
+        for (UserBook ub : userBooks) {
+
+            DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date chdate = dtf.parse(ub.getDueDate());
+            LocalDate checkoutDate = chdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+
+            Date diff_in_date = Date.from(checkoutDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Calendar cal = new GregorianCalendar();
+            cal.setTime(diff_in_date);
+            cal.add(Calendar.DATE, 5);
+            LocalDate diffDate = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            Date diff_in_date1 = Date.from(checkoutDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            cal.setTime(diff_in_date1);
+            cal.add(Calendar.DATE, -5);
+            LocalDate start_diffdate = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            System.out.println("start " + start_diffdate + " now " + LocalDate.now() + " end " + checkoutDate);
+
+
+            if (LocalDate.now().isAfter(start_diffdate) && LocalDate.now().isBefore(checkoutDate)   /*( checkoutDate.isEqual(diffDate) || checkoutDate.isBefore(diffDate))*/) {
+                //have to send mail every data
+
+                System.out.println("inside the if of date");
+
+                StringBuilder emailBody = new StringBuilder();
+                emailBody.append("The Due date for the following book is " + ub.getDueDate() + ". Please return the book to avoid fine \n");
+                emailBody.append(ub.getBook().printBookInfo() + " \n");
+                eMail.sendMail(ub.getUser().getUseremail(), "The due date is approaching", emailBody.toString());
+            }
+
+        }
     }
 
 }

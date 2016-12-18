@@ -6,6 +6,7 @@ package edu.sjsu.cmpe275.lms.service;
 import edu.sjsu.cmpe275.lms.entity.Book;
 import edu.sjsu.cmpe275.lms.entity.LibUserBook;
 import edu.sjsu.cmpe275.lms.entity.User;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author dhanyaramesh
  *
  */
+@EnableScheduling
 public interface BookService {
 	
     List<Book> listBooks();
@@ -27,7 +29,8 @@ public interface BookService {
 
 	boolean deleteBookByID(Integer id);
 
-    Book updateBooks(Book updatedbook, HttpServletRequest request);
+
+	Book updateBooks(Book updatedbook, HttpServletRequest request);
 
     String getAvailableBookCount();
 
