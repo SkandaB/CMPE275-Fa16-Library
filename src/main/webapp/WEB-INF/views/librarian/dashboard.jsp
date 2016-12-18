@@ -29,13 +29,10 @@
     .mytext {
         width: 110px;
     }
-
     #updatebookform, #id1, #id2, #id3 {
         display: inline;
         float: left;
-
     }
-
     /*<!-- Making the form awesome --> */
     .form-style-9{
         max-width: 450px;
@@ -46,7 +43,6 @@
         border-radius: 10px;
         border: 6px solid #305A72;
     }
-
     #label {
         top: 5px;
         box-sizing: border-box;
@@ -147,7 +143,6 @@
         text-align: left;
         vertical-align: middle;
     }
-
     #viewBooksModal {
         width: 100%;
         left: 23%;
@@ -155,13 +150,11 @@
         vertical-align: middle;
         /*center: 0%;*/
     }
-
     #viewBooksContent {
         width: 100%;
         height: auto;
         vertical-align: middle;
     }
-
     /*End modal styling*/
 </style>
 <script type="text/javascript" th:inline="javascript">
@@ -169,30 +162,9 @@
         // disable subsequent clicks
         link.onclick = function (event) {
             event.preventDefault();
-        };
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
+        }
         document.getElementById(formId).style.display = "block";
-    };
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-    ;
-
+    }
     $(document).ready(function () {
 
         clock_popup();
@@ -211,19 +183,7 @@
         });
         $("#logsBtn").click(function () {
             $('#centerpagecontent').empty();
-
-            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook";
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-
+            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook"
             $.get(url, null, function (data) {
                 console.log("here");
                 console.log("" + JSON.stringify(data));
@@ -250,7 +210,6 @@
                 html = html + '</div>';
 //
 //                $('#centerpagecontent').append(html);
-
                 var html = '<br><br><br><div class="table-responsive">' +
                     '<table class="table">' +
                     '<thead>' +
@@ -265,12 +224,10 @@
                     '<th>Title </th>' +
                     '<th>Status </th>' +
                     '</tr>';
-
                 for (var key in data) {
                     if (data.hasOwnProperty(key)) {
                         if (data.hasOwnProperty(key)) {
                             var val = data[key];
-
                         }
                         for (var i in val) {
                             html = html + '<tr>';
@@ -298,66 +255,32 @@
         $("#viewBooksBtn").click(function () {
             getBooksData();
             $('#viewBooksModal').modal('show');
-
         });
         $("#viewBooksBtn1").click(function () {
             getBooksData();
             $('#viewBooksModal').modal('show');
         });
-
         updateBook = function (rowId, bookid, isbn, title, author, publisher, location, callNumber, numberOfCopies, keywords) {
             var html = '';
             html = html + '<br><div id="label">';
-            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">';
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
+            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">'
             html = html + '<tr id = ' + bookid + '>';
-            html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '  disabled ></td>';
-            html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + '></td>';
+            html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '  readonly ></td>';
+            html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + ' readonly></td>';
             html = html + '<td id="td3"><input type="text" class="mytext" name="title" value=\"' + title + '\"' + '></td>';
             html = html + '<td id="td4"><input type="text" class="mytext" name="author" value=\"' + author + '\"' + '></td>';
             html = html + '<td id="td5"><input type="text" class="mytext" name="publisher" value=\"' + publisher + '\"' + '></td>';
             html = html + '<td id="td6"><input type="text" class="mytext" name="location" value=\"' + location + '\"' + '></td>';
-            html = html + '<td id="td7"><input type="text" class="mytext" name="callNumber" value=\"' + callNumber + '\"' + '></td>';
-            html = html + '<td id="td8"><input type="number" min="0" class="mytext" name="numberOfCopies" value=' + numberOfCopies + '></td>';
+            html = html + '<td id="td7"><input type="text" class="mytext" name="callnumber" value=\"' + callNumber + '\"' + '></td>';
+            html = html + '<td id="td8"><input type="number" min="0" class="mytext" name="num_of_copies" value=' + numberOfCopies + '></td>';
             html = html + '<td id="td9"><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
             html = html + '<td>' + '  <button class="btn btn-info" id=' + bookid + ' onClick="updateBook(\'' + bookid + '\',\'' + bookid + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + publisher + '\',\'' + location + '\',\'' + callNumber + '\',\'' + numberOfCopies + '\',\'' + keywords + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
             html = html + '</tr>';
-
-            html = html + '</form>';
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
-            ;
+            html = html + '</form>'
             html = html + '</div>';
-
             row = $('#' + rowId);
             row.replaceWith(html);
-        };
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
+        }
         getBooksData = function () {
             var url = "${pageContext.request.contextPath}/book/searchAllBooks";
             $.get(url, null, function (data) {
@@ -401,28 +324,12 @@
                 }
                 html = html + '</table>';
                 html = html + '</div>';
-
                 mymodal.find('.modal-body').append(html);
-
             });
-
-        };
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-
-
+        }
         $("#searchBtn").click(function () {
             $('#searchBooksModal').modal('show');
         });
-
         $("#searchBtn1").click(function () {
             $('#searchBooksModal').modal('show');
         });
@@ -432,16 +339,6 @@
 
     function clock_popup() {
         console.log("From the function clock_popup");
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
-        ;
         jQuery('#datetimepicker').datetimepicker()
     }
 
@@ -488,8 +385,8 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i></i> Admin <span
-                            class="caret"></span></p>
+                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
+                    ></i> Admin <span class="caret"></span></p>
                 </li>
                 <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
                 </li>
@@ -1053,4 +950,3 @@
 
 </body>
 </html>
-

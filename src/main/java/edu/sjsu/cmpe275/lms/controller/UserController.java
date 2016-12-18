@@ -11,6 +11,7 @@ import edu.sjsu.cmpe275.lms.service.UserBookService;
 import edu.sjsu.cmpe275.lms.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,7 @@ import java.util.List;
 @Component
 @Controller
 @EnableAspectJAutoProxy
+@EnableScheduling
 @Transactional
 public class UserController {
     @Autowired
@@ -156,6 +158,7 @@ public class UserController {
     @RequestMapping(value = "/user/{userId}/checkout", method = RequestMethod.GET)
     public Object requestBooks(@PathVariable("userId") Integer userId) throws ParseException {
         StringBuilder emailSummary = new StringBuilder();
+        emailSummary.append("Book checkout Summary!" + "\n");
         ModelAndView mv = new ModelAndView("books/request");
         List<UserBookCart> cart = ubcService.getUserCart(userId, false);
         if (cart.size() == 0) {
@@ -184,6 +187,7 @@ public class UserController {
             emailSummary.append("\n");
         }
 
+        mv.addObject("status", emailSummary);
         //sends consolidated email of checkout
         eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
         String returnStatus = "Books checked out! ";
@@ -238,7 +242,8 @@ public class UserController {
         }
 
         //sends consolidated email of checkout
-        eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
+        eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Transaction Summary", emailSummary.toString());
+
         mv.addObject("status", "Books returned! You will get details in email soon !");
         ubcService.clearUserCart(userId, true);
         return mv;
