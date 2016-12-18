@@ -13,7 +13,7 @@ import java.util.Date;
 @Aspect
 public class LoggingAspect {
     public void LogAopToFile(String message) throws IOException {
-        FileWriter fileWriter = new FileWriter("/Users/dhanyaramesh/Documents/workspace/Library_LMS_New/CMPE275-Fa16-Library/aop_logging.txt", true);
+        FileWriter fileWriter = new FileWriter("aop_logging.txt", true);
         fileWriter.write(message);
         fileWriter.close();
     }

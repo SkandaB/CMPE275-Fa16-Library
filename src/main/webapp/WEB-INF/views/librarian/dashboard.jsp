@@ -26,13 +26,10 @@
     .mytext {
         width: 110px;
     }
-
     #updatebookform, #id1, #id2, #id3 {
         display: inline;
         float: left;
-
     }
-
     /*<!-- Making the form awesome --> */
     .form-style-9{
         max-width: 450px;
@@ -43,7 +40,6 @@
         border-radius: 10px;
         border: 6px solid #305A72;
     }
-
     #label {
         top: 5px;
         box-sizing: border-box;
@@ -55,9 +51,6 @@
         border-radius: 10px;
         /*background: rgba(60, 85, 100, 0.7);*/
     }
-
-
-
     .form-style-9 ul{
         padding:0;
         margin:0;
@@ -134,7 +127,6 @@
         text-align: left;
         vertical-align: middle;
     }
-
     #viewBooksModal {
         width: 100%;
         left: 23%;
@@ -142,13 +134,11 @@
         vertical-align: middle;
         /*center: 0%;*/
     }
-
     #viewBooksContent {
         width: 100%;
         height: auto;
         vertical-align: middle;
     }
-
     /*End modal styling*/
 </style>
 <script type="text/javascript"  th:inline="javascript">
@@ -160,7 +150,6 @@
         document.getElementById(formId).style.display = "block";
     }
     $(document).ready(function () {
-
         $("#homeLink").click(function () {
             window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
         });
@@ -174,9 +163,7 @@
         });
         $("#logsBtn").click(function () {
             $('#centerpagecontent').empty();
-
             var url = "${pageContext.request.contextPath}/book/getAllLibUserBook"
-
             $.get(url, null, function (data) {
                 console.log("here");
                 console.log("" + JSON.stringify(data));
@@ -203,7 +190,6 @@
                 html = html + '</div>';
 //
 //                $('#centerpagecontent').append(html);
-
                 var html = '<br><br><br><div class="table-responsive">' +
                     '<table class="table">' +
                     '<thead>' +
@@ -218,12 +204,10 @@
                     '<th>Title </th>' +
                     '<th>Status </th>' +
                     '</tr>';
-
                 for (var key in data) {
                     if (data.hasOwnProperty(key)) {
                         if (data.hasOwnProperty(key)) {
                             var val = data[key];
-
                         }
                         for (var i in val) {
                             html = html + '<tr>';
@@ -238,8 +222,6 @@
                             html = html + '<td>' + val[i].status + '</td>';
                             html = html + '</tr>';
                         }
-
-
                     }
                 }
                 html = html + '</table>';
@@ -253,20 +235,18 @@
         $("#viewBooksBtn").click(function () {
             getBooksData();
             $('#viewBooksModal').modal('show');
-
         });
         $("#viewBooksBtn1").click(function () {
             getBooksData();
             $('#viewBooksModal').modal('show');
         });
-
         updateBook = function (rowId, bookid, isbn, title, author, publisher, location, callNumber, numberOfCopies, keywords) {
             var html = '';
             html = html + '<br><div id="label">';
             html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">'
             html = html + '<tr id = ' + bookid + '>';
             html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '  readonly ></td>';
-            html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + '></td>';
+            html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + ' readonly></td>';
             html = html + '<td id="td3"><input type="text" class="mytext" name="title" value=\"' + title + '\"' + '></td>';
             html = html + '<td id="td4"><input type="text" class="mytext" name="author" value=\"' + author + '\"' + '></td>';
             html = html + '<td id="td5"><input type="text" class="mytext" name="publisher" value=\"' + publisher + '\"' + '></td>';
@@ -276,12 +256,8 @@
             html = html + '<td id="td9"><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
             html = html + '<td>' + '  <button class="btn btn-info" id=' + bookid + ' onClick="updateBook(\'' + bookid + '\',\'' + bookid + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + publisher + '\',\'' + location + '\',\'' + callNumber + '\',\'' + numberOfCopies + '\',\'' + keywords + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
             html = html + '</tr>';
-
             html = html + '</form>'
             html = html + '</div>';
-
-
-
             row = $('#' + rowId);
             row.replaceWith(html);
         }
@@ -328,23 +304,15 @@
                 }
                 html = html + '</table>';
                 html = html + '</div>';
-
                 mymodal.find('.modal-body').append(html);
-
             });
-
         }
-
-
         $("#searchBtn").click(function () {
             $('#searchBooksModal').modal('show');
         });
-
         $("#searchBtn1").click(function () {
             $('#searchBooksModal').modal('show');
         });
-
-
     });
 </script>
 <body>
