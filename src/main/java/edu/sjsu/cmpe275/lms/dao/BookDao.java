@@ -160,5 +160,12 @@ public interface BookDao {
     /**
      * cron to call didWLUserCheckoutBook
      */
-    public void waitlistCron();
+    public void waitlistCron() throws ParseException;
+
+    /**
+     * cron to send reminder emails starting 5 days prior to due date
+     *
+     * @throws ParseException
+     */
+    public void remaindedEmailCron() throws ParseException;
 }
