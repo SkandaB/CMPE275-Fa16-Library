@@ -385,6 +385,12 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
+                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
+                    ></i> Admin <span class="caret"></span></p>
+                </li>
+                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
+                </li>
+                <li>
                     <form style="color: forestgreen; font-size: medium;" method="post"
                           action="${pageContext.request.contextPath}/dashboard/changedate">
                         <%
@@ -397,12 +403,6 @@
                                                                               placeholder="Click here to set new time">
                         <input style="color: #0a0a0a" type="submit" value="Change Date/Time"/>
                     </form>
-                </li>
-                <li>
-                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i></i> Admin <span
-                            class="caret"></span></p>
-                </li>
-                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
                 </li>
             </ul>
         </div>
