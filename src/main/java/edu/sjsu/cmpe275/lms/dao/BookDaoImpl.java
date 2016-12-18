@@ -124,7 +124,7 @@ public class BookDaoImpl implements BookDao {
         String returnStatus = "";
         if (!book.getCurrent_status().equalsIgnoreCase("available") || !book.getWaitlist().isEmpty()) {
             if (book.getWtUId() == userId) {
-                UserBook userBook = new UserBook(book, user, LocalDate.now(), 0);
+                UserBook userBook = new UserBook(book, user, LocalDateTime.now(), 0);
 
                 String due_date = userBook.getDueDate();
                 returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
@@ -520,8 +520,14 @@ public class BookDaoImpl implements BookDao {
         System.out.println("in waitlist available @ " + LocalDate.now());
         Book book = entityManager.find(Book.class, bookId);
         List<User> waitlistedUser = book.getWaitlist();
-        for (User user : waitlistedUser) {
-
+        if (waitlistedUser.isEmpty()) {
+            book.setCurrent_status("Available");
+            book.setWtUId(-1);
+            entityManager.merge(book);
+        }
+        //for (User user : waitlistedUser)
+        else {
+            User user = waitlistedUser.get(0);
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             book.setLast_available_date(dtf.format(LocalDate.now()));
             StringBuilder emailBody = new StringBuilder();
@@ -531,8 +537,9 @@ public class BookDaoImpl implements BookDao {
             waitlistedUser.remove(user);
             book.setWaitlist(waitlistedUser);
             book.setWtUId(userId);
+            entityManager.merge(book);
             eMail.sendMail(user.getUseremail(), "Book is now available", emailBody.toString());
-
+            System.out.println("mail sent to user " + user.getId());
 
         }
     }
@@ -559,10 +566,12 @@ public class BookDaoImpl implements BookDao {
         // System.out.println("String new due date " + dueDate);
 
         LocalDate date = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        System.out.println(date);
         return date;
     }
 
-    //@Scheduled(cron = "0 0 1 * * *")
+    //@Scheduled(cron = "0 0  1 * * *")
     public void didWLUserCheckoutBook(Integer userId, Integer bookId) {
 
         Book book = entityManager.find(Book.class, bookId);
@@ -582,6 +591,7 @@ public class BookDaoImpl implements BookDao {
 
 
                 if (!checkoutDate.isAfter(lastAvailDate)) {
+                    System.out.println("is not after");
                     waitlistMadeAvailable(userId, bookId);
 
                 } else {
@@ -599,8 +609,9 @@ public class BookDaoImpl implements BookDao {
 
 
     @Override
-    @Scheduled(cron = "0 0 1 * * *")
-    public void waitlistCron() {
+    @Scheduled(cron = "0 0/5  * * * ?")
+    //@Scheduled(fixedDelay = 10000)
+    public void waitlistCron() throws ParseException {
         System.out.println("in cron ");
 
         List<Book> books = findAll();
@@ -612,6 +623,50 @@ public class BookDaoImpl implements BookDao {
 
         }
 
+//
+
+    }
+
+    @Override
+    @Scheduled(cron = "0 0/5 * * * ?")
+    public void remaindedEmailCron() throws ParseException {
+
+        System.out.println("in remainder cron");
+
+        List<UserBook> userBooks = entityManager.createQuery("select ub from UserBook ub", UserBook.class).getResultList();
+        for (UserBook ub : userBooks) {
+
+            DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date chdate = dtf.parse(ub.getDueDate());
+            LocalDate checkoutDate = chdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+
+            Date diff_in_date = Date.from(checkoutDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Calendar cal = new GregorianCalendar();
+            cal.setTime(diff_in_date);
+            cal.add(Calendar.DATE, 5);
+            LocalDate diffDate = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            Date diff_in_date1 = Date.from(checkoutDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            cal.setTime(diff_in_date1);
+            cal.add(Calendar.DATE, -5);
+            LocalDate start_diffdate = cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            System.out.println("start " + start_diffdate + " now " + LocalDate.now() + " end " + checkoutDate);
+
+
+            if (LocalDate.now().isAfter(start_diffdate) && LocalDate.now().isBefore(checkoutDate)   /*( checkoutDate.isEqual(diffDate) || checkoutDate.isBefore(diffDate))*/) {
+                //have to send mail every data
+
+                System.out.println("inside the if of date");
+
+                StringBuilder emailBody = new StringBuilder();
+                emailBody.append("The Due date for the following book is " + ub.getDueDate() + ". Please return the book to avoid fine \n");
+                emailBody.append(ub.getBook().printBookInfo() + " \n");
+                eMail.sendMail(ub.getUser().getUseremail(), "The due date is approaching", emailBody.toString());
+            }
+
+        }
     }
 
 }
