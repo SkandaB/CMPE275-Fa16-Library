@@ -360,7 +360,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">LMS- Group2 Dashboard</a>
+            <a class="navbar-brand" href=${pageContext.request.contextPath}/lmsdashboard>LMS- Group2 Dashboard</a>
         </div>
         <%--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--%>
 
@@ -377,7 +377,7 @@
                     Calendar jsp_calendar = jsp_clock.getCalendar();
                 %>
                 Current App Time: <%=jsp_calendar.getTime() %> <input id="datetimepicker" type="text" name="newdate"
-                                                                      placeholder="Click here to set new time" value="">
+                                                                      placeholder="Click here to set new time">
                 <input style="color: #0a0a0a" type="submit" value="Change Date/Time"/>
             </form>
         </div>
