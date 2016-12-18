@@ -947,9 +947,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="js/scripts.js"></script>
-<link rel="stylesheet" type="text/css" href="../../../resources/core/css/jquery.datetimepicker.min.css"/>
-<script src="../../../resources/core/js/jquery.js"></script>
-<script src="../../../resources/core/js/build/jquery.datetimepicker.full.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/core/css/jquery.datetimepicker.min.css"/>
+<script src="resources/core/js/jquery.js"></script>
+<script src="resources/core/js/build/jquery.datetimepicker.full.min.js"></script>
 
 </body>
 </html>
