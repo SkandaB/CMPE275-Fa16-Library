@@ -368,8 +368,8 @@
         <link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet"/>
         <%--<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" />--%>
 
-        <div align="right">
-            <%--<form style="color: forestgreen; font-size: medium;" method="post"
+        <%--<div align="right">
+            <form style="color: forestgreen; font-size: medium;" method="post"
                   action="${pageContext.request.contextPath}/dashboard/changedate">
                 <%
                     ApplicationContext ac = RequestContextUtils.getWebApplicationContext(request);
@@ -379,8 +379,8 @@
                 Current App Time: <%=jsp_calendar.getTime() %> <input id="datetimepicker" type="text" name="newdate"
                                                                       placeholder="Click here to set new time">
                 <input style="color: #0a0a0a" type="submit" value="Change Date/Time"/>
-            </form>--%>
-        </div>
+            </form>
+        </div>--%>
         <spring:url value="/register" var="userlogout"/>
         <div class="navbar-collapse collapse">
             <form style="color: forestgreen; font-size: medium;" method="post"
