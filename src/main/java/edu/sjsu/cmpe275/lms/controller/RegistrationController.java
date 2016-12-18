@@ -170,9 +170,10 @@ public class RegistrationController {
 
     @RequestMapping(value = "/lmsdashboard", method = RequestMethod.GET)
     public ModelAndView showlmsdashboard(HttpServletRequest request) {
-        ModelAndView mv;
+        /*ModelAndView mv;
         mv = new ModelAndView("librarian/dashboard");
-        return mv;
+        return mv;*/
+        return new ModelAndView("redirect:/dashboard");
     }
 
 

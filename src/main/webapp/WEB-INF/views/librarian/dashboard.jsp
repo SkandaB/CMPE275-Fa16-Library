@@ -29,12 +29,14 @@
     .mytext {
         width: 110px;
     }
+
     #updatebookform, #id1, #id2, #id3 {
         display: inline;
         float: left;
     }
+
     /*<!-- Making the form awesome --> */
-    .form-style-9{
+    .form-style-9 {
         max-width: 450px;
         background: #FAFAFA;
         padding: 30px;
@@ -43,6 +45,7 @@
         border-radius: 10px;
         border: 6px solid #305A72;
     }
+
     #label {
         top: 5px;
         box-sizing: border-box;
@@ -55,19 +58,19 @@
         /*background: rgba(60, 85, 100, 0.7);*/
     }
 
-    .form-style-9 ul{
-        padding:0;
-        margin:0;
-        list-style:none;
+    .form-style-9 ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
     }
 
-    .form-style-9 ul li{
+    .form-style-9 ul li {
         display: block;
         margin-bottom: 10px;
         min-height: 35px;
     }
 
-    .form-style-9 ul li  .field-style{
+    .form-style-9 ul li .field-style {
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -78,28 +81,30 @@
         -moz-transition: all 0.30s ease-in-out;
         -ms-transition: all 0.30s ease-in-out;
         -o-transition: all 0.30s ease-in-out;
-    }  .form-style-9 ul li  .field-style:focus{
-           box-shadow: 0 0 5px #B0CFE0;
-           border:1px solid #B0CFE0;
-       }
+    }
 
-    .form-style-9 ul li .field-split{
+    .form-style-9 ul li .field-style:focus {
+        box-shadow: 0 0 5px #B0CFE0;
+        border: 1px solid #B0CFE0;
+    }
+
+    .form-style-9 ul li .field-split {
         width: 49%;
     }
 
-    .form-style-9 ul li .field-full{
+    .form-style-9 ul li .field-full {
         width: 100%;
     }
 
-    .form-style-9 ul li input.align-left{
-        float:left;
+    .form-style-9 ul li input.align-left {
+        float: left;
     }
 
-    .form-style-9 ul li input.align-right{
-        float:right;
+    .form-style-9 ul li input.align-right {
+        float: right;
     }
 
-    .form-style-9 ul li textarea{
+    .form-style-9 ul li textarea {
         width: 100%;
         height: 100px;
     }
@@ -133,7 +138,7 @@
         padding: 0 !important;
     }
 
-    .modal-body{
+    .modal-body {
         height: 100%;
     }
 
@@ -143,6 +148,7 @@
         text-align: left;
         vertical-align: middle;
     }
+
     #viewBooksModal {
         width: 100%;
         left: 23%;
@@ -150,11 +156,13 @@
         vertical-align: middle;
         /*center: 0%;*/
     }
+
     #viewBooksContent {
         width: 100%;
         height: auto;
         vertical-align: middle;
     }
+
     /*End modal styling*/
 </style>
 <script type="text/javascript" th:inline="javascript">
@@ -162,16 +170,191 @@
         // disable subsequent clicks
         link.onclick = function (event) {
             event.preventDefault();
-        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        };
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
         document.getElementById(formId).style.display = "block";
-    };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    };
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
+    ;
     $(document).ready(function () {
 
         clock_popup();
         call_home();
 
         /* $("#homeLink").click(function () {
-         window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
+         window.open('
+        ${pageContext.request.contextPath}/lmsdashboard', '_self', false);
          });*/
         var uemail = '${users.useremail}';
         console.log(uemail);
@@ -183,7 +366,94 @@
         });
         $("#logsBtn").click(function () {
             $('#centerpagecontent').empty();
-            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook";
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
             $.get(url, null, function (data) {
                 console.log("here");
                 console.log("" + JSON.stringify(data));
@@ -263,7 +533,94 @@
         updateBook = function (rowId, bookid, isbn, title, author, publisher, location, callNumber, numberOfCopies, keywords) {
             var html = '';
             html = html + '<br><div id="label">';
-            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">';
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
             html = html + '<tr id = ' + bookid + '>';
             html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '  readonly ></td>';
             html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + ' readonly></td>';
@@ -276,11 +633,185 @@
             html = html + '<td id="td9"><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
             html = html + '<td>' + '  <button class="btn btn-info" id=' + bookid + ' onClick="updateBook(\'' + bookid + '\',\'' + bookid + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + publisher + '\',\'' + location + '\',\'' + callNumber + '\',\'' + numberOfCopies + '\',\'' + keywords + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
             html = html + '</tr>';
-            html = html + '</form>';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            html = html + '</form>';
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
+            ;
             html = html + '</div>';
             row = $('#' + rowId);
             row.replaceWith(html);
-        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        };
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
         getBooksData = function () {
             var url = "${pageContext.request.contextPath}/book/searchAllBooks";
             $.get(url, null, function (data) {
@@ -292,16 +823,16 @@
                 console.log(jsonData.length);
                 console.log(jsonData);
                 var html = '<br><br><br><div class="table-responsive">' +
-                    '<table class="table">'+
+                    '<table class="table">' +
                     '<thead>' +
                     '<tr>' +
-                    '<th>ID </th>'+
-                    '<th>ISBN </th>'+
-                    '<th>Title </th>'+
-                    '<th>Author </th>'+
-                    '<th>Publisher </th>'+
+                    '<th>ID </th>' +
+                    '<th>ISBN </th>' +
+                    '<th>Title </th>' +
+                    '<th>Author </th>' +
+                    '<th>Publisher </th>' +
                     '<th>Location </th>' +
-                    '<th>Call Number </th>'+
+                    '<th>Call Number </th>' +
                     '<th>No. of copies </th>' +
                     '<th>Keywords</th>' +
                     '<th align="center" >Actions</th>' +
@@ -310,14 +841,14 @@
                     //console.log("title string"+JSON.stringify(jsonData[i]));
                     html = html + '<tr id = ' + jsonData[i].bookId + '>';
                     html = html + '<td >' + jsonData[i].bookId + '</td>';
-                    html = html + '<td>'+jsonData[i].isbn+'</td>';
-                    html = html + '<td>'+jsonData[i].title+'</td>';
-                    html = html + '<td>'+jsonData[i].author+'</td>';
+                    html = html + '<td>' + jsonData[i].isbn + '</td>';
+                    html = html + '<td>' + jsonData[i].title + '</td>';
+                    html = html + '<td>' + jsonData[i].author + '</td>';
                     html = html + '<td>' + jsonData[i].publisher + '</td>';
                     html = html + '<td>' + jsonData[i].location + '</td>';
                     html = html + '<td>' + jsonData[i].callNumber + '</td>';
                     html = html + '<td>' + jsonData[i].numberOfCopies + '</td>';
-                    html = html + '<td>'+jsonData[i].keywords+'</td>';
+                    html = html + '<td>' + jsonData[i].keywords + '</td>';
                     var singleObj = jsonData[i];
                     html = html + '<td>' + '  <button class="btn btn-info" id=' + jsonData[i].bookId + ' onClick="updateBook(\'' + jsonData[i].bookId + '\',\'' + jsonData[i].bookId + '\',\'' + jsonData[i].isbn + '\',\'' + jsonData[i].title + '\',\'' + jsonData[i].author + '\',\'' + jsonData[i].publisher + '\',\'' + jsonData[i].location + '\',\'' + jsonData[i].callNumber + '\',\'' + jsonData[i].numberOfCopies + '\',\'' + jsonData[i].keywords + '\')">Edit</button> <button onClick="return updatebookdetails();" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
                     html = html + '</tr>';
@@ -326,7 +857,94 @@
                 html = html + '</div>';
                 mymodal.find('.modal-body').append(html);
             });
-        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        };
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
+        ;
         $("#searchBtn").click(function () {
             $('#searchBooksModal').modal('show');
         });
@@ -431,7 +1049,8 @@
                         <li><a id="searchBtn1" href="#"><i class="glyphicon glyphicon-search"></i> Search a Book</a>
                         </li>
                         <%--<li><a href="#"><i class="glyphicon glyphicon-remove"></i> Remove a Book</a></li>--%>
-                        <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a></li>
+                        <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a>
+                        </li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
                     </ul>
@@ -467,12 +1086,14 @@
                                 <!-- Add forms here -->
                                 <ul class="nav nav-tabs" id="tabContent" data-tabs="tabs">
                                     <li>
-                                        <a href="#" id="simpleadd" data-toggle="tab" onclick="displayForms(this,'simpleaddform');">Add via
+                                        <a href="#" id="simpleadd" data-toggle="tab"
+                                           onclick="displayForms(this,'simpleaddform');">Add via
                                             ISBN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" id="advancedadd" data-toggle="tab" onclick="displayForms(this,'advancedaddform');">Advanced
+                                        <a href="#" id="advancedadd" data-toggle="tab"
+                                           onclick="displayForms(this,'advancedaddform');">Advanced
                                             add
                                         </a>
                                     </li>
@@ -711,12 +1332,12 @@
                         <h4>Reports</h4></div>
                     <security:authorize access="hasRole('ROLE_PATRON')">
                         <h2>This text is only visible to a user</h2>
-                        <br />
+                        <br/>
                     </security:authorize>
 
                     <security:authorize access="hasRole('ROLE_LIBRARIAN')">
                         <h2>This text is only visible to an admin</h2>
-                        <br />
+                        <br/>
                     </security:authorize>
                     <div class="panel-body">
 
