@@ -162,9 +162,9 @@
         // disable subsequent clicks
         link.onclick = function (event) {
             event.preventDefault();
-        }
+        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         document.getElementById(formId).style.display = "block";
-    }
+    };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     $(document).ready(function () {
 
         clock_popup();
@@ -183,7 +183,7 @@
         });
         $("#logsBtn").click(function () {
             $('#centerpagecontent').empty();
-            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook"
+            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             $.get(url, null, function (data) {
                 console.log("here");
                 console.log("" + JSON.stringify(data));
@@ -263,7 +263,7 @@
         updateBook = function (rowId, bookid, isbn, title, author, publisher, location, callNumber, numberOfCopies, keywords) {
             var html = '';
             html = html + '<br><div id="label">';
-            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">'
+            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             html = html + '<tr id = ' + bookid + '>';
             html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '  readonly ></td>';
             html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + ' readonly></td>';
@@ -276,11 +276,11 @@
             html = html + '<td id="td9"><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
             html = html + '<td>' + '  <button class="btn btn-info" id=' + bookid + ' onClick="updateBook(\'' + bookid + '\',\'' + bookid + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + publisher + '\',\'' + location + '\',\'' + callNumber + '\',\'' + numberOfCopies + '\',\'' + keywords + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
             html = html + '</tr>';
-            html = html + '</form>'
+            html = html + '</form>';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             html = html + '</div>';
             row = $('#' + rowId);
             row.replaceWith(html);
-        }
+        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         getBooksData = function () {
             var url = "${pageContext.request.contextPath}/book/searchAllBooks";
             $.get(url, null, function (data) {
@@ -326,7 +326,7 @@
                 html = html + '</div>';
                 mymodal.find('.modal-body').append(html);
             });
-        }
+        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         $("#searchBtn").click(function () {
             $('#searchBooksModal').modal('show');
         });

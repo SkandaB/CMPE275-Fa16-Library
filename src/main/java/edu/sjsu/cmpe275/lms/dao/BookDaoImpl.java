@@ -105,7 +105,7 @@ public class BookDaoImpl implements BookDao {
      */
     @Override
     public List<Book> findAll() {
-        List<Book> books = (List<Book>) entityManager.createQuery("select b from Book b", Book.class).getResultList();
+        List<Book> books = entityManager.createQuery("select b from Book b", Book.class).getResultList();
         // System.out.println("Books " + books);
         return books;
 
