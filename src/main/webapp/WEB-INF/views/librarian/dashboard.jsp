@@ -370,7 +370,8 @@
         <%--<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" />--%>
 
         <div align="right">
-            <form style="color: forestgreen; font-size: medium;" method="post" action="/dashboard/changedate">
+            <form style="color: forestgreen; font-size: medium;" method="post"
+                  action="${pageContext.request.contextPath}/dashboard/changedate">
                 <%
                     ApplicationContext ac = RequestContextUtils.getWebApplicationContext(request);
                     Custom_Clock jsp_clock = (Custom_Clock) ac.getBean("Custom_Clock");

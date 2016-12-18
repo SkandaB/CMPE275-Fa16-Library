@@ -19,8 +19,8 @@
 		<div class="navbar-header">
             <a class="navbar-brand">CMPE275-Group2-Library Management System</a>
 
-            <a style="padding-left: 300px" class="navbar-brand" href="${userlogout}">Xogout</a>
-            <a style="padding-left: 600px" class="navbar-brand" href="${userlogout}">sdsdogout</a>
+            <a style="padding-left: 600px" class="navbar-brand" href="${userlogout}">Logout</a>
+            <%--<a style="padding-left: 600px" class="navbar-brand" href="${userlogout}">LogOut</a>--%>
 
             <%--&lt;%&ndash;<ul class="nav navbar-nav navbar-right">&ndash;%&gt;--%>
             <%--<li style="padding-left: 1000px;"><a href="<c:url value="/logout" />"><i class="glyphicon glyphicon-lock"></i>Logout</a>--%>
