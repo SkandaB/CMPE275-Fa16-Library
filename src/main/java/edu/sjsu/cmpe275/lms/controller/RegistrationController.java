@@ -48,7 +48,7 @@ public class RegistrationController {
     @RequestMapping(value = "/")
     public ModelAndView landingPage() {
         clockService.displayCurrentTime();
-        return new ModelAndView(new RedirectView("/register"));
+        return new ModelAndView(new RedirectView("redirect:/register"));
     }
 
     /**
