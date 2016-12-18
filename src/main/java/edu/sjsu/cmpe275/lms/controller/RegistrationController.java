@@ -4,6 +4,7 @@ import edu.sjsu.cmpe275.lms.entity.User;
 import edu.sjsu.cmpe275.lms.entity.UserVerfToken;
 import edu.sjsu.cmpe275.lms.registration.RegistrationCompleteEvent;
 import edu.sjsu.cmpe275.lms.service.UserService;
+import edu.sjsu.cmpe275.lms.time.ClockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.text.ParseException;
 
 @Component
 @Controller
@@ -39,6 +41,15 @@ public class RegistrationController {
 
     @Autowired
     ServletContext servletContext;
+
+    @Autowired
+    ClockService clockService;
+
+    @RequestMapping(value = "/")
+    public ModelAndView landingPage() {
+        clockService.displayCurrentTime();
+        return new ModelAndView(new RedirectView("/register"));
+    }
 
     /**
      * @param request
@@ -126,6 +137,7 @@ public class RegistrationController {
             System.out.println("Lib found");
             mv.setViewName("librarian/dashboard");
             mv.addObject("users", user);
+            /*mv.addObject("custom_clock",clockService.getCalendar());*/
         } else {
             System.out.println("patron found");
             mv.setViewName("user/dashboard");
@@ -161,6 +173,20 @@ public class RegistrationController {
         ModelAndView mv;
         mv = new ModelAndView("librarian/dashboard");
         return mv;
+    }
+
+
+    @RequestMapping(value = "/dashboard/changedate", method = RequestMethod.POST)
+    public ModelAndView setCustomDate(@RequestParam(value = "newdate") String newdatestr) throws ParseException {
+        System.out.println("Date returned from the webpage = " + newdatestr);
+        if (newdatestr.isEmpty()) {
+            clockService.resetCalendar();
+        } else {
+            clockService.setCalendar(newdatestr);
+        }
+        System.out.print("!!!!!!!!!!!!!!!!!!!! Displaying the system set app time: ");
+        clockService.displayCurrentTime();
+        return new ModelAndView("librarian/dashboard");
     }
 
     /**

@@ -13,6 +13,18 @@
 
 <html lang="en">
 <style>
+    #label {
+        padding-top: 170px;
+        top: 15px;
+        box-sizing: border-box;
+        position: absolute;
+        /*!*background: blue;*!  left: 5%;*/
+        width: 1200px;
+        /*border:5px solid #990000;*/
+        overflow: hidden;
+        border-radius: 10px;
+        /*background: rgba(60, 85, 100, 0.7);*/
+    }
     .mytext {
         width: 110px;
     }
@@ -27,26 +39,24 @@
 
 <script type="text/javascript">
     var array = [];
-
-
     array.push("Available");
     array.push("Reserved");
     array.push("Wait-Listed");
     updateBook = function (bookId, isbn, title, author, publisher, num_of_copies, status) {
         var index = array.indexOf(status);
         array.splice(index, 1);
-        console.log(array)
+        console.log(array);
         console.log(bookId);
         console.log(isbn);
         console.log(title);
         console.log(author);
         console.log(status);
         document.getElementById("updateBookFromUI").disabled = false;
-        document.getElementById("replacedheaders").style.display = 'block';
+        //document.getElementById("replacedheaders").style.display = 'block';
 
         var html = '';
         html = html + '<br><div id="label">';
-        html = html + '<form  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">'
+        html = html + '<form  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">';
         html = html + '<tr id = ' + bookId + '>';
         html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookId + '  readonly ></td>&nbsp;&nbsp;';
         html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + ' readonly></td>&nbsp;&nbsp;';
@@ -61,11 +71,11 @@
         html = html + '<td>' + '  <button class="btn btn-info" id=' + bookId + ' onClick="updateBook(\'' + bookId + '\',\'' + bookId + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + status + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
         html = html + '</tr>';
 
-        html = html + '</form>'
+        html = html + '</form>';
         html = html + '</div>';
         row = $('#' + bookId);
         row.replaceWith(html);
-        $('#ogiheaders').replaceWith();
+        //$('#ogiheaders').replaceWith();
 
 
     }
@@ -108,7 +118,7 @@
             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AUTHOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PUBLISHER</th>
             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# of copies</th>
-            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AVAILABILITY</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STATUS</th>
         </tr>
         <tbody id="replacedtablebody">
         </tbody>
@@ -123,7 +133,7 @@
             <th>AUTHOR</th>
             <th>PUBLISHER</th>
             <th># of copies</th>
-            <th>AVAILABILITY</th>
+            <th>STATUS</th>
 
         </tr>
         </thead>

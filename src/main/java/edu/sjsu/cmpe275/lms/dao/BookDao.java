@@ -147,7 +147,7 @@ public interface BookDao {
     /**
      * @param bookId
      */
-    public void waitlistMadeAvailable(Integer userId, Integer bookId);
+    void waitlistMadeAvailable(Integer userId, Integer bookId);
 
     /**
      * Check if the waitlisted user checked out the book once it became available
@@ -155,17 +155,17 @@ public interface BookDao {
      * @param userId
      * @param bookId
      */
-    public void didWLUserCheckoutBook(Integer userId, Integer bookId);
+    void didWLUserCheckoutBook(Integer userId, Integer bookId);
 
     /**
      * cron to call didWLUserCheckoutBook
      */
-    public void waitlistCron() throws ParseException;
+    void waitlistCron() throws ParseException;
 
     /**
      * cron to send reminder emails starting 5 days prior to due date
      *
      * @throws ParseException
      */
-    public void remaindedEmailCron() throws ParseException;
+    void remaindedEmailCron() throws ParseException;
 }

@@ -1,3 +1,7 @@
+<%@ page import="edu.sjsu.cmpe275.lms.entity.Custom_Clock" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="org.springframework.web.servlet.support.RequestContextUtils" %>
+<%@ page import="java.util.Calendar" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -20,7 +24,6 @@
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
-
 </head>
 <style>
     .mytext {
@@ -51,16 +54,19 @@
         border-radius: 10px;
         /*background: rgba(60, 85, 100, 0.7);*/
     }
+
     .form-style-9 ul{
         padding:0;
         margin:0;
         list-style:none;
     }
+
     .form-style-9 ul li{
         display: block;
         margin-bottom: 10px;
         min-height: 35px;
     }
+
     .form-style-9 ul li  .field-style{
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
@@ -72,26 +78,32 @@
         -moz-transition: all 0.30s ease-in-out;
         -ms-transition: all 0.30s ease-in-out;
         -o-transition: all 0.30s ease-in-out;
-    }.form-style-9 ul li  .field-style:focus{
-         box-shadow: 0 0 5px #B0CFE0;
-         border:1px solid #B0CFE0;
-     }
+    }  .form-style-9 ul li  .field-style:focus{
+           box-shadow: 0 0 5px #B0CFE0;
+           border:1px solid #B0CFE0;
+       }
+
     .form-style-9 ul li .field-split{
         width: 49%;
     }
+
     .form-style-9 ul li .field-full{
         width: 100%;
     }
+
     .form-style-9 ul li input.align-left{
         float:left;
     }
+
     .form-style-9 ul li input.align-right{
         float:right;
     }
+
     .form-style-9 ul li textarea{
         width: 100%;
         height: 100px;
     }
+
     .form-style-9 ul li input[type="button"],
     .form-style-9 ul li input[type="submit"] {
         -moz-box-shadow: inset 0px 1px 0px 0px #3985B1;
@@ -106,11 +118,13 @@
         text-decoration: none;
         font: 12px Arial, Helvetica, sans-serif;
     }
+
     .form-style-9 ul li input[type="button"]:hover,
     .form-style-9 ul li input[type="submit"]:hover {
         background: linear-gradient(to bottom, #2D77A2 5%, #337DA8 100%);
         background-color: #28739E;
     }
+
     /*End form styling*/
     /*Making the modal box awesome*/
     .modal {
@@ -118,9 +132,11 @@
         text-align: center;
         padding: 0 !important;
     }
+
     .modal-body{
         height: 100%;
     }
+
     .modal-dialog {
         width: 95%;
         display: inline-block;
@@ -141,18 +157,22 @@
     }
     /*End modal styling*/
 </style>
-<script type="text/javascript"  th:inline="javascript">
+<script type="text/javascript" th:inline="javascript">
     displayForms = function (link, formId) {
         // disable subsequent clicks
         link.onclick = function (event) {
             event.preventDefault();
-        }
+        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         document.getElementById(formId).style.display = "block";
-    }
+    };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     $(document).ready(function () {
-        $("#homeLink").click(function () {
-            window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
-        });
+
+        clock_popup();
+        call_home();
+
+        /* $("#homeLink").click(function () {
+         window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
+         });*/
         var uemail = '${users.useremail}';
         console.log(uemail);
         var userid = '${users.id}';
@@ -163,7 +183,7 @@
         });
         $("#logsBtn").click(function () {
             $('#centerpagecontent').empty();
-            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook"
+            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             $.get(url, null, function (data) {
                 console.log("here");
                 console.log("" + JSON.stringify(data));
@@ -243,7 +263,7 @@
         updateBook = function (rowId, bookid, isbn, title, author, publisher, location, callNumber, numberOfCopies, keywords) {
             var html = '';
             html = html + '<br><div id="label">';
-            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">'
+            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             html = html + '<tr id = ' + bookid + '>';
             html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '  readonly ></td>';
             html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + ' readonly></td>';
@@ -251,16 +271,16 @@
             html = html + '<td id="td4"><input type="text" class="mytext" name="author" value=\"' + author + '\"' + '></td>';
             html = html + '<td id="td5"><input type="text" class="mytext" name="publisher" value=\"' + publisher + '\"' + '></td>';
             html = html + '<td id="td6"><input type="text" class="mytext" name="location" value=\"' + location + '\"' + '></td>';
-            html = html + '<td id="td7"><input type="text" class="mytext" name="callnumber" value=\"' + callNumber + '\"' + '></td>';
+            html = html + '<td id="td7"><input type="text" class="mytext" size="10" name="callnumber" value=\"' + callNumber + '\"' + '></td>';
             html = html + '<td id="td8"><input type="number" min="0" class="mytext" name="num_of_copies" value=' + numberOfCopies + '></td>';
             html = html + '<td id="td9"><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
             html = html + '<td>' + '  <button class="btn btn-info" id=' + bookid + ' onClick="updateBook(\'' + bookid + '\',\'' + bookid + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + publisher + '\',\'' + location + '\',\'' + callNumber + '\',\'' + numberOfCopies + '\',\'' + keywords + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
             html = html + '</tr>';
-            html = html + '</form>'
+            html = html + '</form>';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             html = html + '</div>';
             row = $('#' + rowId);
             row.replaceWith(html);
-        }
+        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         getBooksData = function () {
             var url = "${pageContext.request.contextPath}/book/searchAllBooks";
             $.get(url, null, function (data) {
@@ -306,14 +326,28 @@
                 html = html + '</div>';
                 mymodal.find('.modal-body').append(html);
             });
-        }
+        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
         $("#searchBtn").click(function () {
             $('#searchBooksModal').modal('show');
         });
         $("#searchBtn1").click(function () {
             $('#searchBooksModal').modal('show');
         });
+
     });
+
+
+    function clock_popup() {
+        console.log("From the function clock_popup");
+        jQuery('#datetimepicker').datetimepicker()
+    }
+
+    function call_home() {
+        jQuery('#homeLink').click(function () {
+            window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
+        });
+    }
+
 </script>
 <body>
 <!-- header -->
@@ -328,6 +362,24 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">LMS- Group2 Dashboard</a>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css"/>
+        <link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet"/>
+        <%--<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" />--%>
+
+        <div align="right">
+            <form style="color: forestgreen; font-size: medium;" method="post" action="/dashboard/changedate">
+                <%
+                    ApplicationContext ac = RequestContextUtils.getWebApplicationContext(request);
+                    Custom_Clock jsp_clock = (Custom_Clock) ac.getBean("Custom_Clock");
+                    Calendar jsp_calendar = jsp_clock.getCalendar();
+                %>
+                Current App Time: <%=jsp_calendar.getTime() %> <input id="datetimepicker" type="text" name="newdate"
+                                                                      placeholder="Click here to set new time" value="">
+                <input style="color: #0a0a0a" type="submit" value="Change Date/Time"/>
+            </form>
         </div>
         <spring:url value="/register" var="userlogout"/>
         <div class="navbar-collapse collapse">
@@ -418,38 +470,28 @@
                                                    modelAttribute="book" name="simpleaddform" id="simpleaddform"
                                                    style="display: none">
                                             <ul>
-
-                                                    <%--<li>--%>
-                                                    <%--<input type="text" id="isbn"--%>
-                                                    <%--class="field-style field-split align-left" name="isbn"--%>
-                                                    <%--placeholder="ISBN">--%>
-                                                    <%--<input type="number" name="id" value="${nextbookid}"--%>
-                                                    <%--class="field-style field-split align-right"--%>
-                                                    <%--placeholder="ID"/>--%>
-                                                    <%--</li>--%>
-
                                                 <li>
                                                     <input type="text" id="isbn"
                                                            class="field-style field-full align-none" name="isbn"
-                                                           placeholder="ISBN">
+                                                           placeholder="ISBN" required>
                                                 </li>
                                                 <li>
-                                                    <input type="text" name="callnumber"
+                                                    <input type="text" name="callnumber" size="10"
                                                            class="field-style field-split align-left"
-                                                           placeholder="Call Number"/>
+                                                           placeholder="Call Number" required/>
                                                     <input type="text" name="location"
                                                            class="field-style field-split align-right"
-                                                           placeholder="Location"/>
+                                                           placeholder="Location" required/>
                                                 </li>
                                                 <li>
                                                     <input type="number" min="1" name="num_of_copies"
                                                            class="field-style field-split align-left"
-                                                           placeholder="# of copies"/>
+                                                           placeholder="# of copies" required/>
                                                     <input type="text" name="keywords"
                                                            class="field-style field-split align-right"
-                                                           placeholder="Keywords"/>
+                                                           placeholder="Keywords" required/>
                                                     <select class="selectpicker" name="current_status"
-                                                            data-style="btn-info">
+                                                            data-style="btn-info" required>
                                                         <option>Available</option>
                                                         <option>Reserved</option>
                                                         <option>Wait-Listed</option>
@@ -471,43 +513,45 @@
                                         <ul>
                                             <li>
                                                 <input type="text" class="field-style field-split align-left"
-                                                       name="isbn" placeholder="ISBN">
+                                                       name="isbn" placeholder="ISBN" required>
                                                 <input type="text" name="title"
-                                                       class="field-style field-split align-right" placeholder="Title"/>
+                                                       class="field-style field-split align-right" placeholder="Title"
+                                                       required/>
                                             </li>
                                             <li>
                                                 <input type="text" name="author"
-                                                       class="field-style field-split align-left" placeholder="Author"/>
+                                                       class="field-style field-split align-left" placeholder="Author"
+                                                       required/>
                                                 <input type="text" name="publisher"
                                                        class="field-style field-split align-right"
-                                                       placeholder="Publisher"/>
+                                                       placeholder="Publisher" required/>
                                             </li>
                                             <li>
                                                 <input type="text" name="year_of_publication"
                                                        class="field-style field-split align-left"
-                                                       placeholder="Publication Year"/>
+                                                       placeholder="Publication Year" required/>
                                                 <input type="text" name="location"
                                                        class="field-style field-split align-left"
-                                                       placeholder="Library Location"/>
+                                                       placeholder="Library Location" required/>
                                             </li>
                                             <li>
                                                 <input type="number" min="1" name="num_of_copies"
                                                        class="field-style field-split align-left"
-                                                       placeholder="# of Copies"/>
-                                                <input type="text" name="callnumber"
+                                                       placeholder="# of Copies" required/>
+                                                <input type="text" name="callnumber" size="10"
                                                        class="field-style field-split align-left"
-                                                       placeholder="Call Number"/>
+                                                       placeholder="Call Number" required/>
                                             </li>
                                             <li>
                                                 <select class="selectpicker" name="current_status"
-                                                        data-style="btn-info">
+                                                        data-style="btn-info" required>
                                                     <option>Available</option>
                                                     <option>Reserved</option>
                                                     <option>Wait-Listed</option>
                                                 </select>
                                                 <input type="text" name="keywords"
                                                        class="field-style field-full align-none"
-                                                       placeholder="Keywords"/>
+                                                       placeholder="Keywords" required/>
                                             </li>
 
                                             <li>
@@ -597,7 +641,7 @@
                                             <input type="number" min="1" name="num_of_copies"
                                                    class="field-style field-split align-left"
                                                    placeholder="# of Copies"/>
-                                            <input type="text" name="callnumber"
+                                            <input type="text" name="callnumber" size="10"
                                                    class="field-style field-split align-left"
                                                    placeholder="Call Number"/>
                                         </li>
@@ -897,8 +941,14 @@
 <%--</div>--%>
 <!-- /.modal -->
 <!-- script references -->
+
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="js/scripts.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../resources/core/css/jquery.datetimepicker.min.css"/>
+<script src="../../../resources/core/js/jquery.js"></script>
+<script src="../../../resources/core/js/build/jquery.datetimepicker.full.min.js"></script>
+
 </body>
 </html>
