@@ -108,6 +108,8 @@ public class Book {
         this.current_status = current_status;
         this.keywords = keywords;
         this.image = image;
+        this.wtUId = -1;
+        this.last_available_date = null;
 
     }
 
