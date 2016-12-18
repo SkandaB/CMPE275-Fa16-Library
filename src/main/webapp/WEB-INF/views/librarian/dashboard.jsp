@@ -358,8 +358,6 @@
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">LMS- Group2 Dashboard</a>
         </div>
@@ -385,10 +383,9 @@
         <spring:url value="/register" var="userlogout"/>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
-                    ></i> Admin <span class="caret"></span></p>
-                </li>
+                <%--<li class="dropdown">
+                    <p style=" color: white; padding-top: 10px" id="loggedinusername"><span class="caret"></span></p>
+                </li>--%>
                 <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
                 </li>
             </ul>
