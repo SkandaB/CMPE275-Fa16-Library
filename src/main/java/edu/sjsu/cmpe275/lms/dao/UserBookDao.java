@@ -22,6 +22,7 @@ public interface UserBookDao {
 
     /**
      * Removes the user book entity
+     *
      * @param userBook
      * @return
      */

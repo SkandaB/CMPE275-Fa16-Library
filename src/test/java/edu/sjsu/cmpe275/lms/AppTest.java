@@ -17,14 +17,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
 //@FixMethodOrder(MethodSorters.DEFAULT)
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/dispatcher-servlet.xml" })
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/dispatcher-servlet.xml"})
 @WebAppConfiguration
 public class AppTest {
     @Autowired
@@ -49,10 +47,10 @@ public class AppTest {
      */
     @Before
     public void setUp() {
-        book1 = new Book("1111111111111", "Author", "Title", "12:34:56", "Publisher", "2016", "MLK", 5, "Available", "test,book",null);
-        book2 = new Book("2222222222222", "Author", "Title", "12:34:56", "Publisher", "2016", "MLK", 5, "Available", "test,book",null);
-        book3 = new Book("3333333333333", "Author", "Title", "12:34:56", "Publisher", "2016", "MLK", 1, "Available", "test,book",null);
-        user1 = new User(123456, "user@gmail.com","password","ROLE_USER",true);
+        book1 = new Book("1111111111111", "Author", "Title", "12:34:56", "Publisher", "2016", "MLK", 5, "Available", "test,book", null);
+        book2 = new Book("2222222222222", "Author", "Title", "12:34:56", "Publisher", "2016", "MLK", 5, "Available", "test,book", null);
+        book3 = new Book("3333333333333", "Author", "Title", "12:34:56", "Publisher", "2016", "MLK", 1, "Available", "test,book", null);
+        user1 = new User(123456, "user@gmail.com", "password", "ROLE_USER", true);
 
         userBook1 = new UserBook(book1, user1, LocalDateTime.now(), 0);
     }
@@ -106,10 +104,12 @@ public class AppTest {
         int bookid1 = book1.getBookId();
         try {
             bookDao.setBookRequest(bookid1, userid);
-        } catch (ParseException pe) {}
+        } catch (ParseException pe) {
+        }
         try {
             bookDao.updateBookStatus(bookid1);
-        } catch (InterruptedException ie) {}
+        } catch (InterruptedException ie) {
+        }
 
         Assert.assertEquals("Available", book1.getCurrent_status());
 
@@ -117,16 +117,18 @@ public class AppTest {
         int bookid3 = book3.getBookId();
         try {
             bookDao.setBookRequest(bookid3, userid);
-        } catch (ParseException pe) {}
+        } catch (ParseException pe) {
+        }
         try {
             bookDao.updateBookStatus(bookid3);
-        } catch (InterruptedException ie) {}
+        } catch (InterruptedException ie) {
+        }
 
-        Assert.assertEquals("Hold",book3.getCurrent_status());
+        Assert.assertEquals("Hold", book3.getCurrent_status());
 
         //cleanup
         book3 = null;
-        book3 = new Book("3333333333333", "Author", "Title", "12:34:56", "Publisher", "2016", "MLK", 1, "Available", "test,book",null);
+        book3 = new Book("3333333333333", "Author", "Title", "12:34:56", "Publisher", "2016", "MLK", 1, "Available", "test,book", null);
         bookDao.deleteBookByID(bookid1);
         bookDao.deleteBookByID(bookid3);
         userDao.removeUser(userid);

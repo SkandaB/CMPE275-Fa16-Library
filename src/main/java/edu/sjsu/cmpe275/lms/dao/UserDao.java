@@ -41,9 +41,10 @@ public interface UserDao {
 
     /**
      * Remove a user by ID
+     *
      * @param id
      * @return
      */
-    boolean removeUser (Integer id);
+    boolean removeUser(Integer id);
 
 }
