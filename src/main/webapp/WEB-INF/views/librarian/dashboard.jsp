@@ -635,7 +635,7 @@
                                             <select class="selectpicker" name="current_status"
                                                     data-style="btn-info">
                                                 <option>Available</option>
-                                                <option>Reserved</option>
+                                                <option>Hold</option>
                                                 <option>Wait-Listed</option>
                                             </select>
                                                 <%--<input type="text" name="keywords"--%>

@@ -526,29 +526,13 @@
                                                    class="field-style field-split align-right"
                                                    placeholder="Publisher"/>
                                         </li>
-                                            <%--<li>--%>
-                                            <%--<input type="text" name="year_of_publication" path="year_of_publication"--%>
-                                            <%--class="field-style field-split align-left"--%>
-                                            <%--placeholder="Publication Year"/>--%>
-                                            <%--<input type="text" name="location"--%>
-                                            <%--class="field-style field-split align-left"--%>
-                                            <%--placeholder="Library Location"/>--%>
-                                            <%--</li>--%>
-                                            <%--<li>--%>
-                                            <%--&lt;%&ndash;<input type="text" min="1" name="keywords"&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;class="field-style field-split align-left"&ndash;%&gt;--%>
-                                            <%--&lt;%&ndash;placeholder="Keywords"/>&ndash;%&gt;--%>
-                                            <%--<input type="text" name="callnumber"--%>
-                                            <%--class="field-style field-full align-none"--%>
-                                            <%--placeholder="Call Number"/>--%>
-                                            <%--</li>--%>
-                                            <%--<li>--%>
-                                            <%--<select class="selectpicker" name="current_status"--%>
-                                            <%--data-style="btn-info">--%>
-                                            <%--<option>Available</option>--%>
-                                            <%--<option>Reserved</option>--%>
-                                            <%--<option>Wait-Listed</option>--%>
-                                            <%--</select>--%>
+                                        <li>
+                                            <select class="selectpicker" name="current_status"
+                                                    data-style="btn-info">
+                                                <option>Available</option>
+                                                <option>Hold</option>
+                                                <option>Wait-Listed</option>
+                                            </select>
                                             <%--<input type="text" name="keywords"--%>
                                             <%--class="field-style field-full align-none"--%>
                                             <%--placeholder="Keywords"/>--%>
