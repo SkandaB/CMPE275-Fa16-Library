@@ -468,7 +468,7 @@ public class BookDaoImpl implements BookDao {
         }
         addUpdateList.add(libUserBook);
         updatedbook.setListAddUpdateUsers(addUpdateList);
-        entityManager.merge(updatedbook);
+        entityManager.persist(updatedbook);
         entityManager.flush();
         userEntity = entityManager.find(User.class, user.getId());
         List<LibUserBook> addUpdateList1 = userEntity.getAddUpdateList();
