@@ -48,7 +48,7 @@ public class UserBook {
         this.book = b;
         this.user = u;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        this.checkout_date = dtf.format(LocalDateTime.now());
+        this.checkout_date = dtf.format(f);
         this.renew_flag = renewFlag;
         this.fine = 0;
 

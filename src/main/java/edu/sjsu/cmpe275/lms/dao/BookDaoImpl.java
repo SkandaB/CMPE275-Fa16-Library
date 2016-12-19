@@ -113,9 +113,14 @@ public class BookDaoImpl implements BookDao {
 
     }
 
-    /* (non-Javadoc)
-     * @see edu.sjsu.cmpe275.lms.dao.BookDao#setBookRequest(edu.sjsu.cmpe275.lms.entity.User)
+    /**
+     *
+     * @param bookId
+     * @param userId
+     * @return
+     * @throws ParseException
      */
+
     @Override
     public String setBookRequest(Integer bookId, Integer userId) throws ParseException {
         // TODO Auto-generated method stub
@@ -128,7 +133,7 @@ public class BookDaoImpl implements BookDao {
             if (book.getWtUId() == userId) {
                 Calendar cal = clockService.getCalendar();
 
-                UserBook userBook = new UserBook(book, user, /*LocalDateTime.now()*/cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), 0);
+                UserBook userBook = new UserBook(book, user, cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), 0);
 
                 String due_date = userBook.getDueDate();
                 returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
@@ -151,7 +156,7 @@ public class BookDaoImpl implements BookDao {
             if (!waitlist.contains(user)) {
                 waitlist.add(user);
                 book.setWaitlist(waitlist);
-                entityManager.merge(book);
+                // entityManager.merge(book);
                 /* do not change the return message. Further logic is dependent on the content of message*/
                 returnStatus = "User is waitlisted!" + "\n" + "Waitlist number is " + (book.getWaitlist().indexOf(user) + 1) + "\n";
                 returnStatus = returnStatus + book.toString();
@@ -443,7 +448,12 @@ public class BookDaoImpl implements BookDao {
         updatedbook.setPublisher(book.getPublisher());
         updatedbook.setCallnumber(book.getCallnumber());
         updatedbook.setLocation(book.getLocation());
-        updatedbook.setNum_of_copies(book.getNum_of_copies());
+        if (book.getNum_of_copies() > updatedbook.getNum_of_copies()) {
+            updatedbook.setNum_of_copies(book.getNum_of_copies());
+            updatedbook.setCurrent_status("Available");
+        } else {
+            updatedbook.setNum_of_copies(book.getNum_of_copies());
+        }
         updatedbook.setKeywords(book.getKeywords());
         // entityManager.merge(updatedbook);
 //        Book bookEntity = entityManager.find(Book.class, book.getBookId());
@@ -458,7 +468,7 @@ public class BookDaoImpl implements BookDao {
         }
         addUpdateList.add(libUserBook);
         updatedbook.setListAddUpdateUsers(addUpdateList);
-        entityManager.merge(updatedbook);
+        entityManager.persist(updatedbook);
         entityManager.flush();
         userEntity = entityManager.find(User.class, user.getId());
         List<LibUserBook> addUpdateList1 = userEntity.getAddUpdateList();
@@ -622,7 +632,7 @@ public class BookDaoImpl implements BookDao {
      */
 
     @Override
-    @Scheduled(cron = "0 0/5  * * * ?")
+    @Scheduled(cron = "0 0/2  * * * ?")
     //@Scheduled(fixedDelay = 10000)
     public void waitlistCron() throws ParseException {
         System.out.println("in cron ");
