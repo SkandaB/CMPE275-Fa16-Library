@@ -137,8 +137,8 @@ public class BookController {
             book.setIsbn(book.getIsbn());
             addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response, user);
         }
-        String lsmUrl = "lmsdashboard";
-        return new ModelAndView("redirect:/" + lsmUrl);
+
+        return new ModelAndView("redirect:/lmsdashboard");
     }
 
     /**
