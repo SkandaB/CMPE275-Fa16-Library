@@ -14,10 +14,10 @@ public class LibUserBook {
 
     @Column(name = "ID")
     private LibUserBookId id;
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "BOOK", insertable = false, updatable = false)
     private Book book;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USER", insertable = false, updatable = false)
     private User user;
     @Column(name = "ACTION")
