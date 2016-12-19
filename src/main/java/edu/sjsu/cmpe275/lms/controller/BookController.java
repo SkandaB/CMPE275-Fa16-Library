@@ -45,8 +45,6 @@ import java.util.List;
 @EnableScheduling
 @RequestMapping("/book")
 public class BookController {
-    static final String API_KEY =
-            "AIzaSyDnl1Qdtcfq2OtPSecoLIx7K5JtoM8u8z8";
     private static final String APPLICATION_NAME = "Library-System-Term-Project";
     @Autowired
     BookService bookService;
