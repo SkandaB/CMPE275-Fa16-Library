@@ -112,7 +112,7 @@ public class BookController {
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/addBook", method = RequestMethod.POST)
-    Object addBookviaForm(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
+    RedirectView addBookviaForm(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
         System.out.println("boook" + book);
         /**
          * Check if the mode of addition is via ISBN or advanced-mode.
