@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
     UserBookService userBookService;
 
     /**
-     * @return
+     * @return List of all books in the library
      */
     @Override
     public List<Book> listBooks() {
@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService {
     /**
      *
      * @param isbn
-     * @return
+     * @return the book with given isbh
      */
     @Override
     public Book findBook(String isbn) {
@@ -52,7 +52,7 @@ public class BookServiceImpl implements BookService {
      *
      * @param bookId
      * @param userId
-     * @return
+     * @return the resulf of requesting a book by a user
      * @throws ParseException
      */
     @Override
@@ -64,7 +64,7 @@ public class BookServiceImpl implements BookService {
 
     /**
      * @param bookId
-     * @return
+     * @return book with given book_id
      */
     @Override
     public Book findBookById(Integer bookId) {
@@ -73,7 +73,7 @@ public class BookServiceImpl implements BookService {
 
     /**
      * @param userId
-     * @return
+     * @return books checkoued by user with userId
      */
     @Override
     public List<Book> listBooksOfUser(Integer userId) {
@@ -86,7 +86,7 @@ public class BookServiceImpl implements BookService {
      *
      * @param bookId
      * @param userId
-     * @return
+     * @return status after return book by user
      */
     @Override
     public String returnBook(Integer bookId, Integer userId) {
@@ -96,8 +96,9 @@ public class BookServiceImpl implements BookService {
 
     /**
      * @param book
-     * @return
+     * @return books satisfying the search criteris entered by the patron
      */
+
     @Override
     public List<Book> searchBookbyUser(Book book) {
 
@@ -107,8 +108,9 @@ public class BookServiceImpl implements BookService {
     /**
      *
      * @param id
-     * @return
+     * @return boolean status after deleting a book by librarian
      */
+
     @Override
     public boolean deleteBookByID(Integer id) {
         /*A book cannot be deleted if it’s checked out by a patron.*/
@@ -123,7 +125,7 @@ public class BookServiceImpl implements BookService {
 
     /**
      *
-     * @return
+     * @return the number of copies of a book available
      */
     @Override
     public String getAvailableBookCount() {
@@ -134,7 +136,7 @@ public class BookServiceImpl implements BookService {
      *
      * @param updatedbook
      * @param request
-     * @return
+     * @return Book after updating book details
      */
     @Override
     public Book updateBooks(Book updatedbook, HttpServletRequest request) {
@@ -142,6 +144,11 @@ public class BookServiceImpl implements BookService {
     }
 
 
+    /**
+     *
+     * @param isbn
+     * @return Book based on given isbn
+     */
     @Override
     public Book getBookByISBN(String isbn) {
         return bookDao.getBookByISBN(isbn);
@@ -171,16 +178,17 @@ public class BookServiceImpl implements BookService {
 
     /**
      *
-     * @return
+     * @return all Books
      */
+
     @Override
     public List<Book> findAll() {
         return bookDao.findAll();
     }
 
     /**
-     *
-     * @return
+     * returns the checkout log for all users
+     * @return all user-book combinations
      */
     @Override
     public List<LibUserBook> getAllLibUserBook() {
@@ -191,7 +199,7 @@ public class BookServiceImpl implements BookService {
      *
      * @param bookId
      * @param userId
-     * @return
+     * @return status after renewing a book by a user userId
      * @throws ParseException
      */
     @Override

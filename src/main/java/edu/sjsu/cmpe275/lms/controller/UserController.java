@@ -251,13 +251,13 @@ public class UserController {
             return mv;
         }
 
-        emailSummary.append("The Return date is " + clockService.getCalendar().getTime());
+
 
         for (UserBookCart u : cart) {
             emailSummary.append(bService.returnBook(u.getBook_id(), userId));
             emailSummary.append("\n");
         }
-
+        emailSummary.append("The Return date is " + clockService.getCalendar().getTime() + "\n");
         //sends consolidated email of checkout
         eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Transaction Summary", emailSummary.toString());
 
@@ -282,6 +282,7 @@ public class UserController {
     }
 
     /**
+     * Landing page for search operation by patron
      * @param modelAndView
      * @return
      */
@@ -293,6 +294,8 @@ public class UserController {
     }
 
     /**
+     *
+     * Search for a book by patron
      * @param modelAndView
      * @param userId
      * @param isbn
@@ -371,6 +374,7 @@ public class UserController {
     }
 
     /**
+     * Search for a book by librarian
      * @param modelAndView
      * @param isbn
      * @param author
@@ -430,6 +434,8 @@ public class UserController {
     }
 
     /**
+     *
+     * Renew a checked out book for 30 more days
      * @param userId
      * @param bookId
      * @return The book object.

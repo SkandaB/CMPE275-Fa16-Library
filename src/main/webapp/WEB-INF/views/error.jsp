@@ -9,6 +9,18 @@
 <body>
 <h1>Oops.......!</h1>
 <h2>Error Code: ${responseCode}</h2>
-<h3>Reason: ${errorMessage}</h3> 
+<h3>Reason: ${errorMessage}</h3>
+<h3>If you are Logged in, Click on Back to Dashboard</h3>
+<form style="color: #28739E; font-size: medium;" action="${pageContext.request.contextPath}/dashboard">
+    <input type="submit" value="Back To Dashboard"/>
+    <h3>If you have not Registered/Logged In then, Click Back to Register </h3>
+    <button onclick="goBack()">Back To Register</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
 </body>
 </html>

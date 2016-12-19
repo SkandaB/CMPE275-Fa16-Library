@@ -138,18 +138,24 @@ public class RegistrationController {
                                       @Valid @ModelAttribute("loginForm") User user,
                                       BindingResult bindingResult) {
         ModelAndView mv = new ModelAndView();
-        User us = (User) request.getSession().getAttribute("user");
-        if (us.getRole().equals("ROLE_LIBRARIAN")) {
-            System.out.println("Lib found");
-            mv.setViewName("librarian/dashboard");
-            mv.addObject("users", user);
-            /*mv.addObject("custom_clock",clockService.getCalendar());*/
-        } else {
-            System.out.println("patron found");
-            mv.setViewName("user/dashboard");
-            mv.addObject("users", user);
+        try {
+            User us = (User) request.getSession().getAttribute("user");
+            if (us.getRole().equals("ROLE_LIBRARIAN")) {
+                System.out.println("Lib found");
+                mv.setViewName("librarian/dashboard");
+                mv.addObject("users", user);
+                /*mv.addObject("custom_clock",clockService.getCalendar());*/
+            } else if (us.getRole().equals("ROLE_PATRON")) {
+                System.out.println("patron found");
+                mv.setViewName("user/dashboard");
+                mv.addObject("users", user);
+            } else {
+                return new ModelAndView("redirect:/register");
+            }
+            return mv;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/register");
         }
-        return mv;
 
         /*ModelAndView mv;
         User loggedInUser = uService.findUserByEmail(user.getUseremail());

@@ -57,6 +57,7 @@ public class BookController {
     private String isbn = "";
 
     /**
+     * direct to the add book page
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -140,6 +141,7 @@ public class BookController {
             book.setIsbn(book.getIsbn());
             addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response, user);
         }
+
         return "librarian/dashboard";
     }
 
