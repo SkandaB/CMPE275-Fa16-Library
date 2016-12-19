@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService {
     UserBookService userBookService;
 
     /**
-     * @return
+     * @return List of all books in the library
      */
     @Override
     public List<Book> listBooks() {
@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService {
     /**
      *
      * @param isbn
-     * @return
+     * @return the book with given isbh
      */
     @Override
     public Book findBook(String isbn) {
@@ -52,7 +52,7 @@ public class BookServiceImpl implements BookService {
      *
      * @param bookId
      * @param userId
-     * @return
+     * @return the resulf of requesting a book by a user
      * @throws ParseException
      */
     @Override
@@ -64,7 +64,7 @@ public class BookServiceImpl implements BookService {
 
     /**
      * @param bookId
-     * @return
+     * @return book with given book_id
      */
     @Override
     public Book findBookById(Integer bookId) {
@@ -73,7 +73,7 @@ public class BookServiceImpl implements BookService {
 
     /**
      * @param userId
-     * @return
+     * @return books checkoued by user with userId
      */
     @Override
     public List<Book> listBooksOfUser(Integer userId) {
@@ -86,7 +86,7 @@ public class BookServiceImpl implements BookService {
      *
      * @param bookId
      * @param userId
-     * @return
+     * @return status after return book by user
      */
     @Override
     public String returnBook(Integer bookId, Integer userId) {
@@ -94,11 +94,22 @@ public class BookServiceImpl implements BookService {
 
     }
 
+    /**
+     * @param book
+     * @return books satisfying the search criteris entered by the patron
+     */
+
     @Override
     public List<Book> searchBookbyUser(Book book) {
 
         return bookDao.searchBook(book);
     }
+
+    /**
+     *
+     * @param id
+     * @return boolean status after deleting a book by librarian
+     */
 
     @Override
     public boolean deleteBookByID(Integer id) {
@@ -112,17 +123,31 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    /**
+     *
+     * @return the number of copies of a book available
+     */
     @Override
     public String getAvailableBookCount() {
         return bookDao.findCountAvailable();
     }
 
+    /**
+     *
+     * @param updatedbook
+     * @param request
+     * @return Book after updating book details
+     */
     @Override
     public Book updateBooks(Book updatedbook, HttpServletRequest request) {
         return bookDao.updateBooks(updatedbook, request);
     }
 
 
+    /**
+     * @param isbn
+     * @return Book based on given isbn
+     */
     @Override
     public Book getBookByISBN(String isbn) {
         return bookDao.getBookByISBN(isbn);
@@ -150,16 +175,32 @@ public class BookServiceImpl implements BookService {
         return bookDao.addBook(isbn, author, title, callnumber, publisher, year_of_publication, location, num_of_copies, current_status, keywords, image, user);
     }
 
+    /**
+     *
+     * @return all Books
+     */
+
     @Override
     public List<Book> findAll() {
         return bookDao.findAll();
     }
 
+    /**
+     * returns the checkout log for all users
+     * @return all user-book combinations
+     */
     @Override
     public List<LibUserBook> getAllLibUserBook() {
         return bookDao.getAllLibUserBook();
     }
 
+    /**
+     *
+     * @param bookId
+     * @param userId
+     * @return status after renewing a book by a user userId
+     * @throws ParseException
+     */
     @Override
     public String renewBook(Integer bookId, Integer userId) throws ParseException {
         return bookDao.setBookRenew(bookId, userId);

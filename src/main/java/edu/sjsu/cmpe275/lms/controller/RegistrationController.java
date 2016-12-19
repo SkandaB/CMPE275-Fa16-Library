@@ -27,6 +27,10 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 
+
+/**
+ * The Registration Controller for user registration and login in LMS.
+ */
 @Component
 @Controller
 @EnableAspectJAutoProxy
@@ -68,7 +72,7 @@ public class RegistrationController {
      * @param user
      * @param bindingResult
      * @param response
-     * @return
+     * @return The user dashboard based on the role.
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerNewUserAccount(
@@ -123,27 +127,35 @@ public class RegistrationController {
     }
 
     /**
+     *
      * @param request
-     * @param
-     * @return
+     * @param user
+     * @param bindingResult
+     * @return Gets the dashboard.
      */
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ModelAndView showDashBoard(HttpServletRequest request,
                                       @Valid @ModelAttribute("loginForm") User user,
                                       BindingResult bindingResult) {
         ModelAndView mv = new ModelAndView();
-        User us = (User) request.getSession().getAttribute("user");
-        if (us.getRole().equals("ROLE_LIBRARIAN")) {
-            System.out.println("Lib found");
-            mv.setViewName("librarian/dashboard");
-            mv.addObject("users", user);
-            /*mv.addObject("custom_clock",clockService.getCalendar());*/
-        } else {
-            System.out.println("patron found");
-            mv.setViewName("user/dashboard");
-            mv.addObject("users", user);
+        try {
+            User us = (User) request.getSession().getAttribute("user");
+            if (us.getRole().equals("ROLE_LIBRARIAN")) {
+                System.out.println("Lib found");
+                mv.setViewName("librarian/dashboard");
+                mv.addObject("users", user);
+                /*mv.addObject("custom_clock",clockService.getCalendar());*/
+            } else if (us.getRole().equals("ROLE_PATRON")) {
+                System.out.println("patron found");
+                mv.setViewName("user/dashboard");
+                mv.addObject("users", user);
+            } else {
+                return new ModelAndView("redirect:/register");
+            }
+            return mv;
+        } catch (Exception e) {
+            return new ModelAndView("redirect:/register");
         }
-        return mv;
 
         /*ModelAndView mv;
         User loggedInUser = uService.findUserByEmail(user.getUseremail());
@@ -168,14 +180,24 @@ public class RegistrationController {
 
     }
 
+    /**
+     * @param request
+     * @return homepage
+     */
     @RequestMapping(value = "/lmsdashboard", method = RequestMethod.GET)
     public ModelAndView showlmsdashboard(HttpServletRequest request) {
-        ModelAndView mv;
+        /*ModelAndView mv;
         mv = new ModelAndView("librarian/dashboard");
-        return mv;
+        return mv;*/
+        return new ModelAndView("redirect:/dashboard");
     }
 
-
+    /**
+     *
+     * @param newdatestr
+     * @return set the custom date.
+     * @throws ParseException
+     */
     @RequestMapping(value = "/dashboard/changedate", method = RequestMethod.POST)
     public ModelAndView setCustomDate(@RequestParam(value = "newdate") String newdatestr) throws ParseException {
         System.out.println("Date returned from the webpage = " + newdatestr);
@@ -186,14 +208,14 @@ public class RegistrationController {
         }
         System.out.print("!!!!!!!!!!!!!!!!!!!! Displaying the system set app time: ");
         clockService.displayCurrentTime();
-        return new ModelAndView("librarian/dashboard");
+        return new ModelAndView("redirect:/dashboard");
     }
 
     /**
      * @param request
      * @param user
      * @param bindingResult
-     * @return
+     * @return the dashboard for the user to login
      */
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public ModelAndView loginUser(HttpServletRequest request,
@@ -230,7 +252,7 @@ public class RegistrationController {
 
     /**
      * @param token
-     * @return
+     * @return The view to confirm registered token
      */
     @RequestMapping(value = "/register/confirmRegistration.html", method = RequestMethod.GET)
     public ModelAndView confirmRegisteredAccount(@RequestParam("token") String token) {
@@ -251,7 +273,7 @@ public class RegistrationController {
 
     /**
      * @param request
-     * @return
+     * @return The register page
      */
     @RequestMapping(value = "/logoutuser", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request) {

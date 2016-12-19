@@ -18,23 +18,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!--[if lt IE 9]> -->
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="resources/core/js/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources/core/css/jquery.datetimepicker.min.css"/>
+    <script src="resources/core/js/build/jquery.datetimepicker.full.min.js"></script>
 </head>
 <style>
     .mytext {
         width: 110px;
     }
+
     #updatebookform, #id1, #id2, #id3 {
         display: inline;
         float: left;
     }
+
     /*<!-- Making the form awesome --> */
-    .form-style-9{
+    .form-style-9 {
         max-width: 450px;
         background: #FAFAFA;
         padding: 30px;
@@ -43,6 +49,7 @@
         border-radius: 10px;
         border: 6px solid #305A72;
     }
+
     #label {
         top: 5px;
         box-sizing: border-box;
@@ -55,19 +62,19 @@
         /*background: rgba(60, 85, 100, 0.7);*/
     }
 
-    .form-style-9 ul{
-        padding:0;
-        margin:0;
-        list-style:none;
+    .form-style-9 ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
     }
 
-    .form-style-9 ul li{
+    .form-style-9 ul li {
         display: block;
         margin-bottom: 10px;
         min-height: 35px;
     }
 
-    .form-style-9 ul li  .field-style{
+    .form-style-9 ul li .field-style {
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -78,28 +85,30 @@
         -moz-transition: all 0.30s ease-in-out;
         -ms-transition: all 0.30s ease-in-out;
         -o-transition: all 0.30s ease-in-out;
-    }  .form-style-9 ul li  .field-style:focus{
-           box-shadow: 0 0 5px #B0CFE0;
-           border:1px solid #B0CFE0;
-       }
+    }
 
-    .form-style-9 ul li .field-split{
+    .form-style-9 ul li .field-style:focus {
+        box-shadow: 0 0 5px #B0CFE0;
+        border: 1px solid #B0CFE0;
+    }
+
+    .form-style-9 ul li .field-split {
         width: 49%;
     }
 
-    .form-style-9 ul li .field-full{
+    .form-style-9 ul li .field-full {
         width: 100%;
     }
 
-    .form-style-9 ul li input.align-left{
-        float:left;
+    .form-style-9 ul li input.align-left {
+        float: left;
     }
 
-    .form-style-9 ul li input.align-right{
-        float:right;
+    .form-style-9 ul li input.align-right {
+        float: right;
     }
 
-    .form-style-9 ul li textarea{
+    .form-style-9 ul li textarea {
         width: 100%;
         height: 100px;
     }
@@ -133,7 +142,7 @@
         padding: 0 !important;
     }
 
-    .modal-body{
+    .modal-body {
         height: 100%;
     }
 
@@ -143,6 +152,7 @@
         text-align: left;
         vertical-align: middle;
     }
+
     #viewBooksModal {
         width: 100%;
         left: 23%;
@@ -150,11 +160,13 @@
         vertical-align: middle;
         /*center: 0%;*/
     }
+
     #viewBooksContent {
         width: 100%;
         height: auto;
         vertical-align: middle;
     }
+
     /*End modal styling*/
 </style>
 <script type="text/javascript" th:inline="javascript">
@@ -162,54 +174,38 @@
         // disable subsequent clicks
         link.onclick = function (event) {
             event.preventDefault();
-        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        };
         document.getElementById(formId).style.display = "block";
-    };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    };
     $(document).ready(function () {
 
-        clock_popup();
-        call_home();
+        $("#addBtn").click(function () {
+            $('#addBookModal').modal('show');
+        });
 
-        /* $("#homeLink").click(function () {
-         window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
-         });*/
+        $("#addBtn1").click(function () {
+            $('#addBookModal').modal('show');
+        });
+
+        $('#homeLink').click(function () {
+            window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
+        });
+
         var uemail = '${users.useremail}';
         console.log(uemail);
         var userid = '${users.id}';
         console.log(userid);
         $("#loggedinusername").text(uemail);
-        $("#addBtn").click(function () {
-            $('#addBookModal').modal('show');
-        });
+
+
         $("#logsBtn").click(function () {
             $('#centerpagecontent').empty();
-            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            var url = "${pageContext.request.contextPath}/book/getAllLibUserBook";
             $.get(url, null, function (data) {
                 console.log("here");
                 console.log("" + JSON.stringify(data));
                 var booksRecord = data;
                 $('#centerpagecontent').append('<br><br><p style="text-align: center; font-weight: bold">Books added/updated by all librarians');
-//                var html = '<br><div class="table-responsive">'+
-//                    '<table class="table">'+
-//                    '<thead>' +
-//                    '<tr>' +
-//                    '<th style="text-align:center" >User Details:</th>'+
-//                    '</tr>'+
-//                    '</thead>';
-//
-//                for (var key in data) {
-//                    if (data.hasOwnProperty(key)) {
-//                        console.log(key + " -> " + JSON.stringify(data[key]));
-//                        html = html + '<tr>';
-//                        html = html+'<td style="text-align: center">' +key+ '</td>';
-//                        html = html + '</tr>';
-//                        break;
-//                    }
-//                }
-                html = html + '</table>';
-                html = html + '</div>';
-//
-//                $('#centerpagecontent').append(html);
                 var html = '<br><br><br><div class="table-responsive">' +
                     '<table class="table">' +
                     '<thead>' +
@@ -249,9 +245,7 @@
                 $('#centerpagecontent').append(html);
             });
         });
-        $("#addBtn1").click(function () {
-            $('#addBookModal').modal('show');
-        });
+
         $("#viewBooksBtn").click(function () {
             getBooksData();
             $('#viewBooksModal').modal('show');
@@ -263,7 +257,7 @@
         updateBook = function (rowId, bookid, isbn, title, author, publisher, location, callNumber, numberOfCopies, keywords) {
             var html = '';
             html = html + '<br><div id="label">';
-            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            html = html + '<form class="form-group"  id="updatebookform"  method="post"  modelAttribute="book" action="${pageContext.request.contextPath}/book/updatebook">';
             html = html + '<tr id = ' + bookid + '>';
             html = html + '<td id="td1"><input type="text" style="width: 35px"  name="bookId" value=' + bookid + '  readonly ></td>';
             html = html + '<td id="td2"><input type="txt" style="width: 120px" name="isbn" value=\"' + isbn + '\"' + ' readonly></td>';
@@ -276,11 +270,11 @@
             html = html + '<td id="td9"><input type="text" class="mytext" name="keywords" value=\"' + keywords + '\"' + '></td>';
             html = html + '<td>' + '  <button class="btn btn-info" id=' + bookid + ' onClick="updateBook(\'' + bookid + '\',\'' + bookid + '\',\'' + isbn + '\',\'' + title + '\',\'' + author + '\',\'' + publisher + '\',\'' + location + '\',\'' + callNumber + '\',\'' + numberOfCopies + '\',\'' + keywords + '\')">Edit</button> <button type="submit" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
             html = html + '</tr>';
-            html = html + '</form>';;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            html = html + '</form>';
             html = html + '</div>';
             row = $('#' + rowId);
             row.replaceWith(html);
-        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        };
         getBooksData = function () {
             var url = "${pageContext.request.contextPath}/book/searchAllBooks";
             $.get(url, null, function (data) {
@@ -292,16 +286,16 @@
                 console.log(jsonData.length);
                 console.log(jsonData);
                 var html = '<br><br><br><div class="table-responsive">' +
-                    '<table class="table">'+
+                    '<table class="table">' +
                     '<thead>' +
                     '<tr>' +
-                    '<th>ID </th>'+
-                    '<th>ISBN </th>'+
-                    '<th>Title </th>'+
-                    '<th>Author </th>'+
-                    '<th>Publisher </th>'+
+                    '<th>ID </th>' +
+                    '<th>ISBN </th>' +
+                    '<th>Title </th>' +
+                    '<th>Author </th>' +
+                    '<th>Publisher </th>' +
                     '<th>Location </th>' +
-                    '<th>Call Number </th>'+
+                    '<th>Call Number </th>' +
                     '<th>No. of copies </th>' +
                     '<th>Keywords</th>' +
                     '<th align="center" >Actions</th>' +
@@ -310,14 +304,14 @@
                     //console.log("title string"+JSON.stringify(jsonData[i]));
                     html = html + '<tr id = ' + jsonData[i].bookId + '>';
                     html = html + '<td >' + jsonData[i].bookId + '</td>';
-                    html = html + '<td>'+jsonData[i].isbn+'</td>';
-                    html = html + '<td>'+jsonData[i].title+'</td>';
-                    html = html + '<td>'+jsonData[i].author+'</td>';
+                    html = html + '<td>' + jsonData[i].isbn + '</td>';
+                    html = html + '<td>' + jsonData[i].title + '</td>';
+                    html = html + '<td>' + jsonData[i].author + '</td>';
                     html = html + '<td>' + jsonData[i].publisher + '</td>';
                     html = html + '<td>' + jsonData[i].location + '</td>';
                     html = html + '<td>' + jsonData[i].callNumber + '</td>';
                     html = html + '<td>' + jsonData[i].numberOfCopies + '</td>';
-                    html = html + '<td>'+jsonData[i].keywords+'</td>';
+                    html = html + '<td>' + jsonData[i].keywords + '</td>';
                     var singleObj = jsonData[i];
                     html = html + '<td>' + '  <button class="btn btn-info" id=' + jsonData[i].bookId + ' onClick="updateBook(\'' + jsonData[i].bookId + '\',\'' + jsonData[i].bookId + '\',\'' + jsonData[i].isbn + '\',\'' + jsonData[i].title + '\',\'' + jsonData[i].author + '\',\'' + jsonData[i].publisher + '\',\'' + jsonData[i].location + '\',\'' + jsonData[i].callNumber + '\',\'' + jsonData[i].numberOfCopies + '\',\'' + jsonData[i].keywords + '\')">Edit</button> <button onClick="return updatebookdetails();" class="btn btn-success" id="updateBookFromUI" >Update</button>' + '</td>';
                     html = html + '</tr>';
@@ -326,32 +320,23 @@
                 html = html + '</div>';
                 mymodal.find('.modal-body').append(html);
             });
-        };;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        };
         $("#searchBtn").click(function () {
             $('#searchBooksModal').modal('show');
         });
         $("#searchBtn1").click(function () {
             $('#searchBooksModal').modal('show');
         });
-
+        clock_popup();
     });
-
 
     function clock_popup() {
         console.log("From the function clock_popup");
         jQuery('#datetimepicker').datetimepicker()
     }
-
-    function call_home() {
-        jQuery('#homeLink').click(function () {
-            window.open('${pageContext.request.contextPath}/lmsdashboard', '_self', false);
-        });
-    }
-
 </script>
 <body>
 <!-- header -->
-
 
 <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
@@ -359,36 +344,34 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">LMS- Group2 Dashboard</a>
         </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
         <link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.css"/>
         <link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" rel="stylesheet"/>
-        <%--<link type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" rel="stylesheet" />--%>
-
-        <div align="right">
-            <form style="color: forestgreen; font-size: medium;" method="post" action="/dashboard/changedate">
-                <%
-                    ApplicationContext ac = RequestContextUtils.getWebApplicationContext(request);
-                    Custom_Clock jsp_clock = (Custom_Clock) ac.getBean("Custom_Clock");
-                    Calendar jsp_calendar = jsp_clock.getCalendar();
-                %>
-                Current App Time: <%=jsp_calendar.getTime() %> <input id="datetimepicker" type="text" name="newdate"
-                                                                      placeholder="Click here to set new time" value="">
-                <input style="color: #0a0a0a" type="submit" value="Change Date/Time"/>
-            </form>
-        </div>
         <spring:url value="/register" var="userlogout"/>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
+                <li>
                     <p style=" color: white; padding-top: 10px" id="loggedinusername"><i
                     ></i> Admin <span class="caret"></span></p>
                 </li>
-                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>Logout</a>
+                <li><a class="navbar-brand" style="padding-left:30px; color: white;" href="${userlogout}"/>
+                    Logout   </a>
+                </li>
+                <li>
+                    <form style="color: forestgreen; font-size: medium;" method="post"
+                          action="${pageContext.request.contextPath}/dashboard/changedate">
+                        <%
+                            ApplicationContext ac = RequestContextUtils.getWebApplicationContext(request);
+                            Custom_Clock jsp_clock = (Custom_Clock) ac.getBean("Custom_Clock");
+                            Calendar jsp_calendar = jsp_clock.getCalendar();
+                        %>
+                        App Time: <%=jsp_calendar.getTime() %> <input id="datetimepicker" type="text"
+                                                                      name="newdate"
+                                                                      placeholder="Click here to set new time">
+                        <input style="color: #0a0a0a" type="submit" value="Change Date/Time"/>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -417,9 +400,10 @@
                         <li><a id="searchBtn1" href="#"><i class="glyphicon glyphicon-search"></i> Search a Book</a>
                         </li>
                         <%--<li><a href="#"><i class="glyphicon glyphicon-remove"></i> Remove a Book</a></li>--%>
-                        <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a></li>
+                        <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a>
+                        </li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+                        <li><a href="${userlogout}"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -453,12 +437,14 @@
                                 <!-- Add forms here -->
                                 <ul class="nav nav-tabs" id="tabContent" data-tabs="tabs">
                                     <li>
-                                        <a href="#" id="simpleadd" data-toggle="tab" onclick="displayForms(this,'simpleaddform');">Add via
+                                        <a href="#" id="simpleadd" data-toggle="tab"
+                                           onclick="displayForms(this,'simpleaddform');">Add via
                                             ISBN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" id="advancedadd" data-toggle="tab" onclick="displayForms(this,'advancedaddform');">Advanced
+                                        <a href="#" id="advancedadd" data-toggle="tab"
+                                           onclick="displayForms(this,'advancedaddform');">Advanced
                                             add
                                         </a>
                                     </li>
@@ -493,7 +479,7 @@
                                                     <select class="selectpicker" name="current_status"
                                                             data-style="btn-info" required>
                                                         <option>Available</option>
-                                                        <option>Reserved</option>
+                                                        <option>Hold</option>
                                                         <option>Wait-Listed</option>
                                                     </select>
 
@@ -546,7 +532,7 @@
                                                 <select class="selectpicker" name="current_status"
                                                         data-style="btn-info" required>
                                                     <option>Available</option>
-                                                    <option>Reserved</option>
+                                                    <option>Hold</option>
                                                     <option>Wait-Listed</option>
                                                 </select>
                                                 <input type="text" name="keywords"
@@ -649,7 +635,7 @@
                                             <select class="selectpicker" name="current_status"
                                                     data-style="btn-info">
                                                 <option>Available</option>
-                                                <option>Reserved</option>
+                                                <option>Hold</option>
                                                 <option>Wait-Listed</option>
                                             </select>
                                                 <%--<input type="text" name="keywords"--%>
@@ -697,23 +683,24 @@
                         <h4>Reports</h4></div>
                     <security:authorize access="hasRole('ROLE_PATRON')">
                         <h2>This text is only visible to a user</h2>
-                        <br />
+                        <br/>
                     </security:authorize>
 
                     <security:authorize access="hasRole('ROLE_LIBRARIAN')">
                         <h2>This text is only visible to an admin</h2>
-                        <br />
+                        <br/>
                     </security:authorize>
                     <div class="panel-body">
 
                         <small>Available</small>
                         <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="72"
-                                 aria-valuemin="0" aria-valuemax="100" style="width: 72%">
-                                <span class="sr-only">72% Complete</span>
+                            <div id="availablecount" class="progress-bar progress-bar-success" role="progressbar"
+                                 aria-valuenow=${availablecount} aria-valuemin="0" aria-valuemax="100"
+                                 style="width: 70%">
+                                <span class="sr-only"></span>
                             </div>
                         </div>
-                        <small>Reserved</small>
+                        <small>Hold</small>
                         <div class="progress">
                             <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
                                  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
@@ -724,7 +711,7 @@
                         <div class="progress">
                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
                                  aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                <span class="sr-only">60% Complete (warning)</span>
+                                <span id="" class="sr-only">60% Complete (warning)</span>
                             </div>
                         </div>
                         <small>Failures</small>
@@ -738,179 +725,12 @@
                     <!--/panel-body-->
                 </div>
                 <!--/panel-->
-
                 <hr>
-
-                <%--<!--tabs-->--%>
-                <%--&lt;%&ndash;<div class="panel">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<ul class="nav nav-tabs" id="myTab">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<li><a href="#messages" data-toggle="tab">Messages</a></li>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<li><a href="#settings" data-toggle="tab">Settings</a></li>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</ul>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="tab-content">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="tab-pane active well" id="profile">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<h4><i class="glyphicon glyphicon-user"></i></h4> Lorem profile dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<p>Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis dolor, in sagittis nisi.</p>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="tab-pane well" id="messages">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<h4><i class="glyphicon glyphicon-comment"></i></h4> Message ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<p>Quisque mauris augu.</p>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="tab-pane well" id="settings">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<h4><i class="glyphicon glyphicon-cog"></i></h4> Lorem settings dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<p>Quisque mauris augue, molestie.</p>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--<!--/tabs-->--%>
-
-                <%--<hr>--%>
-
-                <%--<div class="panel panel-default">--%>
-                <%--<div class="panel-heading">--%>
-                <%--<h4>New Requests</h4></div>--%>
-                <%--<div class="panel-body">--%>
-                <%--<div class="list-group">--%>
-                <%--<a href="#" class="list-group-item active">Hosting virtual mailbox serv..</a>--%>
-                <%--<a href="#" class="list-group-item">Dedicated server doesn't..</a>--%>
-                <%--<a href="#" class="list-group-item">RHEL 6 install on new..</a>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--<!--/col-->--%>
-                <%--&lt;%&ndash;<div class="col-md-6">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel panel-default">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel-heading">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<h4>Notices</h4></div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel-body">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="alert alert-info">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<button type="button" class="close" data-dismiss="alert">×</button>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;This is a dismissable alert.. just sayin'.&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<p>This is a dashboard-style layout that uses Bootstrap 3. You can use this template as a starting point to create something more unique.</p>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<p>Visit the Bootstrap Playground at <a href="http://bootply.com">Bootply</a> to tweak this layout or discover more useful code snippets.</p>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="table-responsive">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<table class="table table-striped">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<thead>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<th>Visits</th>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<th>ROI</th>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<th>Source</th>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</thead>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<tbody>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>45</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>2.45%</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>Direct</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>289</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>56.2%</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>Referral</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>98</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>25%</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>Type</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>..</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>..</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>..</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>..</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>..</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<td>..</td>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</tr>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</tbody>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</table>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel panel-default">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel-heading">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel-title">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<i class="glyphicon glyphicon-wrench pull-right"></i>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<h4>Post Request</h4>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel-body">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<form class="form form-vertical">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="control-group">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<label>Name</label>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="controls">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<input type="text" class="form-control" placeholder="Enter Name">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="control-group">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<label>Message</label>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="controls">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<textarea class="form-control"></textarea>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="control-group">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<label>Category</label>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="controls">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<select class="form-control">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<option>options</option>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</select>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="control-group">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<label></label>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="controls">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<button type="submit" class="btn btn-primary">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;Post&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</button>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</form>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<!--/panel content-->&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<!--/panel-->&ndash;%&gt;--%>
-
-                <%--&lt;%&ndash;<div class="panel panel-default">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel-heading">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel-title">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<h4>Engagement</h4></div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="panel-body">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="col-xs-4 text-center"><img src="http://placehold.it/80/BBBBBB/FFF" class="img-circle img-responsive"></div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="col-xs-4 text-center"><img src="http://placehold.it/80/EFEFEF/555" class="img-circle img-responsive"></div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<div class="col-xs-4 text-center"><img src="http://placehold.it/80/EEEEEE/222" class="img-circle img-responsive"></div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<!--/panel-->&ndash;%&gt;--%>
-
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--<!--/col-span-6-->--%>
-
             </div>
             <!--/row-->
 
             <hr>
 
-            <%--<a href="#"><strong><i class="glyphicon glyphicon-comment"></i> Discussions</strong>--%>
-            <%--<hr>--%>
-
-            <%--<div class="row">--%>
-            <%--<div class="col-md-12">--%>
-            <%--<ul class="list-group">--%>
-            <%--<li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-flash"></i> <small>(3 mins ago)</small> The 3rd page reports don't contain any links. Does anyone know why..</a></li>--%>
-            <%--<li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-flash"></i> <small>(1 hour ago)</small> Hi all, I've just post a report that show the relationship betwe..</a></li>--%>
-            <%--<li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-heart"></i> <small>(2 hrs ago)</small> Paul. That document you posted yesterday doesn't seem to contain the over..</a></li>--%>
-            <%--<li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-heart-empty"></i> <small>(4 hrs ago)</small> The map service on c243 is down today. I will be fixing the..</a></li>--%>
-            <%--<li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-heart"></i> <small>(yesterday)</small> I posted a new document that shows how to install the services layer..</a></li>--%>
-            <%--<li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-flash"></i> <small>(yesterday)</small> ..</a></li>--%>
-            <%--</ul>--%>
-            <%--</div>--%>
-            <%--</div>--%>
         </div>
         <!--/col-span-9-->
     </div>
@@ -943,12 +763,11 @@
 <!-- script references -->
 
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<link rel="stylesheet" type="text/css" href="../../../resources/core/css/jquery.datetimepicker.min.css"/>
-<script src="../../../resources/core/js/jquery.js"></script>
-<script src="../../../resources/core/js/build/jquery.datetimepicker.full.min.js"></script>
+<%--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>--%>
+<%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
+<%--<script src="js/scripts.js"></script>--%>
+<%--<link rel="stylesheet" type="text/css" href="../../../resources/core/css/jquery.datetimepicker.min.css"/>--%>
+<%--<script src="../../../resources/core/js/jquery.js"></script>--%>
 
 </body>
 </html>

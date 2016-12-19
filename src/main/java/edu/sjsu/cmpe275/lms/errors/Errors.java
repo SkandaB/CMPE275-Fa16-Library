@@ -16,10 +16,13 @@ public class Errors {
         sb.append(" with ISBN ");
         sb.append(isbn);
         sb.append(" does not exist.");
-        //return generatePage(sb.toString());
         return sb.toString();
     }
 
+    /**
+     * @param isbn
+     * @return
+     */
     public static String bookDetailsNotFound(String isbn){
         StringBuilder sb = new StringBuilder();
         sb.append("Sorry, the requested book");

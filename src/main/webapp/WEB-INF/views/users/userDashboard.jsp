@@ -313,7 +313,7 @@
                         </li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
                         <li><a id="mybooks" href="#"><i class="glyphicon glyphicon-flag"></i>My Books</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+                        <li><a href="${userlogout}"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -517,38 +517,24 @@
                                             <input type="text" class="field-style field-split align-left"
                                                    name="isbn" placeholder="ISBN" path="isbn">
                                             <input type="text" name="title" path="title"
-                                                   class="field-style field-split align-right" placeholder="Title"/>
+                                                   class="field-style field-split align-right" placeholder="Title"
+                                            />
                                         </li>
                                         <li>
                                             <input type="text" name="author" path="author"
-                                                   class="field-style field-split align-left" placeholder="Author"/>
+                                                   class="field-style field-split align-left" placeholder="Author"
+                                            />
                                             <input type="text" name="publisher" path="publisher"
                                                    class="field-style field-split align-right"
                                                    placeholder="Publisher"/>
                                         </li>
-                                            <%--<li>--%>
-                                            <%--<input type="text" name="year_of_publication" path="year_of_publication"--%>
-                                            <%--class="field-style field-split align-left"--%>
-                                            <%--placeholder="Publication Year"/>--%>
-                                            <%--<input type="text" name="location"--%>
-                                            <%--class="field-style field-split align-left"--%>
-                                            <%--placeholder="Library Location"/>--%>
-                                            <%--</li>--%>
                                         <li>
-                                                <%--<input type="text" min="1" name="keywords"--%>
-                                                <%--class="field-style field-split align-left"--%>
-                                                <%--placeholder="Keywords"/>--%>
-                                            <input type="text" name="callnumber"
-                                                   class="field-style field-full align-none"
-                                                   placeholder="Call Number"/>
-                                        </li>
-                                            <%--<li>--%>
-                                            <%--<select class="selectpicker" name="current_status"--%>
-                                            <%--data-style="btn-info">--%>
-                                            <%--<option>Available</option>--%>
-                                            <%--<option>Reserved</option>--%>
-                                            <%--<option>Wait-Listed</option>--%>
-                                            <%--</select>--%>
+                                            <select class="selectpicker" name="current_status"
+                                                    data-style="btn-info">
+                                                <option>Available</option>
+                                                <option>Hold</option>
+                                                <option>Wait-Listed</option>
+                                            </select>
                                             <%--<input type="text" name="keywords"--%>
                                             <%--class="field-style field-full align-none"--%>
                                             <%--placeholder="Keywords"/>--%>
@@ -610,7 +596,7 @@
                                 <span class="sr-only">72% Complete</span>
                             </div>
                         </div>
-                        <small>Reserved</small>
+                        <small>Hold</small>
                         <div class="progress">
                             <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
                                  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
