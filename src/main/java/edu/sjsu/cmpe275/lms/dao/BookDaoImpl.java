@@ -103,7 +103,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     /**
-     * @return
+     * @return List of all books
      */
     @Override
     public List<Book> findAll() {
@@ -117,7 +117,7 @@ public class BookDaoImpl implements BookDao {
      *
      * @param bookId
      * @param userId
-     * @return
+     * @return The status of book request by a user
      * @throws ParseException
      */
 
@@ -136,7 +136,7 @@ public class BookDaoImpl implements BookDao {
                 UserBook userBook = new UserBook(book, user, cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), 0);
 
                 String due_date = userBook.getDueDate();
-                returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
+                returnStatus = "Book Checkout Successful. \n The Due date is " + due_date + "\n";
                 returnStatus = returnStatus + book.printBookInfo();
 
                 book.setWtUId(-1);
@@ -183,7 +183,7 @@ public class BookDaoImpl implements BookDao {
                 UserBook userBook = new UserBook(book, user, cal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), 0);
 
                 String due_date = userBook.getDueDate();
-                returnStatus = "User request for the book successful. \n The Due date is " + due_date + "\n";
+                returnStatus = "Book Checkout Successful. \n The Due date is " + due_date + "\n";
                 returnStatus = returnStatus + book.printBookInfo();
 
                 entityManager.persist(userBook);
@@ -312,7 +312,7 @@ public class BookDaoImpl implements BookDao {
 
     /**
      * @param bookId
-     * @return
+     * @return Book given the bookId
      */
     @Override
     public Book getBookbyId(Integer bookId) {
@@ -322,6 +322,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     /**
+     * Update the availability status of the book based on the checkout summary
      * @param book_Id
      */
     @Override
@@ -338,7 +339,7 @@ public class BookDaoImpl implements BookDao {
 
     /**
      * @param userId
-     * @return
+     * @return the list of books checked out by a user
      */
     @Override
     public List<Book> getBookByUserId(Integer userId) {
@@ -350,7 +351,7 @@ public class BookDaoImpl implements BookDao {
     /**
      * @param bookId
      * @param userId
-     * @return
+     * @return the status of returning a book
      */
     @Override
     public String setBookReturn(Integer bookId, Integer userId) {
@@ -392,7 +393,8 @@ public class BookDaoImpl implements BookDao {
     }
 
     /**
-     * @return
+     *
+     * @return the number of available books
      */
     public String findCountAvailable() {
         Query query = entityManager.createQuery("select count(b.bookId) from Book b where b.current_status = :status");
@@ -403,6 +405,7 @@ public class BookDaoImpl implements BookDao {
 
 
     /**
+     * All user - book checkout logs
      * @return
      */
     @Override
@@ -414,6 +417,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     /**
+     * delete the book with given bookId
      * @param id
      * @return
      */
@@ -437,6 +441,13 @@ public class BookDaoImpl implements BookDao {
 //        return bookentity.getIsbn();
 //    }
 
+    /**
+     * Update book details
+     *
+     * @param book
+     * @param request
+     * @return updated book
+     */
     public Book updateBooks(Book book, HttpServletRequest request) {
 //        System.out.println("getBookISBN(book.getIsbn())++"+ getBookISBN(book.getIsbn()));
         System.out.println("Update book form +++ " + book);
@@ -482,6 +493,15 @@ public class BookDaoImpl implements BookDao {
         return book;
     }
 
+    /**
+     * Renew the book
+     * check if no user is in waitlist for the book
+     * check if the user is not doing more that twice consecutively
+     * @param bookId
+     * @param userId
+     * @return
+     * @throws ParseException
+     */
 
     @Override
     public String setBookRenew(Integer bookId, Integer userId) throws ParseException {
@@ -532,6 +552,11 @@ public class BookDaoImpl implements BookDao {
 
     }
 
+    /**
+     * Notify waitlisted user when the book becomes available
+     * @param userId
+     * @param bookId
+     */
     @Override
     public void waitlistMadeAvailable(Integer userId, Integer bookId) {
         System.out.println("in waitlist available");
@@ -561,6 +586,11 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
+    /**
+     *
+     * @param book
+     * @return the date till when the book will be held for the waitlisted user
+     */
     @Override
     public LocalDate bookAvailabilityDueDate(Book book) {
 
@@ -588,7 +618,11 @@ public class BookDaoImpl implements BookDao {
         return date;
     }
 
-    //@Scheduled(cron = "0 0  1 * * *")
+    /**
+     * Function to checkif watilisted user checkout the book
+     * @param userId
+     * @param bookId
+     */
     public void didWLUserCheckoutBook(Integer userId, Integer bookId) {
 
         Book book = entityManager.find(Book.class, bookId);
@@ -626,8 +660,8 @@ public class BookDaoImpl implements BookDao {
     }
 
     /**
-     * Executes every five minutes
-     *
+     * Executes every two minutes
+     * Waitlisted user loop execution
      * @throws ParseException
      */
 
@@ -657,7 +691,8 @@ public class BookDaoImpl implements BookDao {
 
 
     /**
-     * Executes every five minutes
+     * Executes every two minutes
+     * Send email if the due date is approaching
      *
      * @throws ParseException
      */

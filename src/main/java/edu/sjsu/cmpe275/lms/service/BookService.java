@@ -18,22 +18,81 @@ import java.util.List;
  */
 @EnableScheduling
 public interface BookService {
-	
-    List<Book> listBooks();
+	/**
+	 * @return List of all books in the library
+	 */
+	List<Book> listBooks();
+
+	/**
+	 *
+	 * @param isbn
+	 * @return the book with given isbh
+	 */
 	Book findBook(String isbn);
+
+	/**
+	 *
+	 * @param bookId
+	 * @param userId
+	 * @return the resulf of requesting a book by a user
+	 * @throws ParseException
+	 */
 	String requestBook(Integer bookId,Integer userId) throws ParseException;
+
+	/**
+	 * @param bookId
+	 * @return book with given book_id
+	 */
 	Book findBookById(Integer bookId);
+
+	/**
+	 * @param userId
+	 * @return books checkoued by user with userId
+	 */
 	List<Book> listBooksOfUser(Integer userId);
+
+	/**
+	 *
+	 * @param bookId
+	 * @param userId
+	 * @return status after return book by user
+	 */
 	String returnBook(Integer bookId,Integer userId);
+
+	/**
+	 *
+	 * @param book
+	 * @return books satisfying the search criteris entered by the patron
+	 */
 	List<Book> searchBookbyUser(Book book);
 
+	/**
+	 *
+	 * @param id
+	 * @return boolean status after deleting a book by librarian
+	 */
 	boolean deleteBookByID(Integer id);
 
+	/**
+	 *
+	 * @param updatedbook
+	 * @param request
+	 * @return Book after updating book details
+	 */
 
 	Book updateBooks(Book updatedbook, HttpServletRequest request);
 
-    String getAvailableBookCount();
+	/**
+	 *
+	 * @return the number of copies of a book available
+	 */
+	String getAvailableBookCount();
 
+	/**
+	 *
+	 * @param isbn
+	 * @return Book based on given isbn
+	 */
 
 	Book getBookByISBN(String isbn);
 
@@ -55,9 +114,27 @@ public interface BookService {
      */
 	boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image, User user);
 
+	/**
+	 *
+	 * @return all Books
+	 */
+
     List<Book> findAll();
 
+	/**
+	 * returns the checkout log for all users
+	 * @return all user-book combinations
+	 */
+
     List<LibUserBook> getAllLibUserBook();
+
+	/**
+	 *
+	 * @param bookId
+	 * @param userId
+	 * @return status after renewing a book by a user userId
+	 * @throws ParseException
+	 */
 
 	String renewBook(Integer bookId, Integer userId) throws ParseException;
 }

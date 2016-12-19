@@ -53,6 +53,7 @@ public class BookController {
     private String isbn = "";
 
     /**
+     * direct to the add book page
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
