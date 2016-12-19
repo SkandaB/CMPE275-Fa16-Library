@@ -28,7 +28,7 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = {CascadeType.REMOVE})
     List<UserBook> currentUsers = new ArrayList<UserBook>();
 
-    @OneToMany(mappedBy = "book", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "book", cascade = {CascadeType.REMOVE})
     List<LibUserBook> listAddUpdateUsers = new ArrayList<LibUserBook>();
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
