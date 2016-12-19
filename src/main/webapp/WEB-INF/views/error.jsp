@@ -11,13 +11,9 @@
 <h2>Error Code: ${responseCode}</h2>
 <h3>Reason: ${errorMessage}</h3>
 
-<
-<button onclick="goBack()">Go Back</button>
+<form style="color: #28739E; font-size: medium;" method="post"
+      action="${pageContext.request.contextPath}/lmsdashboard">
+    <input type="submit" value="Back To Dashboard"/>
 
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
 </body>
 </html>
