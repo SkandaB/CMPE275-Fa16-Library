@@ -9,6 +9,7 @@ import edu.sjsu.cmpe275.lms.service.BookService;
 import edu.sjsu.cmpe275.lms.service.UserBookCartService;
 import edu.sjsu.cmpe275.lms.service.UserBookService;
 import edu.sjsu.cmpe275.lms.service.UserService;
+import edu.sjsu.cmpe275.lms.time.ClockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -32,6 +33,10 @@ import java.util.List;
 @EnableAspectJAutoProxy
 @EnableScheduling
 @Transactional
+
+/**
+ * The User Controller for managing users with diffrent roles in LMS.
+ */
 public class UserController {
     @Autowired
     UserService uService;
@@ -43,6 +48,8 @@ public class UserController {
     UserBookCartService ubcService;
     @Autowired
     private SendEmail eMail;
+    @Autowired
+    private ClockService clockService;
 
     /**
      * @param sjsuid
@@ -190,13 +197,21 @@ public class UserController {
         mv.addObject("status", emailSummary);
         //sends consolidated email of checkout
         eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Checkout Summary", emailSummary.toString());
-        String returnStatus = "Books checked out! ";
-        if (isWaitlisted) returnStatus += "Some books were waitlisted. ";
+        String returnStatus = "Transaction successful! ";
+        // if (isWaitlisted) returnStatus += "Some books were waitlisted. ";
         returnStatus += "You will get details in email soon !";
         mv.addObject("status", returnStatus);
         ubcService.clearUserCart(userId, false);
         return mv;
     }
+
+    /**
+     * @param userId
+     * @param bookId
+     * @param modelAndView
+     * @return
+     * @throws ParseException
+     */
 
     @RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
     public Object addBookToReturnUserCart(@PathVariable("userId") Integer userId,
@@ -236,11 +251,13 @@ public class UserController {
             return mv;
         }
 
+
+
         for (UserBookCart u : cart) {
             emailSummary.append(bService.returnBook(u.getBook_id(), userId));
             emailSummary.append("\n");
         }
-
+        emailSummary.append("The Return date is " + clockService.getCalendar().getTime() + "\n");
         //sends consolidated email of checkout
         eMail.sendMail(uService.findUser(userId).getUseremail(), "Your LMS Transaction Summary", emailSummary.toString());
 
@@ -265,6 +282,7 @@ public class UserController {
     }
 
     /**
+     * Landing page for search operation by patron
      * @param modelAndView
      * @return
      */
@@ -276,6 +294,8 @@ public class UserController {
     }
 
     /**
+     *
+     * Search for a book by patron
      * @param modelAndView
      * @param userId
      * @param isbn
@@ -285,7 +305,7 @@ public class UserController {
      * @param num_of_copies
      * @param callnumber
      * @param current_status
-     * @return
+     * @return The search book page.
      */
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
     public ModelAndView searchBookbyUser(ModelAndView modelAndView,
@@ -354,6 +374,7 @@ public class UserController {
     }
 
     /**
+     * Search for a book by librarian
      * @param modelAndView
      * @param isbn
      * @param author
@@ -363,7 +384,7 @@ public class UserController {
      * @param callnumber
      * @param current_status
      * @param keywords
-     * @return
+     * @return The search book dashboard
      */
     @RequestMapping(value = "/user/searchBook", method = RequestMethod.POST)
     public ModelAndView searchBook(ModelAndView modelAndView,
@@ -413,9 +434,11 @@ public class UserController {
     }
 
     /**
+     *
+     * Renew a checked out book for 30 more days
      * @param userId
      * @param bookId
-     * @return
+     * @return The book object.
      * @throws ParseException
      */
     @RequestMapping(value = "/user/{userId}/book/{bookId}/renew", method = RequestMethod.GET)

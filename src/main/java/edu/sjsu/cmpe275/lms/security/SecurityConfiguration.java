@@ -19,6 +19,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
 
+    /**
+     * @param authenticationManagerBuilder
+     * @throws Exception
+     */
     @Autowired
     public void ConfigureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.jdbcAuthentication().dataSource(dataSource)
@@ -26,6 +30,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select USEREMAIL,ROLE from user where USEREMAIL=?");
     }
 
+    /**
+     *
+     * @param httpSecurity
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()

@@ -11,9 +11,9 @@ public class SendEmail {
     private MailSender mailSender;
 
     /**
-     * @param toAddress
-     * @param emailSubject
-     * @param emailMessage
+     * @param toAddress The email ID to send an email
+     * @param emailSubject The email subject
+     * @param emailMessage The email message
      */
     public void sendMail(String toAddress, String emailSubject, String emailMessage) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();

@@ -78,10 +78,11 @@ public class Book {
     private Integer wtUId;
 
     /**
-     *
+     * The default constructor
      */
     public Book() {
     }
+
 
     /**
      * @param isbn
@@ -108,6 +109,8 @@ public class Book {
         this.current_status = current_status;
         this.keywords = keywords;
         this.image = image;
+        this.wtUId = -1;
+        this.last_available_date = null;
 
     }
 
@@ -126,7 +129,7 @@ public class Book {
     }
 
     /**
-     * @return
+     * @return The string representation of the book.
      */
 
     @Override

@@ -10,6 +10,10 @@ public interface UserBookService {
      */
     int getUserDayBookCount (int userId);
 
+    /**
+     * @param bookid
+     * @return
+     */
     boolean checkIfEsxists(Integer bookid);
 
 }

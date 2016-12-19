@@ -13,6 +13,9 @@ import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 import java.util.List;
 
+/**
+ * The UserDaoImpl for implementing all user related CRUD methods.
+ */
 @Transactional
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -21,7 +24,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * @param uEntity
-     * @return
+     * @return The user book object.
      */
     @Override
     public User createUser(User uEntity) {
@@ -30,7 +33,19 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * @return
+     * @param id
+     * @return The status of the remove user object.
+     */
+    @Override
+    public boolean removeUser(Integer id) {
+        User user = em.find(User.class, id);
+        if (user == null) return false;
+        em.remove(user);
+        return true;
+    }
+
+    /**
+     * @return The list of all the users.
      */
     @Override
     public List<User> findAll() {
@@ -40,7 +55,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * @param id
-     * @return
+     * @return The user object.
      */
     @Override
     public User getUser(Integer id) {
@@ -58,7 +73,7 @@ public class UserDaoImpl implements UserDao {
 
     /**
      * @param usermail
-     * @return
+     * @return The user object.
      */
     @Override
     public User findUserByEmail(String usermail) {

@@ -23,9 +23,17 @@ public class UserBookCart {
     @Column(name = "TYPE_RETURN")
     private int type_return;
 
+    /**
+     * THe default constructor.
+     */
     public UserBookCart() {
     }
 
+    /**
+     * @param user_id
+     * @param book_id
+     * @param type_return
+     */
     public UserBookCart(int user_id, int book_id, int type_return) {
         this.user_id = user_id;
         this.book_id = book_id;
@@ -87,10 +95,18 @@ public class UserBookCart {
         this.book_id = book_id;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getType_return() {
         return type_return;
     }
 
+    /**
+     *
+     * @param type_return
+     */
     public void setType_return(int type_return) {
         this.type_return = type_return;
     }

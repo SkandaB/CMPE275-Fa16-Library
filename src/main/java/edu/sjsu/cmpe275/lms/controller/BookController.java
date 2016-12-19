@@ -1,3 +1,4 @@
+
 package edu.sjsu.cmpe275.lms.controller;
 
 import com.google.gdata.client.books.BooksService;
@@ -35,6 +36,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The Book Controller for managing the books in LMS.
+ */
 @Component
 @Controller
 @EnableAspectJAutoProxy
@@ -53,6 +57,8 @@ public class BookController {
     private String isbn = "";
 
     /**
+     * direct to the add book page
+     *
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -136,6 +142,7 @@ public class BookController {
             book.setIsbn(book.getIsbn());
             addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response, user);
         }
+
         return "librarian/dashboard";
     }
 
@@ -155,9 +162,9 @@ public class BookController {
     }
 
     /**
-     * @param book
-     * @param response
-     * @param user
+     * @param book     Book object to be queried from google docs.
+     * @param response The HTTP response object.
+     * @param user     The user(librarian) who is processing the book.
      * @throws GeneralSecurityException
      * @throws IOException
      * @throws ServiceException
@@ -265,7 +272,7 @@ public class BookController {
     /**
      * @param book1
      * @param modelAndView
-     * @return
+     * @return The HTTP response-body to be sent to the calling javascript method.
      */
     @RequestMapping(value = "/searchAllBooks", method = RequestMethod.GET)
     @Transactional
@@ -293,8 +300,8 @@ public class BookController {
     }
 
     /**
-     * @param isJson
-     * @param response
+     * @param isJson   is the request in json format
+     * @param response The JSON response body
      * @return
      */
     @Transactional
@@ -323,8 +330,8 @@ public class BookController {
     }
 
     /**
-     * @param book
-     * @param id
+     * @param book The book object to be searched.
+     * @param id   The ID of the book to be searched.
      * @return
      */
     @RequestMapping(value = "/books/{book_id}", method = RequestMethod.GET)
@@ -339,7 +346,7 @@ public class BookController {
     /**
      * @param libUserBookPojo
      * @param modelAndView
-     * @return
+     * @return ResponseBody The response body of the the javascript calling object.
      */
     @RequestMapping(value = "/getAllLibUserBook", method = RequestMethod.GET)
     @Transactional
@@ -375,9 +382,9 @@ public class BookController {
     }
 
     /**
-     * @param book
+     * @param book         The book object to be updated.
      * @param modelAndView
-     * @param request
+     * @param request      The model and view
      * @return
      */
     @Transactional
@@ -396,12 +403,17 @@ public class BookController {
      */
     @RequestMapping(value = "/deletebook/{book_id}", method = RequestMethod.GET)
     public ModelAndView deleteBook(@PathVariable("book_id") Integer id) {
-        System.out.println("User requested to delete this book: " + id);
-        if (bookService.deleteBookByID(id)) {
-            System.out.println("Book Deleted Sucessfully!!");
-            return new ModelAndView(new RedirectView("/dashboard"));
-        } else {
-            return new ModelAndView("error").addObject("errorMessage", "Unable to delete book, book is checked out already.");
+        try {
+            System.out.println("User requested to delete this book: " + id);
+            if (bookService.deleteBookByID(id)) {
+                System.out.println("Book Deleted Sucessfully!!");
+                return new ModelAndView(new RedirectView("/dashboard", true));
+            } else {
+                return new ModelAndView("error").addObject("errorMessage", "Unable to delete book, book is checked out already.");
+            }
+        } catch (Exception e) {
+            return new ModelAndView("error").addObject("errorMessage", "Unable to delete book at this time. Please try later");
         }
     }
 }
+
