@@ -405,7 +405,7 @@ public class BookController {
         System.out.println("User requested to delete this book: " + id);
         if (bookService.deleteBookByID(id)) {
             System.out.println("Book Deleted Sucessfully!!");
-            return new ModelAndView(new RedirectView("/dashboard"));
+            return new ModelAndView(new RedirectView("/dashboard", true));
         } else {
             return new ModelAndView("error").addObject("errorMessage", "Unable to delete book, book is checked out already.");
         }
