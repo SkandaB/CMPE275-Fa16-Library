@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
@@ -13,8 +12,6 @@ import java.util.Calendar;
  */
 @Service
 public class ClockSerivceImpl implements ClockService {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
-
     @Autowired
     Custom_Clock customClock;
 

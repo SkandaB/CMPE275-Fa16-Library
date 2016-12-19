@@ -29,6 +29,14 @@ public class UserDaoImpl implements UserDao {
         return uEntity;
     }
 
+    @Override
+    public boolean removeUser(Integer id) {
+        User user = em.find(User.class, id);
+        if (user == null) return false;
+        em.remove(user);
+        return true;
+    }
+
     /**
      * @return
      */
