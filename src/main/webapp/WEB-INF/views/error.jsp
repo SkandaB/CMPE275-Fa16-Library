@@ -11,9 +11,13 @@
 <h2>Error Code: ${responseCode}</h2>
 <h3>Reason: ${errorMessage}</h3>
 
-<form style="color: #28739E; font-size: medium;" method="post"
-      action="${pageContext.request.contextPath}/register">
-    <input type="submit" value="Back To Dashboard"/>
+<
+<button onclick="goBack()">Go Back</button>
 
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>
