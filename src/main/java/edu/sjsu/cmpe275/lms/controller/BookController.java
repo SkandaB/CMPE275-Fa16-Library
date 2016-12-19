@@ -112,9 +112,8 @@ public class BookController {
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/addBook", method = RequestMethod.POST)
-    ModelAndView addBookviaForm(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
+    String addBookviaForm(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
         System.out.println("boook" + book);
-        User user = null;
         /**
          * Check if the mode of addition is via ISBN or advanced-mode.
          */
@@ -122,7 +121,7 @@ public class BookController {
             isbn = book.getIsbn();
             ISBNValidator validator = new ISBNValidator();
             if (validator.isValid(book.getIsbn())) {
-                user = (User) request.getSession().getAttribute("user");
+                User user = (User) request.getSession().getAttribute("user");
                 System.out.println("user is - " + user.toString());
                 queryGoogleBooks(book, response, user);
             } else {
@@ -133,15 +132,12 @@ public class BookController {
             /**
              * Save value to database.
              */
-            user = (User) request.getSession().getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user");
             System.out.println("user is - " + user.toString());
             book.setIsbn(book.getIsbn());
             addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response, user);
         }
-        //return "librarian/dashboard";
-        ModelAndView mv = new ModelAndView("librarian/dashboard");
-        mv.addObject("users", user);
-        return mv;
+        return "librarian/dashboard";
     }
 
     /**
