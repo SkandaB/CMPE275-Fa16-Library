@@ -14,7 +14,7 @@ public class LibUserBook {
 
     @Column(name = "ID")
     private LibUserBookId id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "BOOK", insertable = false, updatable = false)
     private Book book;
     @ManyToOne
