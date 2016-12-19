@@ -148,7 +148,7 @@
                 <td>${book.num_of_copies}</td>
             <td>${book.current_status}</td>
             <td>
-                <spring:url value="${pageContext.request.contextPath}/book/deletebook/${book.bookId}" var="deleteUrl"/>
+                <spring:url value="/book/deletebook/${book.bookId}" var="deleteUrl"/>
 
                 <button class="btn btn-info"
                         onClick="updateBook('${book.bookId}', '${book.isbn}', '${book.title}', '${book.author}', '${book.publisher}', '${book.num_of_copies}', '${book.current_status}')">
