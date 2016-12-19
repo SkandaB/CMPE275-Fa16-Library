@@ -515,16 +515,18 @@
                                     <ul>
                                         <li>
                                             <input type="text" class="field-style field-split align-left"
-                                                   name="isbn" placeholder="ISBN" path="isbn">
+                                                   name="isbn" placeholder="ISBN" path="isbn" required>
                                             <input type="text" name="title" path="title"
-                                                   class="field-style field-split align-right" placeholder="Title"/>
+                                                   class="field-style field-split align-right" placeholder="Title"
+                                                   required/>
                                         </li>
                                         <li>
                                             <input type="text" name="author" path="author"
-                                                   class="field-style field-split align-left" placeholder="Author"/>
+                                                   class="field-style field-split align-left" placeholder="Author"
+                                                   required/>
                                             <input type="text" name="publisher" path="publisher"
                                                    class="field-style field-split align-right"
-                                                   placeholder="Publisher"/>
+                                                   placeholder="Publisher" required/>
                                         </li>
                                             <%--<li>--%>
                                             <%--<input type="text" name="year_of_publication" path="year_of_publication"--%>

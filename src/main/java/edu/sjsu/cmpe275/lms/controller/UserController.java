@@ -9,6 +9,7 @@ import edu.sjsu.cmpe275.lms.service.BookService;
 import edu.sjsu.cmpe275.lms.service.UserBookCartService;
 import edu.sjsu.cmpe275.lms.service.UserBookService;
 import edu.sjsu.cmpe275.lms.service.UserService;
+import edu.sjsu.cmpe275.lms.time.ClockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -43,6 +44,8 @@ public class UserController {
     UserBookCartService ubcService;
     @Autowired
     private SendEmail eMail;
+    @Autowired
+    private ClockService clockService;
 
     /**
      * @param sjsuid
@@ -198,6 +201,14 @@ public class UserController {
         return mv;
     }
 
+    /**
+     * @param userId
+     * @param bookId
+     * @param modelAndView
+     * @return
+     * @throws ParseException
+     */
+
     @RequestMapping(value = "/user/{userId}/book/{bookId}", method = RequestMethod.GET)
     public Object addBookToReturnUserCart(@PathVariable("userId") Integer userId,
                                           @PathVariable("bookId") Integer bookId, ModelAndView modelAndView) throws ParseException {
@@ -235,6 +246,8 @@ public class UserController {
             mv.addObject("status", "Cart is Empty. Nothing to checkout");
             return mv;
         }
+
+        emailSummary.append("The Return date is " + clockService.getCalendar().getTime());
 
         for (UserBookCart u : cart) {
             emailSummary.append(bService.returnBook(u.getBook_id(), userId));

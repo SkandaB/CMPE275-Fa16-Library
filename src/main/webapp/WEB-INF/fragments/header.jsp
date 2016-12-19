@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
-    <title>Spring MVC Form Handling Example</title>
+    <title>LMS-Group2</title>
 
     <spring:url value="/resources/core/css/hello.css" var="coreCss"/>
 <spring:url value="/resources/core/css/bootstrap.min.css"
