@@ -138,10 +138,12 @@ public class RegistrationController {
             mv.setViewName("librarian/dashboard");
             mv.addObject("users", user);
             /*mv.addObject("custom_clock",clockService.getCalendar());*/
-        } else {
+        } else if (us.getRole().equals("ROLE_PATRON")) {
             System.out.println("patron found");
             mv.setViewName("user/dashboard");
             mv.addObject("users", user);
+        } else {
+            return new ModelAndView("redirect:/register");
         }
         return mv;
 

@@ -138,7 +138,7 @@ public class BookController {
             addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response, user);
         }
         //return "librarian/dashboard";
-        return new ModelAndView("redirect:/dashboard");
+        return new ModelAndView("redirect:/lmsdashboard");
     }
 
     /**
