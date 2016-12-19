@@ -515,18 +515,18 @@
                                     <ul>
                                         <li>
                                             <input type="text" class="field-style field-split align-left"
-                                                   name="isbn" placeholder="ISBN" path="isbn" required>
+                                                   name="isbn" placeholder="ISBN" path="isbn">
                                             <input type="text" name="title" path="title"
                                                    class="field-style field-split align-right" placeholder="Title"
-                                                   required/>
+                                            />
                                         </li>
                                         <li>
                                             <input type="text" name="author" path="author"
                                                    class="field-style field-split align-left" placeholder="Author"
-                                                   required/>
+                                            />
                                             <input type="text" name="publisher" path="publisher"
                                                    class="field-style field-split align-right"
-                                                   placeholder="Publisher" required/>
+                                                   placeholder="Publisher"/>
                                         </li>
                                         <li>
                                             <select class="selectpicker" name="current_status"
@@ -596,7 +596,7 @@
                                 <span class="sr-only">72% Complete</span>
                             </div>
                         </div>
-                        <small>Reserved</small>
+                        <small>Hold</small>
                         <div class="progress">
                             <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
                                  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
