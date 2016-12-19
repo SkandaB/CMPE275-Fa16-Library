@@ -137,7 +137,8 @@ public class BookController {
             book.setIsbn(book.getIsbn());
             addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response, user);
         }
-        return "librarian/dashboard";
+        return "redirect:/dashboard";
+        //return new ModelAndView("redirect:/register");
     }
 
     /**
