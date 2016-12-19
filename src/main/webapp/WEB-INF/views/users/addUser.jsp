@@ -6,7 +6,7 @@
 
 <html>
 <head>
-
+    <title>Welcome To Library Management System</title>
     <link rel="stylesheet" type="text/css" href="resources/core/css/style.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.css">
