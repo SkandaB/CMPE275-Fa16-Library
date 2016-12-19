@@ -313,7 +313,7 @@
                         </li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
                         <li><a id="mybooks" href="#"><i class="glyphicon glyphicon-flag"></i>My Books</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+                        <li><a href="${userlogout}"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>

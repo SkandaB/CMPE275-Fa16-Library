@@ -403,7 +403,7 @@
                         <li><a id="viewBooksBtn1" href="#"><i class="glyphicon glyphicon-list"></i> View all books</a>
                         </li>
                         <li><a href="#"><i class="glyphicon glyphicon-flag"></i> Transactions</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
+                        <li><a href="${userlogout}"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>
