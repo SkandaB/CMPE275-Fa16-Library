@@ -41,10 +41,19 @@ public class User {
     @Column(name = "ENABLED")
     private boolean enabled;
 
+    /**
+     *
+     */
     public User() {
         this.enabled = false;
     }
 
+    /**
+     * @param useremail
+     * @param password
+     * @param role
+     * @param enabled
+     */
     public User(String useremail, String password, String role, boolean enabled) {
         this.useremail = useremail;
         this.password = password;
@@ -52,6 +61,14 @@ public class User {
         this.enabled = enabled;
     }
 
+    /**
+     *
+     * @param sjsuid
+     * @param useremail
+     * @param password
+     * @param role
+     * @param enabled
+     */
     public User(long sjsuid, String useremail, String password, String role, boolean enabled) {
         this.sjsuid = sjsuid;
         this.useremail = useremail;
@@ -61,58 +78,114 @@ public class User {
     }
     // Add End
 
+    /**
+     *
+     * @return THe Library user books list
+     */
     public List<LibUserBook> getAddUpdateList() {
         return addUpdateList;
     }
 
+    /**
+     *
+     * @param addUpdateList
+     */
     public void setAddUpdateList(List<LibUserBook> addUpdateList) {
         this.addUpdateList = addUpdateList;
     }
 
+    /**
+     *
+     * @return The ID of the user
+     */
     public Integer getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(Integer id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     public Long getSjsuid() {
         return sjsuid;
     }
 
+    /**
+     *
+     * @param sjsuid
+     */
     public void setSjsuid(Long sjsuid) {
         this.sjsuid = sjsuid;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUseremail() {
         return useremail;
     }
 
+    /**
+     *
+     * @param username
+     */
     public void setUseremail(String username) {
         this.useremail = username;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRole() {
         return role;
     }
 
+    /**
+     *
+     * @param role
+     */
     public void setRole(String role) {
         this.role = role;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isEnabled() {
         return enabled;
     }
 
+    /**
+     *
+     * @param enabled
+     */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
@@ -132,7 +205,10 @@ public class User {
         this.currentBooks = currentBooks;
     }
 
-
+    /**
+     *
+     * @return The string representation of theuser object.
+     */
     @Override
     public String toString() {
         return "User{" +

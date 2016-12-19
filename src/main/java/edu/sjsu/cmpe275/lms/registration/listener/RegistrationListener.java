@@ -23,11 +23,18 @@ public class RegistrationListener implements ApplicationListener<RegistrationCom
     @Autowired
     private SendEmail sendEmail;
 
+    /**
+     * @param registrationCompleteEvent
+     */
     @Override
     public void onApplicationEvent(RegistrationCompleteEvent registrationCompleteEvent) {
         this.confirmRegistration(registrationCompleteEvent);
     }
 
+    /**
+     *
+     * @param registrationCompleteEvent
+     */
     private void confirmRegistration(RegistrationCompleteEvent registrationCompleteEvent) {
         User user = registrationCompleteEvent.getUser();
         String token = UUID.randomUUID().toString();

@@ -27,6 +27,10 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 
+
+/**
+ * The Registration Controller for user registration and login in LMS.
+ */
 @Component
 @Controller
 @EnableAspectJAutoProxy
@@ -68,7 +72,7 @@ public class RegistrationController {
      * @param user
      * @param bindingResult
      * @param response
-     * @return
+     * @return The user dashboard based on the role.
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView registerNewUserAccount(
@@ -123,9 +127,11 @@ public class RegistrationController {
     }
 
     /**
+     *
      * @param request
-     * @param
-     * @return
+     * @param user
+     * @param bindingResult
+     * @return Gets the dashboard.
      */
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ModelAndView showDashBoard(HttpServletRequest request,
@@ -168,6 +174,10 @@ public class RegistrationController {
 
     }
 
+    /**
+     * @param request
+     * @return homepage
+     */
     @RequestMapping(value = "/lmsdashboard", method = RequestMethod.GET)
     public ModelAndView showlmsdashboard(HttpServletRequest request) {
         /*ModelAndView mv;
@@ -176,7 +186,12 @@ public class RegistrationController {
         return new ModelAndView("redirect:/dashboard");
     }
 
-
+    /**
+     *
+     * @param newdatestr
+     * @return set the custom date.
+     * @throws ParseException
+     */
     @RequestMapping(value = "/dashboard/changedate", method = RequestMethod.POST)
     public ModelAndView setCustomDate(@RequestParam(value = "newdate") String newdatestr) throws ParseException {
         System.out.println("Date returned from the webpage = " + newdatestr);
@@ -194,7 +209,7 @@ public class RegistrationController {
      * @param request
      * @param user
      * @param bindingResult
-     * @return
+     * @return the dashboard for the user to login
      */
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public ModelAndView loginUser(HttpServletRequest request,
@@ -231,7 +246,7 @@ public class RegistrationController {
 
     /**
      * @param token
-     * @return
+     * @return The view to confirm registered token
      */
     @RequestMapping(value = "/register/confirmRegistration.html", method = RequestMethod.GET)
     public ModelAndView confirmRegisteredAccount(@RequestParam("token") String token) {
@@ -252,7 +267,7 @@ public class RegistrationController {
 
     /**
      * @param request
-     * @return
+     * @return The register page
      */
     @RequestMapping(value = "/logoutuser", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request) {

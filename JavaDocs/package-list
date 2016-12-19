@@ -1,0 +1,13 @@
+edu.sjsu.cmpe275.lms
+edu.sjsu.cmpe275.lms.controller
+edu.sjsu.cmpe275.lms.dao
+edu.sjsu.cmpe275.lms.email
+edu.sjsu.cmpe275.lms.entity
+edu.sjsu.cmpe275.lms.errors
+edu.sjsu.cmpe275.lms.logging
+edu.sjsu.cmpe275.lms.registration
+edu.sjsu.cmpe275.lms.registration.listener
+edu.sjsu.cmpe275.lms.security
+edu.sjsu.cmpe275.lms.service
+edu.sjsu.cmpe275.lms.time
+edu.sjsu.cmpe275.lms.validator

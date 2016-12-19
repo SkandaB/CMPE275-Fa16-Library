@@ -11,6 +11,9 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * The BookDAO for the CRUD operations on Book Entity
+ */
 @EnableScheduling
 @Transactional
 public interface BookDao {

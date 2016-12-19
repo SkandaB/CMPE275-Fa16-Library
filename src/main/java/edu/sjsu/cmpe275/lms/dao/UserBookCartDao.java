@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
+
 public interface UserBookCartDao {
 
     /**
@@ -37,27 +38,27 @@ public interface UserBookCartDao {
      * To get the return cart for a user
      *
      * @param userid
-     * @return
+     * @return List of the user books cart.
      */
     List<UserBookCart> getUserCartReturn(int userid);
 
     /**
      *
      * @param ubc
-     * @return
+     * @return Delete status of the cart.
      */
     boolean removeCartEntry(UserBookCart ubc);
 
     /**
      *
      * @param userId
-     * @return
+     * @return The list of the books wrt to users which are in cart.
      */
     List<Book> getUserBooksInCartIssue(int userId);
 
     /**
      * @param userId
-     * @return
+     * @return List of the user books in the cart.
      */
     List<Book> getUserBooksInCartReturn(int userId);
 }

@@ -33,6 +33,10 @@ import java.util.List;
 @EnableAspectJAutoProxy
 @EnableScheduling
 @Transactional
+
+/**
+ * The User Controller for managing users with diffrent roles in LMS.
+ */
 public class UserController {
     @Autowired
     UserService uService;
@@ -298,7 +302,7 @@ public class UserController {
      * @param num_of_copies
      * @param callnumber
      * @param current_status
-     * @return
+     * @return The search book page.
      */
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.POST)
     public ModelAndView searchBookbyUser(ModelAndView modelAndView,
@@ -376,7 +380,7 @@ public class UserController {
      * @param callnumber
      * @param current_status
      * @param keywords
-     * @return
+     * @return The search book dashboard
      */
     @RequestMapping(value = "/user/searchBook", method = RequestMethod.POST)
     public ModelAndView searchBook(ModelAndView modelAndView,
@@ -428,7 +432,7 @@ public class UserController {
     /**
      * @param userId
      * @param bookId
-     * @return
+     * @return The book object.
      * @throws ParseException
      */
     @RequestMapping(value = "/user/{userId}/book/{bookId}/renew", method = RequestMethod.GET)

@@ -3,6 +3,9 @@ package edu.sjsu.cmpe275.lms.dao;
 import edu.sjsu.cmpe275.lms.entity.UserBook;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * The UserBookDao DAO for managing the user-book relationship.
+ */
 @Transactional
 public interface UserBookDao {
     /**
@@ -16,7 +19,7 @@ public interface UserBookDao {
     /**
      *
      * @param bookid
-     * @return
+     * @return The boolean flag for the book id.
      */
     boolean exists(Integer bookid);
 
@@ -24,7 +27,7 @@ public interface UserBookDao {
      * Removes the user book entity
      *
      * @param userBook
-     * @return
+     * @return Status of the remove book wrt users.
      */
     boolean removeUserBook(UserBook userBook);
 }

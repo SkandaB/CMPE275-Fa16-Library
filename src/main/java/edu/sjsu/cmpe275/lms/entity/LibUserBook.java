@@ -24,9 +24,13 @@ public class LibUserBook {
     private String action;
 
     public LibUserBook() {
-
     }
 
+    /**
+     * @param b
+     * @param u
+     * @param action
+     */
     public LibUserBook(Book b, User u, String action) {
         // create primary key
         System.out.println("book id is ----" + b.getBookId());
@@ -38,38 +42,80 @@ public class LibUserBook {
         this.action = action;
     }
 
+    /**
+     * @return The Library user books.
+     */
+
     public LibUserBookId getId() {
         return id;
     }
+
+    /**
+     *
+     * @param id
+     */
 
     public void setId(LibUserBookId id) {
         this.id = id;
     }
 
+    /**
+     *
+     * @return The book object.
+     */
+
     public Book getBook() {
         return book;
     }
+
+    /**
+     *
+     * @param book
+     */
 
     public void setBook(Book book) {
         this.book = book;
     }
 
+    /**
+     *
+     * @return The list of users.
+     */
+
     public User getUser() {
         return user;
     }
+
+    /**
+     *
+     * @param user
+     */
 
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     *
+     * @return
+     */
+
     public String getAction() {
         return action;
     }
 
+    /**
+     *
+     * @param action
+     */
     public void setAction(String action) {
         this.action = action;
     }
 
+    /**
+     *
+     * @return The string representation of the object
+     */
     @Override
     public String toString() {
         return "LibUserBook{" +
@@ -93,12 +139,20 @@ public class LibUserBook {
 
         }
 
+        /**
+         * @param bookId
+         * @param userId
+         */
         public LibUserBookId(Integer bookId, Integer userId) {
             System.out.println("book id is ----" + bookId);
             this.bookId = bookId;
             this.userId = userId;
         }
 
+        /**
+         *
+         * @return
+         */
         @Override
         public int hashCode() {
             final int prime = 31;
@@ -110,6 +164,11 @@ public class LibUserBook {
             return result;
         }
 
+        /**
+         *
+         * @param obj
+         * @return
+         */
         @Override
         public boolean equals(Object obj) {
             if (this == obj)
@@ -135,7 +194,5 @@ public class LibUserBook {
 
             return true;
         }
-
     }
-
 }

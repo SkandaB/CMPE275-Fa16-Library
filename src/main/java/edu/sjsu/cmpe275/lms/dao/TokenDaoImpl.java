@@ -9,6 +9,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 
+/**
+ * The token UserBookDaoImpl
+ */
 @Repository
 @Transactional
 public class TokenDaoImpl implements TokenDao {
@@ -17,7 +20,7 @@ public class TokenDaoImpl implements TokenDao {
 
     /**
      * @param token
-     * @return
+     * @return A User verification token.
      */
     @Override
     public UserVerfToken findToken(String token) {

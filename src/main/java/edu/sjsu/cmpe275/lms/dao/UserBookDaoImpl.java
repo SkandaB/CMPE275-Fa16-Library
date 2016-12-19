@@ -11,6 +11,9 @@ import javax.persistence.Query;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The UserBookDaoImpl for implementing all userbooks related CRUD methods.
+ */
 @Transactional
 @Repository
 public class UserBookDaoImpl implements UserBookDao {
@@ -35,7 +38,7 @@ public class UserBookDaoImpl implements UserBookDao {
 
     /**
      * @param bookid
-     * @return
+     * @return The exists flag.
      */
     @Override
     public boolean exists(Integer bookid) {

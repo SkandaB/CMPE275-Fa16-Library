@@ -55,6 +55,9 @@ public class AppTest {
         userBook1 = new UserBook(book1, user1, LocalDateTime.now(), 0);
     }
 
+    /**
+     * Delete book by ID
+     */
     @Test
     public void deleteBookByIDTest() {
         bookDao.addBook(book1);
@@ -64,6 +67,9 @@ public class AppTest {
         Assert.assertNull(bookDao.getBookbyId(id));
     }
 
+    /**
+     * Get a book by ID
+     */
     @Test
     public void getBookbyIdTest() {
         bookDao.addBook(book1);
@@ -73,6 +79,9 @@ public class AppTest {
         bookDao.deleteBookByID(id);
     }
 
+    /**
+     * Add a book by ID
+     */
     @Test
     public void addBookTest() {
         bookDao.addBook(book1);
@@ -82,6 +91,9 @@ public class AppTest {
         bookDao.deleteBookByID(id);
     }
 
+    /**
+     * find all books by ID.
+     */
     @Test
     public void findAllTest() {
         bookDao.addBook(book1);
@@ -95,6 +107,9 @@ public class AppTest {
         bookDao.deleteBookByID(books.get(1).getBookId());
     }
 
+    /**
+     * Update books status by ID
+     */
     @Test
     public void updateBookStatusTest() {
         userDao.createUser(user1);
@@ -136,6 +151,9 @@ public class AppTest {
 
     }
 
+    /**
+     * Remove User by ID.
+     */
     @Test
     public void removeUserTest() {
         userDao.createUser(user1);
@@ -145,6 +163,9 @@ public class AppTest {
         Assert.assertNull(userDao.getUser(id));
     }
 
+    /**
+     * Creates user by ID.
+     */
     @Test
     public void createUserTest() {
         userDao.createUser(user1);
@@ -153,6 +174,4 @@ public class AppTest {
         //cleanup
         userDao.removeUser(id);
     }
-
-
 }

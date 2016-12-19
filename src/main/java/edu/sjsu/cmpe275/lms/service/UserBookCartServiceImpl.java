@@ -64,6 +64,11 @@ public class UserBookCartServiceImpl implements UserBookCartService {
         }
     }
 
+    /**
+     * @param userId
+     * @param isTypeReturn
+     * @return
+     */
     @Override
     public List<Book> getUserBooks(int userId, boolean isTypeReturn) {
         List<Book> books;
@@ -73,6 +78,5 @@ public class UserBookCartServiceImpl implements UserBookCartService {
             books = userBookCartDao.getUserBooksInCartIssue(userId);
         }
         return books;
-
     }
 }

@@ -78,7 +78,7 @@ public class Book {
     private Integer wtUId;
 
     /**
-     *
+     * The default constructor
      */
     public Book() {
     }
@@ -129,7 +129,7 @@ public class Book {
     }
 
     /**
-     * @return
+     * @return The string representation of the book.
      */
 
     @Override

@@ -94,12 +94,21 @@ public class BookServiceImpl implements BookService {
 
     }
 
+    /**
+     * @param book
+     * @return
+     */
     @Override
     public List<Book> searchBookbyUser(Book book) {
 
         return bookDao.searchBook(book);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public boolean deleteBookByID(Integer id) {
         /*A book cannot be deleted if it’s checked out by a patron.*/
@@ -112,11 +121,21 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getAvailableBookCount() {
         return bookDao.findCountAvailable();
     }
 
+    /**
+     *
+     * @param updatedbook
+     * @param request
+     * @return
+     */
     @Override
     public Book updateBooks(Book updatedbook, HttpServletRequest request) {
         return bookDao.updateBooks(updatedbook, request);
@@ -150,16 +169,31 @@ public class BookServiceImpl implements BookService {
         return bookDao.addBook(isbn, author, title, callnumber, publisher, year_of_publication, location, num_of_copies, current_status, keywords, image, user);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Book> findAll() {
         return bookDao.findAll();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<LibUserBook> getAllLibUserBook() {
         return bookDao.getAllLibUserBook();
     }
 
+    /**
+     *
+     * @param bookId
+     * @param userId
+     * @return
+     * @throws ParseException
+     */
     @Override
     public String renewBook(Integer bookId, Integer userId) throws ParseException {
         return bookDao.setBookRenew(bookId, userId);

@@ -1,3 +1,4 @@
+
 package edu.sjsu.cmpe275.lms.controller;
 
 import com.google.gdata.client.books.BooksService;
@@ -35,6 +36,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The Book Controller for managing the books in LMS.
+ */
 @Component
 @Controller
 @EnableAspectJAutoProxy

@@ -13,15 +13,26 @@ public class UserBookId implements Serializable {
     @Column(name = "user")
     protected Integer userId;
 
+    /**
+     * The default constructor
+     */
     public UserBookId() {
 
     }
 
+    /**
+     * @param bookId
+     * @param userId
+     */
     public UserBookId(Integer bookId, Integer userId) {
         this.bookId = bookId;
         this.userId = userId;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -33,6 +44,11 @@ public class UserBookId implements Serializable {
         return result;
     }
 
+    /**
+     *
+     * @param obj
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

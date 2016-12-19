@@ -27,14 +27,31 @@ public interface BookService {
 	String returnBook(Integer bookId,Integer userId);
 	List<Book> searchBookbyUser(Book book);
 
-	boolean deleteBookByID(Integer id);
+    /**
+     * @param id
+     * @return
+     */
+    boolean deleteBookByID(Integer id);
 
-
+    /**
+     *
+     * @param updatedbook
+     * @param request
+     * @return
+     */
 	Book updateBooks(Book updatedbook, HttpServletRequest request);
 
+    /**
+     *
+     * @return
+     */
     String getAvailableBookCount();
 
-
+    /**
+     *
+     * @param isbn
+     * @return
+     */
 	Book getBookByISBN(String isbn);
 
     /**
@@ -55,9 +72,24 @@ public interface BookService {
      */
 	boolean addBook(String isbn, String author, String title, String callnumber, String publisher, String year_of_publication, String location, int num_of_copies, String current_status, String keywords, byte[] image, User user);
 
+    /**
+     *
+     * @return
+     */
     List<Book> findAll();
 
+    /**
+     *
+     * @return
+     */
     List<LibUserBook> getAllLibUserBook();
 
-	String renewBook(Integer bookId, Integer userId) throws ParseException;
+    /**
+     *
+     * @param bookId
+     * @param userId
+     * @return
+     * @throws ParseException
+     */
+    String renewBook(Integer bookId, Integer userId) throws ParseException;
 }

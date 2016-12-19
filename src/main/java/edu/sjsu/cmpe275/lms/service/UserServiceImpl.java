@@ -17,8 +17,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     TokenDao tokenDao;
 
-    /* (non-Javadoc)
-     * @see edu.sjsu.cmpe275.lms.service.UserService#createUser(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    /**
+     *
+     * @param sjsuid
+     * @param useremail
+     * @param password
+     * @return
      */
     @Override
     public User createUser(long sjsuid, String useremail, String password) {
@@ -35,39 +39,57 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * @return
+     * @return List of users.
      */
     @Override
     public List<User> listUsers() {
         return userDao.findAll();
     }
-    
+
+    /**
+     * @param id
+     * @return
+     */
     @Override
     public User findUser(Integer id) {
         return userDao.getUser(id);
     }
 
-	/* (non-Javadoc)
-	 * @see edu.sjsu.cmpe275.lms.service.UserService#getUser(long)
-	 */
-	
-
+    /**
+     *
+     * @param user
+     * @param token
+     */
     @Override
     public void createToken(User user, String token) {
         UserVerfToken userVerfToken = new UserVerfToken(token, user);
         tokenDao.storeToken(userVerfToken);
     }
 
+    /**
+     *
+     * @param token
+     * @return
+     */
     @Override
     public UserVerfToken getUserToken(String token) {
         return tokenDao.findToken(token);
     }
 
+    /**
+     *
+     * @param user
+     */
     @Override
     public void saveValidatedUser(User user) {
         userDao.updateUser(user);
     }
 
+    /**
+     *
+     * @param usermail
+     * @return
+     */
     @Override
     public User findUserByEmail(String usermail) {
         User user = userDao.findUserByEmail(usermail);
