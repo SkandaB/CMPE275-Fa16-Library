@@ -112,7 +112,7 @@ public class BookController {
     @Transactional
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/addBook", method = RequestMethod.POST)
-    String addBookviaForm(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
+    ModelAndView addBookviaForm(@ModelAttribute("book") Book book, ModelAndView modelAndView, HttpServletRequest request, HttpServletResponse response) throws GeneralSecurityException, IOException, ServiceException {
         System.out.println("boook" + book);
         /**
          * Check if the mode of addition is via ISBN or advanced-mode.
@@ -137,7 +137,8 @@ public class BookController {
             book.setIsbn(book.getIsbn());
             addNewBook(book, book.getTitle(), book.getAuthor(), book.getYear_of_publication(), book.getPublisher(), response, user);
         }
-        return "librarian/dashboard";
+        String lsmUrl = "lmsdashboard";
+        return new ModelAndView("redirect:" + lsmUrl);
     }
 
     /**
