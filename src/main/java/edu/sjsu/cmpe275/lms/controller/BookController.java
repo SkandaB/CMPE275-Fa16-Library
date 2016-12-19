@@ -58,6 +58,7 @@ public class BookController {
 
     /**
      * direct to the add book page
+     *
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -161,9 +162,9 @@ public class BookController {
     }
 
     /**
-     * @param book Book object to be queried from google docs.
+     * @param book     Book object to be queried from google docs.
      * @param response The HTTP response object.
-     * @param user The user(librarian) who is processing the book.
+     * @param user     The user(librarian) who is processing the book.
      * @throws GeneralSecurityException
      * @throws IOException
      * @throws ServiceException
@@ -299,7 +300,7 @@ public class BookController {
     }
 
     /**
-     * @param isJson is the request in json format
+     * @param isJson   is the request in json format
      * @param response The JSON response body
      * @return
      */
@@ -330,7 +331,7 @@ public class BookController {
 
     /**
      * @param book The book object to be searched.
-     * @param id The ID of the book to be searched.
+     * @param id   The ID of the book to be searched.
      * @return
      */
     @RequestMapping(value = "/books/{book_id}", method = RequestMethod.GET)
@@ -381,9 +382,9 @@ public class BookController {
     }
 
     /**
-     * @param book The book object to be updated.
+     * @param book         The book object to be updated.
      * @param modelAndView
-     * @param request The model and view
+     * @param request      The model and view
      * @return
      */
     @Transactional
@@ -402,12 +403,17 @@ public class BookController {
      */
     @RequestMapping(value = "/deletebook/{book_id}", method = RequestMethod.GET)
     public ModelAndView deleteBook(@PathVariable("book_id") Integer id) {
-        System.out.println("User requested to delete this book: " + id);
-        if (bookService.deleteBookByID(id)) {
-            System.out.println("Book Deleted Sucessfully!!");
-            return new ModelAndView(new RedirectView("/dashboard", true));
-        } else {
-            return new ModelAndView("error").addObject("errorMessage", "Unable to delete book, book is checked out already.");
+        try {
+            System.out.println("User requested to delete this book: " + id);
+            if (bookService.deleteBookByID(id)) {
+                System.out.println("Book Deleted Sucessfully!!");
+                return new ModelAndView(new RedirectView("/dashboard", true));
+            } else {
+                return new ModelAndView("error").addObject("errorMessage", "Unable to delete book, book is checked out already.");
+            }
+        } catch (Exception e) {
+            return new ModelAndView("error").addObject("errorMessage", "Unable to delete book at this time. Please try later");
         }
     }
 }
+
