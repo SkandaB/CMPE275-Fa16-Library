@@ -479,7 +479,7 @@
                                                     <select class="selectpicker" name="current_status"
                                                             data-style="btn-info" required>
                                                         <option>Available</option>
-                                                        <option>Reserved</option>
+                                                        <option>Hold</option>
                                                         <option>Wait-Listed</option>
                                                     </select>
 
@@ -532,7 +532,7 @@
                                                 <select class="selectpicker" name="current_status"
                                                         data-style="btn-info" required>
                                                     <option>Available</option>
-                                                    <option>Reserved</option>
+                                                    <option>Hold</option>
                                                     <option>Wait-Listed</option>
                                                 </select>
                                                 <input type="text" name="keywords"
@@ -635,7 +635,7 @@
                                             <select class="selectpicker" name="current_status"
                                                     data-style="btn-info">
                                                 <option>Available</option>
-                                                <option>Reserved</option>
+                                                <option>Hold</option>
                                                 <option>Wait-Listed</option>
                                             </select>
                                                 <%--<input type="text" name="keywords"--%>
@@ -700,7 +700,7 @@
                                 <span class="sr-only"></span>
                             </div>
                         </div>
-                        <small>Reserved</small>
+                        <small>Hold</small>
                         <div class="progress">
                             <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar"
                                  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">

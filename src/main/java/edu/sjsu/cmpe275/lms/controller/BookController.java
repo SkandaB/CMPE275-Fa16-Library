@@ -156,9 +156,9 @@ public class BookController {
     }
 
     /**
-     * @param book
-     * @param response
-     * @param user
+     * @param book Book object to be queried from google docs.
+     * @param response The HTTP response object.
+     * @param user The user(librarian) who is processing the book.
      * @throws GeneralSecurityException
      * @throws IOException
      * @throws ServiceException
@@ -266,7 +266,7 @@ public class BookController {
     /**
      * @param book1
      * @param modelAndView
-     * @return
+     * @return The HTTP response-body to be sent to the calling javascript method.
      */
     @RequestMapping(value = "/searchAllBooks", method = RequestMethod.GET)
     @Transactional
@@ -294,8 +294,8 @@ public class BookController {
     }
 
     /**
-     * @param isJson
-     * @param response
+     * @param isJson is the request in json format
+     * @param response The JSON response body
      * @return
      */
     @Transactional
@@ -324,8 +324,8 @@ public class BookController {
     }
 
     /**
-     * @param book
-     * @param id
+     * @param book The book object to be searched.
+     * @param id The ID of the book to be searched.
      * @return
      */
     @RequestMapping(value = "/books/{book_id}", method = RequestMethod.GET)
@@ -340,7 +340,7 @@ public class BookController {
     /**
      * @param libUserBookPojo
      * @param modelAndView
-     * @return
+     * @return ResponseBody The response body of the the javascript calling object.
      */
     @RequestMapping(value = "/getAllLibUserBook", method = RequestMethod.GET)
     @Transactional
@@ -376,9 +376,9 @@ public class BookController {
     }
 
     /**
-     * @param book
+     * @param book The book object to be updated.
      * @param modelAndView
-     * @param request
+     * @param request The model and view
      * @return
      */
     @Transactional
